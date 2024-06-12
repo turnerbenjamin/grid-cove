@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Grid Cove is an application that allows users to create and solve griddler/nonogram puzzles. Below is a simple example of a solved puzzle. The number clues indicate a pattern of filled cells. For example, the first row has a clue of 3 and requires 3, contiguous, filled cells in that row.
+Grid Cove is an application that allows users to create and solve griddler, aka nonogram, puzzles. Below is a simple example of a solved puzzle. The number clues indicate a pattern of filled cells. For example, the first row has a clue of 3 and requires 3, contiguous, filled cells in that row.
 
 <!-- markdownlint-disable-next-line -->
 <img src="./images/griddler-example.png" alt="drawing" style="width:200px;"/>
@@ -27,7 +27,7 @@ This application will be of interest to individuals who like pixel art **and/or*
 
 ### Additional Features
 
-- For registered users, puzzles completed will be saved to the database so they can see and filter out puzzles previously solved (CREATE AND READ)
+- For registered users, a record will be saved for each puzzle solved so they can see and filter out puzzles they have already completed (CREATE AND READ)
 - A simple solver will be used to provide an indication of difficulty and to add prefilled cells where necessary to ensure that puzzles have just one solution
 - A tutorial for users new to griddler
 - Users will be able to filter puzzles by difficulty (READ)
@@ -36,11 +36,21 @@ This application will be of interest to individuals who like pixel art **and/or*
 
 ## User Interface
 
-Below are some wireframes focussed on the MVP requirements. The application will be mobile first:
+The user interface will be very simple and developed with a mobile first approach. The maximum grid size will be 15x15 so that mobile users are not disadvantaged.
+
+The main component here is the grid - This will be used for the build and solve pages, and the logo. It will be made up from cells that can be coloured in to create/solve a puzzle. It will have a prop of doReveal which may be used to flip the cards and reveal a hidden image.
+
+The main libraries I will use are React, vite and tailwind.
+
+Below are some wireframes focussed on the MVP requirements.
 
 ![wireframes](./images/mvp-wireframes.PNG)
 
 ## Architecture
+
+The User interface will communicate with a MongoDB database using a Rest API built with Node and express. The database will be hosted by MongoDB Atlas.
+
+The Rest API will have controller and service layers. The controllers will be responsible for the business logic of each route while the services will be responsible for communicating with the database.
 
 ![Architecture](./images/architecture-diagram.PNG)
 
