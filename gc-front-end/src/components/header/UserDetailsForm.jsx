@@ -7,10 +7,13 @@ export default function UserDetailsForm({
   activeFields,
   errors,
   isLoading,
+  clearErrors,
 }) {
   const inputClasses = "px-2 py-1 text-secondary-900";
 
-  console.log(errors);
+  const handleUpdate = () => {
+    if (errors?.length > 0 && typeof clearErrors === "function") clearErrors();
+  };
 
   return (
     <form className="flex flex-col items-center justify-center gap-2">
@@ -22,6 +25,7 @@ export default function UserDetailsForm({
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
+        onChange={() => handleUpdate()}
       />
 
       <label>Email address</label>
@@ -31,6 +35,7 @@ export default function UserDetailsForm({
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
+        onChange={() => handleUpdate()}
       />
 
       <label className="mt-4">Password</label>
@@ -40,6 +45,7 @@ export default function UserDetailsForm({
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
+        onChange={() => handleUpdate()}
       />
 
       <label>Confirm Password</label>
@@ -49,6 +55,7 @@ export default function UserDetailsForm({
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
+        onChange={() => handleUpdate()}
       />
       <Button
         primary

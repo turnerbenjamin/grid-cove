@@ -1,8 +1,18 @@
-import { queryAllByRole, render, screen } from "@testing-library/react";
-import { beforeEach } from "vitest";
+import {
+  queryAllByRole,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
+import { afterEach, beforeEach } from "vitest";
 import UserDetailsForm from "../../../src/components/header/UserDetailsForm";
+import userEvent from "@testing-library/user-event";
 
 describe("User details form tests: ", () => {
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
+
   const testHeadingText = "Test heading text";
   const testSubmitButtonText = "Test submit button text";
   describe("General tests", () => {
@@ -61,8 +71,10 @@ describe("User details form tests: ", () => {
     });
 
     describe("Loading state tests", () => {
+      let clearErrorsSpy;
       const testErrors = ["Test error1", "Test error 2"];
       beforeEach(() => {
+        clearErrorsSpy = vi.fn(() => null);
         render(
           <UserDetailsForm
             headingText={testHeadingText}
@@ -74,9 +86,11 @@ describe("User details form tests: ", () => {
               confirmPassword: true,
             }}
             errors={testErrors}
+            clearErrors={clearErrorsSpy}
           />
         );
       });
+
       //?US1-UDF-5
       test("It should show errors where a list of errors are passed as a prop", () => {
         expect(screen.queryByText(testErrors[0])).toBeInTheDocument();
@@ -87,6 +101,13 @@ describe("User details form tests: ", () => {
       test("It should disable the submit button when there are errors", () => {
         const submitButton = screen.queryByText(testSubmitButtonText);
         expect(submitButton.disabled).toEqual(true);
+      });
+
+      //?US1-UDF-7
+      test("It should show call clearErrors after an update to a text box where the errors prop is provided", async () => {
+        const input = screen.queryAllByRole("textbox")[0];
+        await userEvent.type(input, "x");
+        expect(clearErrorsSpy).toHaveBeenCalledTimes(1);
       });
     });
   });

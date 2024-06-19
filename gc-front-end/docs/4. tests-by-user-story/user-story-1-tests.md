@@ -24,7 +24,7 @@ These tests will be relevant for all configurations
 - [x] US1-UDF-4: It should show disable all inputs when the isLoading prop is true
 - [x] US1-UDF-5: It should show errors where a list of errors are passed as a prop
 - [x] US1-UDF-6: It should disable the submit button when there are errors
-- [ ] US1-UDF-7: It should show call clearErrors after an update to a text box where the errors prop is provided
+- [x] US1-UDF-7: It should show call clearErrors after an update to a text box where the errors prop is provided
 
 ### Registration tests
 
