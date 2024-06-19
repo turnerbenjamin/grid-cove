@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Button from "../general/Button";
 import RenderedErrors from "../general/RenderedErrors";
 
@@ -8,12 +10,28 @@ export default function UserDetailsForm({
   errors,
   isLoading,
   clearErrors,
+  onSubmit,
 }) {
-  const inputClasses = "px-2 py-1 text-secondary-900";
+  const [username, setUsername] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleUpdate = () => {
+  const handleUpdate = (setter, value) => {
     if (errors?.length > 0 && typeof clearErrors === "function") clearErrors();
+    setter(value);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({
+      username,
+      emailAddress,
+      password,
+    });
+  };
+
+  const inputClasses = "px-2 py-1 text-secondary-900";
 
   return (
     <form className="flex flex-col items-center justify-center gap-2">
@@ -26,7 +44,7 @@ export default function UserDetailsForm({
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
-        onChange={() => handleUpdate()}
+        onChange={(e) => handleUpdate(setUsername, e.target.value)}
       />
 
       <label>Email address</label>
@@ -37,7 +55,7 @@ export default function UserDetailsForm({
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
-        onChange={() => handleUpdate()}
+        onChange={(e) => handleUpdate(setEmailAddress, e.target.value)}
       />
 
       <label className="mt-4">Password</label>
@@ -48,7 +66,7 @@ export default function UserDetailsForm({
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
-        onChange={() => handleUpdate()}
+        onChange={(e) => handleUpdate(setPassword, e.target.value)}
       />
 
       <label>Confirm Password</label>
@@ -59,13 +77,14 @@ export default function UserDetailsForm({
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
-        onChange={() => handleUpdate()}
+        onChange={(e) => handleUpdate(setConfirmPassword, e.target.value)}
       />
       <Button
         primary
         className="mt-8"
         isLoading={isLoading}
         isDisabled={errors?.length > 0}
+        onClick={handleSubmit}
       >
         {submitButtonText}
       </Button>

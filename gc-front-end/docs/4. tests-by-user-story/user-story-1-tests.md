@@ -31,5 +31,5 @@ These tests will be relevant for all configurations
 These tests are specific to the registration form configuration
 
 - [x] US1-UDF-8: It should display the correct fields for registration when correct config prop provided
-- [ ] US1-UDF-9: It should call onSubmit with the correct details when the submit button is clicked
+- [x] US1-UDF-9: It should call onSubmit with the correct details when the submit button is clicked
 - [ ] US1-UDF-10: It should call onSubmit with the correct details when the enter key is typed
