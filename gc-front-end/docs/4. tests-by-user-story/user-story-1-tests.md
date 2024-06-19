@@ -21,13 +21,14 @@ These tests will be relevant for all configurations
 - [x] US1-UDF-1: It should display the correct heading text
 - [x] US1-UDF-2: It should display the correct submit button text
 - [x] US1-UDF-3: It should show a loading spinner when the isLoading prop is true
-- [ ] US1-UDF-4: It should show errors where a list of errors are passed as a prop
-- [ ] US1-UDF-5: It should show call clearErrors after an update to a text box where the errors prop is truthy
+- [x] US1-UDF-4: It should show disable all inputs when the isLoading prop is true
+- [ ] US1-UDF-5: It should show errors where a list of errors are passed as a prop
+- [ ] US1-UDF-6: It should show call clearErrors after an update to a text box where the errors prop is truthy
 
 ### Registration tests
 
 These tests are specific to the registration form configuration
 
-- [ ] US1-UDF-6: It should display the correct fields for registration when correct config prop provided
-- [ ] US1-UDF-7: It should call onSubmit with the correct details when the submit button is clicked
-- [ ] US1-UDF-8: It should call onSubmit with the correct details when the enter key is typed
+- [ ] US1-UDF-7: It should display the correct fields for registration when correct config prop provided
+- [ ] US1-UDF-8: It should call onSubmit with the correct details when the submit button is clicked
+- [ ] US1-UDF-9: It should call onSubmit with the correct details when the enter key is typed

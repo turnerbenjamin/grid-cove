@@ -17,6 +17,7 @@ export default function UserDetailsForm({
         placeholder="your-username"
         className={inputClasses}
         role="textbox"
+        disabled={isLoading}
       />
 
       <label>Email address</label>
@@ -25,6 +26,7 @@ export default function UserDetailsForm({
         placeholder="your@email.com"
         className={inputClasses}
         role="textbox"
+        disabled={isLoading}
       />
 
       <label className="mt-4">Password</label>
@@ -33,6 +35,7 @@ export default function UserDetailsForm({
         placeholder="Your password"
         className={inputClasses}
         role="textbox"
+        disabled={isLoading}
       />
 
       <label>Confirm Password</label>
@@ -41,6 +44,7 @@ export default function UserDetailsForm({
         placeholder="Confirm password"
         className={inputClasses}
         role="textbox"
+        disabled={isLoading}
       />
       <Button primary className="mt-8" isLoading={isLoading}>
         {submitButtonText}

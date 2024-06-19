@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { queryAllByRole, render, screen } from "@testing-library/react";
 import { beforeEach } from "vitest";
 import UserDetailsForm from "../../../src/components/header/UserDetailsForm";
 
@@ -32,19 +32,32 @@ describe("User details form tests: ", () => {
       });
     });
 
-    //?US1-UDF-3
-    test("It should show a loading spinner when the isLoading prop is true", () => {
-      //Act
-      render(
-        <UserDetailsForm
-          headingText={testHeadingText}
-          submitButtonText={testSubmitButtonText}
-          activeFields={testActiveFieldsConfig}
-          isLoading
-        />
-      );
-      //Assert
-      expect(screen.queryByRole("status")).toBeInTheDocument();
+    describe("Loading state tests", () => {
+      beforeEach(() => {
+        render(
+          <UserDetailsForm
+            headingText={testHeadingText}
+            submitButtonText={testSubmitButtonText}
+            activeFields={{
+              userName: true,
+              emailAddress: true,
+              password: true,
+              confirmPassword: true,
+            }}
+            isLoading
+          />
+        );
+      });
+      //?US1-UDF-3
+      test("It should show a loading spinner when the isLoading prop is true", () => {
+        expect(screen.queryByRole("status")).toBeInTheDocument();
+      });
+
+      //?US1-UDF-4
+      test("It should show disable all inputs when the isLoading prop is true", () => {
+        const inputs = screen.queryAllByRole("textbox");
+        expect(inputs.every((input) => input.disabled)).toBeTruthy();
+      });
     });
   });
 });

@@ -25,6 +25,7 @@ export default function RegisterButton({ onClick, doShowForm, onClose }) {
               password: true,
               confirmPassword: true,
             }}
+            isLoading
           />
         </Modal>
       )}
