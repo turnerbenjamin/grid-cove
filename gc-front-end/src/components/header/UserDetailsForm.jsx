@@ -4,6 +4,7 @@ export default function UserDetailsForm({
   headingText,
   submitButtonText,
   activeFields,
+  isLoading,
 }) {
   const inputClasses = "px-2 py-1 text-secondary-900";
 
@@ -41,7 +42,7 @@ export default function UserDetailsForm({
         className={inputClasses}
         role="textbox"
       />
-      <Button primary className="mt-8">
+      <Button primary className="mt-8" isLoading={isLoading}>
         {submitButtonText}
       </Button>
     </form>
