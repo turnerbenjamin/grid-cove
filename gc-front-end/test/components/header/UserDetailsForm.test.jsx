@@ -1,5 +1,6 @@
 import {
   queryAllByRole,
+  queryByTitle,
   render,
   screen,
   waitFor,
@@ -15,6 +16,7 @@ describe("User details form tests: ", () => {
 
   const testHeadingText = "Test heading text";
   const testSubmitButtonText = "Test submit button text";
+
   describe("General tests", () => {
     const testActiveFieldsConfig = {
       userName: true,
@@ -109,6 +111,32 @@ describe("User details form tests: ", () => {
         await userEvent.type(input, "x");
         expect(clearErrorsSpy).toHaveBeenCalledTimes(1);
       });
+    });
+  });
+
+  describe("Registration form configuration tests", () => {
+    const testRegistrationFormConfig = {
+      userName: true,
+      emailAddress: true,
+      password: true,
+      confirmPassword: true,
+    };
+    beforeEach(() => {
+      render(
+        <UserDetailsForm
+          headingText={testHeadingText}
+          submitButtonText={testSubmitButtonText}
+          activeFields={testRegistrationFormConfig}
+        />
+      );
+    });
+
+    //?US1-UDF-1
+    test("It should display the correct fields for registration when correct config prop provided", () => {
+      expect(screen.getByTitle(/username/i)).toBeInTheDocument();
+      expect(screen.getByTitle(/email address/i)).toBeInTheDocument();
+      expect(screen.getByTitle(/^password/i)).toBeInTheDocument();
+      expect(screen.getByTitle(/^confirm password/i)).toBeInTheDocument();
     });
   });
 });

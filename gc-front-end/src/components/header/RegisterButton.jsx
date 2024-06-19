@@ -9,8 +9,6 @@ export default function RegisterButton({ onClick, doShowForm, onClose }) {
         primary
         className="text-sm sm:text-base sm:tracking-wide"
         onClick={onClick}
-        doShowForm={doShowForm}
-        onClose={onClose}
       >
         REGISTER
       </Button>

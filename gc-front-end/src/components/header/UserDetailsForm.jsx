@@ -22,6 +22,7 @@ export default function UserDetailsForm({
       <input
         type="text"
         placeholder="your-username"
+        title="Username"
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
@@ -32,6 +33,7 @@ export default function UserDetailsForm({
       <input
         type="text"
         placeholder="your@email.com"
+        title="Email address"
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
@@ -42,6 +44,7 @@ export default function UserDetailsForm({
       <input
         type="password"
         placeholder="Your password"
+        title="Password"
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
@@ -52,6 +55,7 @@ export default function UserDetailsForm({
       <input
         type="password"
         placeholder="Confirm password"
+        title="Confirm password"
         className={inputClasses}
         role="textbox"
         disabled={isLoading}
