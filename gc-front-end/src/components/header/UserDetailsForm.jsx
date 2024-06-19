@@ -1,12 +1,16 @@
 import Button from "../general/Button";
+import RenderedErrors from "../general/RenderedErrors";
 
 export default function UserDetailsForm({
   headingText,
   submitButtonText,
   activeFields,
+  errors,
   isLoading,
 }) {
   const inputClasses = "px-2 py-1 text-secondary-900";
+
+  console.log(errors);
 
   return (
     <form className="flex flex-col items-center justify-center gap-2">
@@ -49,6 +53,7 @@ export default function UserDetailsForm({
       <Button primary className="mt-8" isLoading={isLoading}>
         {submitButtonText}
       </Button>
+      <RenderedErrors errors={errors} />
     </form>
   );
 }

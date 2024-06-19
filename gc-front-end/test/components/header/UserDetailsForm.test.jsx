@@ -59,5 +59,29 @@ describe("User details form tests: ", () => {
         expect(inputs.every((input) => input.disabled)).toBeTruthy();
       });
     });
+
+    describe("Loading state tests", () => {
+      const testErrors = ["Test error1", "Test error 2"];
+      beforeEach(() => {
+        render(
+          <UserDetailsForm
+            headingText={testHeadingText}
+            submitButtonText={testSubmitButtonText}
+            activeFields={{
+              userName: true,
+              emailAddress: true,
+              password: true,
+              confirmPassword: true,
+            }}
+            errors={testErrors}
+          />
+        );
+      });
+      //?US1-UDF-5
+      test("It should show errors where a list of errors are passed as a prop", () => {
+        expect(screen.queryByText(testErrors[0])).toBeInTheDocument();
+        expect(screen.queryByText(testErrors[1])).toBeInTheDocument();
+      });
+    });
   });
 });
