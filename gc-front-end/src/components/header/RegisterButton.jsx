@@ -1,5 +1,6 @@
 import Button from "../general/Button";
 import Modal from "../general/Modal";
+import UserDetailsForm from "./UserDetailsForm";
 
 export default function RegisterButton({ onClick, doShowForm, onClose }) {
   return (
@@ -13,7 +14,20 @@ export default function RegisterButton({ onClick, doShowForm, onClose }) {
       >
         REGISTER
       </Button>
-      {doShowForm && <Modal onClose={onClose}>Form</Modal>}
+      {doShowForm && (
+        <Modal onClose={onClose}>
+          <UserDetailsForm
+            headingText="Register"
+            submitButtonText="Submit"
+            activeFields={{
+              userName: true,
+              emailAddress: true,
+              password: true,
+              confirmPassword: true,
+            }}
+          />
+        </Modal>
+      )}
     </>
   );
 }
