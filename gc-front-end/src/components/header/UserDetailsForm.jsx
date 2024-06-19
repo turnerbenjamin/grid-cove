@@ -42,7 +42,7 @@ export default function UserDetailsForm({
         role="textbox"
       />
       <Button primary className="mt-8">
-        Submit
+        {submitButtonText}
       </Button>
     </form>
   );

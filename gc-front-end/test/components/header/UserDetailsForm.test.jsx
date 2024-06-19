@@ -21,7 +21,12 @@ describe("User details form tests: ", () => {
 
     //?US1-UDF-1
     test("It should display the correct heading text", () => {
-      expect(screen.queryByText(testHeadingText)).toBeTruthy();
+      expect(screen.queryByText(testHeadingText)).toBeInTheDocument();
+    });
+
+    //?US1-UDF-2
+    test("It should display the correct submit button text", () => {
+      expect(screen.queryByText(testSubmitButtonText)).toBeInTheDocument();
     });
   });
 });
