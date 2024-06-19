@@ -29,7 +29,13 @@ export default function Button({
   }
 
   return (
-    <button {...props} type="button" className={classes} onClick={onClick}>
+    <button
+      {...props}
+      type="button"
+      className={classes}
+      onClick={onClick}
+      disabled={isDisabled}
+    >
       {children}
     </button>
   );

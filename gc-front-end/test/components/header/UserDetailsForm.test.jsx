@@ -82,6 +82,12 @@ describe("User details form tests: ", () => {
         expect(screen.queryByText(testErrors[0])).toBeInTheDocument();
         expect(screen.queryByText(testErrors[1])).toBeInTheDocument();
       });
+
+      //?US1-UDF-6
+      test("It should disable the submit button when there are errors", () => {
+        const submitButton = screen.queryByText(testSubmitButtonText);
+        expect(submitButton.disabled).toEqual(true);
+      });
     });
   });
 });

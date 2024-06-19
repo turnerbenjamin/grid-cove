@@ -50,7 +50,12 @@ export default function UserDetailsForm({
         role="textbox"
         disabled={isLoading}
       />
-      <Button primary className="mt-8" isLoading={isLoading}>
+      <Button
+        primary
+        className="mt-8"
+        isLoading={isLoading}
+        isDisabled={errors?.length > 0}
+      >
         {submitButtonText}
       </Button>
       <RenderedErrors errors={errors} />
