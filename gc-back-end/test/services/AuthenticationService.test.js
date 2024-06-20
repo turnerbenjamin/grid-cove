@@ -115,5 +115,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS1-6
+    it("should throw a server error for all other errors", async () => {
+      //Arrange
+      createStub.rejects(new Error());
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.createUser(testUser);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
