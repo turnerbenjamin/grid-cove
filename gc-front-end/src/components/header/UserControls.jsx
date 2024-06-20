@@ -33,7 +33,11 @@ export default function UserControls() {
         doShowForm={activeModal === modalWindows.REGISTER}
         onClose={handleCloseModal}
       />
-      <SignInButton />
+      <SignInButton
+        onClick={() => setActiveModal(modalWindows.SIGN_IN)}
+        doShowForm={activeModal === modalWindows.SIGN_IN}
+        onClose={handleCloseModal}
+      />
       {activeModal === modalWindows.SUCCESS_MESSAGE && (
         <SuccessfulRegistrationMessage onClose={handleDismissSuccessMessage} />
       )}

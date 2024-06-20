@@ -1,4 +1,5 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
+import { within } from "@testing-library/dom";
 import { beforeEach } from "vitest";
 import { expect } from "vitest";
 
@@ -26,9 +27,7 @@ describe("Registration integration tests", () => {
   //?US1-INT-1
   test("It should display a registration form when the registration button is clicked", async () => {
     //Arrange
-    const registrationButton = screen.queryByText(/register/i, {
-      role: "button",
-    });
+    const registrationButton = screen.queryByText(/register/i);
     //Act
     await act(async () => {
       fireEvent.click(registrationButton);
@@ -143,6 +142,23 @@ describe("Registration integration tests", () => {
       });
       //Assert
       expect(screen.getByText(/success/i)).toBeInTheDocument();
+    });
+
+    //?US1-INT-7
+    test("It should display the sign-in form when the user clicks the button in the success modal", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+        registerResolver();
+      });
+      const successMessage = screen.getByRole("alert");
+      const signInButton = within(successMessage).getByText(/sign-in/i);
+      await act(async () => {
+        fireEvent.click(signInButton);
+      });
+      //Assert
+      const form = screen.getByRole("form");
+      expect(within(form).getByText(/sign-in/i)).toBeInTheDocument();
     });
   });
 });

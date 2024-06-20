@@ -38,8 +38,11 @@ export default function UserDetailsForm({
     <form
       className="flex flex-col items-center justify-center gap-2 w-[95vw] max-w-md"
       onSubmit={handleSubmit}
+      role="form"
     >
-      <h2 className="mb-4 text-2xl text-accent-500">{headingText}</h2>
+      <h2 className="mb-4 text-2xl text-accent-500" role="heading">
+        {headingText}
+      </h2>
       <label className={labelClasses}>Username</label>
       <input
         type="text"

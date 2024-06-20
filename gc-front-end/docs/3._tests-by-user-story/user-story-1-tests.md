@@ -41,3 +41,4 @@ These tests are specific to the registration form configuration
 - [x] US1-INT-4: It should display the error where the authentication service returns an error
 - [x] US1-INT-5: It should display all errors where the authentication service returns multiple errors
 - [x] US1-INT-6: It should display display a success message where the authentication service resolves
+- [x] US1-INT-7: It should display the sign-in form when the user clicks the button in the success modal
