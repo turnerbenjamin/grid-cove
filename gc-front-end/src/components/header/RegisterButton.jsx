@@ -29,6 +29,7 @@ export default function RegisterButton({ onClick, doShowForm, onClose }) {
             onSubmit={registerNewUser}
             errors={authenticationErrors}
             clearErrors={handleClearAuthenticationErrors}
+            isLoading={authenticationIsLoading}
             activeFields={{
               userName: true,
               emailAddress: true,

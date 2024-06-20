@@ -1,4 +1,10 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { beforeEach } from "vitest";
 import { expect } from "vitest";
 
@@ -89,13 +95,23 @@ describe("Registration integration tests", () => {
     });
 
     //?US1-INT-2
-    test("On submit should make a call to the authentication service with the correct arguments", async () => {
+    test("It should make a call to the authentication service with the correct arguments on submit", async () => {
       //Act
       await act(async () => {
         fireEvent.click(submitButton);
       });
       //Assert
       expect(authenticationService.register).toBeCalledWith(expectedSubmission);
+    });
+
+    //?US1-INT-3
+    test("It should show a loading spinner when the authentication service is loading", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+      });
+      //Assert
+      expect(screen.getByRole("status")).toBeInTheDocument();
     });
   });
 });
