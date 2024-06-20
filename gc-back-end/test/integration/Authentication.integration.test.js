@@ -195,5 +195,20 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT1-13
+    it("should respond with a 500 response if create fails", async () => {
+      //Arrange
+      const createStub = sinon.stub(User, "create");
+      createStub.rejects();
+      //Act
+      const response = await request.post(registerEndpoint).send({
+        ...userToAdd,
+        username: userInDatabase.username,
+      });
+      createStub.restore();
+      //Assert
+      expect(response.status).to.equal(500);
+    });
   });
 });
