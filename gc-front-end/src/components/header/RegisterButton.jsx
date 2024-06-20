@@ -23,7 +23,6 @@ export default function RegisterButton({ onClick, doShowForm, onClose }) {
               password: true,
               confirmPassword: true,
             }}
-            errors={["Test error 1", "Test error 2"]}
           />
         </Modal>
       )}

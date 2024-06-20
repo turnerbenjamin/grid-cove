@@ -34,7 +34,10 @@ export default function UserDetailsForm({
   const inputClasses = "px-2 py-1 text-secondary-900";
 
   return (
-    <form className="flex flex-col items-center justify-center gap-2">
+    <form
+      className="flex flex-col items-center justify-center gap-2"
+      onSubmit={handleSubmit}
+    >
       <h2 className="mb-4 text-2xl">{headingText}</h2>
       <label>Username</label>
       <input
@@ -79,12 +82,14 @@ export default function UserDetailsForm({
         disabled={isLoading}
         onChange={(e) => handleUpdate(setConfirmPassword, e.target.value)}
       />
+      <input type="submit" className="hidden" />
       <Button
         primary
         className="mt-8"
         isLoading={isLoading}
         isDisabled={errors?.length > 0}
         onClick={handleSubmit}
+        title="Submit"
       >
         {submitButtonText}
       </Button>

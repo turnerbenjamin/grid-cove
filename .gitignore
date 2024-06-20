@@ -53,6 +53,7 @@ build/Release
 
 # Dependency directories
 
+
 node_modules/
 jspm_packages/
 
@@ -94,7 +95,8 @@ web_modules/
 # dotenv environment variables file
 
 .env
-.env.test
+.env.testing
+.env.development
 
 # parcel-bundler cache (<https://parceljs.org/>)
 

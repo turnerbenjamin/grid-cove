@@ -163,29 +163,35 @@ describe("User details form tests: ", () => {
       expect(confirmPasswordInputField).toBeInTheDocument();
     });
 
-    // //?US1-UDF-9
-    test("It should call onSubmit with the correct details when the submit button is clicked", async () => {
-      //Arrange
-      const submitButton = screen.getByRole("button");
-      //Act
-      await act(async () => {
-        fireEvent.change(usernameInputField, {
-          target: { value: expectedSubmission.username },
+    describe("On submit tests", () => {
+      beforeEach(async () => {
+        await act(async () => {
+          fireEvent.change(usernameInputField, {
+            target: { value: expectedSubmission.username },
+          });
+          fireEvent.change(emailAddressInputField, {
+            target: { value: expectedSubmission.emailAddress },
+          });
+          fireEvent.change(passwordInputField, {
+            target: { value: expectedSubmission.password },
+          });
+          fireEvent.change(confirmPasswordInputField, {
+            target: { value: expectedSubmission.password },
+          });
         });
-        fireEvent.change(emailAddressInputField, {
-          target: { value: expectedSubmission.emailAddress },
-        });
-        fireEvent.change(passwordInputField, {
-          target: { value: expectedSubmission.password },
-        });
-        fireEvent.change(confirmPasswordInputField, {
-          target: { value: expectedSubmission.password },
-        });
-        fireEvent.click(submitButton);
       });
 
-      //Assert
-      expect(onSubmitSpy).toBeCalledWith(expectedSubmission);
+      //?US1-UDF-9
+      test("It should call onSubmit with the correct details when the submit button is clicked", async () => {
+        //Arrange
+        const submitButton = screen.getByTitle("Submit");
+        //Act
+        await act(async () => {
+          fireEvent.click(submitButton);
+        });
+        //Assert
+        expect(onSubmitSpy).toBeCalledWith(expectedSubmission);
+      });
     });
   });
 });

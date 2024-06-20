@@ -9,6 +9,7 @@ describe("Modal component tests", () => {
     let onCloseSpy;
     let testChildren = "Test Children";
     beforeEach(() => {
+      Object.defineProperty(global.window, "scrollTo", { value: () => null });
       const modalRoot = document.createElement("div");
       modalRoot.setAttribute("id", "modal");
       document.body.appendChild(modalRoot);
