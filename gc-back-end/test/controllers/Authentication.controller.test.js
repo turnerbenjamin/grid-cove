@@ -69,7 +69,7 @@ describe("Authentication controller tests", () => {
       expect(res.json.calledWith(expected)).to.be.true;
     });
 
-    //? AC1-3
+    //? AC1-4
     it("should respond with a status of 400 if the authentication service throws a duplicate email address error", async () => {
       authenticationService.createUser.rejects(
         APIErrors.DUPLICATE_EMAIL_ADDRESS
@@ -80,6 +80,17 @@ describe("Authentication controller tests", () => {
       expect(res.status.calledWith(400)).to.be.true;
       expect(res.json.calledWith(APIErrors.DUPLICATE_EMAIL_ADDRESS.message)).to
         .be.true;
+    });
+
+    //? AC1-5
+    it("should respond with a status of 400 if the authentication service throws a duplicate username error", async () => {
+      authenticationService.createUser.rejects(APIErrors.DUPLICATE_USERNAME);
+      //Act
+      await authenticationController.register(req, res);
+      //Assert
+      expect(res.status.calledWith(400)).to.be.true;
+      expect(res.json.calledWith(APIErrors.DUPLICATE_USERNAME.message)).to.be
+        .true;
     });
   });
 });

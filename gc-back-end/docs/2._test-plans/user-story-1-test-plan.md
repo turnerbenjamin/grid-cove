@@ -22,7 +22,7 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 - [x] AC1-2: It should respond with a 201 status if the user was created successfully
 - [x] AC1-3: It should call res.json with the value returned from the authentication service
 - [x] AC1-4: It should respond with a status of 400 if the authentication service throws a duplicate email address error
-- [ ] AC1-5: It should respond with a status of 400 if the authentication service throws a duplicate username error
+- [x] AC1-5: It should respond with a status of 400 if the authentication service throws a duplicate username error
 - [ ] AC1-6: It should respond with a status code of 500 if the User service throws a server error
 
 ### Integration Tests (INT)
