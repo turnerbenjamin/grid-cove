@@ -32,3 +32,11 @@ These tests are specific to the registration form configuration
 
 - [x] US1-UDF-8: It should display the correct fields for registration when correct config prop provided
 - [x] US1-UDF-9: It should call onSubmit with the correct details when the submit button is clicked
+
+## Integration Tests (INT)
+
+- [x] US1-INT-1: It should display a registration form when the registration button is clicked
+- [x] US1-INT-2: On submit should make a call to the authentication service with the correct arguments
+- [ ] US1-INT-4: It should show a loading spinner when the authentication service is loading
+- [ ] US1-INT-4: It should display the error where the authentication service returns an error
+- [ ] US1-INT-5: It should display all errors where the authentication service returns multiple errors

@@ -42,4 +42,3 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 - [x] INT1-13: It should respond with a 500 response if create fails
 - [x] INT1-14: It should create the user in the database
 - [x] INT1-15: It should not include password field in response
-- [ ] INT1-16: It should store hashed password

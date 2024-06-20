@@ -17,7 +17,6 @@ describe("Modal component tests", () => {
       onCloseSpy = vi.fn(() => null);
       render(
         <>
-          <div id="modal"> </div>
           <Modal onClose={onCloseSpy}>{testChildren}</Modal>
         </>
       );

@@ -1,7 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach } from "vitest";
 import UserDetailsForm from "../../../src/components/header/UserDetailsForm";
-import userEvent from "@testing-library/user-event";
 
 describe("User details form tests: ", () => {
   afterEach(() => {

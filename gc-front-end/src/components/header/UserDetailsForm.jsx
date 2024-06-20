@@ -31,15 +31,16 @@ export default function UserDetailsForm({
     });
   };
 
-  const inputClasses = "px-2 py-1 text-secondary-900";
+  const labelClasses = "w-full max-w-[20rem]";
+  const inputClasses = "px-2 py-1 text-secondary-900 w-full max-w-[20rem]";
 
   return (
     <form
-      className="flex flex-col items-center justify-center gap-2"
+      className="flex flex-col items-center justify-center gap-2 w-[95vw] max-w-md"
       onSubmit={handleSubmit}
     >
-      <h2 className="mb-4 text-2xl">{headingText}</h2>
-      <label>Username</label>
+      <h2 className="mb-4 text-2xl text-accent-500">{headingText}</h2>
+      <label className={labelClasses}>Username</label>
       <input
         type="text"
         placeholder="your-username"
@@ -50,7 +51,7 @@ export default function UserDetailsForm({
         onChange={(e) => handleUpdate(setUsername, e.target.value)}
       />
 
-      <label>Email address</label>
+      <label className={labelClasses}>Email address</label>
       <input
         type="text"
         placeholder="your@email.com"
@@ -61,7 +62,7 @@ export default function UserDetailsForm({
         onChange={(e) => handleUpdate(setEmailAddress, e.target.value)}
       />
 
-      <label className="mt-4">Password</label>
+      <label className={labelClasses + " mt-4"}>Password</label>
       <input
         type="password"
         placeholder="Your password"
@@ -72,7 +73,7 @@ export default function UserDetailsForm({
         onChange={(e) => handleUpdate(setPassword, e.target.value)}
       />
 
-      <label>Confirm Password</label>
+      <label className={labelClasses}>Confirm Password</label>
       <input
         type="password"
         placeholder="Confirm password"

@@ -1,8 +1,17 @@
+import { useAppContext } from "../../hooks/contexts/appContext";
 import Button from "../general/Button";
 import Modal from "../general/Modal";
 import UserDetailsForm from "./UserDetailsForm";
 
 export default function RegisterButton({ onClick, doShowForm, onClose }) {
+  const {
+    activeUser,
+    registerNewUser,
+    authenticationIsLoading,
+    authenticationErrors,
+    handleClearAuthenticationErrors,
+  } = useAppContext();
+
   return (
     <>
       <Button
@@ -17,6 +26,9 @@ export default function RegisterButton({ onClick, doShowForm, onClose }) {
           <UserDetailsForm
             headingText="Register"
             submitButtonText="Submit"
+            onSubmit={registerNewUser}
+            errors={authenticationErrors}
+            clearErrors={handleClearAuthenticationErrors}
             activeFields={{
               userName: true,
               emailAddress: true,
