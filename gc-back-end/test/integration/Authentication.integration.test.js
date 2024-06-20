@@ -221,5 +221,14 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response?.username).to.equal(userToAdd.username);
     });
+
+    //? INT1-15
+    it("should not include password field in response", async () => {
+      //Act
+      const response = await request.post(registerEndpoint).send(userToAdd);
+      console.log(response.body);
+      //Assert
+      expect(response.body.password).to.equal(undefined);
+    });
   });
 });
