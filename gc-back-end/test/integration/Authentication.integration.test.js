@@ -14,7 +14,6 @@ describe("Authentication integration tests: ", () => {
   let server;
   let database;
   let request;
-  let next;
 
   before(async () => {
     const authenticationService = new AuthenticationService();
@@ -77,7 +76,19 @@ describe("Authentication integration tests: ", () => {
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithMissingUsername);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
 
+    //? INT1-4
+    it("should respond with a 400 response if the username is too short", async () => {
+      const userToAddWithMissingUsername = {
+        ...userToAdd,
+        username: "x".repeat(7),
+      };
+      const response = await request
+        .post(registerEndpoint)
+        .send(userToAddWithMissingUsername);
       //Assert
       expect(response.status).to.equal(400);
     });

@@ -30,14 +30,16 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 - [x] INT1-1: It should respond with a 201 status code with valid request
 - [x] INT1-2: It should return the new user's details without the password
 - [x] INT1-3: It should respond with a 400 response if the username is missing
-- [ ] INT1-4: It should respond with a 400 response if the username is invalid
-- [ ] INT1-5: It should respond with a 400 response if the email address missing
-- [ ] INT1-6: It should respond with a 400 response if the email address is invalid
-- [ ] INT1-7: It should respond with a 400 response if the password is missing
-- [ ] INT1-8: It should respond with a 400 response if the password is invalid
-- [ ] INT1-9: It should respond with a 400 response if the email address is duplicated
-- [ ] INT1-10: It should respond with a 400 response if the username is duplicated
-- [ ] INT1-11: It should respond with a 500 response if create fails
-- [ ] INT1-12: It should create the user in the database
-- [ ] INT1-13: It should not include password field in doc returned from database by default
-- [ ] INT1-14: It should store hashed password
+- [x] INT1-4: It should respond with a 400 response if the username is too short
+- [ ] INT1-5: It should respond with a 400 response if the username is too long
+- [ ] INT1-6: It should respond with a 400 response if the username contains invalid characters
+- [ ] INT1-7: It should respond with a 400 response if the email address missing
+- [ ] INT1-8: It should respond with a 400 response if the email address is invalid
+- [ ] INT1-9: It should respond with a 400 response if the password is missing
+- [ ] INT1-10: It should respond with a 400 response if the password is invalid
+- [ ] INT1-11: It should respond with a 400 response if the email address is duplicated
+- [ ] INT1-12: It should respond with a 400 response if the username is duplicated
+- [ ] INT1-13: It should respond with a 500 response if create fails
+- [ ] INT1-14: It should create the user in the database
+- [ ] INT1-15: It should not include password field in doc returned from database by default
+- [ ] INT1-16: It should store hashed password

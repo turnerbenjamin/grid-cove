@@ -8,7 +8,13 @@ export default class UserValidator {
         .exists()
         .trim()
         .notEmpty()
-        .withMessage("Username must be provided"),
+        .withMessage("Username must be provided")
+        .isLength({ min: 8, max: 24 })
+        .withMessage("Username must be between 8 and 24 characters")
+        .matches(/^[a-z0-9-]*$/)
+        .withMessage(
+          "Username must contain only digits, lowercase letters or a hyphen"
+        ),
       UserValidator.handleValidationErrors,
     ];
   };
