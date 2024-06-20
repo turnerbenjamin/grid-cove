@@ -2,10 +2,10 @@ import { expect } from "chai";
 import bcrypt from "bcrypt";
 import sinon from "sinon";
 
+import APIErrors from "../../src/utils/APIErrors.js";
 import AuthenticationService from "../../src/services/Authentication.service.js";
 import User from "../../src/models/User.model.js";
 import * as userTestData from "../data/User.test.data.js";
-import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("Authentication service tests", () => {
   let authenticationService = null;
