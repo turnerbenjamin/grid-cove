@@ -63,5 +63,17 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS1-3
+    it("should call create on User model with the correct arguments", async () => {
+      //Arrange
+      createStub.resolves(testUser);
+      const expectedNewUserArg = { ...testUser, password: testHashedPassword };
+      //Act
+      await authenticationService.createUser(testUser);
+      const [actualNewUserArg] = createStub.getCall(0).args;
+      //Assert
+      expect(actualNewUserArg).to.deep.equal(expectedNewUserArg);
+    });
   });
 });

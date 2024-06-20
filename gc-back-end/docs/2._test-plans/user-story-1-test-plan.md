@@ -10,20 +10,20 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 
 - [x] AS1-1: It should call hash on bcrypt with the password
 - [x] AS1-2: It should throw a server error where hash fails
-- [ ] AS1-3: It should pass the user email and hashed password to create user on the User service
-- [ ] AS1-4: It should call create on the user model with the correct arguments
-- [ ] AS1-5: It should throw a duplicate email address error where the email address is a duplicate
-- [ ] AS1-6: It should throw a duplicate username error where the username is a duplicate
-- [ ] AS1-7: It should throw a server error for all other errors
-- [ ] AS1-8: It should return the new user's details, without the password
+- [x] AS1-3: It should call create on the user model with the correct arguments
+- [ ] AS1-4: It should throw a duplicate email address error where the email address is a duplicate
+- [ ] AS1-5: It should throw a duplicate username error where the username is a duplicate
+- [ ] AS1-6: It should throw a server error for all other errors
+- [ ] AS1-7: It should return the new user's details, without the password
 
 ## Authentication Controller (AC)
 
-- [ ] AC1-1: It should respond with a 201 status if the user was created successfully
-- [ ] AC1-2: It should call res.json with the value returned from the authentication service
-- [ ] AC1-3: It should respond with a status of 400 if the authentication service throws a duplicate email address error
-- [ ] AC1-4: It should respond with a status of 400 if the authentication service throws a duplicate username error
-- [ ] AC1-5: It should respond with a status code of 500 if the User service throws a server error
+- [ ] AC1-1: It should call createUser on the Authentication service with the correct arguments
+- [ ] AC1-2: It should respond with a 201 status if the user was created successfully
+- [ ] AC1-3: It should call res.json with the value returned from the authentication service
+- [ ] AC1-4: It should respond with a status of 400 if the authentication service throws a duplicate email address error
+- [ ] AC1-5: It should respond with a status of 400 if the authentication service throws a duplicate username error
+- [ ] AC1-6: It should respond with a status code of 500 if the User service throws a server error
 
 ### Integration Tests (INT)
 
