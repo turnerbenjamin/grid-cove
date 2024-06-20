@@ -40,3 +40,4 @@ These tests are specific to the registration form configuration
 - [x] US1-INT-3: It should show a loading spinner when the authentication service is loading
 - [x] US1-INT-4: It should display the error where the authentication service returns an error
 - [x] US1-INT-5: It should display all errors where the authentication service returns multiple errors
+- [x] US1-INT-6: It should display display a success message where the authentication service resolves

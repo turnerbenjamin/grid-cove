@@ -1,19 +1,12 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach } from "vitest";
 import { expect } from "vitest";
 
 import App from "../../../src/App";
-import { AppContextProvider } from "../../../src/hooks/contexts/appContext";
 import * as authenticationService from "../../../src/services/authentication.service";
 
-vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("react-router-dom");
+vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("../../../src/services/authentication.service");
 
 describe("Registration integration tests", () => {
@@ -23,11 +16,7 @@ describe("Registration integration tests", () => {
     modalRoot.setAttribute("id", "modal");
     document.body.appendChild(modalRoot);
 
-    render(
-      <AppContextProvider>
-        <App />
-      </AppContextProvider>
-    );
+    render(<App />);
   });
 
   afterEach(() => {
@@ -128,8 +117,8 @@ describe("Registration integration tests", () => {
       expect(screen.getByText(expected)).toBeInTheDocument();
     });
 
-    //?US1-INT-4
-    test("It should display the error where the authentication service returns an error", async () => {
+    //?US1-INT-5
+    test("It should display all errors where the authentication service returns multiple errors", async () => {
       //Arrange
       const testErrors = [
         { msg: "error message 1" },
@@ -143,6 +132,17 @@ describe("Registration integration tests", () => {
       //Assert
       expect(screen.getByText(testErrors[0].msg)).toBeInTheDocument();
       expect(screen.getByText(testErrors[1].msg)).toBeInTheDocument();
+    });
+
+    //?US1-INT-6
+    test("It should display display a success message where the authentication service resolves", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+        registerResolver();
+      });
+      //Assert
+      expect(screen.getByText(/success/i)).toBeInTheDocument();
     });
   });
 });

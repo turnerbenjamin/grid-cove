@@ -5,7 +5,6 @@ import UserDetailsForm from "./UserDetailsForm";
 
 export default function RegisterButton({ onClick, doShowForm, onClose }) {
   const {
-    activeUser,
     registerNewUser,
     authenticationIsLoading,
     authenticationErrors,

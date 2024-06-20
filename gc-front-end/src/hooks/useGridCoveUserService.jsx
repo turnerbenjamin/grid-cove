@@ -6,6 +6,8 @@ export default function useGridCoveUserService() {
   const [activeUser, setActiveUser] = useState(null);
   const [authenticationIsLoading, setAuthenticationIsLoading] = useState(false);
   const [authenticationErrors, setAuthenticationErrors] = useState(null);
+  const [isRegistrationSuccessful, setIsRegistrationSuccessful] =
+    useState(null);
 
   const handleErrors = (err) => {
     let errorMessages;
@@ -15,12 +17,15 @@ export default function useGridCoveUserService() {
   };
 
   const handleClearAuthenticationErrors = () => setAuthenticationErrors(false);
+  const handleClearIsRegistrationSuccessful = () =>
+    setIsRegistrationSuccessful(false);
 
   const registerNewUser = async (newUserSubmission) => {
     try {
       setAuthenticationErrors(null);
       setAuthenticationIsLoading(true);
       await register(newUserSubmission);
+      setIsRegistrationSuccessful(true);
     } catch (err) {
       handleErrors(err);
     } finally {
@@ -34,5 +39,7 @@ export default function useGridCoveUserService() {
     authenticationIsLoading,
     authenticationErrors,
     handleClearAuthenticationErrors,
+    isRegistrationSuccessful,
+    handleClearIsRegistrationSuccessful,
   };
 }
