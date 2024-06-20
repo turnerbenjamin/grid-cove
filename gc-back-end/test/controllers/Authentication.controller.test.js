@@ -57,5 +57,15 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(res.status.calledWith(201)).to.be.true;
     });
+
+    //? AC1-3
+    it("should call res.json with the value returned from the authentication service", async () => {
+      const expected = userTestData.documents[0];
+      authenticationService.createUser.resolves(expected);
+      //Act
+      await authenticationController.register(req, res);
+      //Assert
+      expect(res.json.calledWith(expected)).to.be.true;
+    });
   });
 });
