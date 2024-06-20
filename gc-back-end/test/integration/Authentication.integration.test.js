@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import express from "express";
+import express, { response } from "express";
 import sinon from "sinon";
 import supertest from "supertest";
 
@@ -45,9 +45,6 @@ describe("Authentication integration tests: ", () => {
     const userInDatabase = userTestData.submissions[0];
     const userToAdd = userTestData.submissions[1];
     const registerEndpoint = "/authentication/register";
-    beforeEach(async () => {
-      await User.create(userInDatabase);
-    });
 
     beforeEach(async () => {
       await User.deleteMany();
@@ -171,6 +168,19 @@ describe("Authentication integration tests: ", () => {
       createStub.restore();
       //Assert
       expect(newUserArg.roles).to.equal(undefined);
+    });
+
+    //? INT1-11
+    it("should respond with a 400 response if the email address is duplicated", async () => {
+      //Arrange
+      await User.create(userInDatabase);
+      //Act
+      const response = await request.post(registerEndpoint).send({
+        ...userToAdd,
+        emailAddress: userInDatabase.emailAddress,
+      });
+      //Assert
+      expect(response.status).to.equal(400);
     });
   });
 });

@@ -37,7 +37,7 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 - [x] INT1-8: It should respond with a 400 response if the email address is invalid
 - [x] INT1-9: It should respond with a 400 response if the password is missing
 - [x] INT1-10: It should not allows users to define their roles
-- [ ] INT1-11: It should respond with a 400 response if the email address is duplicated
+- [x] INT1-11: It should respond with a 400 response if the email address is duplicated
 - [ ] INT1-12: It should respond with a 400 response if the username is duplicated
 - [ ] INT1-13: It should respond with a 500 response if create fails
 - [ ] INT1-14: It should create the user in the database
