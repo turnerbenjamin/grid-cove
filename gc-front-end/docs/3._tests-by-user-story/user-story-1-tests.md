@@ -36,7 +36,7 @@ These tests are specific to the registration form configuration
 ## Authentication service tests (AHS)
 
 - [x] US1-AHS-1: It should call axios post with the correct url and payload
-- [ ] US1-AHS-2: It should throw err if post rejects with standard error object
+- [x] US1-AHS-2: It should throw err if post rejects with standard error object
 - [ ] US1-AHS-3: It should throw err?.response?.data where validation error received
 - [ ] US1-AHS-4: It should return response data where axios resolves
 
