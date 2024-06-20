@@ -22,6 +22,12 @@ export default class UserValidator {
         .notEmpty()
         .isEmail()
         .withMessage("Email address is invalid"),
+      expressValidator
+        .body("password")
+        .exists()
+        .trim()
+        .notEmpty()
+        .withMessage("Password is invalid"),
       UserValidator.handleValidationErrors,
     ];
   };

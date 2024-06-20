@@ -35,8 +35,8 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 - [x] INT1-6: It should respond with a 400 response if the username contains invalid characters
 - [x] INT1-7: It should respond with a 400 response if the email address missing
 - [x] INT1-8: It should respond with a 400 response if the email address is invalid
-- [ ] INT1-9: It should respond with a 400 response if the password is missing
-- [ ] INT1-10: It should respond with a 400 response if the password is invalid
+- [x] INT1-9: It should respond with a 400 response if the password is missing
+- [ ] INT1-10: It should respond with a 400 response if roles property is in req.body
 - [ ] INT1-11: It should respond with a 400 response if the email address is duplicated
 - [ ] INT1-12: It should respond with a 400 response if the username is duplicated
 - [ ] INT1-13: It should respond with a 500 response if create fails

@@ -144,5 +144,18 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT1-9
+    it("should respond with a 400 response if the password is missing", async () => {
+      const userToAddWithMissingPassword = {
+        ...userToAdd,
+        password: null,
+      };
+      const response = await request
+        .post(registerEndpoint)
+        .send(userToAddWithMissingPassword);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });
