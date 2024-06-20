@@ -39,6 +39,15 @@ export default class UserValidator {
     if (!errors.isEmpty()) {
       return res.status(400).json(errors.array());
     }
+    this.#stripInvalidProperties(req);
     next();
+  };
+
+  static #stripInvalidProperties = (req) => {
+    req.body = {
+      username: req.body.username,
+      emailAddress: req.body.emailAddress,
+      password: req.body.password,
+    };
   };
 }

@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import express from "express";
+import sinon from "sinon";
 import supertest from "supertest";
 
 import AuthenticationController from "../../src/controllers/Authentication.controller.js";
@@ -156,6 +157,20 @@ describe("Authentication integration tests: ", () => {
         .send(userToAddWithMissingPassword);
       //Assert
       expect(response.status).to.equal(400);
+    });
+
+    //? INT1-10
+    it("should not allows users to define their roles", async () => {
+      const createStub = sinon.stub(User, "create");
+      const userWithRolesSet = {
+        ...userToAdd,
+        roles: ["admin"],
+      };
+      await request.post(registerEndpoint).send(userWithRolesSet);
+      const [newUserArg] = createStub.getCall(0)?.args ?? [];
+      createStub.restore();
+      //Assert
+      expect(newUserArg.roles).to.equal(undefined);
     });
   });
 });
