@@ -49,5 +49,13 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(actualUserArg).to.equal(req.body);
     });
+
+    //? AC1-2
+    it("should respond with a 201 status if the user was created successfully", async () => {
+      //Act
+      await authenticationController.register(req, res);
+      //Assert
+      expect(res.status.calledWith(201)).to.be.true;
+    });
   });
 });

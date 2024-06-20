@@ -19,7 +19,7 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 ## Authentication Controller (AC)
 
 - [x] AC1-1: It should call createUser on the Authentication service with the correct arguments
-- [ ] AC1-2: It should respond with a 201 status if the user was created successfully
+- [x] AC1-2: It should respond with a 201 status if the user was created successfully
 - [ ] AC1-3: It should call res.json with the value returned from the authentication service
 - [ ] AC1-4: It should respond with a status of 400 if the authentication service throws a duplicate email address error
 - [ ] AC1-5: It should respond with a status of 400 if the authentication service throws a duplicate username error

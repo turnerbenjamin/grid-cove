@@ -5,7 +5,8 @@ export default class AuthenticationController {
     this.#authenticationService = authenticationService;
   }
 
-  register = async (req) => {
+  register = async (req, res) => {
     await this.#authenticationService.createUser(req.body);
+    res.status(201);
   };
 }
