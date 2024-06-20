@@ -60,5 +60,16 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).toEqual(expected);
     });
+
+    //?US1-AHS-4
+    test("It should return response data where axios resolves", async () => {
+      //Arrange
+      const expected = testResponse.data;
+      axios.post.mockResolvedValueOnce(testResponse);
+      //Act
+      const actual = await authenticationService.register(testUserSubmission);
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
