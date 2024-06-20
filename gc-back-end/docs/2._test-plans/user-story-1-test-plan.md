@@ -12,7 +12,7 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 - [x] AS1-2: It should throw a server error where hash fails
 - [x] AS1-3: It should call create on the user model with the correct arguments
 - [x] AS1-4: It should throw a duplicate email address error where the email address is a duplicate
-- [ ] AS1-5: It should throw a duplicate username error where the username is a duplicate
+- [x] AS1-5: It should throw a duplicate username error where the username is a duplicate
 - [ ] AS1-6: It should throw a server error for all other errors
 - [ ] AS1-7: It should return the new user's details, without the password
 

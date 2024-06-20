@@ -81,6 +81,26 @@ describe("Authentication service tests", () => {
       //Arrange
       const testDuplicateKeyError = {
         code: 11000,
+        keyPattern: { emailAddress: 1 },
+      };
+      createStub.rejects(testDuplicateKeyError);
+      const expected = APIErrors.DUPLICATE_EMAIL_ADDRESS;
+      let actual;
+      //Act
+      try {
+        await authenticationService.createUser(testUser);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
+
+    //? AS1-5
+    it("should throw a duplicate username error where the username is a duplicate", async () => {
+      //Arrange
+      const testDuplicateKeyError = {
+        code: 11000,
         keyPattern: { username: 1 },
       };
       createStub.rejects(testDuplicateKeyError);
