@@ -2,6 +2,8 @@ import { AppContextProvider } from "./hooks/contexts/appContext";
 import Header from "./components/header/Header";
 import GridCoveRouter from "./router/GridCoveRouter";
 
+import "./index.css";
+
 function App() {
   return (
     <AppContextProvider>

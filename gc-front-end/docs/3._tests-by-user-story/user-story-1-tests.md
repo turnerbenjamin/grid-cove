@@ -33,6 +33,13 @@ These tests are specific to the registration form configuration
 - [x] US1-UDF-8: It should display the correct fields for registration when correct config prop provided
 - [x] US1-UDF-9: It should call onSubmit with the correct details when the submit button is clicked
 
+## Authentication service tests (AHS)
+
+- [x] US1-AHS-1: It should call axios post with the correct url and payload
+- [ ] US1-AHS-2: It should throw err if post rejects with standard error object
+- [ ] US1-AHS-3: It should throw err?.response?.data where validation error received
+- [ ] US1-AHS-4: It should return response data where axios resolves
+
 ## Integration Tests (INT)
 
 - [x] US1-INT-1: It should display a registration form when the registration button is clicked
