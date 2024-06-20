@@ -50,3 +50,4 @@ These tests are specific to the registration form configuration
 - [x] US1-INT-6: It should display display a success message where the authentication service resolves
 - [x] US1-INT-7: It should display the sign-in form when the user clicks the button in the success modal
 - [x] US1-INT-8: It should close the registration form modal when the close button is pressed
+- [x] US1-INT-9: It should close the success message modal when the close button is pressed

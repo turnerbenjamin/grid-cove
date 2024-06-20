@@ -168,7 +168,22 @@ describe("Registration integration tests", () => {
         fireEvent.click(closeModalButton);
       });
       const registrationForm = screen.queryByRole("form");
-      expect(registrationForm).toBe(null);
+      expect(registrationForm).toBeNull;
+    });
+
+    //?US1-INT-9
+    test("It should close the success message modal when the close button is pressed", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+        registerResolver();
+      });
+      const closeModalButton = screen.getByTitle(/close/i);
+      await act(async () => {
+        fireEvent.click(closeModalButton);
+      });
+      //Assert
+      expect(screen.queryByRole(/success/i)).toBeNull;
     });
   });
 });
