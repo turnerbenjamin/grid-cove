@@ -182,5 +182,18 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT1-12
+    it("should respond with a 400 response if the username is duplicated", async () => {
+      //Arrange
+      await User.create(userInDatabase);
+      //Act
+      const response = await request.post(registerEndpoint).send({
+        ...userToAdd,
+        username: userInDatabase.username,
+      });
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });
