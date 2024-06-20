@@ -14,6 +14,7 @@ describe("Authentication integration tests: ", () => {
   let server;
   let database;
   let request;
+  let next;
 
   before(async () => {
     const authenticationService = new AuthenticationService();
@@ -68,6 +69,17 @@ describe("Authentication integration tests: ", () => {
       expect(response.body.username).to.equal(userToAdd.username);
       expect(response.body.emailAddress).to.equal(userToAdd.emailAddress);
       expect(response.body._id).to.exist;
+    });
+
+    //? INT1-3
+    it("should respond with a 400 response if the username is missing", async () => {
+      const userToAddWithMissingUsername = { ...userToAdd, username: null };
+      const response = await request
+        .post(registerEndpoint)
+        .send(userToAddWithMissingUsername);
+
+      //Assert
+      expect(response.status).to.equal(400);
     });
   });
 });

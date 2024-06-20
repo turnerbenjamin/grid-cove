@@ -1,5 +1,7 @@
 import { Router } from "express";
 
+import UserValidator from "../middleware/User.validator.js";
+
 export default class AuthenticationRoutes {
   #router;
   #root;
@@ -17,7 +19,11 @@ export default class AuthenticationRoutes {
   }
 
   #initialiseRegisterRoute() {
-    this.#router.post("/register", this.#authenticationController.register);
+    this.#router.post(
+      "/register",
+      UserValidator.validateRegistrationSubmission(),
+      this.#authenticationController.register
+    );
   }
 
   getRouter() {

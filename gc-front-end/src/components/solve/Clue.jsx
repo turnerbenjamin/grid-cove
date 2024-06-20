@@ -11,7 +11,6 @@ export default function Clue({ clue, isRow }) {
 
   const clueElements = clue.map((clueElement, i) => {
     const isLastElement = i === clue.length - 1;
-    console.log(i, clue.length);
     return (
       <div key={i} className="h-[1.5ch]">
         {clueElement}

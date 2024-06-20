@@ -18,7 +18,6 @@ export default function GridDividingLines() {
     c.lineWidth = 2;
 
     const drawLine = (relativePosition) => {
-      console.log(relativePosition);
       c.beginPath();
       c.moveTo(canvas.width * relativePosition, 0);
       c.lineTo(canvas.width * relativePosition, canvas.height);
