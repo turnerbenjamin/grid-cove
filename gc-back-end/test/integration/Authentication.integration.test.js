@@ -123,11 +123,24 @@ describe("Authentication integration tests: ", () => {
     it("should respond with a 400 response if the email address missing", async () => {
       const userToAddWithMissingEmailAddress = {
         ...userToAdd,
-        emailAddress: "null",
+        emailAddress: null,
       };
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithMissingEmailAddress);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
+
+    //? INT1-8
+    it("should respond with a 400 response if the email address is invalid", async () => {
+      const userToAddWithInvalidEmailAddress = {
+        ...userToAdd,
+        emailAddress: "invalid.email.com",
+      };
+      const response = await request
+        .post(registerEndpoint)
+        .send(userToAddWithInvalidEmailAddress);
       //Assert
       expect(response.status).to.equal(400);
     });
