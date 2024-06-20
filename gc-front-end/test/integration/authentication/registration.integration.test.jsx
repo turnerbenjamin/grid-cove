@@ -113,5 +113,19 @@ describe("Registration integration tests", () => {
       //Assert
       expect(screen.getByRole("status")).toBeInTheDocument();
     });
+
+    //?US1-INT-4
+    test("It should display the error where the authentication service returns an error", async () => {
+      //Arrange
+      const expected = "test error message";
+      const testError = new Error(expected);
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+        registerRejecter(testError);
+      });
+      //Assert
+      expect(screen.getByText(expected)).toBeInTheDocument();
+    });
   });
 });

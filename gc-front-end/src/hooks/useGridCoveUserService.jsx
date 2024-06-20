@@ -10,7 +10,7 @@ export default function useGridCoveUserService() {
   const handleErrors = (err) => {
     let errorMessages;
     if (Array.isArray(err)) errorMessages = err.map((err) => err.msg);
-    else errorMessages = [err];
+    else errorMessages = [err.message];
     setAuthenticationErrors(errorMessages);
   };
 
