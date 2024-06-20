@@ -92,5 +92,18 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT1-4
+    it("should respond with a 400 response if the username is too long", async () => {
+      const userToAddWithMissingUsername = {
+        ...userToAdd,
+        username: "x".repeat(25),
+      };
+      const response = await request
+        .post(registerEndpoint)
+        .send(userToAddWithMissingUsername);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });
