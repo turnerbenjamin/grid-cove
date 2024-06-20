@@ -92,5 +92,15 @@ describe("Authentication controller tests", () => {
       expect(res.json.calledWith(APIErrors.DUPLICATE_USERNAME.message)).to.be
         .true;
     });
+
+    //? AC1-6
+    it("should respond with a status code of 500 if the User service throws a server error", async () => {
+      authenticationService.createUser.rejects(APIErrors.SERVER_ERROR);
+      //Act
+      await authenticationController.register(req, res);
+      //Assert
+      expect(res.status.calledWith(500)).to.be.true;
+      expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.be.true;
+    });
   });
 });
