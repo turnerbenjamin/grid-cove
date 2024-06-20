@@ -21,11 +21,13 @@ describe("Authentication service tests", () => {
   describe("Create user tests", () => {
     let createStub;
     let hashStub;
-    const testUser = userTestData.submissions[0];
-    const testHashedPassword = "hashed";
+    const testUserSubmission = userTestData.submissions[0];
+    const testUserDocument = userTestData.documents[0];
+    const testHashedPassword = testUserDocument.password;
 
     beforeEach(() => {
       createStub = sinon.stub(User, "create");
+      createStub.resolves(testUserDocument);
       hashStub = sinon.stub(bcrypt, "hash");
       hashStub.resolves(testHashedPassword);
     });
@@ -38,10 +40,10 @@ describe("Authentication service tests", () => {
     //? AS1-1
     it("should call hash on bcrypt with the password", async () => {
       //Arrange
-      const expectedPasswordToHash = testUser.password;
+      const expectedPasswordToHash = testUserSubmission.password;
       const expectedSalt = parseInt(process.env.SALT);
       //Act
-      await authenticationService.createUser(testUser);
+      await authenticationService.createUser(testUserSubmission);
       const [actualPasswordToHash, actualSalt] = hashStub.getCall(0).args;
       //Assert
       expect(actualPasswordToHash).to.equal(expectedPasswordToHash);
@@ -56,7 +58,7 @@ describe("Authentication service tests", () => {
       let actual;
       //Act
       try {
-        await authenticationService.createUser(testUser);
+        await authenticationService.createUser(testUserSubmission);
       } catch (err) {
         actual = err;
       }
@@ -67,10 +69,12 @@ describe("Authentication service tests", () => {
     //? AS1-3
     it("should call create on User model with the correct arguments", async () => {
       //Arrange
-      createStub.resolves(testUser);
-      const expectedNewUserArg = { ...testUser, password: testHashedPassword };
+      const expectedNewUserArg = {
+        ...testUserSubmission,
+        password: testHashedPassword,
+      };
       //Act
-      await authenticationService.createUser(testUser);
+      await authenticationService.createUser(testUserSubmission);
       const [actualNewUserArg] = createStub.getCall(0).args;
       //Assert
       expect(actualNewUserArg).to.deep.equal(expectedNewUserArg);
@@ -88,7 +92,7 @@ describe("Authentication service tests", () => {
       let actual;
       //Act
       try {
-        await authenticationService.createUser(testUser);
+        await authenticationService.createUser(testUserSubmission);
       } catch (err) {
         actual = err;
       }
@@ -108,7 +112,7 @@ describe("Authentication service tests", () => {
       let actual;
       //Act
       try {
-        await authenticationService.createUser(testUser);
+        await authenticationService.createUser(testUserSubmission);
       } catch (err) {
         actual = err;
       }
@@ -124,12 +128,23 @@ describe("Authentication service tests", () => {
       let actual;
       //Act
       try {
-        await authenticationService.createUser(testUser);
+        await authenticationService.createUser(testUserSubmission);
       } catch (err) {
         actual = err;
       }
       //Assert
       expect(actual).to.equal(expected);
+    });
+
+    //? AS1-7
+    it("should return the new user's details, without the password", async () => {
+      //Arrange
+      const expected = { ...testUserDocument };
+      delete expected.password;
+      //Act
+      const actual = await authenticationService.createUser(testUserSubmission);
+      //Assert
+      expect(actual).to.deep.equal(expected);
     });
   });
 });

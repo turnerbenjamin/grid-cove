@@ -7,7 +7,8 @@ export default class AuthenticationService {
   createUser = async (newUser) => {
     try {
       newUser.password = await this.#hash(newUser.password);
-      await User.create(newUser);
+      const newUserDocument = await User.create(newUser);
+      return this.#formatUserDocument(newUserDocument);
     } catch (err) {
       this.#handleError(err);
     }
@@ -23,5 +24,14 @@ export default class AuthenticationService {
 
   #hash = async (password) => {
     return await bcrypt.hash(password, parseInt(process.env.SALT));
+  };
+
+  #formatUserDocument = (userDocument) => {
+    return {
+      _id: userDocument._id,
+      username: userDocument.username,
+      emailAddress: userDocument.emailAddress,
+      roles: userDocument.roles,
+    };
   };
 }
