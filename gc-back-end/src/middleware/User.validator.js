@@ -15,12 +15,21 @@ export default class UserValidator {
         .withMessage(
           "Username must contain only digits, lowercase letters or a hyphen"
         ),
+      expressValidator
+        .body("emailAddress")
+        .exists()
+        .trim()
+        .notEmpty()
+        .isEmail()
+        .withMessage("Email address is invalid"),
       UserValidator.handleValidationErrors,
     ];
   };
 
   static handleValidationErrors = (req, res, next) => {
-    const errors = expressValidator.validationResult(req);
+    const errors = expressValidator.validationResult(req, {
+      strictParams: true,
+    });
     if (!errors.isEmpty()) {
       return res.status(400).json(errors.array());
     }

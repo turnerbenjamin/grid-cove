@@ -33,7 +33,7 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 - [x] INT1-4: It should respond with a 400 response if the username is too short
 - [x] INT1-5: It should respond with a 400 response if the username is too long
 - [x] INT1-6: It should respond with a 400 response if the username contains invalid characters
-- [ ] INT1-7: It should respond with a 400 response if the email address missing
+- [x] INT1-7: It should respond with a 400 response if the email address missing
 - [ ] INT1-8: It should respond with a 400 response if the email address is invalid
 - [ ] INT1-9: It should respond with a 400 response if the password is missing
 - [ ] INT1-10: It should respond with a 400 response if the password is invalid
