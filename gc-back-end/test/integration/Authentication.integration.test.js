@@ -210,5 +210,16 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(500);
     });
+
+    //? INT1-14
+    it("should create the user in the database", async () => {
+      //Act
+      await request.post(registerEndpoint).send(userToAdd);
+      const response = await User.findOne({
+        emailAddress: userToAdd.emailAddress,
+      });
+      //Assert
+      expect(response?.username).to.equal(userToAdd.username);
+    });
   });
 });
