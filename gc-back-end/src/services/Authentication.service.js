@@ -1,8 +1,14 @@
 import bcrypt from "bcrypt";
 
+import APIErrors from "../utils/APIErrors.js";
+
 export default class AuthenticationService {
   createUser = async (newUser) => {
-    newUser.password = await this.#hash(newUser.password);
+    try {
+      newUser.password = await this.#hash(newUser.password);
+    } catch (err) {
+      throw APIErrors.SERVER_ERROR;
+    }
   };
 
   #hash = async (password) => {
