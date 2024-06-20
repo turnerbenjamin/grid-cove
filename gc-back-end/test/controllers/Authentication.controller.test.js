@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
+import APIErrors from "../../src/utils/APIErrors.js";
 import AuthenticationController from "../../src/controllers/Authentication.controller.js";
 import * as userTestData from "../data/User.test.data.js";
 
@@ -66,6 +67,19 @@ describe("Authentication controller tests", () => {
       await authenticationController.register(req, res);
       //Assert
       expect(res.json.calledWith(expected)).to.be.true;
+    });
+
+    //? AC1-3
+    it("should respond with a status of 400 if the authentication service throws a duplicate email address error", async () => {
+      authenticationService.createUser.rejects(
+        APIErrors.DUPLICATE_EMAIL_ADDRESS
+      );
+      //Act
+      await authenticationController.register(req, res);
+      //Assert
+      expect(res.status.calledWith(400)).to.be.true;
+      expect(res.json.calledWith(APIErrors.DUPLICATE_EMAIL_ADDRESS.message)).to
+        .be.true;
     });
   });
 });
