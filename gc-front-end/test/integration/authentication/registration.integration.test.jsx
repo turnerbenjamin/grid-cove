@@ -160,5 +160,15 @@ describe("Registration integration tests", () => {
       const form = screen.getByRole("form");
       expect(within(form).getByText(/sign-in/i)).toBeInTheDocument();
     });
+
+    //?US1-INT-8
+    test("It should close the registration form modal when the close button is pressed", async () => {
+      const closeModalButton = screen.getByTitle(/close/i);
+      await act(async () => {
+        fireEvent.click(closeModalButton);
+      });
+      const registrationForm = screen.queryByRole("form");
+      expect(registrationForm).toBe(null);
+    });
   });
 });

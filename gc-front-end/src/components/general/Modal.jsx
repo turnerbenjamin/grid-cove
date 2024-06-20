@@ -19,6 +19,7 @@ export default function Modal({ onClose, children }) {
             className="absolute top-[5px] right-[5px] text-3xl hover:fill-grid-red"
             role="button"
             onClick={onClose}
+            title="close"
           />
         )}
 
