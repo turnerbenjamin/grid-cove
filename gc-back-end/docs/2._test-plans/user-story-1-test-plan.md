@@ -28,7 +28,7 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 ### Integration Tests (INT)
 
 - [x] INT1-1: It should respond with a 201 status code with valid request
-- [ ] INT1-2: It should return the new user's details without the password
+- [x] INT1-2: It should return the new user's details without the password
 - [ ] INT1-3: It should respond with a 400 response if the username is missing
 - [ ] INT1-4: It should respond with a 400 response if the username is invalid
 - [ ] INT1-5: It should respond with a 400 response if the email address missing

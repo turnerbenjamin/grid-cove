@@ -59,5 +59,15 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(201);
     });
+
+    //? INT1-2
+    it("should return the new user's details without the password", async () => {
+      const response = await request.post(registerEndpoint).send(userToAdd);
+      //Assert
+      expect(response.body.password).to.equal(undefined);
+      expect(response.body.username).to.equal(userToAdd.username);
+      expect(response.body.emailAddress).to.equal(userToAdd.emailAddress);
+      expect(response.body._id).to.exist;
+    });
   });
 });

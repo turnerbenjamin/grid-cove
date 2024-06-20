@@ -18,7 +18,6 @@ export default class AuthenticationController {
   };
 
   #handleErrors = (res, err) => {
-    console.log(typeof err);
     let userError = err;
     if (!err.statusCode) userError = APIErrors.SERVER_ERROR;
     res.status(userError.statusCode).json(userError.message);
