@@ -9,8 +9,15 @@ export default class AuthenticationService {
       newUser.password = await this.#hash(newUser.password);
       await User.create(newUser);
     } catch (err) {
-      throw APIErrors.SERVER_ERROR;
+      this.#handleError(err);
     }
+  };
+
+  #handleError = (err) => {
+    if (err.code === 11000) {
+      if (err.keyPattern?.username) throw APIErrors.DUPLICATE_USERNAME;
+    }
+    throw APIErrors.SERVER_ERROR;
   };
 
   #hash = async (password) => {

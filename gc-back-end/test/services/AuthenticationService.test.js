@@ -75,5 +75,25 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actualNewUserArg).to.deep.equal(expectedNewUserArg);
     });
+
+    //? AS1-4
+    it("should throw a duplicate email address error where the email address is a duplicate", async () => {
+      //Arrange
+      const testDuplicateKeyError = {
+        code: 11000,
+        keyPattern: { username: 1 },
+      };
+      createStub.rejects(testDuplicateKeyError);
+      const expected = APIErrors.DUPLICATE_USERNAME;
+      let actual;
+      //Act
+      try {
+        await authenticationService.createUser(testUser);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
