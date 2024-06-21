@@ -311,7 +311,7 @@ describe("Authentication integration tests: ", () => {
       expect(response.body).to.deep.equal(expected);
     });
 
-    //? INT3-4
+    //? INT3-3
     it("should have a header to set JWT in success response", async () => {
       //Act
       const response = await request.post(signInEndpoint).send(userToSignIn);
@@ -319,6 +319,16 @@ describe("Authentication integration tests: ", () => {
       expect(response.header["set-cookie"][0].startsWith("jwt=")).to.equal(
         true
       );
+    });
+
+    //? INT3-4
+    it("should respond with a 401 response if email address is not found", async () => {
+      //Act
+      const response = await request
+        .post(signInEndpoint)
+        .send(userTestData.submissions[1]);
+      //Assert
+      expect(response.status).to.equal(401);
     });
   });
 });
