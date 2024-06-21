@@ -1,14 +1,19 @@
 import validator from "validator";
 
 export default class FormValidator {
-  #validators = {
-    username: validateUsername,
-    emailAddress: validateEmailAddress,
-    password: validatePassword,
-    confirmPassword: validateConfirmPassword,
+  static validators = {
+    username: FormValidator.validateUsername,
+    emailAddress: FormValidator.validateEmailAddress,
+    password: FormValidator.validatePassword,
+    confirmPassword: FormValidator.validateConfirmPassword,
   };
 
-  static isValidated() {
+  static isValidated(submission) {
+    for (const key in submission) {
+      const validator = FormValidator.validators[key];
+      if (!validator || !validator(submission[key], submission.password)[0])
+        return false;
+    }
     return true;
   }
 

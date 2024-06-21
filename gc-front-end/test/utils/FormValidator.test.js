@@ -7,7 +7,7 @@ describe("Register tests", () => {
   beforeEach(() => {
     testSubmission = {
       username: "test-user",
-      emailAddress: "a@b.c",
+      emailAddress: "test@email.com",
       password: "password12$",
       confirmPassword: "password12$",
     };
@@ -188,7 +188,7 @@ describe("Register tests", () => {
     expect(error).toMatch(/passwords do not match/i);
   });
 
-  //?US2-FVD-13
+  //?US2-FVD-15
   test("It should return true where password and confirmPassword do match", () => {
     //Act
     const [isValidated, error] = FormValidator.validateConfirmPassword(
@@ -198,5 +198,15 @@ describe("Register tests", () => {
     //Assert
     expect(isValidated).toBe(true);
     expect(error).toBe(undefined);
+  });
+
+  //?US2-FVD-16
+  test("It should return false from isValidated where one field is invalid", () => {
+    //Arrange
+    testSubmission.password = "invalidPassword";
+    //Act
+    const actual = FormValidator.isValidated(testSubmission);
+    //Assert
+    expect(actual).toBe(false);
   });
 });
