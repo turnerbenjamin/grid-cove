@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { register } from "../services/authentication.service";
+import { register, signIn } from "../services/authentication.service";
 
 export default function useGridCoveUserService() {
   const [activeUser, setActiveUser] = useState(null);
@@ -8,6 +8,7 @@ export default function useGridCoveUserService() {
   const [authenticationErrors, setAuthenticationErrors] = useState(null);
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] =
     useState(null);
+  const [isSignInSuccessful, setIsSignInSuccessful] = useState(null);
 
   const handleErrors = (err) => {
     let errorMessages;
@@ -17,7 +18,11 @@ export default function useGridCoveUserService() {
   };
 
   const handleClearAuthenticationErrors = () => setAuthenticationErrors(false);
+
   const handleClearIsRegistrationSuccessful = () =>
+    setIsRegistrationSuccessful(false);
+
+  const handleClearSignInIsSuccessful = () =>
     setIsRegistrationSuccessful(false);
 
   const registerNewUser = async (newUserSubmission) => {
@@ -33,6 +38,19 @@ export default function useGridCoveUserService() {
     }
   };
 
+  const signInUser = async (userCredentials) => {
+    try {
+      setAuthenticationErrors(null);
+      setAuthenticationIsLoading(true);
+      await signIn(userCredentials);
+      setIsSignInSuccessful(true);
+    } catch (err) {
+      handleErrors(err);
+    } finally {
+      setAuthenticationIsLoading(false);
+    }
+  };
+
   return {
     activeUser,
     registerNewUser,
@@ -41,5 +59,8 @@ export default function useGridCoveUserService() {
     handleClearAuthenticationErrors,
     isRegistrationSuccessful,
     handleClearIsRegistrationSuccessful,
+    signInUser,
+    isSignInSuccessful,
+    handleClearSignInIsSuccessful,
   };
 }

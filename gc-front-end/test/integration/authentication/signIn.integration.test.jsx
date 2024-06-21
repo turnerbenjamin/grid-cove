@@ -64,5 +64,17 @@ describe("Sign in integration tests", () => {
       //assert
       expect(screen.queryByRole("alert")).toBe(null);
     });
+
+    //?US1-INT-3
+    test("It should not disable submit where the values in the input fields would not pass validation", async () => {
+      //arrange
+      const submitButton = screen.getByTitle(/^submit/i);
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+      });
+      //assert
+      expect(authenticationService.signIn).toBeCalledTimes(1);
+    });
   });
 });

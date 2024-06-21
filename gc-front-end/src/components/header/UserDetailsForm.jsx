@@ -39,7 +39,8 @@ export default function UserDetailsForm({
     if (!activeFields[field]) delete submission[field];
   }
 
-  const isFormValidated = FormValidator.isValidated(submission);
+  const isFormValidated =
+    doSkipValidation || FormValidator.isValidated(submission);
 
   const handleSubmit = (e) => {
     e.preventDefault();
