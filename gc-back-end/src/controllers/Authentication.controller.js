@@ -17,6 +17,10 @@ export default class AuthenticationController {
     }
   };
 
+  signIn = async (req) => {
+    await this.#authenticationService.signInUser(req.body);
+  };
+
   #handleErrors = (res, err) => {
     let userError = err;
     if (!err.statusCode) userError = APIErrors.SERVER_ERROR;

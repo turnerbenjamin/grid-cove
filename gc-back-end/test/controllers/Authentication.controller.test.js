@@ -103,4 +103,38 @@ describe("Authentication controller tests", () => {
       expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.be.true;
     });
   });
+
+  describe("Register tests", () => {
+    let authenticationController;
+    let authenticationService;
+    const testUserSubmission = {
+      emailAddress: userTestData.submissions[0].emailAddress,
+      password: userTestData.submissions[0].password,
+    };
+
+    beforeEach(() => {
+      authenticationService = {
+        signInUser: sinon.stub(),
+      };
+      authenticationController = new AuthenticationController(
+        authenticationService
+      );
+      req.body = testUserSubmission;
+    });
+
+    afterEach(() => {
+      authenticationController = null;
+      authenticationService = null;
+    });
+
+    //? AC3-1
+    it("should call signInUser on the User Service with the correct argument", async () => {
+      //Act
+      await authenticationController.signIn(req, res);
+      const [userSubmissionArgument] =
+        authenticationService.signInUser.getCall(0).args;
+      //Assert
+      expect(userSubmissionArgument).to.equal(testUserSubmission);
+    });
+  });
 });
