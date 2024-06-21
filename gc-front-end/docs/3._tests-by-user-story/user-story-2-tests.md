@@ -22,4 +22,6 @@ for other fields as well, e.g username as the functionality is closely related.
 - [x] US2-FVD-11: It should return an error where the password does not contain at least one digit
 - [x] US2-FVD-12: It should return an error where the password does not contain at least one special character
 - [x] US2-FVD-13: It should return true where the password is valid
-- [ ] US2-FVD-14: It should return false from isValidated where one field is invalid
+- [x] US2-FVD-14: It should return false where password and confirmPassword do not match
+- [ ] US2-FVD-15: It should return true where password and confirmPassword do match
+- [ ] US2-FVD-16: It should return false from isValidated where one field is invalid

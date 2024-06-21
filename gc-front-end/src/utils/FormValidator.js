@@ -1,6 +1,13 @@
 import validator from "validator";
 
 export default class FormValidator {
+  #validators = {
+    username: validateUsername,
+    emailAddress: validateEmailAddress,
+    password: validatePassword,
+    confirmPassword: validateConfirmPassword,
+  };
+
   static isValidated() {
     return true;
   }
@@ -35,6 +42,11 @@ export default class FormValidator {
       return [false, "Password must contain at least one digit"];
     if (!password.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/))
       return [false, "Password must contain at least one special character"];
+    return [true];
+  }
+
+  static validateConfirmPassword(password, confirmPassword) {
+    if (password !== confirmPassword) return [false, "Passwords do not match"];
     return [true];
   }
 }

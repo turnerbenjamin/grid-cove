@@ -150,7 +150,7 @@ describe("Register tests", () => {
     expect(error).toMatch(/password must contain at least one digit/i);
   });
 
-  //?US2-FVD-11
+  //?US2-FVD-12
   test("It should return an error where the password does not contain at least one special character", () => {
     //Arrange
     const testInvalidPassword = "x".repeat(7) + "1";
@@ -164,7 +164,7 @@ describe("Register tests", () => {
     );
   });
 
-  //?US2-FVD-12
+  //?US2-FVD-13
   test("It should return true where the password is valid", () => {
     //Arrange
     const testValidPassword = "x".repeat(7) + "1$";
@@ -174,5 +174,18 @@ describe("Register tests", () => {
     //Assert
     expect(isValidated).toBe(true);
     expect(error).toBe(undefined);
+  });
+
+  //?US2-FVD-14
+  test("It should return false where password and confirmPassword do not match", () => {
+    //Arrange
+    //Act
+    const [isValidated, error] = FormValidator.validateConfirmPassword(
+      "a",
+      "b"
+    );
+    //Assert
+    expect(isValidated).toBe(false);
+    expect(error).toMatch(/passwords do not match/i);
   });
 });
