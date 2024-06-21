@@ -31,5 +31,7 @@ export default class FormValidator {
       return [false, "Password must be at least 8 characters"];
     if (password.length > 32)
       return [false, "Password must be no more than 32 characters"];
+    if (!password.match(/\d/))
+      return [false, "Password must contain at least one digit"];
   }
 }

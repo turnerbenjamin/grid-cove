@@ -137,4 +137,16 @@ describe("Register tests", () => {
     expect(isValidated).toBe(false);
     expect(error).toMatch(/password must be no more than 32 characters/i);
   });
+
+  //?US2-FVD-11
+  test("It should return an error where the password does not contain at least one digit", () => {
+    //Arrange
+    const testInvalidPassword = "x".repeat(7) + "$";
+    //Act
+    const [isValidated, error] =
+      FormValidator.validatePassword(testInvalidPassword);
+    //Assert
+    expect(isValidated).toBe(false);
+    expect(error).toMatch(/password must contain at least one digit/i);
+  });
 });
