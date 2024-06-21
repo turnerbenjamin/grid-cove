@@ -233,5 +233,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actualArguments).to.deep.equal(expectedArguments);
     });
+
+    //? AS3-5
+    it("should respond with a server error where bcrypt fails", async () => {
+      //Arrange
+      compareStub.rejects();
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.signInUser(testUserSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
