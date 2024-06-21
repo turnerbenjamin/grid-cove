@@ -19,10 +19,22 @@ export default class AuthenticationController {
 
   signIn = async (req, res) => {
     try {
-      await this.#authenticationService.signInUser(req.body);
+      const { token, user } = await this.#authenticationService.signInUser(
+        req.body
+      );
+      this.#setCookie(res, token);
     } catch (err) {
       this.#handleErrors(res, err);
     }
+  };
+
+  #setCookie = (res, token) => {
+    res.cookie("jwt", token, {
+      maxAge: process.env.COOKIE_EXPIRES_IN,
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      sameSite: "none",
+    });
   };
 
   #handleErrors = (res, err) => {

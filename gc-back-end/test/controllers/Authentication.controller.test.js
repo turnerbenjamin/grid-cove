@@ -105,8 +105,10 @@ describe("Authentication controller tests", () => {
   });
 
   describe("Register tests", () => {
+    const testToken = "test-token";
     let authenticationController;
     let authenticationService;
+
     const testUserSubmission = {
       emailAddress: userTestData.submissions[0].emailAddress,
       password: userTestData.submissions[0].password,
@@ -116,10 +118,15 @@ describe("Authentication controller tests", () => {
       authenticationService = {
         signInUser: sinon.stub(),
       };
+      authenticationService.signInUser.resolves({
+        token: testToken,
+        user: userTestData.documents[0],
+      });
       authenticationController = new AuthenticationController(
         authenticationService
       );
       req.body = testUserSubmission;
+      res.cookie = sinon.stub();
     });
 
     afterEach(() => {
@@ -155,6 +162,27 @@ describe("Authentication controller tests", () => {
       await authenticationController.signIn(req, res);
       //Assert
       expect(res.status.calledWith(401)).to.equal(true);
+    });
+
+    //? AC3-4
+    it("should call res.cookie with valid arguments", async () => {
+      //Arrange
+      const expectedCookieName = "jwt";
+      const expectedToken = testToken;
+      const expectedOptions = {
+        maxAge: process.env.COOKIE_EXPIRES_IN,
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        sameSite: "none",
+      };
+      //Act
+      await authenticationController.signIn(req, res);
+      const [actualCookieName, actualToken, actualOptions] =
+        res.cookie.getCall(0).args;
+      //Assert
+      expect(actualCookieName).to.equal(expectedCookieName);
+      expect(actualToken).to.equal(expectedToken);
+      expect(actualOptions).to.deep.equal(expectedOptions);
     });
   });
 });
