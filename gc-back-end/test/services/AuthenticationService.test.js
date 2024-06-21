@@ -183,5 +183,21 @@ describe("Authentication service tests", () => {
       expect(findUserArgument).to.deep.equal(expected);
       expect(selectArgument).to.equal("+password");
     });
+
+    //? AS3-2
+    it("should throw a server error where findOne fails", async () => {
+      //Arrange
+      selectStub.rejects(new Error());
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.signInUser(testUserSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });

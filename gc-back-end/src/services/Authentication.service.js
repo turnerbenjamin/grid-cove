@@ -15,9 +15,13 @@ export default class AuthenticationService {
   };
 
   signInUser = async (userCredentials) => {
-    await User.findOne({ emailAddress: userCredentials.emailAddress }).select(
-      "+password"
-    );
+    try {
+      await User.findOne({ emailAddress: userCredentials.emailAddress }).select(
+        "+password"
+      );
+    } catch (err) {
+      this.#handleError(err);
+    }
   };
 
   #handleError = (err) => {
