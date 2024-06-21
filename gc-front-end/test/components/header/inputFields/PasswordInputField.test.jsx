@@ -22,4 +22,20 @@ describe("Password input field tests", () => {
     });
     expect(screen.queryByRole("alert")).toBeInTheDocument();
   });
+
+  //?US2-PWI-3
+  test("It should not display an error on blur where password is valid", async () => {
+    render(
+      <PasswordInputField
+        passwordValue="validPassword123$"
+        onChange={() => null}
+      />
+    );
+    const inputField = screen.getByTitle("Password");
+    await act(async () => {
+      inputField.focus();
+      inputField.blur();
+    });
+    expect(screen.queryByRole("alert")).toBe(null);
+  });
 });
