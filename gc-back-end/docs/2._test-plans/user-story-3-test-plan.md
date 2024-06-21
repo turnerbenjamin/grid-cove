@@ -15,7 +15,7 @@ I have also removed the direct link between the service and the setting of statu
 - [x] AS3-1: It should call findOne and select on the user model with the correct arguments
 - [x] AS3-2: It should throw a server error where findOne fails
 - [x] AS3-3: It should throw a user unauthorised error where server returns null
-- [ ] AS3-4: It should call compare on bcrypt with the correct arguments
+- [x] AS3-4: It should call compare on bcrypt with the correct arguments
 - [ ] AS3-5: It should respond with a server error where bcrypt fails
 - [ ] AS3-6: It should throw a user unauthorised error where bcrypt returns false
 - [ ] AS3-7: It should call sign on jwt with the correct arguments

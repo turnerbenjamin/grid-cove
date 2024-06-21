@@ -151,6 +151,7 @@ describe("Authentication service tests", () => {
   describe("Sign-In user tests", () => {
     let findOneStub;
     let selectStub;
+    let compareStub;
     const testUserSubmission = {
       emailAddress: userTestData.submissions[0].emailAddress,
       password: userTestData.submissions[0].password,
@@ -162,11 +163,14 @@ describe("Authentication service tests", () => {
       selectStub = sinon.stub();
       selectStub.resolves(testUserDocument);
       findOneStub.returns({ select: selectStub });
+      compareStub = sinon.stub(bcrypt, "compare");
+      compareStub.resolves(true);
     });
 
     afterEach(() => {
       findOneStub.restore();
       selectStub = null;
+      compareStub.restore();
     });
 
     //? AS3-1
@@ -203,7 +207,7 @@ describe("Authentication service tests", () => {
     //? AS3-3
     it("should throw a server error where findOne fails", async () => {
       //Arrange
-      selectStub.resolves();
+      selectStub.resolves(null);
       const expected = APIErrors.UNAUTHORISED_ERROR;
       let actual;
       //Act
@@ -214,6 +218,20 @@ describe("Authentication service tests", () => {
       }
       //Assert
       expect(actual).to.equal(expected);
+    });
+
+    //? AS3-4
+    it("should call compare on bcrypt with the correct arguments", async () => {
+      //Arrange
+      const expectedArguments = [
+        testUserSubmission.password,
+        testUserDocument.password,
+      ];
+      //Act
+      await authenticationService.signInUser(testUserSubmission);
+      const actualArguments = compareStub.getCall(0).args;
+      //Assert
+      expect(actualArguments).to.deep.equal(expectedArguments);
     });
   });
 });

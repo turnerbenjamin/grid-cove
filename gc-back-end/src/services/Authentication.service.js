@@ -17,13 +17,18 @@ export default class AuthenticationService {
 
   signInUser = async (userCredentials) => {
     try {
-      const user = await User.findOne({
+      const userDocument = await User.findOne({
         emailAddress: userCredentials.emailAddress,
       }).select("+password");
-      if (!user) throw APIErrors.UNAUTHORISED_ERROR;
+      await this.#verifyUser(userCredentials, userDocument);
     } catch (err) {
       this.#handleError(err);
     }
+  };
+
+  #verifyUser = async (userCredentials, userDocument) => {
+    if (!userDocument) throw APIErrors.UNAUTHORISED_ERROR;
+    await bcrypt.compare(userCredentials.password, userDocument.password);
   };
 
   #handleError = (err) => {
