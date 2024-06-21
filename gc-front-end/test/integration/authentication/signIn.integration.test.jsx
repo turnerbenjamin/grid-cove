@@ -142,5 +142,22 @@ describe("Sign in integration tests", () => {
       //Assert
       expect(screen.getByText(expected)).toBeInTheDocument();
     });
+
+    //?US3-INT-7
+    test("It should display all errors where the authentication service returns multiple errors", async () => {
+      //Arrange
+      const testErrors = [
+        { msg: "error message 1" },
+        { msg: "error message 2" },
+      ];
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+        signInRejecter(testErrors);
+      });
+      //Assert
+      expect(screen.getByText(testErrors[0].msg)).toBeInTheDocument();
+      expect(screen.getByText(testErrors[1].msg)).toBeInTheDocument();
+    });
   });
 });
