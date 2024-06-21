@@ -1,7 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { within } from "@testing-library/dom";
-import { beforeEach } from "vitest";
-import { expect } from "vitest";
+import { beforeEach, expect } from "vitest";
 
 import App from "../../../src/App";
 import * as authenticationService from "../../../src/services/authentication.service";
