@@ -298,5 +298,17 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(200);
     });
+
+    //? INT3-2
+    it("should include the correct user details, without the password, in the response body", async () => {
+      //Arrange
+      const expected = userTestData.documents[0];
+      expected._id = expected._id.toString();
+      delete expected.password;
+      //Act
+      const response = await request.post(signInEndpoint).send(userToSignIn);
+      //Assert
+      expect(response.body).to.deep.equal(expected);
+    });
   });
 });
