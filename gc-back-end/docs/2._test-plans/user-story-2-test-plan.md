@@ -7,4 +7,4 @@
 - [x] INT2-1: It should return an error where the password is less than 8 characters
 - [x] INT2-2: It should return an error where the password is more than 32 characters
 - [x] INT2-3: It should return an error where the password does not contain at least one digit
-- [ ] INT2-4: It should return an error where the password does not contain at least one special
+- [x] INT2-4: It should return an error where the password does not contain at least one special character

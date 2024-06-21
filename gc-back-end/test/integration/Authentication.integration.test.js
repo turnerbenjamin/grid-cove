@@ -195,6 +195,19 @@ describe("Authentication integration tests: ", () => {
       expect(response.status).to.equal(400);
     });
 
+    //? INT2-4
+    it("should return an error where the password does not contain at least one special character", async () => {
+      const userToAddWithInvalidPassword = {
+        ...userToAdd,
+        password: "x".repeat(8) + "1",
+      };
+      const response = await request
+        .post(registerEndpoint)
+        .send(userToAddWithInvalidPassword);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
+
     //? INT1-10
     it("should not allows users to define their roles", async () => {
       const createStub = sinon.stub(User, "create");

@@ -27,9 +27,14 @@ export default class UserValidator {
         .exists()
         .trim()
         .notEmpty()
+        .withMessage("Password is invalid")
         .isLength({ min: 8, max: 32 })
+        .withMessage("Password must be 8-32 characters long")
         .matches(/\d/)
-        .withMessage("Password is invalid"),
+        .withMessage("Password must contain a digit")
+        .matches(/[!@#$£%&?]/)
+        .withMessage("Password must contain a special character"),
+
       UserValidator.handleValidationErrors,
     ];
   };
