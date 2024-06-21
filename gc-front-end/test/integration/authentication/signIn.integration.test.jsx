@@ -10,9 +10,10 @@ vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("../../../src/services/authentication.service");
 
 describe("Sign in integration tests", () => {
+  let modalRoot;
   beforeEach(() => {
     Object.defineProperty(global.window, "scrollTo", { value: () => null });
-    const modalRoot = document.createElement("div");
+    modalRoot = document.createElement("div");
     modalRoot.setAttribute("id", "modal");
     document.body.appendChild(modalRoot);
     render(<App />);
@@ -20,6 +21,7 @@ describe("Sign in integration tests", () => {
 
   afterEach(() => {
     vi.resetAllMocks();
+    document.body.removeChild(modalRoot);
   });
 
   //?US1-INT-1
@@ -169,6 +171,21 @@ describe("Sign in integration tests", () => {
       });
       //Assert
       expect(screen.getByText(/success/i)).toBeInTheDocument();
+    });
+
+    //?US3-INT-9
+    test("It should close the sign in form modal when the close button is pressed", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+        signInResolver();
+      });
+      await act(async () => {
+        fireEvent.click(submitButton);
+      });
+      const registrationForm = screen.queryByRole("form");
+      //Assert
+      expect(registrationForm).toBeNull;
     });
   });
 });

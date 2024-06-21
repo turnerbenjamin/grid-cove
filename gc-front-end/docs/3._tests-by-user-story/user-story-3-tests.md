@@ -28,4 +28,4 @@ A variety of tests have been implemented for this component for user story 1. Th
 - [x] US3-INT-6: It should display the error where the authentication service returns an error
 - [x] US3-INT-7: It should display all errors where the authentication service returns multiple errors
 - [x] US3-INT-8: It should display display a success message where the authentication service resolves
-- [ ] US3-INT-9: It should close the sign in form modal when the close button is pressed
+- [x] US3-INT-9: It should close the sign in form modal when the close button is pressed

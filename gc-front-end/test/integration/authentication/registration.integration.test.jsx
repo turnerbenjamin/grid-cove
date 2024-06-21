@@ -10,9 +10,10 @@ vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("../../../src/services/authentication.service");
 
 describe("Registration integration tests", () => {
+  let modalRoot;
   beforeEach(() => {
     Object.defineProperty(global.window, "scrollTo", { value: () => null });
-    const modalRoot = document.createElement("div");
+    modalRoot = document.createElement("div");
     modalRoot.setAttribute("id", "modal");
     document.body.appendChild(modalRoot);
 
@@ -21,6 +22,7 @@ describe("Registration integration tests", () => {
 
   afterEach(() => {
     vi.resetAllMocks();
+    document.body.removeChild(modalRoot);
   });
 
   //?US1-INT-1
