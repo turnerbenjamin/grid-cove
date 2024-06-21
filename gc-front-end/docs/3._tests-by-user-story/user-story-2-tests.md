@@ -25,3 +25,11 @@ for other fields as well, e.g username as the functionality is closely related.
 - [x] US2-FVD-14: It should return false where password and confirmPassword do not match
 - [x] US2-FVD-15: It should return true where password and confirmPassword do match
 - [x] US2-FVD-16: It should return false from isValidated where one field is invalid
+
+## Input Fields
+
+### User name input field (UNI)
+
+- [x] US2-UNI-1 Should not display an error on render
+- [ ] US2-UNI-2 Should display an error on blur where username is invalid
+- [ ] US2-UNI-3 Should not display an error on blur where username is valid

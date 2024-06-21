@@ -2,6 +2,11 @@ import { useState } from "react";
 
 import Button from "../general/Button";
 import RenderedErrors from "../general/RenderedErrors";
+import FormValidator from "../../utils/FormValidator";
+import UserNameInputField from "./inputFields/UserNameInputField";
+import EmailAddressInputField from "./inputFields/EmailAddressInputField";
+import PasswordInputField from "./inputFields/PasswordInputField";
+import ConfirmPasswordInputField from "./inputFields/ConfirmPasswordInputField";
 
 export default function UserDetailsForm({
   headingText,
@@ -22,17 +27,22 @@ export default function UserDetailsForm({
     setter(value);
   };
 
+  const isFormValidated = FormValidator.isValidated({
+    username,
+    emailAddress,
+    password,
+    confirmPassword,
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isFormValidated) return;
     onSubmit({
       username,
       emailAddress,
       password,
     });
   };
-
-  const labelClasses = "w-full max-w-[20rem]";
-  const inputClasses = "px-2 py-1 text-secondary-900 w-full max-w-[20rem]";
 
   return (
     <form
@@ -43,57 +53,41 @@ export default function UserDetailsForm({
       <h2 className="mb-4 text-2xl text-accent-500" role="heading">
         {headingText}
       </h2>
-      <label className={labelClasses}>Username</label>
-      <input
-        type="text"
-        placeholder="your-username"
-        title="Username"
-        className={inputClasses}
-        role="textbox"
-        disabled={isLoading}
+
+      <UserNameInputField
+        userNameValue={username}
+        isLoading={isLoading}
         onChange={(e) => handleUpdate(setUsername, e.target.value)}
       />
 
-      <label className={labelClasses}>Email address</label>
-      <input
-        type="text"
-        placeholder="your@email.com"
-        title="Email address"
-        className={inputClasses}
-        role="textbox"
-        disabled={isLoading}
+      <EmailAddressInputField
+        emailAddressValue={emailAddress}
+        isLoading={isLoading}
         onChange={(e) => handleUpdate(setEmailAddress, e.target.value)}
       />
 
-      <label className={labelClasses + " mt-4"}>Password</label>
-      <input
-        type="password"
-        placeholder="Your password"
-        title="Password"
-        className={inputClasses}
-        role="textbox"
-        disabled={isLoading}
+      <PasswordInputField
+        passwordValue={password}
+        isLoading={isLoading}
         onChange={(e) => handleUpdate(setPassword, e.target.value)}
       />
 
-      <label className={labelClasses}>Confirm Password</label>
-      <input
-        type="password"
-        placeholder="Confirm password"
-        title="Confirm password"
-        className={inputClasses}
-        role="textbox"
-        disabled={isLoading}
+      <ConfirmPasswordInputField
+        passwordValue={password}
+        confirmPasswordValue={confirmPassword}
+        isLoading={isLoading}
         onChange={(e) => handleUpdate(setConfirmPassword, e.target.value)}
       />
+
       <input type="submit" className="hidden" />
       <Button
         primary
         className="mt-8"
         isLoading={isLoading}
-        isDisabled={errors?.length > 0}
+        isDisabled={errors?.length > 0 || !isFormValidated}
         onClick={handleSubmit}
         title="Submit"
+        type="submit"
       >
         {submitButtonText}
       </Button>

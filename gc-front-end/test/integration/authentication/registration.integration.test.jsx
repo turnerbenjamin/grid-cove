@@ -105,11 +105,10 @@ describe("Registration integration tests", () => {
     test("It should display the error where the authentication service returns an error", async () => {
       //Arrange
       const expected = "test error message";
-      const testError = new Error(expected);
       //Act
       await act(async () => {
         fireEvent.click(submitButton);
-        registerRejecter(testError);
+        registerRejecter(expected);
       });
       //Assert
       expect(screen.getByText(expected)).toBeInTheDocument();
