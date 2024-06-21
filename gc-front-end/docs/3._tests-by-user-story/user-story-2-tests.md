@@ -30,6 +30,6 @@ for other fields as well, e.g username as the functionality is closely related.
 
 ### User name input field (UNI)
 
-- [x] US2-UNI-1 Should not display an error on render
-- [ ] US2-UNI-2 Should display an error on blur where username is invalid
-- [ ] US2-UNI-3 Should not display an error on blur where username is valid
+- [x] US2-UNI-1 It should not display an error on render
+- [x] US2-UNI-2 It should display an error on blur where username is invalid
+- [ ] US2-UNI-3 It should not display an error on blur where username is valid
