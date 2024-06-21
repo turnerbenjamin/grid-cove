@@ -117,12 +117,24 @@ describe("Register tests", () => {
   //?US2-FVD-9
   test("It should return an error where the password is less than 8 characters", () => {
     //Arrange
-    const testInvalidPassword = "x".repeat(7);
+    const testInvalidPassword = "xxxxx1$";
     //Act
     const [isValidated, error] =
       FormValidator.validatePassword(testInvalidPassword);
     //Assert
     expect(isValidated).toBe(false);
     expect(error).toMatch(/password must be at least 8 characters/i);
+  });
+
+  //?US2-FVD-10
+  test("It should return an error where the password is more than 32 characters", () => {
+    //Arrange
+    const testInvalidPassword = "x".repeat(31) + "1$";
+    //Act
+    const [isValidated, error] =
+      FormValidator.validatePassword(testInvalidPassword);
+    //Assert
+    expect(isValidated).toBe(false);
+    expect(error).toMatch(/password must be no more than 32 characters/i);
   });
 });
