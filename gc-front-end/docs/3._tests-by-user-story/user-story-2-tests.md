@@ -21,5 +21,5 @@ for other fields as well, e.g username as the functionality is closely related.
 - [x] US2-FVD-10: It should return an error where the password is more than 32 characters
 - [x] US2-FVD-11: It should return an error where the password does not contain at least one digit
 - [x] US2-FVD-12: It should return an error where the password does not contain at least one special character
-- [ ] US2-FVD-13: It should return true where the password is valid
+- [x] US2-FVD-13: It should return true where the password is valid
 - [ ] US2-FVD-14: It should return false from isValidated where one field is invalid

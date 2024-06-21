@@ -35,5 +35,6 @@ export default class FormValidator {
       return [false, "Password must contain at least one digit"];
     if (!password.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/))
       return [false, "Password must contain at least one special character"];
+    return [true];
   }
 }

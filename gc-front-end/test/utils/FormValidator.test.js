@@ -163,4 +163,16 @@ describe("Register tests", () => {
       /password must contain at least one special character/i
     );
   });
+
+  //?US2-FVD-12
+  test("It should return true where the password is valid", () => {
+    //Arrange
+    const testValidPassword = "x".repeat(7) + "1$";
+    //Act
+    const [isValidated, error] =
+      FormValidator.validatePassword(testValidPassword);
+    //Assert
+    expect(isValidated).toBe(true);
+    expect(error).toBe(undefined);
+  });
 });
