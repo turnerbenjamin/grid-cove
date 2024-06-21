@@ -129,5 +129,18 @@ describe("Sign in integration tests", () => {
       //Assert
       expect(screen.getByRole("status")).toBeInTheDocument();
     });
+
+    //?US3-INT-6
+    test("It should display the error where the authentication service returns an error", async () => {
+      //Arrange
+      const expected = "test error message";
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+        signInRejecter(expected);
+      });
+      //Assert
+      expect(screen.getByText(expected)).toBeInTheDocument();
+    });
   });
 });
