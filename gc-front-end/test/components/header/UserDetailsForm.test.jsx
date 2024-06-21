@@ -191,6 +191,20 @@ describe("User details form tests: ", () => {
         //Assert
         expect(onSubmitSpy).toBeCalledWith(expectedSubmission);
       });
+
+      //?US2-UDF-1
+      test("It should disable submit when one or more fields are not validated", async () => {
+        //Arrange
+        const form = screen.queryByRole("form");
+        //Act
+        await act(async () => {
+          fireEvent.change(confirmPasswordInputField, {
+            target: { value: "invalidValue" },
+          });
+          fireEvent.submit(form);
+        });
+        expect(onSubmitSpy).toHaveBeenCalledTimes(0);
+      });
     });
   });
 });

@@ -51,3 +51,9 @@ for other fields as well, e.g username as the functionality is closely related.
 - [x] US2-CPI-1: It should not display an error on render
 - [x] US2-CPI-2: It should display an error on blur where passwords do not match
 - [x] US2-CPI-3: It should not display an error on blur where passwords do match
+
+## User Details Form (UDF)
+
+### General Tests
+
+- [x] US2-UDF-1: It should disable submit when one or more fields are not validated
