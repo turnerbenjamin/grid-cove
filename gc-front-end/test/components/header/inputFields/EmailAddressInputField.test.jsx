@@ -8,6 +8,7 @@ describe("Email Address input field tests", () => {
       <EmailAddressInputField
         emailAddressValue="invalid.email"
         onChange={() => null}
+        isActive
       />
     );
     expect(screen.queryByRole("alert")).toBe(null);
@@ -19,6 +20,7 @@ describe("Email Address input field tests", () => {
       <EmailAddressInputField
         emailAddressValue="invalid.email"
         onChange={() => null}
+        isActive
       />
     );
     const inputField = screen.getByTitle("Email address");
@@ -35,6 +37,7 @@ describe("Email Address input field tests", () => {
       <EmailAddressInputField
         emailAddressValue="valid@email.com"
         onChange={() => null}
+        isActive
       />
     );
     const inputField = screen.getByTitle("Email address");

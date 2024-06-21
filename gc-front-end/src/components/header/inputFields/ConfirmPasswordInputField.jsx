@@ -7,7 +7,9 @@ export default function ConfirmPasswordInputField({
   confirmPasswordValue,
   isLoading,
   onChange,
+  isActive,
 }) {
+  if (!isActive) return;
   return (
     <FormInputValidator
       className="mb-2"

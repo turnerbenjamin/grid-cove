@@ -58,18 +58,21 @@ export default function UserDetailsForm({
         userNameValue={username}
         isLoading={isLoading}
         onChange={(e) => handleUpdate(setUsername, e.target.value)}
+        isActive={activeFields?.username}
       />
 
       <EmailAddressInputField
         emailAddressValue={emailAddress}
         isLoading={isLoading}
         onChange={(e) => handleUpdate(setEmailAddress, e.target.value)}
+        isActive={activeFields?.emailAddress}
       />
 
       <PasswordInputField
         passwordValue={password}
         isLoading={isLoading}
         onChange={(e) => handleUpdate(setPassword, e.target.value)}
+        isActive={activeFields?.password}
       />
 
       <ConfirmPasswordInputField
@@ -77,6 +80,7 @@ export default function UserDetailsForm({
         confirmPasswordValue={confirmPassword}
         isLoading={isLoading}
         onChange={(e) => handleUpdate(setConfirmPassword, e.target.value)}
+        isActive={activeFields?.confirmPassword}
       />
 
       <input type="submit" className="hidden" />

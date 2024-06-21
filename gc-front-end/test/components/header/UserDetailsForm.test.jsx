@@ -113,7 +113,7 @@ describe("User details form tests: ", () => {
 
   describe("Registration form configuration tests", () => {
     const testRegistrationFormConfig = {
-      userName: true,
+      username: true,
       emailAddress: true,
       password: true,
       confirmPassword: true,
@@ -205,6 +205,49 @@ describe("User details form tests: ", () => {
         });
         expect(onSubmitSpy).toHaveBeenCalledTimes(0);
       });
+    });
+  });
+
+  describe("Sign-In form configuration tests", () => {
+    const testSignInFormConfig = {
+      emailAddress: true,
+      password: true,
+    };
+    const expectedSubmission = {
+      emailAddress: "test@email.com",
+      password: "password12$",
+    };
+
+    let onSubmitSpy;
+    let emailAddressInputField;
+    let passwordInputField;
+
+    beforeEach(() => {
+      onSubmitSpy = vi.fn(() => null);
+      render(
+        <UserDetailsForm
+          headingText={testHeadingText}
+          submitButtonText={testSubmitButtonText}
+          activeFields={testSignInFormConfig}
+          onSubmit={onSubmitSpy}
+        />
+      );
+      emailAddressInputField = screen.getByTitle(/email address/i);
+      passwordInputField = screen.getByTitle(/^password/i);
+    });
+
+    afterEach(() => {
+      emailAddressInputField = null;
+      passwordInputField = null;
+    });
+
+    //?US3-UDF-1
+    test("It should display the correct fields for registration when correct config prop provided", async () => {
+      //Assert
+      expect(emailAddressInputField).toBeInTheDocument();
+      expect(passwordInputField).toBeInTheDocument();
+      expect(screen.queryByText(/username/i)).toBe(null);
+      expect(screen.queryByText(/^confirm password/i)).toBe(null);
     });
   });
 });

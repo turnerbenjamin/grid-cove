@@ -6,7 +6,9 @@ export default function EmailAddressInputField({
   emailAddressValue,
   isLoading,
   onChange,
+  isActive,
 }) {
+  if (!isActive) return;
   return (
     <FormInputValidator
       className="mb-4"

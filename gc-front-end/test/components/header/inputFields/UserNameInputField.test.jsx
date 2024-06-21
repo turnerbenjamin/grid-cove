@@ -4,13 +4,17 @@ import UserNameInputField from "../../../../src/components/header/inputFields/Us
 describe("Username input field tests", () => {
   //?US2-UNI-1
   test("It should not display an error on render", () => {
-    render(<UserNameInputField userNameValue="" onChange={() => null} />);
+    render(
+      <UserNameInputField userNameValue="" onChange={() => null} isActive />
+    );
     expect(screen.queryByRole("alert")).toBe(null);
   });
 
   //?US2-UNI-2
   test("It should display an error on blur where username is invalid", async () => {
-    render(<UserNameInputField userNameValue="" onChange={() => null} />);
+    render(
+      <UserNameInputField userNameValue="" onChange={() => null} isActive />
+    );
     const inputField = screen.getByTitle("Username");
     await act(async () => {
       inputField.focus();
@@ -25,6 +29,7 @@ describe("Username input field tests", () => {
       <UserNameInputField
         userNameValue="valid-username"
         onChange={() => null}
+        isActive
       />
     );
     const inputField = screen.getByTitle("Username");

@@ -5,7 +5,11 @@ describe("Password input field tests", () => {
   //?US2-PWI-1
   test("It should not display an error on render", () => {
     render(
-      <PasswordInputField passwordValue="invalid" onChange={() => null} />
+      <PasswordInputField
+        passwordValue="invalid"
+        onChange={() => null}
+        isActive
+      />
     );
     expect(screen.queryByRole("alert")).toBe(null);
   });
@@ -13,7 +17,11 @@ describe("Password input field tests", () => {
   //?US2-PWI-2
   test("It should display an error on blur where password is invalid", async () => {
     render(
-      <PasswordInputField passwordValue="invalid" onChange={() => null} />
+      <PasswordInputField
+        passwordValue="invalid"
+        onChange={() => null}
+        isActive
+      />
     );
     const inputField = screen.getByTitle("Password");
     await act(async () => {
@@ -29,6 +37,7 @@ describe("Password input field tests", () => {
       <PasswordInputField
         passwordValue="validPassword123$"
         onChange={() => null}
+        isActive
       />
     );
     const inputField = screen.getByTitle("Password");

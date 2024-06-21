@@ -6,7 +6,9 @@ export default function UserNameInputField({
   userNameValue,
   isLoading,
   onChange,
+  isActive,
 }) {
+  if (!isActive) return;
   return (
     <FormInputValidator
       className="mb-2"

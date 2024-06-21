@@ -9,6 +9,7 @@ describe("Confirm password input field tests", () => {
         passwordValue="a"
         confirmPasswordValue="b"
         onChange={() => null}
+        isActive
       />
     );
     expect(screen.queryByRole("alert")).toBe(null);
@@ -21,6 +22,7 @@ describe("Confirm password input field tests", () => {
         passwordValue="a"
         confirmPasswordValue="b"
         onChange={() => null}
+        isActive
       />
     );
     const inputField = screen.getByTitle("Confirm Password");
@@ -38,6 +40,7 @@ describe("Confirm password input field tests", () => {
         passwordValue="a"
         confirmPasswordValue="a"
         onChange={() => null}
+        isActive
       />
     );
     const inputField = screen.getByTitle("Confirm Password");
