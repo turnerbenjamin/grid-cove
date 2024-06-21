@@ -74,4 +74,17 @@ describe("Register tests", () => {
     expect(isValidated).toBe(true);
     expect(error).toBe(undefined);
   });
+
+  //?US2-FVD-6
+  test("It should return an error where the email is empty", () => {
+    //Arrange
+    const testInvalidEmailAddress = "  ";
+    //Act
+    const [isValidated, error] = FormValidator.validateEmailAddress(
+      testInvalidEmailAddress
+    );
+    //Assert
+    expect(isValidated).toBe(false);
+    expect(error).toMatch(/email address is required/i);
+  });
 });

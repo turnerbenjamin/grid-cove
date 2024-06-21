@@ -2,6 +2,7 @@ export default class FormValidator {
   static isValidated() {
     return true;
   }
+
   static validateUsername(username) {
     if (username.length < 8)
       return [false, "Username must be at least 8 characters"];
@@ -12,6 +13,12 @@ export default class FormValidator {
         false,
         "Username may only contain lowercase letters, digits and hyphens",
       ];
+
     return [true];
+  }
+
+  static validateEmailAddress(emailAddress) {
+    if (emailAddress.trim().length === 0)
+      return [false, "Email address is required"];
   }
 }
