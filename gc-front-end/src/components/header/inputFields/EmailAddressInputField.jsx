@@ -4,7 +4,7 @@ import FormValidator from "../../../utils/FormValidator";
 
 export default function EmailAddressInputField({
   emailAddressValue,
-  isLoading,
+  isDisabled,
   onChange,
   isActive,
   doSkipValidation,
@@ -21,7 +21,7 @@ export default function EmailAddressInputField({
         labelTitle="Email address"
         placeholder="your@email.com"
         type="email"
-        isLoading={isLoading}
+        isDisabled={isDisabled}
         onChange={onChange}
       />
     </FormInputValidator>

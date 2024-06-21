@@ -77,4 +77,40 @@ describe("Sign in integration tests", () => {
       expect(authenticationService.signIn).toBeCalledTimes(1);
     });
   });
+
+  describe("Submission tests", () => {
+    let emailAddressInput;
+    let passwordInput;
+    let submitButton;
+    const testSubmission = {
+      emailAddress: "lou@vu.com",
+      password: "$tephani3Say$",
+    };
+    beforeEach(async () => {
+      await act(async () => {
+        fireEvent.click(screen.queryByText(/sign-in/i));
+      });
+      submitButton = screen.getByTitle(/^submit/i);
+      emailAddressInput = screen.getByTitle(/email address/i);
+      passwordInput = screen.getByTitle(/^password/i);
+      await act(async () => {
+        fireEvent.change(emailAddressInput, {
+          target: { value: testSubmission.emailAddress },
+        });
+        fireEvent.change(passwordInput, {
+          target: { value: testSubmission.password },
+        });
+      });
+    });
+
+    //?US3-INT-4
+    test("It should make a call to the authentication service with the correct arguments on submit", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+      });
+      //Assert
+      expect(authenticationService.signIn).toBeCalledWith(testSubmission);
+    });
+  });
 });

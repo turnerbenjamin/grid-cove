@@ -22,8 +22,7 @@ export default function useGridCoveUserService() {
   const handleClearIsRegistrationSuccessful = () =>
     setIsRegistrationSuccessful(false);
 
-  const handleClearSignInIsSuccessful = () =>
-    setIsRegistrationSuccessful(false);
+  const handleClearSignInIsSuccessful = () => setIsSignInSuccessful(false);
 
   const registerNewUser = async (newUserSubmission) => {
     try {

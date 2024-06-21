@@ -4,7 +4,7 @@ import FormValidator from "../../../utils/FormValidator";
 
 export default function UserNameInputField({
   userNameValue,
-  isLoading,
+  isDisabled,
   onChange,
   isActive,
   doSkipValidation,
@@ -21,7 +21,7 @@ export default function UserNameInputField({
         labelTitle="Username"
         placeholder="your-username"
         type="text"
-        isLoading={isLoading}
+        isDisabled={isDisabled}
         onChange={onChange}
       />
     </FormInputValidator>

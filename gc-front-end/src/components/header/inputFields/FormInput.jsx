@@ -2,7 +2,7 @@ export default function FormInput({
   labelTitle,
   placeholder,
   type,
-  isLoading,
+  isDisabled,
   onChange,
 }) {
   return (
@@ -14,7 +14,7 @@ export default function FormInput({
         title={labelTitle}
         className="w-full px-2 py-1 text-secondary-900"
         role="textbox"
-        disabled={isLoading}
+        disabled={isDisabled}
         onChange={onChange}
       />
     </div>

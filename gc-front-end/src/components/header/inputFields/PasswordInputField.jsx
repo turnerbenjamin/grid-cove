@@ -4,7 +4,7 @@ import FormValidator from "../../../utils/FormValidator";
 
 export default function PasswordInputField({
   passwordValue,
-  isLoading,
+  isDisabled,
   onChange,
   isActive,
   doSkipValidation,
@@ -21,7 +21,7 @@ export default function PasswordInputField({
         labelTitle="Password"
         placeholder="Your password"
         type="password"
-        isLoading={isLoading}
+        isDisabled={isDisabled}
         onChange={onChange}
       />
     </FormInputValidator>

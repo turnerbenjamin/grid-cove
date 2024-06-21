@@ -9,7 +9,14 @@ export default function SignInButton({ onClick, doShowForm, onClose }) {
     authenticationIsLoading,
     authenticationErrors,
     handleClearAuthenticationErrors,
+    isSignInSuccessful,
+    handleClearSignInIsSuccessful,
   } = useAppContext();
+
+  const handleClose = () => {
+    handleClearSignInIsSuccessful();
+    onClose();
+  };
 
   return (
     <>
@@ -20,14 +27,17 @@ export default function SignInButton({ onClick, doShowForm, onClose }) {
         SIGN-IN
       </Button>
       {doShowForm && (
-        <Modal onClose={onClose}>
+        <Modal onClose={handleClose}>
           <UserDetailsForm
             headingText="Sign-In"
-            submitButtonText="Submit"
-            onSubmit={signInUser}
+            submitButtonText={isSignInSuccessful ? "Close" : "Submit"}
+            onSubmit={isSignInSuccessful ? handleClose : signInUser}
             isLoading={authenticationIsLoading}
             errors={authenticationErrors}
             handleClearAuthenticationErrors={handleClearAuthenticationErrors}
+            successMessage={
+              isSignInSuccessful && "You have signed in successfully."
+            }
             doSkipValidation
             activeFields={{
               emailAddress: true,
