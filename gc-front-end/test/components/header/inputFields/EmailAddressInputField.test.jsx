@@ -28,4 +28,20 @@ describe("Email Address input field tests", () => {
     });
     expect(screen.queryByRole("alert")).toBeInTheDocument();
   });
+
+  //?US2-EAI-3
+  test("It should not display an error on blur where email address is valid", async () => {
+    render(
+      <EmailAddressInputField
+        emailAddressValue="valid@email.com"
+        onChange={() => null}
+      />
+    );
+    const inputField = screen.getByTitle("Email address");
+    await act(async () => {
+      inputField.focus();
+      inputField.blur();
+    });
+    expect(screen.queryByRole("alert")).toBe(null);
+  });
 });
