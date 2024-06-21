@@ -104,5 +104,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).toEqual(expected);
     });
+
+    //?US3-AHS-3
+    test("It should return err?.response?.data where validation error received", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.post.mockRejectedValueOnce({ response: { data: expected } });
+      let actual;
+      //Act
+      try {
+        await authenticationService.signIn(testUserSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
