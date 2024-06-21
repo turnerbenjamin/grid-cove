@@ -159,5 +159,16 @@ describe("Sign in integration tests", () => {
       expect(screen.getByText(testErrors[0].msg)).toBeInTheDocument();
       expect(screen.getByText(testErrors[1].msg)).toBeInTheDocument();
     });
+
+    //?US3-INT-8
+    test("It should display display a success message where the authentication service resolves", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+        signInResolver();
+      });
+      //Assert
+      expect(screen.getByText(/success/i)).toBeInTheDocument();
+    });
   });
 });
