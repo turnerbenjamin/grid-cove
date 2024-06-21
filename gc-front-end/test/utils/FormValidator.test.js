@@ -178,7 +178,6 @@ describe("Register tests", () => {
 
   //?US2-FVD-14
   test("It should return false where password and confirmPassword do not match", () => {
-    //Arrange
     //Act
     const [isValidated, error] = FormValidator.validateConfirmPassword(
       "a",
@@ -187,5 +186,17 @@ describe("Register tests", () => {
     //Assert
     expect(isValidated).toBe(false);
     expect(error).toMatch(/passwords do not match/i);
+  });
+
+  //?US2-FVD-13
+  test("It should return true where password and confirmPassword do match", () => {
+    //Act
+    const [isValidated, error] = FormValidator.validateConfirmPassword(
+      "a",
+      "a"
+    );
+    //Assert
+    expect(isValidated).toBe(true);
+    expect(error).toBe(undefined);
   });
 });
