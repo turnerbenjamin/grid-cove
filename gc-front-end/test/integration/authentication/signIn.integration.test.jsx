@@ -37,4 +37,32 @@ describe("Sign in integration tests", () => {
     expect(screen.queryByTitle(/username/i)).toBe(null);
     expect(screen.queryByTitle(/^confirm password/i)).toBe(null);
   });
+
+  describe("Validation is turned off tests", () => {
+    let emailAddressInput;
+    let passwordInput;
+    beforeEach(async () => {
+      await act(async () => {
+        fireEvent.click(screen.queryByText(/sign-in/i));
+      });
+      emailAddressInput = screen.getByTitle(/email address/i);
+      passwordInput = screen.getByTitle(/^password/i);
+      await act(async () => {
+        fireEvent.change(emailAddressInput, {
+          target: { value: "x" },
+        });
+        fireEvent.change(passwordInput, {
+          target: { value: "x" },
+        });
+        fireEvent.blur(emailAddressInput);
+        fireEvent.blur(passwordInput);
+      });
+    });
+
+    //?US1-INT-2
+    test("It should not display validation errors", async () => {
+      //assert
+      expect(screen.queryByRole("alert")).toBe(null);
+    });
+  });
 });

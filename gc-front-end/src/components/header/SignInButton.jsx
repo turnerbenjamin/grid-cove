@@ -16,6 +16,7 @@ export default function SignInButton({ onClick, doShowForm, onClose }) {
           <UserDetailsForm
             headingText="Sign-In"
             submitButtonText="Submit"
+            doSkipValidation
             activeFields={{
               emailAddress: true,
               password: true,

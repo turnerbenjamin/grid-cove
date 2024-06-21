@@ -8,6 +8,7 @@ export default function ConfirmPasswordInputField({
   isLoading,
   onChange,
   isActive,
+  doSkipValidation,
 }) {
   if (!isActive) return;
   return (
@@ -15,6 +16,7 @@ export default function ConfirmPasswordInputField({
       className="mb-2"
       values={[passwordValue, confirmPasswordValue]}
       validator={FormValidator.validateConfirmPassword}
+      doSkipValidation={doSkipValidation}
     >
       <FormInput
         labelTitle="Confirm Password"

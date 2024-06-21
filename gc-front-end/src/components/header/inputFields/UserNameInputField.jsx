@@ -7,6 +7,7 @@ export default function UserNameInputField({
   isLoading,
   onChange,
   isActive,
+  doSkipValidation,
 }) {
   if (!isActive) return;
   return (
@@ -14,6 +15,7 @@ export default function UserNameInputField({
       className="mb-2"
       values={[userNameValue]}
       validator={FormValidator.validateUsername}
+      doSkipValidation={doSkipValidation}
     >
       <FormInput
         labelTitle="Username"

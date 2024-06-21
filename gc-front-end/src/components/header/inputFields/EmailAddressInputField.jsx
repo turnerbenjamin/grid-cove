@@ -7,6 +7,7 @@ export default function EmailAddressInputField({
   isLoading,
   onChange,
   isActive,
+  doSkipValidation,
 }) {
   if (!isActive) return;
   return (
@@ -14,6 +15,7 @@ export default function EmailAddressInputField({
       className="mb-4"
       values={[emailAddressValue]}
       validator={FormValidator.validateEmailAddress}
+      doSkipValidation={doSkipValidation}
     >
       <FormInput
         labelTitle="Email address"

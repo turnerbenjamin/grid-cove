@@ -6,10 +6,12 @@ export default function FormInputValidator({
   validator,
   className,
   children,
+  doSkipValidation,
 }) {
   const [doShowErrors, setDoShowErrors] = useState(false);
 
   const handleBlur = () => {
+    if (doSkipValidation) return;
     setDoShowErrors(true);
   };
 

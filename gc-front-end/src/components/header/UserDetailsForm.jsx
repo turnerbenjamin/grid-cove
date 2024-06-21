@@ -16,6 +16,7 @@ export default function UserDetailsForm({
   isLoading,
   clearErrors,
   onSubmit,
+  doSkipValidation,
 }) {
   const [username, setUsername] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
@@ -62,6 +63,7 @@ export default function UserDetailsForm({
         isLoading={isLoading}
         onChange={(e) => handleUpdate(setUsername, e.target.value)}
         isActive={activeFields?.username}
+        doSkipValidation={doSkipValidation}
       />
 
       <EmailAddressInputField
@@ -69,6 +71,7 @@ export default function UserDetailsForm({
         isLoading={isLoading}
         onChange={(e) => handleUpdate(setEmailAddress, e.target.value)}
         isActive={activeFields?.emailAddress}
+        doSkipValidation={doSkipValidation}
       />
 
       <PasswordInputField
@@ -76,6 +79,7 @@ export default function UserDetailsForm({
         isLoading={isLoading}
         onChange={(e) => handleUpdate(setPassword, e.target.value)}
         isActive={activeFields?.password}
+        doSkipValidation={doSkipValidation}
       />
 
       <ConfirmPasswordInputField
@@ -84,6 +88,7 @@ export default function UserDetailsForm({
         isLoading={isLoading}
         onChange={(e) => handleUpdate(setConfirmPassword, e.target.value)}
         isActive={activeFields?.confirmPassword}
+        doSkipValidation={doSkipValidation}
       />
 
       <input type="submit" className="hidden" />

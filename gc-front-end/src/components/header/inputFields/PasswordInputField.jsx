@@ -7,6 +7,7 @@ export default function PasswordInputField({
   isLoading,
   onChange,
   isActive,
+  doSkipValidation,
 }) {
   if (!isActive) return;
   return (
@@ -14,6 +15,7 @@ export default function PasswordInputField({
       className="mb-2"
       values={[passwordValue]}
       validator={FormValidator.validatePassword}
+      doSkipValidation={doSkipValidation}
     >
       <FormInput
         labelTitle="Password"
