@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import sinon from "sinon";
 
 import APIErrors from "../../src/utils/APIErrors.js";
@@ -152,17 +153,21 @@ describe("Authentication service tests", () => {
     let findOneStub;
     let selectStub;
     let compareStub;
+    let signStub;
     const testUserSubmission = {
       emailAddress: userTestData.submissions[0].emailAddress,
       password: userTestData.submissions[0].password,
     };
     const testUserDocument = userTestData.documents[0];
+    const testToken = { testToken: "testToken" };
 
     beforeEach(() => {
       findOneStub = sinon.stub(User, "findOne");
       selectStub = sinon.stub();
       selectStub.resolves(testUserDocument);
       findOneStub.returns({ select: selectStub });
+      signStub = sinon.stub(jwt, "sign");
+      signStub.returns(testToken);
       compareStub = sinon.stub(bcrypt, "compare");
       compareStub.resolves(true);
     });
@@ -171,6 +176,7 @@ describe("Authentication service tests", () => {
       findOneStub.restore();
       selectStub = null;
       compareStub.restore();
+      signStub.restore();
     });
 
     //? AS3-1
@@ -264,6 +270,23 @@ describe("Authentication service tests", () => {
       }
       //Assert
       expect(actual).to.equal(expected);
+    });
+
+    //? AS3-7
+    it("should call sign on jwt with the correct arguments", async () => {
+      //Arrange
+      const expectedJWTBody = { _id: testUserDocument._id };
+      const expectedSecretKey = process.env.JWT_SECRET_KEY;
+      const expectedOptions = { expiresIn: process.env.JWT_EXPIRES_IN };
+      //Act
+      await authenticationService.signInUser(testUserSubmission);
+      const [actualJWTBody, actualSecretKey, actualOptions] =
+        signStub.getCall(0).args;
+      //Assert
+
+      expect(actualJWTBody).to.deep.equal(expectedJWTBody);
+      expect(actualSecretKey).to.equal(expectedSecretKey);
+      expect(actualOptions).to.deep.equal(expectedOptions);
     });
   });
 });

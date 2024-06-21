@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 import APIErrors from "../utils/APIErrors.js";
 import User from "../models/User.model.js";
@@ -21,6 +22,7 @@ export default class AuthenticationService {
         emailAddress: userCredentials.emailAddress,
       }).select("+password");
       await this.#verifyUser(userCredentials, userDocument);
+      this.#getToken(userDocument);
     } catch (err) {
       this.#handleError(err);
     }
@@ -33,6 +35,17 @@ export default class AuthenticationService {
       userDocument.password
     );
     if (!validated) throw APIErrors.UNAUTHORISED_ERROR;
+  };
+
+  #getToken = (userDocument) => {
+    const token = jwt.sign(
+      { _id: userDocument._id },
+      process.env.JWT_SECRET_KEY,
+      {
+        expiresIn: process.env.JWT_EXPIRES_IN,
+      }
+    );
+    return token;
   };
 
   #handleError = (err) => {
