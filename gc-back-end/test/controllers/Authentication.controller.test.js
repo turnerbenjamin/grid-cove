@@ -184,5 +184,15 @@ describe("Authentication controller tests", () => {
       expect(actualToken).to.equal(expectedToken);
       expect(actualOptions).to.deep.equal(expectedOptions);
     });
+
+    //? AC3-4
+    it("should call res.cookie with valid arguments", async () => {
+      //Arrange
+      res.cookie.throws();
+      //Act
+      await authenticationController.signIn(req, res);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+    });
   });
 });

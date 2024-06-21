@@ -28,7 +28,7 @@ I have also removed the direct link between the service and the setting of statu
 - [x] AC3-2: It should respond with a 500 error if User Service throws a server error
 - [x] AC3-3: It should respond with a 401 error if User Service throws a user unauthorised error
 - [x] AC3-4: It should call res.cookie with valid arguments
-- [ ] AC3-5: It should respond with a 500 error if cookie method fails
+- [x] AC3-5: It should respond with a 500 error if cookie method fails
 - [ ] AC3-6: It should respond with a 200 status code if no errors
 - [ ] AC3-7: It should call res.json with the user value returned from signInUser where no errors
 
