@@ -230,6 +230,7 @@ describe("User details form tests: ", () => {
           submitButtonText={testSubmitButtonText}
           activeFields={testSignInFormConfig}
           onSubmit={onSubmitSpy}
+          doSkipValidation={true}
         />
       );
       emailAddressInputField = screen.getByTitle(/email address/i);
