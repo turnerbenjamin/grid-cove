@@ -33,3 +33,9 @@ for other fields as well, e.g username as the functionality is closely related.
 - [x] US2-UNI-1 It should not display an error on render
 - [x] US2-UNI-2 It should display an error on blur where username is invalid
 - [x] US2-UNI-3 It should not display an error on blur where username is valid
+
+### Email address input field (EAI)
+
+- [x] US2-EAI-1 It should not display an error on render
+- [ ] US2-EAI-2 It should display an error on blur where email address is invalid
+- [ ] US2-EAI-3 It should not display an error on blur where email address is valid

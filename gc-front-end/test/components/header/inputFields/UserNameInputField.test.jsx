@@ -1,12 +1,10 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, beforeEach } from "vitest";
+import { act, render, screen } from "@testing-library/react";
 import UserNameInputField from "../../../../src/components/header/inputFields/UserNameInputField";
 
-describe("Username input field test", () => {
+describe("Username input field tests", () => {
   //?US2-UNI-1
   test("It should not display an error on render", () => {
     render(<UserNameInputField userNameValue="" onChange={() => null} />);
-    screen.debug();
     expect(screen.queryByRole("alert")).toBe(null);
   });
 
