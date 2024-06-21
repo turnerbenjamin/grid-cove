@@ -23,7 +23,7 @@ export default class AuthenticationController {
         req.body
       );
       this.#setCookie(res, token);
-      res.status(200);
+      res.status(200).json(user);
     } catch (err) {
       this.#handleErrors(res, err);
     }

@@ -202,5 +202,13 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(res.status.calledWith(200)).to.equal(true);
     });
+
+    //? AC3-7
+    it("should call res.json with the user value returned from signInUser where no errors", async () => {
+      //Act
+      await authenticationController.signIn(req, res);
+      //Assert
+      expect(res.json.calledWith(userTestData.documents[0])).to.equal(true);
+    });
   });
 });
