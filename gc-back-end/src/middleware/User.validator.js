@@ -27,6 +27,7 @@ export default class UserValidator {
         .exists()
         .trim()
         .notEmpty()
+        .isLength({ min: 8 })
         .withMessage("Password is invalid"),
       UserValidator.handleValidationErrors,
     ];

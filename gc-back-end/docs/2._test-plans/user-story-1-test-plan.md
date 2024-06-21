@@ -1,5 +1,9 @@
 # User Story 1 Test Plan
 
+- As a user
+- I want to be able to register for an account
+- So that I can access features restricted to registered users
+
 These tests are modifications of those from challenge 5. I am making a couple of adjustments to the approach I took in that challenge:
 
 First, I am moving the hashing functionality from the controller to the service. This is because I read that controllers are responsible "only for receiving the request and displaying the result of the operation"

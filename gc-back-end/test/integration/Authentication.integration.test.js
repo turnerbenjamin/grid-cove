@@ -156,6 +156,19 @@ describe("Authentication integration tests: ", () => {
       expect(response.status).to.equal(400);
     });
 
+    //? INT2-1
+    it("should return an error where the password is less than 8 characters", async () => {
+      const userToAddWithInvalidPassword = {
+        ...userToAdd,
+        password: "xxxxx1$",
+      };
+      const response = await request
+        .post(registerEndpoint)
+        .send(userToAddWithInvalidPassword);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
+
     //? INT1-10
     it("should not allows users to define their roles", async () => {
       const createStub = sinon.stub(User, "create");
@@ -226,7 +239,6 @@ describe("Authentication integration tests: ", () => {
     it("should not include password field in response", async () => {
       //Act
       const response = await request.post(registerEndpoint).send(userToAdd);
-      console.log(response.body);
       //Assert
       expect(response.body.password).to.equal(undefined);
     });
