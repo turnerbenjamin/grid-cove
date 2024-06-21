@@ -185,7 +185,7 @@ describe("Authentication controller tests", () => {
       expect(actualOptions).to.deep.equal(expectedOptions);
     });
 
-    //? AC3-4
+    //? AC3-5
     it("should call res.cookie with valid arguments", async () => {
       //Arrange
       res.cookie.throws();
@@ -193,6 +193,14 @@ describe("Authentication controller tests", () => {
       await authenticationController.signIn(req, res);
       //Assert
       expect(res.status.calledWith(500)).to.equal(true);
+    });
+
+    //? AC3-6
+    it("should respond with a 200 status code if no errors", async () => {
+      //Act
+      await authenticationController.signIn(req, res);
+      //Assert
+      expect(res.status.calledWith(200)).to.equal(true);
     });
   });
 });
