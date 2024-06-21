@@ -82,11 +82,18 @@ describe("Sign in integration tests", () => {
     let emailAddressInput;
     let passwordInput;
     let submitButton;
+    let signInResolver;
+    let signInRejecter;
     const testSubmission = {
       emailAddress: "lou@vu.com",
       password: "$tephani3Say$",
     };
     beforeEach(async () => {
+      const promise = new Promise((resolve, reject) => {
+        signInResolver = resolve;
+        signInRejecter = reject;
+      });
+      authenticationService.signIn.mockReturnValueOnce(promise);
       await act(async () => {
         fireEvent.click(screen.queryByText(/sign-in/i));
       });
@@ -111,6 +118,16 @@ describe("Sign in integration tests", () => {
       });
       //Assert
       expect(authenticationService.signIn).toBeCalledWith(testSubmission);
+    });
+
+    //?US3-INT-5
+    test("It should show a loading spinner when the authentication service is loading", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(submitButton);
+      });
+      //Assert
+      expect(screen.getByRole("status")).toBeInTheDocument();
     });
   });
 });

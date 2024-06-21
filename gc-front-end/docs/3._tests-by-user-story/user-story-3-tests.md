@@ -24,7 +24,7 @@ A variety of tests have been implemented for this component for user story 1. Th
 - [x] US3-INT-2: It should not display validation errors
 - [x] US3-INT-3: It should not disable submit where the values in the input fields would not pass validation
 - [x] US3-INT-4: It should make a call to the authentication service with the correct arguments on submit
-- [ ] US3-INT-5: It should show a loading spinner when the authentication service is loading
+- [x] US3-INT-5: It should show a loading spinner when the authentication service is loading
 - [ ] US3-INT-6: It should display the error where the authentication service returns an error
 - [ ] US3-INT-7: It should display all errors where the authentication service returns multiple errors
 - [ ] US3-INT-8: It should display display a success message where the authentication service resolves
