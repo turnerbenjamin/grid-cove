@@ -48,4 +48,30 @@ describe("Register tests", () => {
     expect(isValidated).toBe(false);
     expect(error).toMatch(/username must be no more than 24 characters/i);
   });
+
+  //?US2-FVD-4
+  test("It should return an error where the username contains invalid characters", () => {
+    //Arrange
+    const testInvalidUsername = "Test Username";
+    //Act
+    const [isValidated, error] =
+      FormValidator.validateUsername(testInvalidUsername);
+    //Assert
+    expect(isValidated).toBe(false);
+    expect(error).toMatch(
+      /username may only contain lowercase letters, digits and hyphens/i
+    );
+  });
+
+  //?US2-FVD-5
+  test("It should return true where the username is valid", () => {
+    //Arrange
+    const testValidUsername = "test-username";
+    //Act
+    const [isValidated, error] =
+      FormValidator.validateUsername(testValidUsername);
+    //Assert
+    expect(isValidated).toBe(true);
+    expect(error).toBe(undefined);
+  });
 });
