@@ -20,7 +20,7 @@ I have also removed the direct link between the service and the setting of statu
 - [x] AS3-6: It should throw a user unauthorised error where bcrypt returns false
 - [x] AS3-7: It should call sign on jwt with the correct arguments
 - [x] AS3-8: It should throw a server error if sign fails
-- [ ] AS3-9: It should return the user, without the password, and an access token where no errors
+- [x] AS3-9: It should return the user, without the password, and an access token where no errors
 
 ## Authentication Controller (AC)
 

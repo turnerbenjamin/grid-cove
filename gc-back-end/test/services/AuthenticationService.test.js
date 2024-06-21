@@ -304,5 +304,19 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS3-9
+    it("should return the user, without the password, and an access token where no errors", async () => {
+      //Arrange
+      const expected = {
+        token: testToken,
+        user: testUserDocument,
+      };
+      delete expected.user.password;
+      //Act
+      const actual = await authenticationService.signInUser(testUserSubmission);
+      //Assert
+      expect(actual).to.deep.equal(expected);
+    });
   });
 });

@@ -22,7 +22,8 @@ export default class AuthenticationService {
         emailAddress: userCredentials.emailAddress,
       }).select("+password");
       await this.#verifyUser(userCredentials, userDocument);
-      this.#getToken(userDocument);
+      const token = this.#getToken(userDocument);
+      return { token, user: this.#formatUserDocument(userDocument) };
     } catch (err) {
       this.#handleError(err);
     }
