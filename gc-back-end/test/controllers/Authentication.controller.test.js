@@ -146,5 +146,15 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(res.status.calledWith(500)).to.equal(true);
     });
+
+    //? AC3-3
+    it("should respond with a 401 error if User Service throws a user unauthorised error", async () => {
+      //Arrange
+      authenticationService.signInUser.rejects(APIErrors.UNAUTHORISED_ERROR);
+      //Act
+      await authenticationController.signIn(req, res);
+      //Assert
+      expect(res.status.calledWith(401)).to.equal(true);
+    });
   });
 });
