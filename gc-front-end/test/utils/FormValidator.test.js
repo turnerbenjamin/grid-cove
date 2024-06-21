@@ -3,7 +3,6 @@ import FormValidator from "../../src/utils/FormValidator";
 
 describe("Register tests", () => {
   let testSubmission;
-  let testConfig;
 
   beforeEach(() => {
     testSubmission = {
@@ -12,26 +11,29 @@ describe("Register tests", () => {
       password: "password12$",
       confirmPassword: "password12$",
     };
-    testConfig = {
-      username: true,
-      emailAddress: true,
-      password: true,
-      confirmPassword: true,
-    };
   });
 
   afterEach(() => {
     testSubmission = null;
-    testConfig = null;
   });
 
   //?US2-FVD-1
   test("It should return true from isValidated where all active fields are valid", () => {
-    //Arrange
-    const formValidator = new FormValidator(testSubmission, testConfig);
     //Act
-    const actual = formValidator.isValidated();
+    const actual = FormValidator.isValidated(testSubmission);
     //Assert
     expect(actual).toBe(true);
+  });
+
+  //?US2-FVD-2
+  test("It should return an error where the username is less than 8 characters", () => {
+    //Arrange
+    const testInvalidUsername = "xxx-xxx";
+    //Act
+    const [isValidated, error] =
+      FormValidator.validateUsername(testInvalidUsername);
+    //Assert
+    expect(isValidated).toBe(false);
+    expect(error).toMatch(/username must be at least 8 characters/i);
   });
 });
