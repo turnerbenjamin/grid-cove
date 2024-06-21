@@ -199,5 +199,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS3-3
+    it("should throw a server error where findOne fails", async () => {
+      //Arrange
+      selectStub.resolves();
+      const expected = APIErrors.UNAUTHORISED_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.signInUser(testUserSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });

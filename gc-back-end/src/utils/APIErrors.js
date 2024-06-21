@@ -11,6 +11,11 @@ export default class APIErrors {
   );
   static #SERVER_ERROR = new HTTPError(500, "Server error");
 
+  static #UNAUTHORISED_ERROR = new HTTPError(
+    401,
+    "Incorrect authentication details"
+  );
+
   //GETTERS
   static get DUPLICATE_USERNAME() {
     return this.#DUPLICATE_USERNAME;
@@ -18,6 +23,10 @@ export default class APIErrors {
 
   static get DUPLICATE_EMAIL_ADDRESS() {
     return this.#DUPLICATE_EMAIL_ADDRESS;
+  }
+
+  static get UNAUTHORISED_ERROR() {
+    return this.#UNAUTHORISED_ERROR;
   }
 
   static get SERVER_ERROR() {
