@@ -34,7 +34,7 @@ I have also removed the direct link between the service and the setting of statu
 
 ## Integration Tests (INT)
 
-- [ ] INT3-1: It should respond with a 200 status code with valid request
+- [x] INT3-1: It should respond with a 200 status code with valid request
 - [ ] INT3-2: It should include the correct user details, without the password, in the response body
 - [ ] INT3-3: It should have a header to set JWT in success response
 - [ ] INT3-4: It should respond with a 401 response if email address is not found

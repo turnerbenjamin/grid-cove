@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import express, { response } from "express";
+import express from "express";
 import sinon from "sinon";
 import supertest from "supertest";
 
@@ -8,8 +8,8 @@ import AuthenticationRoutes from "../../src/routes/Authentication.routes.js";
 import AuthenticationService from "../../src/services/Authentication.service.js";
 import Database from "../../src/database/database.js";
 import Server from "../../src/server/Server.js";
-import * as userTestData from "../data/User.test.data.js";
 import User from "../../src/models/User.model.js";
+import * as userTestData from "../data/User.test.data.js";
 
 describe("Authentication integration tests: ", () => {
   let server;
@@ -46,7 +46,7 @@ describe("Authentication integration tests: ", () => {
     const userToAdd = userTestData.submissions[1];
     const registerEndpoint = "/authentication/register";
 
-    beforeEach(async () => {
+    afterEach(async () => {
       await User.deleteMany();
     });
 
@@ -280,6 +280,23 @@ describe("Authentication integration tests: ", () => {
       const response = await request.post(registerEndpoint).send(userToAdd);
       //Assert
       expect(response.body.password).to.equal(undefined);
+    });
+  });
+
+  describe("SignIn route test", () => {
+    const userToSignIn = userTestData.submissions[0];
+    const signInEndpoint = "/authentication/sign-in";
+
+    before(async () => {
+      await User.create(userTestData.documents[0]);
+    });
+
+    //? INT3-1
+    it("should respond with a 200 status code with valid request", async () => {
+      //Act
+      const response = await request.post(signInEndpoint).send(userToSignIn);
+      //Assert
+      expect(response.status).to.equal(200);
     });
   });
 });

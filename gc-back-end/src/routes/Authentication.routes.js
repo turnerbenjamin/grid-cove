@@ -16,6 +16,7 @@ export default class AuthenticationRoutes {
 
   #initialiseRoutes() {
     this.#initialiseRegisterRoute();
+    this.#initialiseSignInRoute();
   }
 
   #initialiseRegisterRoute() {
@@ -24,6 +25,10 @@ export default class AuthenticationRoutes {
       UserValidator.validateRegistrationSubmission(),
       this.#authenticationController.register
     );
+  }
+
+  #initialiseSignInRoute() {
+    this.#router.post("/sign-in", this.#authenticationController.signIn);
   }
 
   getRouter() {
