@@ -30,4 +30,21 @@ describe("Confirm password input field tests", () => {
     });
     expect(screen.queryByRole("alert")).toBeInTheDocument();
   });
+
+  //?US2-CPI-3
+  test("It should not display an error on blur where passwords do match", async () => {
+    render(
+      <ConfirmPasswordInputField
+        passwordValue="a"
+        confirmPasswordValue="a"
+        onChange={() => null}
+      />
+    );
+    const inputField = screen.getByTitle("Confirm Password");
+    await act(async () => {
+      inputField.focus();
+      inputField.blur();
+    });
+    expect(screen.queryByRole("alert")).toBe(null);
+  });
 });
