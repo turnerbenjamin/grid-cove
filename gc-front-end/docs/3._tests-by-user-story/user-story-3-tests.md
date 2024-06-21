@@ -17,7 +17,7 @@ A variety of tests have been implemented for this component for user story 1. Th
 - [x] US3-AHS-2: It should return err if post rejects with standard error object
 - [x] US3-AHS-3: It should return err?.response?.data where validation error received
 - [x] US3-AHS-4: It should call set data on local storage where axios resolves
-- [ ] US3-AHS-5: It should return response data where axios resolves
+- [x] US3-AHS-5: It should return response data where axios resolves
 
 ## Integration Tests (INT)
 

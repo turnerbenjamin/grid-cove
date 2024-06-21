@@ -143,5 +143,16 @@ describe("Authentication service tests", () => {
         JSON.stringify(testResponse.data)
       );
     });
+
+    //?US3-AHS-5
+    test("It should return response data where axios resolves", async () => {
+      //Arrange
+      const expected = testResponse.data;
+      axios.post.mockResolvedValueOnce(testResponse);
+      //Act
+      const actual = await authenticationService.signIn(testUserSubmission);
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
