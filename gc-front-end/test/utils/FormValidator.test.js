@@ -149,4 +149,18 @@ describe("Register tests", () => {
     expect(isValidated).toBe(false);
     expect(error).toMatch(/password must contain at least one digit/i);
   });
+
+  //?US2-FVD-11
+  test("It should return an error where the password does not contain at least one special character", () => {
+    //Arrange
+    const testInvalidPassword = "x".repeat(7) + "1";
+    //Act
+    const [isValidated, error] =
+      FormValidator.validatePassword(testInvalidPassword);
+    //Assert
+    expect(isValidated).toBe(false);
+    expect(error).toMatch(
+      /password must contain at least one special character/i
+    );
+  });
 });

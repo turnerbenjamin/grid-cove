@@ -33,5 +33,7 @@ export default class FormValidator {
       return [false, "Password must be no more than 32 characters"];
     if (!password.match(/\d/))
       return [false, "Password must contain at least one digit"];
+    if (!password.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/))
+      return [false, "Password must contain at least one special character"];
   }
 }
