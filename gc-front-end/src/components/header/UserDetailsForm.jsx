@@ -27,21 +27,24 @@ export default function UserDetailsForm({
     setter(value);
   };
 
-  const isFormValidated = FormValidator.isValidated({
+  const submission = {
     username,
     emailAddress,
     password,
     confirmPassword,
-  });
+  };
+
+  for (const field in submission) {
+    if (!activeFields[field]) delete submission[field];
+  }
+
+  const isFormValidated = FormValidator.isValidated(submission);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isFormValidated) return;
-    onSubmit({
-      username,
-      emailAddress,
-      password,
-    });
+    delete submission.confirmPassword;
+    onSubmit(submission);
   };
 
   return (

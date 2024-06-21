@@ -249,5 +249,23 @@ describe("User details form tests: ", () => {
       expect(screen.queryByText(/username/i)).toBe(null);
       expect(screen.queryByText(/^confirm password/i)).toBe(null);
     });
+
+    //?US3-UDF-2
+    test("It should call onSubmit with the correct details when the submit button is clicked", async () => {
+      //Arrange
+      const submitButton = screen.getByTitle("Submit");
+      //Act
+      await act(async () => {
+        fireEvent.change(emailAddressInputField, {
+          target: { value: expectedSubmission.emailAddress },
+        });
+        fireEvent.change(passwordInputField, {
+          target: { value: expectedSubmission.password },
+        });
+        fireEvent.click(submitButton);
+      });
+      //Assert
+      expect(onSubmitSpy).toBeCalledWith(expectedSubmission);
+    });
   });
 });
