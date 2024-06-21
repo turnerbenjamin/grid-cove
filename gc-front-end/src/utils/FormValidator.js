@@ -15,7 +15,6 @@ export default class FormValidator {
         false,
         "Username may only contain lowercase letters, digits and hyphens",
       ];
-
     return [true];
   }
 
@@ -24,5 +23,6 @@ export default class FormValidator {
       return [false, "Email address is required"];
     if (!validator.isEmail(emailAddress))
       return [false, "Email address is invalid"];
+    return [true];
   }
 }

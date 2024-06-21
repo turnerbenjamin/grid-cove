@@ -100,4 +100,17 @@ describe("Register tests", () => {
     expect(isValidated).toBe(false);
     expect(error).toMatch(/email address is invalid/i);
   });
+
+  //?US2-FVD-8
+  test("It should return true where the emailAddress is valid", () => {
+    //Arrange
+    const testValidEmailAddress = "test@validEmailAddress.com";
+    //Act
+    const [isValidated, error] = FormValidator.validateEmailAddress(
+      testValidEmailAddress
+    );
+    //Assert
+    expect(isValidated).toBe(true);
+    expect(error).toBe(undefined);
+  });
 });
