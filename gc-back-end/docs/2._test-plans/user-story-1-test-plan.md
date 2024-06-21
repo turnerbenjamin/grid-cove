@@ -29,7 +29,7 @@ Second, in challenge 5 I used a wrapper class, HTTPError, to pass a status code 
 - [x] AC1-5: It should respond with a status of 400 if the authentication service throws a duplicate username error
 - [x] AC1-6: It should respond with a status code of 500 if the User service throws a server error
 
-### Integration Tests (INT)
+## Integration Tests (INT)
 
 - [x] INT1-1: It should respond with a 201 status code with valid request
 - [x] INT1-2: It should return the new user's details without the password

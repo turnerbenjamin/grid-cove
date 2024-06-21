@@ -147,4 +147,41 @@ describe("Authentication service tests", () => {
       expect(actual).to.deep.equal(expected);
     });
   });
+
+  describe("Sign-In user tests", () => {
+    let findOneStub;
+    let selectStub;
+    const testUserSubmission = {
+      emailAddress: userTestData.submissions[0].emailAddress,
+      password: userTestData.submissions[0].password,
+    };
+    const testUserDocument = userTestData.documents[0];
+
+    beforeEach(() => {
+      findOneStub = sinon.stub(User, "findOne");
+      selectStub = sinon.stub();
+      selectStub.resolves(testUserDocument);
+      findOneStub.returns({ select: selectStub });
+    });
+
+    afterEach(() => {
+      findOneStub.restore();
+      selectStub = null;
+    });
+
+    //? AS3-1
+    it("should call findOne and select on the user model with the correct arguments", async () => {
+      //Arrange
+      const expected = {
+        emailAddress: testUserSubmission.emailAddress,
+      };
+      //Act
+      await authenticationService.signInUser(testUserSubmission);
+      const [findUserArgument] = findOneStub.getCall(0).args;
+      const [selectArgument] = selectStub.getCall(0).args;
+      //Assert
+      expect(findUserArgument).to.deep.equal(expected);
+      expect(selectArgument).to.equal("+password");
+    });
+  });
 });

@@ -157,7 +157,7 @@ describe("Authentication integration tests: ", () => {
     });
 
     //? INT2-1
-    it("should return an error where the password is less than 8 characters", async () => {
+    it("should respond with a 400 response if the password is less than 8 characters", async () => {
       const userToAddWithInvalidPassword = {
         ...userToAdd,
         password: "xxxxx1$",
@@ -170,7 +170,7 @@ describe("Authentication integration tests: ", () => {
     });
 
     //? INT2-2
-    it("should return an error where the password is more than 32 characters", async () => {
+    it("should respond with a 400 response if the password is more than 32 characters", async () => {
       const userToAddWithInvalidPassword = {
         ...userToAdd,
         password: "x".repeat(31) + "1$",
@@ -183,7 +183,7 @@ describe("Authentication integration tests: ", () => {
     });
 
     //? INT2-3
-    it("should return an error where the password does not contain at least one digit", async () => {
+    it("should respond with a 400 response if the password does not contain at least one digit", async () => {
       const userToAddWithInvalidPassword = {
         ...userToAdd,
         password: "x".repeat(8) + "$",
@@ -196,7 +196,7 @@ describe("Authentication integration tests: ", () => {
     });
 
     //? INT2-4
-    it("should return an error where the password does not contain at least one special character", async () => {
+    it("should respond with a 400 response if the password does not contain at least one special character", async () => {
       const userToAddWithInvalidPassword = {
         ...userToAdd,
         password: "x".repeat(8) + "1",

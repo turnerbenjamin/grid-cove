@@ -14,6 +14,12 @@ export default class AuthenticationService {
     }
   };
 
+  signInUser = async (userCredentials) => {
+    await User.findOne({ emailAddress: userCredentials.emailAddress }).select(
+      "+password"
+    );
+  };
+
   #handleError = (err) => {
     if (err.code === 11000) {
       if (err.keyPattern?.emailAddress) throw APIErrors.DUPLICATE_EMAIL_ADDRESS;
