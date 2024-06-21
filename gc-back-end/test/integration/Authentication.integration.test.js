@@ -330,5 +330,15 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(401);
     });
+
+    //? INT3-4
+    it("should respond with a 400 response if email address is not found", async () => {
+      //Act
+      const response = await request
+        .post(signInEndpoint)
+        .send({ ...userToSignIn, password: "wrong-password12$" });
+      //Assert
+      expect(response.status).to.equal(401);
+    });
   });
 });
