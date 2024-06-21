@@ -14,7 +14,7 @@ A variety of tests have been implemented for this component for user story 1. Th
 ## Authentication service tests (AHS)
 
 - [x] US3-AHS-1: It should call axios post with the correct url
-- [ ] US3-AHS-2: It should return err if post rejects with standard error object
+- [x] US3-AHS-2: It should return err if post rejects with standard error object
 - [ ] US3-AHS-3: It should return err?.response?.data where validation error received
 - [ ] US3-AHS-4: It should call set data on local storage where axios resolves
 - [ ] US3-AHS-5: It should return response data where axios resolves
