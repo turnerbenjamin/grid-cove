@@ -288,5 +288,21 @@ describe("Authentication service tests", () => {
       expect(actualSecretKey).to.equal(expectedSecretKey);
       expect(actualOptions).to.deep.equal(expectedOptions);
     });
+
+    //? AS3-8
+    it("should throw a server error if sign fails", async () => {
+      //Arrange
+      signStub.throws();
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.signInUser(testUserSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
