@@ -17,8 +17,12 @@ export default class AuthenticationController {
     }
   };
 
-  signIn = async (req) => {
-    await this.#authenticationService.signInUser(req.body);
+  signIn = async (req, res) => {
+    try {
+      await this.#authenticationService.signInUser(req.body);
+    } catch (err) {
+      this.#handleErrors(res, err);
+    }
   };
 
   #handleErrors = (res, err) => {

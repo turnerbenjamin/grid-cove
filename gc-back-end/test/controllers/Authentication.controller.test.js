@@ -136,5 +136,15 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(userSubmissionArgument).to.equal(testUserSubmission);
     });
+
+    //? AC3-2
+    it("should respond with a 500 error if User Service throws a server error", async () => {
+      //Arrange
+      authenticationService.signInUser.rejects(APIErrors.SERVER_ERROR);
+      //Act
+      await authenticationController.signIn(req, res);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+    });
   });
 });
