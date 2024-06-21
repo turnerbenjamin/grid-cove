@@ -20,4 +20,20 @@ describe("Username input field test", () => {
     });
     expect(screen.queryByRole("alert")).toBeInTheDocument();
   });
+
+  //?US2-UNI-3
+  test("It should not display an error on blur where username is valid", async () => {
+    render(
+      <UserNameInputField
+        userNameValue="valid-username"
+        onChange={() => null}
+      />
+    );
+    const inputField = screen.getByTitle("Username");
+    await act(async () => {
+      inputField.focus();
+      inputField.blur();
+    });
+    expect(screen.queryByRole("alert")).toBe(null);
+  });
 });
