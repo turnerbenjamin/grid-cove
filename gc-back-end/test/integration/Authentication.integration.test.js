@@ -331,14 +331,26 @@ describe("Authentication integration tests: ", () => {
       expect(response.status).to.equal(401);
     });
 
-    //? INT3-4
-    it("should respond with a 400 response if email address is not found", async () => {
+    //? INT3-5
+    it("should respond with a 401 response if passwords do not match", async () => {
       //Act
       const response = await request
         .post(signInEndpoint)
         .send({ ...userToSignIn, password: "wrong-password12$" });
       //Assert
       expect(response.status).to.equal(401);
+    });
+
+    //? INT3-6
+    it("should respond with a 500 response if findOne and select fails", async () => {
+      //Arrange
+      const stub = sinon.stub(User, "findOne");
+      stub.rejects();
+      //Act
+      const response = await request.post(signInEndpoint).send(userToSignIn);
+      stub.restore();
+      //Assert
+      expect(response.status).to.equal(500);
     });
   });
 });

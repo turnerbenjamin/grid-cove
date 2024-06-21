@@ -39,4 +39,4 @@ I have also removed the direct link between the service and the setting of statu
 - [x] INT3-3: It should have a header to set JWT in success response
 - [x] INT3-4: It should respond with a 401 response if email address is not found
 - [x] INT3-5: It should respond with a 401 response if passwords do not match
-- [ ] INT3-6: It should respond with a 500 response if findOne and select fails
+- [x] INT3-6: It should respond with a 500 response if findOne and select fails
