@@ -28,7 +28,11 @@ export default class AuthenticationService {
 
   #verifyUser = async (userCredentials, userDocument) => {
     if (!userDocument) throw APIErrors.UNAUTHORISED_ERROR;
-    await bcrypt.compare(userCredentials.password, userDocument.password);
+    const validated = await bcrypt.compare(
+      userCredentials.password,
+      userDocument.password
+    );
+    if (!validated) throw APIErrors.UNAUTHORISED_ERROR;
   };
 
   #handleError = (err) => {

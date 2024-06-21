@@ -249,5 +249,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS3-6
+    it("should throw a user unauthorised error where bcrypt returns false", async () => {
+      //Arrange
+      compareStub.resolves(false);
+      const expected = APIErrors.UNAUTHORISED_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.signInUser(testUserSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
