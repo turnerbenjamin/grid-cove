@@ -1,4 +1,4 @@
-import { expect } from "vitest";
+import { beforeAll, expect } from "vitest";
 import axios from "axios";
 
 import * as authenticationService from "../../src/services/authentication.service";
@@ -77,6 +77,16 @@ describe("Authentication service tests", () => {
       emailAddress: "a@b.com",
       password: "password12$",
     };
+    let setItemSpy;
+
+    beforeEach(() => {
+      setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+    });
+
+    afterEach(() => {
+      localStorage.clear();
+      setItemSpy.mockClear();
+    });
 
     //?US3-AHS-1
     test("It should call axios post with the correct url", async () => {
@@ -119,6 +129,19 @@ describe("Authentication service tests", () => {
       }
       //Assert
       expect(actual).toEqual(expected);
+    });
+
+    //?US3-AHS-4
+    test("It should call set data on local storage where axios resolves", async () => {
+      //Arrange
+      axios.post.mockResolvedValueOnce(testResponse);
+      //Act
+      await authenticationService.signIn(testUserSubmission);
+      //Assert
+      expect(setItemSpy).toBeCalledWith(
+        "user",
+        JSON.stringify(testResponse.data)
+      );
     });
   });
 });
