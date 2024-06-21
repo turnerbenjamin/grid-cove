@@ -310,5 +310,15 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.body).to.deep.equal(expected);
     });
+
+    //? INT3-4
+    it("should have a header to set JWT in success response", async () => {
+      //Act
+      const response = await request.post(signInEndpoint).send(userToSignIn);
+      //Assert
+      expect(response.header["set-cookie"][0].startsWith("jwt=")).to.equal(
+        true
+      );
+    });
   });
 });
