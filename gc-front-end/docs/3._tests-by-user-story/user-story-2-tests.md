@@ -49,5 +49,5 @@ for other fields as well, e.g username as the functionality is closely related.
 ### Confirm Password input field (CPI)
 
 - [x] US2-CPI-1: It should not display an error on render
-- [ ] US2-CPI-2: It should display an error on blur where passwords do not match
+- [x] US2-CPI-2: It should display an error on blur where passwords do not match
 - [ ] US2-CPI-3: It should not display an error on blur where passwords do match
