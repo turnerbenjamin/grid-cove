@@ -43,7 +43,7 @@ for other fields as well, e.g username as the functionality is closely related.
 ### Password input field (PWI)
 
 - [x] US2-PWI-1: It should not display an error on render
-- [ ] US2-PWI-2: It should display an error on blur where password is invalid
+- [x] US2-PWI-2: It should display an error on blur where password is invalid
 - [ ] US2-PWI-3: It should not display an error on blur where password is valid
 
 ### Password input field (CPI)

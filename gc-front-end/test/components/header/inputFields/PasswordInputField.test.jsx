@@ -9,4 +9,17 @@ describe("Password input field tests", () => {
     );
     expect(screen.queryByRole("alert")).toBe(null);
   });
+
+  //?US2-PWI-2
+  test("It should display an error on blur where password is invalid", async () => {
+    render(
+      <PasswordInputField passwordValue="invalid" onChange={() => null} />
+    );
+    const inputField = screen.getByTitle("Password");
+    await act(async () => {
+      inputField.focus();
+      inputField.blur();
+    });
+    expect(screen.queryByRole("alert")).toBeInTheDocument();
+  });
 });
