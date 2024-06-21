@@ -1,3 +1,5 @@
+import validator from "validator";
+
 export default class FormValidator {
   static isValidated() {
     return true;
@@ -20,5 +22,7 @@ export default class FormValidator {
   static validateEmailAddress(emailAddress) {
     if (emailAddress.trim().length === 0)
       return [false, "Email address is required"];
+    if (!validator.isEmail(emailAddress))
+      return [false, "Email address is invalid"];
   }
 }

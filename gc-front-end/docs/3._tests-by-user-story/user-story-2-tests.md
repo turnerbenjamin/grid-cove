@@ -15,7 +15,7 @@ for other fields as well, e.g username as the functionality is closely related.
 - [x] US2-FVD-4: It should return an error where the username contains invalid characters
 - [x] US2-FVD-5: It should return true where the username is valid
 - [x] US2-FVD-6: It should return an error where the email is empty
-- [ ] US2-FVD-7: It should return an error where the email is invalid
+- [x] US2-FVD-7: It should return an error where the email is invalid
 - [ ] US2-FVD-8: It should return true where the emailAddress is valid
 - [ ] US2-FVD-9: It should return an error where the password is less than 8 characters
 - [ ] US2-FVD-10: It should return an error where the password is more than 32 characters
