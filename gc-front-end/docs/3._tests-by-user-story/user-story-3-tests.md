@@ -13,10 +13,11 @@ A variety of tests have been implemented for this component for user story 1. Th
 
 ## Authentication service tests (AHS)
 
-- [ ] US3-AHS-1: It should call axios post with the correct url and payload
-- [ ] US3-AHS-2: It should throw err if post rejects with standard error object
-- [ ] US3-AHS-3: It should throw err?.response?.data where validation error received
-- [ ] US3-AHS-4: It should return response data where axios resolves
+- [x] US3-AHS-1: It should call axios post with the correct url
+- [ ] US3-AHS-2: It should return err if post rejects with standard error object
+- [ ] US3-AHS-3: It should return err?.response?.data where validation error received
+- [ ] US3-AHS-4: It should call set data on local storage where axios resolves
+- [ ] US3-AHS-5: It should return response data where axios resolves
 
 ## Integration Tests (INT)
 
@@ -29,3 +30,4 @@ A variety of tests have been implemented for this component for user story 1. Th
 - [x] US3-INT-7: It should display all errors where the authentication service returns multiple errors
 - [x] US3-INT-8: It should display display a success message where the authentication service resolves
 - [x] US3-INT-9: It should close the sign in form modal when the close button is pressed
+- [x] US3-INT-10: It should replace the register and sign-in buttons with a log-out button and profile button
