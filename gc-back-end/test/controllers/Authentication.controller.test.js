@@ -231,5 +231,13 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(res.clearCookie.calledWith("jwt")).to.equal(true);
     });
+
+    //? AC4-2
+    it("should respond with a 204 success code and an empty body", async () => {
+      //Act
+      await authenticationController.signOut(req, res);
+      //Assert
+      expect(res.status.calledWith(204)).to.equal(true);
+    });
   });
 });
