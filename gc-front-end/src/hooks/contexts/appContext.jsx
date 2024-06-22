@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import useGridCoveUserService from "../useGridCoveUserService";
 
 const AppContext = createContext();
@@ -6,7 +6,9 @@ const AppContext = createContext();
 const AppContextProvider = function ({ children }) {
   const userServices = useGridCoveUserService();
 
-  const model = { ...userServices };
+  const model = {
+    ...userServices,
+  };
 
   return <AppContext.Provider value={model}>{children}</AppContext.Provider>;
 };

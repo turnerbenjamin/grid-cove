@@ -21,6 +21,16 @@ export const signIn = async (userCredentials) => {
   }
 };
 
+export const signOut = async () => {
+  let url = import.meta.env.VITE_APP_SIGN_OUT_URL;
+  try {
+    await axios.post(url);
+    localStorage.removeItem(`user`);
+  } catch (err) {
+    throw err?.response?.data ?? err;
+  }
+};
+
 export const getActiveUser = () => {
   return JSON.parse(localStorage.getItem(`user`));
 };

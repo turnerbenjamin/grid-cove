@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import {
   getActiveUser,
   register,
   signIn,
+  signOut,
 } from "../services/authentication.service";
 
 export default function useGridCoveUserService() {
-  const [activeUser, setActiveUser] = useState(getActiveUser());
+  const [activeUser, setActiveUser] = useState(null);
   const [authenticationIsLoading, setAuthenticationIsLoading] = useState(false);
   const [authenticationErrors, setAuthenticationErrors] = useState(null);
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] =
@@ -55,6 +56,19 @@ export default function useGridCoveUserService() {
     }
   };
 
+  const signOutUser = async () => {
+    try {
+      setAuthenticationErrors(null);
+      setAuthenticationIsLoading(true);
+      await signOut();
+      setActiveUser(null);
+    } catch (err) {
+      handleErrors(err);
+    } finally {
+      setAuthenticationIsLoading(false);
+    }
+  };
+
   return {
     activeUser,
     registerNewUser,
@@ -66,5 +80,6 @@ export default function useGridCoveUserService() {
     signInUser,
     isSignInSuccessful,
     handleClearSignInIsSuccessful,
+    signOutUser,
   };
 }
