@@ -63,4 +63,17 @@ describe("Log out integration tests", () => {
     //Assert
     expect(screen.getByRole("status")).toBeInTheDocument();
   });
+
+  //?US4-INT-3
+  test("It should display an error modal where the auth service throws an error", async () => {
+    //Arrange
+    const expected = "test error message";
+    //Act
+    await act(async () => {
+      fireEvent.click(logOutButton);
+      signOutRejecter(expected);
+    });
+    //Assert
+    expect(screen.getByText(expected)).toBeInTheDocument();
+  });
 });
