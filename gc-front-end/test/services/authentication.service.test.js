@@ -210,5 +210,13 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).toEqual(expected);
     });
+
+    //?US4-AHS-4
+    test("It should call remove item on local storage", async () => {
+      //Act
+      await authenticationService.signOut();
+      //Assert
+      expect(removeItemSpy).toBeCalledWith("user");
+    });
   });
 });
