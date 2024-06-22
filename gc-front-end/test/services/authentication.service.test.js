@@ -241,5 +241,16 @@ describe("Authentication service tests", () => {
       //Assert
       expect(getItemSpy).toBeCalledWith("user");
     });
+
+    //?US4-AHS-6
+    test("It should return the value returned from get item", async () => {
+      //Arrange
+      const expected = { test: "test" };
+      getItemSpy.mockReturnValueOnce(JSON.stringify(expected));
+      //Act
+      const actual = await authenticationService.getActiveUser();
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });

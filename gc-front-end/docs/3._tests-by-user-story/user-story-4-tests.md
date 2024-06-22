@@ -21,7 +21,7 @@
 ### Get Active User
 
 - [x] US4-AHS-5: It should call get item on local storage
-- [ ] US4-AHS-6: It should return the value returned from get item
+- [x] US4-AHS-6: It should return the value returned from get item
 
 ## Integration Tests (INT)
 
