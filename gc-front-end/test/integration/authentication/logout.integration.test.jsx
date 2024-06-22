@@ -76,4 +76,16 @@ describe("Log out integration tests", () => {
     //Assert
     expect(screen.getByText(expected)).toBeInTheDocument();
   });
+
+  //?US4-INT-4
+  test("It should show Register and Sign-In Buttons after successful log out", async () => {
+    //Act
+    await act(async () => {
+      fireEvent.click(logOutButton);
+      signOutResolver();
+    });
+    //Assert
+    expect(screen.getByText(/register/i)).toBeInTheDocument();
+    expect(screen.getByText(/sign-in/i)).toBeInTheDocument();
+  });
 });
