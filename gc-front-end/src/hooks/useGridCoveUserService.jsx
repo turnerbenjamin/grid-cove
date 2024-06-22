@@ -8,7 +8,7 @@ import {
 } from "../services/authentication.service";
 
 export default function useGridCoveUserService() {
-  const [activeUser, setActiveUser] = useState(null);
+  const [activeUser, setActiveUser] = useState(getActiveUser());
   const [authenticationIsLoading, setAuthenticationIsLoading] = useState(false);
   const [authenticationErrors, setAuthenticationErrors] = useState(null);
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] =
