@@ -13,5 +13,6 @@
 ## Integration Tests (INT)
 
 - [x] INT4-1: It should respond with a 204 status code with valid request
-- [ ] INT4-2: It should have a header to clear JWT in success response
-- [ ] INT4-3: It should respond with a 500 error code if clearCookie throws
+- [x] INT4-2: It should have a header to set JWT to en empty string
+- [ ] INT4-3: It should have an empty body in success response
+- [ ] INT4-4: It should respond with a 500 error code if clearCookie throws
