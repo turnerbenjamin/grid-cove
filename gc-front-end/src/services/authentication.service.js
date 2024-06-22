@@ -20,3 +20,7 @@ export const signIn = async (userCredentials) => {
     throw err?.response?.data ?? err;
   }
 };
+
+export const getActiveUser = () => {
+  return JSON.parse(localStorage.getItem(`user`));
+};

@@ -104,7 +104,7 @@ describe("Authentication controller tests", () => {
     });
   });
 
-  describe("Register tests", () => {
+  describe("Sign in tests", () => {
     const testToken = "test-token";
     let authenticationController;
     let authenticationService;
@@ -209,6 +209,27 @@ describe("Authentication controller tests", () => {
       await authenticationController.signIn(req, res);
       //Assert
       expect(res.json.calledWith(userTestData.documents[0])).to.equal(true);
+    });
+  });
+
+  describe("Sign out tests", () => {
+    let authenticationController;
+    beforeEach(() => {
+      authenticationController = new AuthenticationController({});
+      req.body = {};
+      res.clearCookie = sinon.stub();
+    });
+
+    afterEach(() => {
+      authenticationController = null;
+    });
+
+    //? AC4-1
+    it("should call res.clearCookie with the correct argument", async () => {
+      //Act
+      await authenticationController.signOut(req, res);
+      //Assert
+      expect(res.clearCookie.calledWith("jwt")).to.equal(true);
     });
   });
 });

@@ -1,9 +1,13 @@
 import { useState } from "react";
 
-import { register, signIn } from "../services/authentication.service";
+import {
+  getActiveUser,
+  register,
+  signIn,
+} from "../services/authentication.service";
 
 export default function useGridCoveUserService() {
-  const [activeUser, setActiveUser] = useState(null);
+  const [activeUser, setActiveUser] = useState(getActiveUser());
   const [authenticationIsLoading, setAuthenticationIsLoading] = useState(false);
   const [authenticationErrors, setAuthenticationErrors] = useState(null);
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] =
@@ -41,7 +45,8 @@ export default function useGridCoveUserService() {
     try {
       setAuthenticationErrors(null);
       setAuthenticationIsLoading(true);
-      await signIn(userCredentials);
+      const user = await signIn(userCredentials);
+      setActiveUser(user);
       setIsSignInSuccessful(true);
     } catch (err) {
       handleErrors(err);

@@ -1,5 +1,4 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { within } from "@testing-library/dom";
 import { beforeEach, expect } from "vitest";
 
 import App from "../../../src/App";
@@ -88,7 +87,7 @@ describe("Sign in integration tests", () => {
     let signInRejecter;
     const testSubmission = {
       emailAddress: "lou@vu.com",
-      password: "$tephani3Say$",
+      password: "StephanieSays1$",
     };
     beforeEach(async () => {
       const promise = new Promise((resolve, reject) => {
@@ -180,8 +179,9 @@ describe("Sign in integration tests", () => {
         fireEvent.click(submitButton);
         signInResolver();
       });
+      const closeButton = screen.queryByText("Close");
       await act(async () => {
-        fireEvent.click(submitButton);
+        fireEvent.click(closeButton);
       });
       const registrationForm = screen.queryByRole("form");
       //Assert

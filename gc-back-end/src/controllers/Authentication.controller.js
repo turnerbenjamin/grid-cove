@@ -29,6 +29,10 @@ export default class AuthenticationController {
     }
   };
 
+  signOut = async (_, res) => {
+    res.clearCookie("jwt");
+  };
+
   #setCookie = (res, token) => {
     res.cookie("jwt", token, {
       maxAge: process.env.COOKIE_EXPIRES_IN,
