@@ -353,4 +353,15 @@ describe("Authentication integration tests: ", () => {
       expect(response.status).to.equal(500);
     });
   });
+  describe("SignOut route test", () => {
+    const signOutEndpoint = "/authentication/sign-out";
+
+    //? INT4-1
+    it("should respond with a 204 status code with valid request", async () => {
+      //Act
+      const response = await request.post(signOutEndpoint);
+      //Assert
+      expect(response.status).to.equal(204);
+    });
+  });
 });

@@ -17,6 +17,7 @@ export default class AuthenticationRoutes {
   #initialiseRoutes() {
     this.#initialiseRegisterRoute();
     this.#initialiseSignInRoute();
+    this.#initialiseSignOutRoute();
   }
 
   #initialiseRegisterRoute() {
@@ -29,6 +30,10 @@ export default class AuthenticationRoutes {
 
   #initialiseSignInRoute() {
     this.#router.post("/sign-in", this.#authenticationController.signIn);
+  }
+
+  #initialiseSignOutRoute() {
+    this.#router.post("/sign-out", this.#authenticationController.signOut);
   }
 
   getRouter() {

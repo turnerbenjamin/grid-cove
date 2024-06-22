@@ -32,7 +32,7 @@ export default class AuthenticationController {
   signOut = async (_, res) => {
     try {
       res.clearCookie("jwt");
-      res.status(204);
+      res.status(204).send();
     } catch (err) {
       this.#handleErrors(res, err);
     }
