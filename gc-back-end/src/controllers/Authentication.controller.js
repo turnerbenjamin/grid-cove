@@ -30,8 +30,12 @@ export default class AuthenticationController {
   };
 
   signOut = async (_, res) => {
-    res.clearCookie("jwt");
-    res.status(204);
+    try {
+      res.clearCookie("jwt");
+      res.status(204);
+    } catch (err) {
+      this.#handleErrors(res, err);
+    }
   };
 
   #setCookie = (res, token) => {

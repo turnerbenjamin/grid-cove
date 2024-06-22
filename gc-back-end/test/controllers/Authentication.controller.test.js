@@ -239,5 +239,15 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(res.status.calledWith(204)).to.equal(true);
     });
+
+    //? AC4-2
+    it("should respond with a 500 error code if clearCookie throws", async () => {
+      //Arrange
+      res.clearCookie.throws();
+      //Act
+      await authenticationController.signOut(req, res);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+    });
   });
 });

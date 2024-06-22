@@ -8,7 +8,7 @@
 
 - [x] AC4-1: It should call res.clearCookie with the correct argument
 - [x] AC4-2: It should respond with a 204 success code and an empty body
-- [ ] AC3-3: It should respond with a 500 error code if clearCookie throws
+- [x] AC3-3: It should respond with a 500 error code if clearCookie throws
 
 ## Integration Tests (INT)
 
