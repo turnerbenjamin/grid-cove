@@ -219,4 +219,27 @@ describe("Authentication service tests", () => {
       expect(removeItemSpy).toBeCalledWith("user");
     });
   });
+
+  describe("Get active user service tests", () => {
+    let getItemSpy;
+
+    beforeEach(() => {
+      getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+    });
+
+    afterEach(() => {
+      localStorage.clear();
+      getItemSpy.mockClear();
+    });
+
+    //?US4-AHS-5
+    test("It should call get item on local storage", () => {
+      //Arrange
+      axios.post.mockResolvedValueOnce(testResponse);
+      //Act
+      authenticationService.getActiveUser();
+      //Assert
+      expect(getItemSpy).toBeCalledWith("user");
+    });
+  });
 });
