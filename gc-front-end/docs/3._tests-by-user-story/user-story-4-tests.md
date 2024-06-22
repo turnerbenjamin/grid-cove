@@ -14,7 +14,7 @@
 ### Sign Out
 
 - [x] US4-AHS-1: It should call axios post with the correct url
-- [ ] US4-AHS-2: It should return err if post rejects with standard error object
+- [x] US4-AHS-2: It should return err if post rejects with standard error object
 - [ ] US4-AHS-3: It should return err?.response?.data where validation error received
 - [ ] US4-AHS-4: It should call remove item on local storage
 

@@ -178,5 +178,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(axios.post).toBeCalledWith(expectedURL);
     });
+
+    //?US4-AHS-2
+    test("It should return err if post rejects with standard error object", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.post.mockRejectedValueOnce(expected);
+      let actual;
+      //Act
+      try {
+        await authenticationService.signOut();
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
