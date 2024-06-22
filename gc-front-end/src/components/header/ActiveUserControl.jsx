@@ -1,10 +1,12 @@
+import { CgSpinner } from "react-icons/cg";
+
 import { useEffect, useRef, useState } from "react";
 import { GiPlagueDoctorProfile } from "react-icons/gi";
 import { useAppContext } from "../../hooks/contexts/appContext";
 
 export default function ActiveUserControl() {
   const [doShowLogoutButton, setDoShowLogOutButton] = useState(false);
-  const { signOutUser } = useAppContext();
+  const { signOutUser, authenticationIsLoading } = useAppContext();
 
   const wrapperRef = useRef(null);
 
@@ -34,7 +36,10 @@ export default function ActiveUserControl() {
               role="button"
               onClick={signOutUser}
             >
-              Log-Out
+              {!authenticationIsLoading && "Log-Out"}
+              {authenticationIsLoading && (
+                <CgSpinner className="animate-spin text-2xl" role="status" />
+              )}
             </div>
           </div>
         </>

@@ -11,7 +11,18 @@ vi.mock("../../../src/services/authentication.service");
 describe("Log out integration tests", () => {
   let modalRoot;
   let logOutButton;
+  let signOutResolver;
+  let signOutRejecter;
+
   beforeEach(async () => {
+    //Sign out mock
+    const promise = new Promise((resolve, reject) => {
+      signOutResolver = resolve;
+      signOutRejecter = reject;
+    });
+    authenticationService.signOut.mockReturnValueOnce(promise);
+
+    //Modal Set-Up
     Object.defineProperty(global.window, "scrollTo", { value: () => null });
     modalRoot = document.createElement("div");
     modalRoot.setAttribute("id", "modal");
@@ -19,6 +30,8 @@ describe("Log out integration tests", () => {
       emailAddress: "testuser@email.com",
     });
     document.body.appendChild(modalRoot);
+
+    //Render App
     render(<App />);
     await act(async () => {
       fireEvent.mouseMove(screen.getByTitle("Profile"));
@@ -39,5 +52,15 @@ describe("Log out integration tests", () => {
     });
     //Assert
     expect(authenticationService.signOut).toBeCalledTimes(1);
+  });
+
+  //?US4-INT-2
+  test("It should show a loading spinner when the authentication service is loading", async () => {
+    //Act
+    await act(async () => {
+      fireEvent.click(logOutButton);
+    });
+    //Assert
+    expect(screen.getByRole("status")).toBeInTheDocument();
   });
 });
