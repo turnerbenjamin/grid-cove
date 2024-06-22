@@ -373,5 +373,13 @@ describe("Authentication integration tests: ", () => {
         true
       );
     });
+
+    //? INT4-3
+    it("should have an empty body in success response", async () => {
+      //Act
+      const response = await request.post(signOutEndpoint);
+      //Assert
+      expect(response.body).to.deep.equal({});
+    });
   });
 });

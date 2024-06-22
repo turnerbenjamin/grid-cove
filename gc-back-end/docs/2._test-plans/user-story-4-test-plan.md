@@ -14,5 +14,5 @@
 
 - [x] INT4-1: It should respond with a 204 status code with valid request
 - [x] INT4-2: It should have a header to set JWT to en empty string
-- [ ] INT4-3: It should have an empty body in success response
+- [x] INT4-3: It should have an empty body in success response
 - [ ] INT4-4: It should respond with a 500 error code if clearCookie throws
