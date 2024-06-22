@@ -11,15 +11,33 @@ describe("Active user control tests", () => {
     useAppContext.mockReturnValue({
       signOutUser: vi.fn(),
     });
-    render(<ActiveUserControl />);
+    render(
+      <div title="Not active user control">
+        <ActiveUserControl />
+      </div>
+    );
   });
 
   //? US4-AUC-1
   test("It should display a log-out button when hovered over", async () => {
-    //Assert
+    //Act
     await act(async () => {
       fireEvent.mouseMove(screen.getByTitle("Profile"));
     });
+    //Assert
     expect(screen.queryByText(/log-out/i)).toBeInTheDocument();
+  });
+
+  //? US4-AUC-2
+  test("It should not display a log-out button when mouse not hovered over", async () => {
+    //Act
+    await act(async () => {
+      fireEvent.mouseMove(screen.getByTitle("Profile"));
+    });
+    await act(async () => {
+      fireEvent.mouseMove(screen.getByTitle("Not active user control"));
+    });
+    //Assert
+    expect(screen.queryByText(/log-out/i)).toBe(null);
   });
 });

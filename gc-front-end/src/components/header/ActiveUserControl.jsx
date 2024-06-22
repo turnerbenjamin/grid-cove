@@ -18,9 +18,8 @@ export default function ActiveUserControl() {
   const wrapperRef = useRef(null);
 
   useEffect(() => {
-    if (!wrapperRef.current) return;
     const handleMouseMove = (e) => {
-      const mouseIsOverWrapper = wrapperRef.current.contains(e.target);
+      const mouseIsOverWrapper = wrapperRef?.current?.contains(e.target);
       if (mouseIsOverWrapper && !doShowLogoutButton)
         setDoShowLogOutButton(true);
       if (!mouseIsOverWrapper && doShowLogoutButton)

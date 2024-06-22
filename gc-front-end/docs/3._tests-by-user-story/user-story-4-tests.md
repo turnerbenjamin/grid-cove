@@ -7,6 +7,21 @@
 ## Active user control (AUC)
 
 - [x] US4-AUC-1: It should display a log-out button when hovered over
+- [x] US4-AUC-2: It should not display a log-out button when mouse not hovered over
+
+## Authentication service tests (AHS)
+
+### Sign Out
+
+- [x] US4-AHS-1: It should call axios post with the correct url
+- [ ] US4-AHS-2: It should return err if post rejects with standard error object
+- [ ] US4-AHS-3: It should return err?.response?.data where validation error received
+- [ ] US4-AHS-4: It should call remove item on local storage
+
+### Get Active User
+
+- [ ] US4-AHS-5: It should call get item on local storage
+- [ ] US4-AHS-6: It should return the value returned from get item
 
 ## Integration Tests (INT)
 

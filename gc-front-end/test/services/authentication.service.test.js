@@ -155,4 +155,28 @@ describe("Authentication service tests", () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  describe("Sign Out tests", () => {
+    let removeItemSpy;
+
+    beforeEach(() => {
+      removeItemSpy = vi.spyOn(Storage.prototype, "removeItem");
+    });
+
+    afterEach(() => {
+      localStorage.clear();
+      removeItemSpy.mockClear();
+    });
+
+    //?US4-AHS-1
+    test("It should call axios post with the correct url", async () => {
+      //Arrange
+      const expectedURL = import.meta.env.VITE_APP_SIGN_OUT_URL;
+      axios.post.mockResolvedValueOnce(testResponse);
+      //Act
+      await authenticationService.signOut();
+      //Assert
+      expect(axios.post).toBeCalledWith(expectedURL);
+    });
+  });
 });

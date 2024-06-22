@@ -22,8 +22,6 @@ export default function useGridCoveUserService() {
     setAuthenticationErrors(errorMessages);
   };
 
-  const handleClearAuthenticationErrors = () => setAuthenticationErrors(false);
-
   const handleClearIsRegistrationSuccessful = () =>
     setIsRegistrationSuccessful(false);
 
@@ -74,7 +72,6 @@ export default function useGridCoveUserService() {
     registerNewUser,
     authenticationIsLoading,
     authenticationErrors,
-    handleClearAuthenticationErrors,
     isRegistrationSuccessful,
     handleClearIsRegistrationSuccessful,
     signInUser,
