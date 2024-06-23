@@ -7,7 +7,7 @@
 ## Grid color tests (GCR)
 
 - [x] US5-GCR-1: It should have the isDark property set to true where the sum of its RGB elements is less than 256
-- [ ] US5-GCR-2: It should have the isDark property set to false where the sum of its RGB elements is grater than or equal to 256
+- [x] US5-GCR-2: It should have the isDark property set to false where the sum of its RGB elements is grater than or equal to 256
 
 ## Grid colors tests (GCS)
 
