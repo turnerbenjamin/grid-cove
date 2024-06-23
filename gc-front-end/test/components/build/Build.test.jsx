@@ -49,7 +49,7 @@ describe("Build tests", () => {
     //? US5-BLD-4
     test("It should correctly colour a cell when that cell is clicked", async () => {
       //Arrange
-      const cellToColour = screen.getAllByRole("cell")[0];
+      const cellToColour = screen.getByTitle("1,1");
       const expected = GridColours.BLACK.rgb;
       //Act
       await act(async () => {
@@ -63,7 +63,7 @@ describe("Build tests", () => {
     //? US5-BLD-5
     test("It should change the colour of a previously coloured cell when clicked having selected a new colour from the paint set", async () => {
       //Arrange
-      const cellToColour = screen.getAllByRole("cell")[0];
+      const cellToColour = screen.getByTitle("1,1");
       const newColour = GridColours.GREEN;
       //Act
       await act(async () => {
@@ -83,7 +83,7 @@ describe("Build tests", () => {
     //? US5-BLD-6
     test("It should not colour cells when the mouse is moved over them", async () => {
       //Arrange
-      const testCell = screen.getAllByRole("cell")[0];
+      const testCell = screen.getByTitle("1,1");
       const expected = testCell.style.backgroundColor;
       //Act
       await act(async () => {
@@ -97,8 +97,8 @@ describe("Build tests", () => {
     //? US5-BLD-7
     test("It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the mouse down event occurred in the same row or column", async () => {
       //Arrange
-      const testOriginCell = screen.getAllByRole("cell")[0];
-      const testCellToMoveTo = screen.getAllByRole("cell")[1];
+      const testOriginCell = screen.getByTitle("1,1");
+      const testCellToMoveTo = screen.getByTitle("2,1");
       const expected = GridColours.BLACK.rgb;
       //Act
       await act(async () => {
@@ -108,6 +108,25 @@ describe("Build tests", () => {
         fireEvent.mouseMove(testCellToMoveTo);
       });
       const actual = testCellToMoveTo.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+    });
+
+    //? US5-BLD-8
+    test("It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the mouse down event occurred in a different row or column", async () => {
+      //Arrange
+      const testOriginCell = screen.getByTitle("1,1");
+      const testCellToMoveToInDifferentRowAndColumn = screen.getByTitle("2,2");
+      const expected = GridColours.BLACK.rgb;
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(testOriginCell);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(testCellToMoveToInDifferentRowAndColumn);
+      });
+      const actual =
+        testCellToMoveToInDifferentRowAndColumn.style.backgroundColor;
       //Assert
       expect(actual).toBe(expected);
     });

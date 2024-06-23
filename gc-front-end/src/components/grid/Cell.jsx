@@ -6,6 +6,7 @@ export default function Cell({ cellData }) {
       data-key={cellData.key}
       data-row={cellData.row}
       data-col={cellData.col}
+      title={`${cellData.col},${cellData.row}`}
       style={{ backgroundColor: cellData.colour?.rgb }}
     />
   );
