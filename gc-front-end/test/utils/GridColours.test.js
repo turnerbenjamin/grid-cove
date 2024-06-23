@@ -18,4 +18,15 @@ describe("Grid colours test", () => {
     //Assert
     expect(actual).toBe(16);
   });
+
+  //?US5-GCS-3
+  test("It should return the correct colour by colour code", () => {
+    //Arrange
+    const allColours = GridColours.getAllColours();
+    const colourToTest = allColours[2];
+    //Act
+    const actual = GridColours.getColourByColourCode(colourToTest.colourCode);
+    //Assert
+    expect(actual).toBe(colourToTest);
+  });
 });
