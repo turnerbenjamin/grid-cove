@@ -1,7 +1,8 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 
 import Build from "../../../src/components/build/Build";
+import GridColours from "../../../src/utils/GridColours";
 
 describe("Build tests", () => {
   beforeEach(() => {
@@ -33,6 +34,16 @@ describe("Build tests", () => {
       expect(screen.getByRole("grid").style.gridTemplateColumns).toBe(
         `repeat(${gridSize}, minmax(0, 1fr))`
       );
+    });
+
+    //? US5-BLD-3
+    test("It should set the default fill style to black", () => {
+      //Arrange
+      const expected = GridColours.BLACK;
+      const blackPaintPot = screen.getByTitle(expected.label);
+      const tick = within(blackPaintPot).queryByRole("img");
+      //Assert
+      expect(tick).toBeInTheDocument();
     });
   });
 });

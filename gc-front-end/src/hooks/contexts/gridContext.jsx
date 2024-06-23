@@ -2,8 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const GridContext = createContext();
 
-const GridContextProvider = function ({ children }) {
-  const [fillStyle, setFillStyle] = useState(null);
+const GridContextProvider = function ({ defaultFillStyle, children }) {
+  const [fillStyle, setFillStyle] = useState(defaultFillStyle || null);
   const [gridSize, setGridSize] = useState(null);
   const [gridColours, setGridColours] = useState(null);
 
