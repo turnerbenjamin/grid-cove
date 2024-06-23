@@ -1,18 +1,18 @@
 export default class GridColour {
   #colourCode;
   #label;
-  #rgba;
+  #rgb;
   #isDark;
 
-  constructor(label, rgba, colourCode) {
+  constructor(label, rgb, colourCode) {
     this.#label = label;
-    this.#rgba = rgba;
+    this.#rgb = rgb;
     this.#colourCode = colourCode;
-    this.#isDark = this.#checkIfIsDark(rgba);
+    this.#isDark = this.#checkIfIsDark(rgb);
   }
 
-  #checkIfIsDark(rgba) {
-    const rgbString = rgba.replaceAll(/[rgba()]/g, "");
+  #checkIfIsDark(rgb) {
+    const rgbString = rgb.replaceAll(/[rgba()]/g, "");
     const [red, green, blue] = rgbString.split(",");
     return parseInt(red) + parseInt(green) + parseInt(blue) < 256;
   }
@@ -29,7 +29,7 @@ export default class GridColour {
     return this.#label;
   }
 
-  get rgba() {
-    return this.#rgba;
+  get rgb() {
+    return this.#rgb;
   }
 }

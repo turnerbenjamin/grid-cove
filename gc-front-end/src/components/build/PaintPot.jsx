@@ -15,7 +15,7 @@ export default function PaintPot({ colour }) {
   return (
     <div
       className="w-full md:h-full md-w-fit aspect-square shadow-sm shadow-grid-white/50 cursor-pointer flex flex-col items-center justify-center"
-      style={{ backgroundColor: colour.rgba }}
+      style={{ backgroundColor: colour.rgb }}
       title={colour.label}
       onClick={() => setFillStyle(colour)}
     >

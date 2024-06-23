@@ -1,23 +1,23 @@
 import GridColour from "./GridColour";
 
 export default class GridColours {
-  static #rgbaCodes = {
-    BLACK: "rgba(34, 34, 34, 1)",
-    SAPPHIRE: "rgba(42, 102, 212, 1)",
-    BLUE: "rgba(43, 206, 255, 1)",
-    GREY: "rgba(68, 68, 68, 1)",
-    CYAN: "rgba(83, 222, 247, 1)",
-    MINT: "rgba(86, 213, 118, 1)",
-    GREEN: "rgba(94, 214, 46, 1)",
-    PURPLE: "rgba(171, 64, 183, 1)",
-    APPLE: "rgba(174, 235, 32, 1)",
-    WHITE: "rgba(238, 238, 238, 1)",
-    PINK: "rgba(250, 48, 163, 1)",
-    GOLD: "rgba(254, 205, 12, 1)",
-    YELLOW: "rgba(254, 247, 17, 1)",
-    RED: "rgba(255, 20, 52, 1)",
-    AMBER: "rgba(255, 100, 29, 1)",
-    ORANGE: "rgba(255, 153, 29, 1)",
+  static #rgbCodes = {
+    BLACK: "rgb(34, 34, 34)",
+    SAPPHIRE: "rgb(42, 102, 212)",
+    BLUE: "rgb(43, 206, 255)",
+    GREY: "rgb(68, 68, 68)",
+    CYAN: "rgb(83, 222, 247)",
+    MINT: "rgb(86, 213, 118)",
+    GREEN: "rgb(94, 214, 46)",
+    PURPLE: "rgb(171, 64, 183)",
+    APPLE: "rgb(174, 235, 32)",
+    WHITE: "rgb(238, 238, 238)",
+    PINK: "rgb(250, 48, 163)",
+    GOLD: "rgb(254, 205, 12)",
+    YELLOW: "rgb(254, 247, 17)",
+    RED: "rgb(255, 20, 52)",
+    AMBER: "rgb(255, 100, 29)",
+    ORANGE: "rgb(255, 153, 29)",
   };
 
   static #colourCodesToLabelMap = {
@@ -60,96 +60,96 @@ export default class GridColours {
 
   static #BLACK = new GridColour(
     "Black",
-    this.#rgbaCodes.BLACK,
+    this.#rgbCodes.BLACK,
     this.#labelToColourCodeMap.BLACK
   );
 
   static #SAPPHIRE = new GridColour(
     "Sapphire",
-    this.#rgbaCodes.SAPPHIRE,
+    this.#rgbCodes.SAPPHIRE,
     this.#labelToColourCodeMap.SAPPHIRE
   );
 
   static #BLUE = new GridColour(
     "Blue",
-    this.#rgbaCodes.BLUE,
+    this.#rgbCodes.BLUE,
     this.#labelToColourCodeMap.BLUE
   );
 
   static #GREY = new GridColour(
     "Grey",
-    this.#rgbaCodes.GREY,
+    this.#rgbCodes.GREY,
     this.#labelToColourCodeMap.GREY
   );
 
   static #CYAN = new GridColour(
     "Cyan",
-    this.#rgbaCodes.CYAN,
+    this.#rgbCodes.CYAN,
     this.#labelToColourCodeMap.CYAN
   );
   static #MINT = new GridColour(
     "Mint",
-    this.#rgbaCodes.MINT,
+    this.#rgbCodes.MINT,
     this.#labelToColourCodeMap.MINT
   );
 
   static #GREEN = new GridColour(
     "Green",
-    this.#rgbaCodes.GREEN,
+    this.#rgbCodes.GREEN,
     this.#labelToColourCodeMap.GREEN
   );
 
   static #PURPLE = new GridColour(
     "Purple",
-    this.#rgbaCodes.PURPLE,
+    this.#rgbCodes.PURPLE,
     this.#labelToColourCodeMap.PURPLE
   );
 
   static #APPLE = new GridColour(
     "Apple",
-    this.#rgbaCodes.APPLE,
+    this.#rgbCodes.APPLE,
     this.#labelToColourCodeMap.APPLE
   );
 
   static #WHITE = new GridColour(
     "White",
-    this.#rgbaCodes.WHITE,
+    this.#rgbCodes.WHITE,
     this.#labelToColourCodeMap.WHITE
   );
 
   static #PINK = new GridColour(
     "Pink",
-    this.#rgbaCodes.PINK,
+    this.#rgbCodes.PINK,
     this.#labelToColourCodeMap.PINK
   );
 
   static #GOLD = new GridColour(
     "Gold",
-    this.#rgbaCodes.GOLD,
+    this.#rgbCodes.GOLD,
     this.#labelToColourCodeMap.GOLD
   );
 
   static #YELLOW = new GridColour(
     "Yellow",
-    this.#rgbaCodes.YELLOW,
+    this.#rgbCodes.YELLOW,
     this.#labelToColourCodeMap.YELLOW
   );
 
   static #RED = new GridColour(
     "Red",
-    this.#rgbaCodes.RED,
+    this.#rgbCodes.RED,
     this.#labelToColourCodeMap.RED
   );
 
   static #AMBER = new GridColour(
     "Amber",
-    this.#rgbaCodes.AMBER,
+    this.#rgbCodes.AMBER,
     this.#labelToColourCodeMap.AMBER
   );
 
   static #ORANGE = new GridColour(
     "Orange",
-    this.#rgbaCodes.ORANGE,
+    this.#rgbCodes.ORANGE,
     this.#labelToColourCodeMap.ORANGE
   );
 

@@ -21,7 +21,7 @@
 
 ## Paint pot tests (PTP)
 
-- [ ] US5-PTP-1: It should correctly set its RGB value and title based on the colour provided
+- [x] US5-PTP-1: It should correctly set its RGB value and title based on the colour provided
 - [ ] US5-PTP-2: It should display a tick when selected
 - [ ] US5-PTP-3: It should display the correct tick colour where the colour is dark
 - [ ] US5-PTP-4: It should display the correct tick colour where the colour is not dark
