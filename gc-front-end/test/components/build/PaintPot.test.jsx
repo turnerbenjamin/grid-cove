@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 
 import { GridContextProvider } from "../../../src/hooks/contexts/gridContext";
@@ -26,5 +26,15 @@ describe("Paint pot tests", () => {
     //Act
     const actual = paintPot.style.backgroundColor;
     expect(actual).toBe(expected);
+  });
+
+  //? US5-PTP-2
+  test("It should display a tick when selected", async () => {
+    //Act
+    await act(async () => {
+      fireEvent.click(paintPot);
+    });
+    //Assert
+    expect(screen.getByRole("img")).toBeInTheDocument();
   });
 });

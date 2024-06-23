@@ -19,7 +19,7 @@ export default function PaintPot({ colour }) {
       title={colour.label}
       onClick={() => setFillStyle(colour)}
     >
-      {isSelected && <FaCheck className={tickClasses} />}
+      {isSelected && <FaCheck className={tickClasses} role="img" />}
     </div>
   );
 }
