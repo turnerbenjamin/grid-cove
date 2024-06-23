@@ -130,5 +130,30 @@ describe("Build tests", () => {
       //Assert
       expect(actual).toBe(expected);
     });
+
+    //? US5-BLD-9
+    test("It should not continue to colour cells after a mouse up event", async () => {
+      //Arrange
+      const testOriginCell = screen.getByTitle("1,1");
+      const testCellToMoveTo = screen.getByTitle("2,1");
+      const testCellToMoveToAfterMouseUp = screen.getByTitle("2,2");
+      const expected = testCellToMoveToAfterMouseUp.style.backgroundColor;
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(testOriginCell);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(testCellToMoveTo);
+      });
+      await act(async () => {
+        fireEvent.mouseUp(testCellToMoveTo);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(testCellToMoveToAfterMouseUp);
+      });
+      const actual = testCellToMoveToAfterMouseUp.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+    });
   });
 });
