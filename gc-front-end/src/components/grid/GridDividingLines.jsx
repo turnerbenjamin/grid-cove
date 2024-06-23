@@ -1,8 +1,10 @@
 import classNames from "classnames";
 import { useEffect, useRef } from "react";
+import { useGridContext } from "../../hooks/contexts/gridContext";
 
 export default function GridDividingLines() {
-  const length = 10;
+  const { gridSize } = useGridContext();
+
   const canvasRef = useRef(null);
   const dpr = Math.ceil(window.devicePixelRatio);
   useEffect(() => {
@@ -31,11 +33,11 @@ export default function GridDividingLines() {
       c.closePath();
     };
 
-    const denominator = length / 5;
+    const denominator = gridSize / 5;
     for (let numerator = 1; numerator < denominator; numerator++) {
       drawLine(numerator / denominator);
     }
-  }, [length, dpr]);
+  }, [gridSize, dpr]);
 
   return (
     <div

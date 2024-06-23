@@ -44,9 +44,8 @@ describe("Paint pot tests", () => {
         fireEvent.click(paintPot);
       });
       const tick = screen.getByRole("img");
-      console.log(tick);
       //Assert
-      expect(screen.getByRole("img")).toHaveClass("fill-grid-white");
+      expect(tick).toHaveClass("fill-grid-white");
     });
   });
   describe("Paint pot with a light colour", () => {
@@ -68,9 +67,8 @@ describe("Paint pot tests", () => {
         fireEvent.click(paintPot);
       });
       const tick = screen.getByRole("img");
-      console.log(tick);
       //Assert
-      expect(screen.getByRole("img")).toHaveClass("fill-grid-black");
+      expect(tick).toHaveClass("fill-grid-black");
     });
   });
 });

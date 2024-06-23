@@ -4,6 +4,7 @@ This document is a reference for abbreviations used in test codes:
 
 - AHS: services/authentication.service
 - AUC: components/header/ActiveUserControl
+- BLD: components/build/Build
 - CPI: components/header/inputFields/ConfirmPasswordInputField
 - EAI: components/header/inputFields/EmailAddressInputField
 - FVD: utils/FormValidator
