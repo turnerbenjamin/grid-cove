@@ -17,6 +17,7 @@ export default function Grid({ doCountInFives }) {
       style={{
         gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))`,
       }}
+      role="grid"
     >
       {cellElements}
       {doCountInFives && <GridDividingLines />}
