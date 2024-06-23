@@ -59,5 +59,25 @@ describe("Build tests", () => {
       //Assert
       expect(actual).toBe(expected);
     });
+
+    //? US5-BLD-5
+    test("It should change the colour of a previously coloured cell when clicked having selected a new colour from the paint set", async () => {
+      //Arrange
+      const cellToColour = screen.getAllByRole("cell")[0];
+      const newColour = GridColours.GREEN;
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(cellToColour);
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(newColour.label));
+      });
+      await act(async () => {
+        fireEvent.mouseDown(cellToColour);
+      });
+      const actual = cellToColour.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(newColour.rgb);
+    });
   });
 });
