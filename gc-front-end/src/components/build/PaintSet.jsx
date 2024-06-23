@@ -1,8 +1,11 @@
+import GridColours from "../../utils/GridColours";
 import PaintPot from "./PaintPot";
 
 export default function PaintSet() {
-  const paintPots = Array.from({ length: 16 }).map((_, i) => {
-    return <PaintPot key={i} />;
+  const colours = GridColours.getAllColours();
+
+  const paintPots = colours.map((colour) => {
+    return <PaintPot key={colour.colourCode} colour={colour} />;
   });
 
   return (
