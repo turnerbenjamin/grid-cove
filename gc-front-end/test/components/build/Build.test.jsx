@@ -79,5 +79,19 @@ describe("Build tests", () => {
       //Assert
       expect(actual).toBe(newColour.rgb);
     });
+
+    //? US5-BLD-6
+    test("It should not colour cells when the mouse is moved over them", async () => {
+      //Arrange
+      const testCell = screen.getAllByRole("cell")[0];
+      const expected = testCell.style.backgroundColor;
+      //Act
+      await act(async () => {
+        fireEvent.mouseMove(testCell);
+      });
+      const actual = testCell.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+    });
   });
 });
