@@ -31,7 +31,7 @@
 - [x] US5-BLD-1: It should show a dropdown with size options for the grid
 - [x] US5-BLD-2: It should render a grid with the correct number of cells when an option is selected
 - [x] US5-BLD-3: It should set the default fill style to black
-- [ ] US5-BLD-4: It should correctly colour a cell when that cell is clicked
+- [x] US5-BLD-4: It should correctly colour a cell when that cell is clicked
 - [ ] US5-BLD-5: It should change the colour of a previously coloured cell when clicked having selected a new colour from the paint set
 - [ ] US5-BLD-6: It should not colour cells when the mouse is moved over them
 - [ ] US5-BLD-7: It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the mouse down event occurred in the same row or column

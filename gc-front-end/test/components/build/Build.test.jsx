@@ -45,5 +45,19 @@ describe("Build tests", () => {
       //Assert
       expect(tick).toBeInTheDocument();
     });
+
+    //? US5-BLD-4
+    test("It should correctly colour a cell when that cell is clicked", async () => {
+      //Arrange
+      const cellToColour = screen.getAllByRole("cell")[0];
+      const expected = GridColours.BLACK.rgb;
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(cellToColour);
+      });
+      const actual = cellToColour.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+    });
   });
 });

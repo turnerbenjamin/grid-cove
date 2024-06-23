@@ -3,12 +3,10 @@ import Cell from "./Cell";
 import GridDividingLines from "./GridDividingLines";
 
 export default function Grid({ doCountInFives }) {
-  const { gridColours, gridSize } = useGridContext();
+  const { gridCells, gridSize } = useGridContext();
 
-  const cellElements = gridColours.map((row, i) => {
-    return row.map((_, j) => {
-      return <Cell key={`${i},${j}`} />;
-    });
+  const cellElements = gridCells.map((cellData) => {
+    return <Cell key={cellData.key} cellData={cellData} />;
   });
 
   return (
