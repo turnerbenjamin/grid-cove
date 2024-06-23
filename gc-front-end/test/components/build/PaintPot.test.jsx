@@ -7,7 +7,7 @@ import GridColour from "../../../src/utils/GridColour";
 
 describe("Paint pot tests", () => {
   describe("Paint pot with a dark colour", () => {
-    const testColour = new GridColour("Dark", "rgb(85, 85, 85)", 1);
+    const testColour = new GridColour("Dark", "rgb(0, 0, 0)", 1);
     let paintPot;
     beforeEach(() => {
       render(
@@ -47,6 +47,30 @@ describe("Paint pot tests", () => {
       console.log(tick);
       //Assert
       expect(screen.getByRole("img")).toHaveClass("fill-grid-white");
+    });
+  });
+  describe("Paint pot with a light colour", () => {
+    const testColour = new GridColour("Light", "rgb(255, 255, 255)", 1);
+    let paintPot;
+    beforeEach(() => {
+      render(
+        <GridContextProvider>
+          <PaintPot colour={testColour} />
+        </GridContextProvider>
+      );
+      paintPot = screen.getByTitle(testColour.label);
+    });
+
+    //? US5-PTP-4
+    test("It should display the correct tick colour where the colour is not dark", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(paintPot);
+      });
+      const tick = screen.getByRole("img");
+      console.log(tick);
+      //Assert
+      expect(screen.getByRole("img")).toHaveClass("fill-grid-black");
     });
   });
 });
