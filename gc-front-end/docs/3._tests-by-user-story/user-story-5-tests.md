@@ -11,7 +11,7 @@
 
 ## Grid colors tests (GCS)
 
-- [ ] US5-GCS-1: It should return an array of 16 GridColour objects
+- [x] US5-GCS-1: It should return an array of 16 GridColour objects
 - [ ] US5-GCS-2: It should set unique colourCodes for each object
 - [ ] US5-GCS-3: It should return the correct colour by colour code
 
