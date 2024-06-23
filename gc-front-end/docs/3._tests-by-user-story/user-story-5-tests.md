@@ -17,7 +17,7 @@
 
 ## Paint set tests(PTS)
 
-- [ ] US5-PTS-1: It should display the 16 colours returned from GridColours
+- [x] US5-PTS-1: It should display the 16 colours returned from GridColours
 
 ## Paint pot tests (PTP)
 
