@@ -31,8 +31,6 @@ export default function GridSizeSelector() {
       <h2 className="text-lg mb-4">Choose your canvas:</h2>
       <select
         className="text-grid-black w-full py-1 text-center"
-        name="cars"
-        id="cars"
         value={selectedValue}
         onChange={(e) => setSelectedValue(e.target.value)}
         role="menu"

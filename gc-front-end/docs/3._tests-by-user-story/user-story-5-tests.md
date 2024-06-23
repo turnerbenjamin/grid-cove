@@ -37,3 +37,4 @@
 - [x] US5-BLD-7: It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the mouse down event occurred in the same row or column
 - [x] US5-BLD-8: It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the mouse down event occurred in a different row or column
 - [x] US5-BLD-9: It should not continue to colour cells after a mouse up event
+- [x] US5-BLD-10: It should render a grid with the correct number of cells when a non-default option is selected

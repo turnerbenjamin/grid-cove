@@ -23,7 +23,6 @@ describe("Build tests", () => {
       option = screen.getAllByRole("option")[0];
       gridSize = option.value;
       await act(async () => {
-        fireEvent.click(option);
         fireEvent.click(screen.getByText(/continue/i));
       });
     });
@@ -154,6 +153,25 @@ describe("Build tests", () => {
       const actual = testCellToMoveToAfterMouseUp.style.backgroundColor;
       //Assert
       expect(actual).toBe(expected);
+    });
+  });
+  describe("Selecting non default grid size", () => {
+    //? US5-BLD-10
+    test("It should render a grid with the correct number of cells when a non-default option is selected", async () => {
+      const dropdown = screen.getByRole("menu");
+      const gridSize = 10;
+      await act(async () => {
+        fireEvent.change(dropdown, {
+          target: { value: gridSize },
+        });
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByText(/continue/i));
+      });
+      expect(screen.getAllByRole("cell")).toHaveLength(gridSize ** 2);
+      expect(screen.getByRole("grid").style.gridTemplateColumns).toBe(
+        `repeat(${gridSize}, minmax(0, 1fr))`
+      );
     });
   });
 });
