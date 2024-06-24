@@ -71,6 +71,10 @@ const GridContextProvider = function ({
     };
   }, [handleUpdateCellColour]);
 
+  const getPuzzleString = () => {
+    return gridCells.map((cell) => cell.colour.colourCode).join("");
+  };
+
   useEffect(() => {
     if (!originTarget) return;
     const handleMouseMove = (e) => {
@@ -96,6 +100,7 @@ const GridContextProvider = function ({
     gridSize,
     setGridSize,
     gridCells,
+    getPuzzleString,
   };
 
   return <GridContext.Provider value={model}>{children}</GridContext.Provider>;

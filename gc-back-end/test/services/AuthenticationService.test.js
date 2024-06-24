@@ -319,4 +319,32 @@ describe("Authentication service tests", () => {
       expect(actual).to.deep.equal(expected);
     });
   });
+  describe("Validate token tests", () => {
+    const testDecodedToken = { _id: "test_id" };
+    const testToken = "jwt=xxxxx";
+    const testUserDocument = userTestData.documents[0];
+    let verifyStub;
+
+    beforeEach(() => {
+      verifyStub = sinon.stub(jwt, "verify");
+    });
+
+    afterEach(() => {
+      verifyStub.restore();
+    });
+
+    //? AS6-1
+    it("It should call jwt.verify with correct arguments", async () => {
+      //Arrange
+      verifyStub.returns(testDecodedToken);
+      const expectedJWTArg = testToken;
+      const expectedSecretArg = process.env.JWT_SECRET_KEY;
+      //Act
+      await authenticationService.validateToken(testToken);
+      const [actualJWTArg, actualSecretArg] = verifyStub.getCall(0).args;
+      //Assert
+      expect(actualJWTArg).to.equal(expectedJWTArg);
+      expect(actualSecretArg).to.equal(expectedSecretArg);
+    });
+  });
 });

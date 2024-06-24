@@ -21,6 +21,7 @@ export default class Server {
     this.#initialiseAppMiddleware();
     this.#initialiseRoutes();
     this.#server = this.#app.listen(this.#port, this.#host, () => {
+      if (process.env.NODE_ENV === "testing") return;
       console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
       console.log(`Server is listening on http://${this.#host}:${this.#port}`);
     });

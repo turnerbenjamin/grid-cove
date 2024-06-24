@@ -29,6 +29,10 @@ export default class AuthenticationService {
     }
   };
 
+  validateToken = async (token) => {
+    jwt.verify(token, process.env.JWT_SECRET_KEY);
+  };
+
   #verifyUser = async (userCredentials, userDocument) => {
     if (!userDocument) throw APIErrors.UNAUTHORISED_ERROR;
     const validated = await bcrypt.compare(
