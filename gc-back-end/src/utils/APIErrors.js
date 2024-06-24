@@ -9,6 +9,12 @@ export default class APIErrors {
     400,
     "This email address has been taken"
   );
+
+  static #DUPLICATE_PIXEL_ART = new HTTPError(
+    400,
+    "This pixel art has been saved previously"
+  );
+
   static #SERVER_ERROR = new HTTPError(500, "Server error");
 
   static #UNAUTHORISED_ERROR = new HTTPError(
@@ -34,6 +40,10 @@ export default class APIErrors {
   //GETTERS
   static get DUPLICATE_USERNAME() {
     return this.#DUPLICATE_USERNAME;
+  }
+
+  static get DUPLICATE_PIXEL_ART() {
+    return this.#DUPLICATE_PIXEL_ART;
   }
 
   static get DUPLICATE_EMAIL_ADDRESS() {

@@ -6,6 +6,7 @@ import PuzzleGenerator from "../../src/utils/PuzzleGenerator.js";
 import PuzzleService from "../../src/services/Puzzle.service.js";
 import * as userTestData from "../data/User.test.data.js";
 import * as puzzleTestData from "../data/Puzzle.test.data.js";
+import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("Puzzle service tests: ", () => {
   const testArtist = userTestData.documents[0];
@@ -73,5 +74,30 @@ describe("Puzzle service tests: ", () => {
     const [actual] = createStub.getCall(0).args;
     //Assert
     expect(actual).to.deep.equal(expected);
+  });
+
+  //? PS6-3
+  it("should call create on the Puzzle model with the correct arguments", async () => {
+    //Arrange
+    const testDuplicateKeyError = {
+      code: 11000,
+      keyPattern: { emailAddress: 1 },
+    };
+    createStub.rejects(testDuplicateKeyError);
+    const expected = APIErrors.DUPLICATE_PIXEL_ART;
+    let actual;
+    //Act
+    try {
+      await puzzleService.createPuzzle(
+        testPuzzleSubmission.pixelArt,
+        testPuzzleSubmission.title,
+        testArtist,
+        testPuzzleSubmission.size
+      );
+    } catch (err) {
+      actual = err;
+    }
+    //Assert
+    expect(actual).to.equal(expected);
   });
 });
