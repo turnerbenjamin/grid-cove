@@ -26,7 +26,7 @@ Note, user story 5 related exclusively to frontend functionality.
 
 ## Puzzle Generator (PG)
 
-- [ ] PG6-1: It should generate a solution string from a given pixel art string
+- [x] PG6-1: It should generate a solution string from a given pixel art string
 - [ ] PG6-2: It should return a clues object with row and column properties which have two dimensional arrays, the length of which should equal the puzzle size
 
 ## Puzzle Service (PS)
