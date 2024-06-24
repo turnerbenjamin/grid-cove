@@ -13,14 +13,15 @@ Note, user story 5 related exclusively to frontend functionality.
 - [x] AS6-3: It should call findById on the User Service with correct id if verify resolves
 - [x] AS6-4: It should throw a server error if findById rejects
 - [x] AS6-5: It should throw an unauthorised error if findById returns a falsy value
-- [ ] AS6-6: It should attach the user document to the request object
+- [x] AS6-6: It should return the user document
 
 ## Authentication Controller (AS)
 
 - [ ] AC6-1: It should respond with status code of 401 if no req.cookies.jwt
 - [ ] AC6-2: It should respond with status code of 401 if Authentication Service throws an unauthorised error
 - [ ] AC6-3: It should respond with status code of 500 if Authentication Service throws a server error
-- [ ] AC6-4: It should call next if the user service resolves
+- [ ] AC6-4: It should attach the user returned from the Authentication Service to req object
+- [ ] AC6-5: It should call next if the user service resolves
 
 ## Puzzle Generator (PG)
 

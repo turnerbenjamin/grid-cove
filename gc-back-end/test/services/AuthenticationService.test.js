@@ -409,5 +409,15 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS6-6
+    it("should return the user document", async () => {
+      //Arrange
+      const expected = testUserDocument;
+      //Act
+      const actual = await authenticationService.validateToken(testToken);
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });

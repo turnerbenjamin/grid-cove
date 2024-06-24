@@ -34,6 +34,7 @@ export default class AuthenticationService {
       const decodedToken = this.#decodeToken(token);
       const userDocument = await User.findById(decodedToken._id);
       if (!userDocument) throw APIErrors.UNAUTHORISED_ERROR;
+      return userDocument;
     } catch (err) {
       if (err instanceof HTTPError) throw err;
       throw APIErrors.SERVER_ERROR;
