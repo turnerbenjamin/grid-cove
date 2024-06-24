@@ -6,11 +6,12 @@ import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("Puzzle generator tests: ", () => {
   const testPixelArt = puzzleTestData.submissions[0].pixelArt;
+  const testPuzzleSize = Math.round(Math.sqrt(testPixelArt.length));
 
   //? PG6-1
   it("should generate a solution string from a given pixel art string", async () => {
     //Act
-    const puzzle = PuzzleGenerator.generate(testPixelArt);
+    const puzzle = PuzzleGenerator.generate(testPixelArt, testPuzzleSize);
     const solution = puzzle.solution;
     //Assert
     expect(solution).to.match(/^[01]+$/);
@@ -25,7 +26,7 @@ describe("Puzzle generator tests: ", () => {
     let actual;
     //Act
     try {
-      PuzzleGenerator.generate(invalidPuzzle);
+      PuzzleGenerator.generate(invalidPuzzle, testPuzzleSize);
     } catch (err) {
       actual = err;
     }
@@ -35,13 +36,27 @@ describe("Puzzle generator tests: ", () => {
 
   //? PG6-3
   it("should return a clues object with row and column properties which have two dimensional arrays, the length of which should equal the puzzle size", async () => {
-    //Arrange
-    const puzzleSize = Math.round(Math.sqrt(testPixelArt.length));
     //Act
-    const puzzle = PuzzleGenerator.generate(testPixelArt);
+    const puzzle = PuzzleGenerator.generate(testPixelArt, testPuzzleSize);
     const { rowClues, columnClues } = puzzle.clues;
     //Assert
-    expect(columnClues).has.length(puzzleSize);
-    expect(rowClues).has.length(puzzleSize);
+    expect(columnClues).has.length(testPuzzleSize);
+    expect(rowClues).has.length(testPuzzleSize);
+  });
+
+  //? PG6-4
+  it("It should throw an error if the grid size is not a multiple of 5", async () => {
+    //Arrange
+    const expected = APIErrors.INVALID_PUZZLE_SIZE;
+    const invalidPuzzleSize = 4;
+    let actual;
+    //Act
+    try {
+      PuzzleGenerator.generate(testPixelArt, invalidPuzzleSize);
+    } catch (err) {
+      actual = err;
+    }
+    //Assert
+    expect(actual).to.equal(expected);
   });
 });

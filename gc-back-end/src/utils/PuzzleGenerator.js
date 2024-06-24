@@ -1,14 +1,18 @@
 import APIErrors from "./APIErrors.js";
 
 export default class PuzzleGenerator {
-  static generate(pixelArt) {
-    const puzzleSize = Math.round(Math.sqrt(pixelArt.length));
+  static generate(pixelArt, puzzleSize) {
+    PuzzleGenerator.#validatePuzzleSize(pixelArt, puzzleSize);
     const solution = PuzzleGenerator.#getSolutionString(pixelArt);
     const clues = PuzzleGenerator.#getClues(solution, puzzleSize);
     return {
       solution,
       clues,
     };
+  }
+
+  static #validatePuzzleSize(pixelArt, puzzleSize) {
+    if (puzzleSize % 5 !== 0) throw APIErrors.INVALID_PUZZLE_SIZE;
   }
 
   //Builds a solution string from the given pixel art string
