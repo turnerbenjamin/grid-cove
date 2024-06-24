@@ -1,5 +1,6 @@
 import Puzzle from "../models/Puzzle.model.js";
 import APIErrors from "../utils/APIErrors.js";
+import HTTPError from "../utils/HTTPError.js";
 import PuzzleGenerator from "../utils/PuzzleGenerator.js";
 
 export default class PuzzleService {
@@ -21,5 +22,6 @@ export default class PuzzleService {
 
   #handleErrors(err) {
     if (err.code === 11000) throw APIErrors.DUPLICATE_PIXEL_ART;
+    if (err instanceof HTTPError) throw err;
   }
 }

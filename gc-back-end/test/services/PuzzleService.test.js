@@ -19,6 +19,7 @@ describe("Puzzle service tests: ", () => {
   let puzzleService;
   let generatePuzzleStub;
   let createStub;
+  let createPuzzleArgs;
 
   beforeEach(() => {
     puzzleService = new PuzzleService();
@@ -28,10 +29,17 @@ describe("Puzzle service tests: ", () => {
       clues: testClues,
     });
     createStub = sinon.stub(Puzzle, "create");
+    createPuzzleArgs = [
+      testPuzzleSubmission.pixelArt,
+      testPuzzleSubmission.title,
+      testArtist,
+      testPuzzleSubmission.size,
+    ];
   });
 
   afterEach(() => {
     puzzleService = null;
+    createPuzzleArgs = null;
     generatePuzzleStub.restore();
     createStub.restore();
   });
@@ -41,12 +49,7 @@ describe("Puzzle service tests: ", () => {
     const expectedPixelArtArg = testPuzzleSubmission.pixelArt;
     const expectedPuzzleSizeArg = testPuzzleSubmission.size;
     //Act
-    await puzzleService.createPuzzle(
-      testPuzzleSubmission.pixelArt,
-      testPuzzleSubmission.title,
-      testArtist,
-      testPuzzleSubmission.size
-    );
+    await puzzleService.createPuzzle(...createPuzzleArgs);
     const [actualPixelArtArg, actualPuzzleSizeArg] =
       generatePuzzleStub.getCall(0).args;
     //Assert
@@ -65,12 +68,7 @@ describe("Puzzle service tests: ", () => {
       artist: testArtist._id,
     };
     //Act
-    await puzzleService.createPuzzle(
-      testPuzzleSubmission.pixelArt,
-      testPuzzleSubmission.title,
-      testArtist,
-      testPuzzleSubmission.size
-    );
+    await puzzleService.createPuzzle(...createPuzzleArgs);
     const [actual] = createStub.getCall(0).args;
     //Assert
     expect(actual).to.deep.equal(expected);
@@ -88,12 +86,23 @@ describe("Puzzle service tests: ", () => {
     let actual;
     //Act
     try {
-      await puzzleService.createPuzzle(
-        testPuzzleSubmission.pixelArt,
-        testPuzzleSubmission.title,
-        testArtist,
-        testPuzzleSubmission.size
-      );
+      await puzzleService.createPuzzle(...createPuzzleArgs);
+    } catch (err) {
+      actual = err;
+    }
+    //Assert
+    expect(actual).to.equal(expected);
+  });
+
+  //? PS6-4
+  it("should rethrow an invalid puzzle art distribution error where thrown by the Puzzle Generator", async () => {
+    //Arrange
+    const expected = APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION;
+    generatePuzzleStub.throws(expected);
+    let actual;
+    //Act
+    try {
+      await puzzleService.createPuzzle(...createPuzzleArgs);
     } catch (err) {
       actual = err;
     }
