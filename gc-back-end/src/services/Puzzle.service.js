@@ -7,7 +7,7 @@ export default class PuzzleService {
   createPuzzle = async (pixelArt, title, artist, size) => {
     try {
       const { clues, solution } = PuzzleGenerator.generate(pixelArt, size);
-      await Puzzle.create({
+      const puzzle = await Puzzle.create({
         pixelArt,
         title,
         solution,
@@ -15,6 +15,7 @@ export default class PuzzleService {
         size,
         artist: artist._id,
       });
+      return puzzle;
     } catch (err) {
       this.#handleErrors(err);
     }
