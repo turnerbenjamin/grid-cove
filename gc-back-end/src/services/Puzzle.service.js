@@ -23,5 +23,6 @@ export default class PuzzleService {
   #handleErrors(err) {
     if (err.code === 11000) throw APIErrors.DUPLICATE_PIXEL_ART;
     if (err instanceof HTTPError) throw err;
+    throw APIErrors.SERVER_ERROR;
   }
 }

@@ -44,7 +44,7 @@ I will relocate grid size validation to a middleware validator
 - [x] PS6-2: It should call create on the Puzzle model with the correct arguments
 - [x] PS6-3: It should throw a duplicate pixel art error where the pixel art is a duplicate
 - [x] PS6-4: It should rethrow an invalid puzzle art distribution error where thrown by the Puzzle Generator
-- [ ] PS6-5: It should throw a server error for all other errors
+- [x] PS6-5: It should throw a server error for all other errors
 - [ ] PS6-6: It should return the new puzzle document where create resolves
 
 ## Puzzle Controller (PC)

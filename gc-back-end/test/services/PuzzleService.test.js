@@ -109,4 +109,20 @@ describe("Puzzle service tests: ", () => {
     //Assert
     expect(actual).to.equal(expected);
   });
+
+  //? PS6-4
+  it("should rethrow an invalid puzzle art distribution error where thrown by the Puzzle Generator", async () => {
+    //Arrange
+    const expected = APIErrors.SERVER_ERROR;
+    generatePuzzleStub.throws(new Error());
+    let actual;
+    //Act
+    try {
+      await puzzleService.createPuzzle(...createPuzzleArgs);
+    } catch (err) {
+      actual = err;
+    }
+    //Assert
+    expect(actual).to.equal(expected);
+  });
 });
