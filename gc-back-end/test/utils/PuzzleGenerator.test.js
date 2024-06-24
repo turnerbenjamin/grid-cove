@@ -43,35 +43,4 @@ describe("Puzzle generator tests: ", () => {
     expect(columnClues).has.length(testPuzzleSize);
     expect(rowClues).has.length(testPuzzleSize);
   });
-
-  //? PG6-4
-  it("should throw an error if the grid size is not a multiple of 5", async () => {
-    //Arrange
-    const expected = APIErrors.INVALID_PUZZLE_SIZE;
-    const invalidPuzzleSize = 4;
-    let actual;
-    //Act
-    try {
-      PuzzleGenerator.generate(testPixelArt, invalidPuzzleSize);
-    } catch (err) {
-      actual = err;
-    }
-    //Assert
-    expect(actual).to.equal(expected);
-  });
-
-  //? PG6-5
-  it("should throw an error if the pixel art string does not match the grid size", async () => {
-    //Arrange
-    const expected = APIErrors.INVALID_PIXEL_ART_LENGTH;
-    let actual;
-    //Act
-    try {
-      PuzzleGenerator.generate(testPixelArt + "0", testPuzzleSize);
-    } catch (err) {
-      actual = err;
-    }
-    //Assert
-    expect(actual).to.equal(expected);
-  });
 });

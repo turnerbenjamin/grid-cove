@@ -26,19 +26,26 @@ Note, user story 5 related exclusively to frontend functionality.
 
 ## Puzzle Generator (PG)
 
+Note, I am keeping these tests relatively flexible. It is difficult to predict at this point the best approach to generating good quality puzzles from a given seed.
+
+I will relocate grid size validation to a middleware validator
+
 - [x] PG6-1: It should generate a solution string from a given pixel art string
 - [x] PG6-2: It should throw an error if any one character makes up over 90 percent of the string
 - [x] PG6-3: It should return a clues object with row and column properties which have two dimensional arrays, the length of which should equal the puzzle size
-- [x] PG6-4: It should throw an error if the grid size is not a multiple of 5
-- [x] PG6-5: It should throw an error if the pixel art string does not match the grid size
+<!-- markdownlint-disable-next-line -->
+- [x] <s> PG6-4: It should throw an error if the grid size is not a multiple of 5></s>
+<!-- markdownlint-disable-next-line -->
+- [x] <s>PG6-5: It should throw an error if the pixel art string does not match the grid size<s>
 
 ## Puzzle Service (PS)
 
-- [ ] PS6-1: It should call PuzzleGenerator with the pixel art string
+- [x] PS6-1: It should call PuzzleGenerator with the pixel art string
 - [ ] PS6-2: It should call create on the Puzzle model with the correct arguments
 - [ ] PS6-3: It should throw a duplicate pixel art error where the pixel art is a duplicate
-- [ ] PS6-4: It should throw a server error for all other errors
-- [ ] PS6-5: It should return the new puzzle document where create resolves
+- [ ] PS6-4: It should rethrow an invalid puzzle art distribution error where thrown by the Puzzle Generator
+- [ ] PS6-5: It should throw a server error for all other errors
+- [ ] PS6-6: It should return the new puzzle document where create resolves
 
 ## Puzzle Controller (PC)
 
@@ -57,6 +64,17 @@ Note, user story 5 related exclusively to frontend functionality.
 - [ ] INT6-4: It should respond with a 401 status code if jwt.verify throws
 - [ ] INT6-5: It should respond with a 401 status code if getById returns a falsy value
 - [ ] INT6-6: It should respond with a 500 status code if getById rejects
-- [ ] INT6-7: It should respond with a 400 status code if the pixel art string is invalid
-- [ ] INT6-8: It should respond with a 400 status code if the title is invalid
-- [ ] INT6-9: It should respond with a 400 status code if the puzzle art is duplicated
+- [ ] INT6-7: It should respond with a 400 status code if the puzzle art is duplicated
+- [ ] INT6-8: It should respond with a 400 status code if the pixel art string distribution is invalid
+
+### validation
+
+- [ ] INT6-9: It should respond with a 400 status code if the grid size is missing
+- [ ] INT6-10: It should respond with a 400 status code if the grid size is not greater or equal to 5
+- [ ] INT6-11: It should respond with a 400 status code if the grid size is not less than or equal to 15
+- [ ] INT6-12: It should respond with a 400 status code if the grid size is not a multiple of 5
+- [ ] INT6-13: It should respond with a 400 status code if the pixel art string size is missing
+- [ ] INT6-14: It should respond with a 400 status code if the pixel art string size length is not the square of the puzzle size
+- [ ] INT6-15: It should respond with a 400 status code if the title is missing
+- [ ] INT6-16: It should respond with a 400 status code if the title is not greater or equal to 3 chars
+- [ ] INT6-17: It should respond with a 400 status code if the title is not less than or equal to 32 chars

@@ -2,7 +2,6 @@ import APIErrors from "./APIErrors.js";
 
 export default class PuzzleGenerator {
   static generate(pixelArt, puzzleSize) {
-    PuzzleGenerator.#validatePuzzleSize(pixelArt, puzzleSize);
     const solution = PuzzleGenerator.#getSolutionString(pixelArt);
     const clues = PuzzleGenerator.#getClues(solution, puzzleSize);
     return {
@@ -11,17 +10,13 @@ export default class PuzzleGenerator {
     };
   }
 
-  static #validatePuzzleSize(pixelArt, puzzleSize) {
-    if (puzzleSize % 5 !== 0) throw APIErrors.INVALID_PUZZLE_SIZE;
-    if (pixelArt.length !== puzzleSize ** 2)
-      throw APIErrors.INVALID_PIXEL_ART_LENGTH;
-  }
-
   //Builds a solution string from the given pixel art string
   static #getSolutionString(pixelArt) {
     const charCodeProfile = PuzzleGenerator.#getCharProfileFromString(pixelArt);
-    const charCodesToFill =
-      PuzzleGenerator.#getCharCodesToFill(charCodeProfile);
+    const charCodesToFill = PuzzleGenerator.#getCharCodesToFill(
+      charCodeProfile,
+      pixelArt.length
+    );
     return PuzzleGenerator.#buildSolutionString(pixelArt, charCodesToFill);
   }
 
@@ -36,75 +31,74 @@ export default class PuzzleGenerator {
     return solutionString;
   }
 
-  //Randomly assign chars to be filled. Will ensure that at least one
-  //char from the topOccurring chars (>10%) is filled.
-  static #getCharCodesToFill({ chars, topOccurringChars }) {
-    const doFill = {};
-    const mustFill = PuzzleGenerator.#getRandomChar(topOccurringChars);
-    let filledCellCount = 0;
-    for (const charCode of chars) {
-      if (filledCellCount === chars.length - 1) break;
-      if (charCode === mustFill || Math.random() < 0.6) {
-        filledCellCount += 1;
-        doFill[charCode] = true;
-      }
-    }
-    return doFill;
+  //Randomly splits charCode profile in two. The first array will be
+  //used for to fill so long as it has at least 35% cover.
+  static #getCharCodesToFill(profile, length) {
+    const [firstHalf, secondHalf] = this.#shuffleAndRandomlySplitArray(profile);
+    const firstHalfCover = PuzzleGenerator.#getTotalCover(firstHalf, length);
+    const secondHalfCover = PuzzleGenerator.#getTotalCover(secondHalf, length);
+    const toFill =
+      (firstHalfCover / length) * 100 > 35 ? firstHalf : secondHalf;
+
+    PuzzleGenerator.#ensureCorrectDistribution(
+      toFill,
+      Math.max(firstHalfCover, secondHalfCover),
+      length
+    );
+
+    return toFill.reduce((charMap, charProfile) => {
+      charMap[charProfile.char] = true;
+      return charMap;
+    }, {});
   }
 
-  //Returns a random char from an array of chars
-  static #getRandomChar(chars) {
-    const randomIndex = Math.floor(Math.random() * chars.length);
-    return chars[randomIndex];
+  //If the cover of to fill is over 90 then chars are removed until it
+  //is less or equal to 90
+  static #ensureCorrectDistribution(toFill, toFillCover, length) {
+    const maxCover = Math.floor(length * 0.9);
+    if (toFillCover > maxCover) {
+      PuzzleGenerator.#redistributeChars({
+        amountToRemove: toFillCover - maxCover,
+        from: toFill,
+      });
+    }
+  }
+
+  //Returns the total cover for a given set of characters
+  static #getTotalCover(charProfiles) {
+    return charProfiles.reduce((total, char) => total + char.occurrence, 0);
+  }
+
+  static #redistributeChars({ amountToRemove, from }) {
+    from.sort((a, b) => b.occurrence - a.occurrence);
+    let amountRemoved = 0;
+    while (amountRemoved < amountToRemove) {
+      const charRemoved = from.pop();
+      amountRemoved += charRemoved.occurrence;
+    }
+  }
+
+  static #shuffleAndRandomlySplitArray(arr) {
+    arr.sort(() => 0.5 - Math.random());
+    const indexToSplitAt = Math.floor(Math.random() * (arr.length - 1)) + 1;
+    const firstHalf = arr.slice(0, indexToSplitAt);
+    const secondHalf = arr.slice(indexToSplitAt);
+
+    return [firstHalf, secondHalf];
   }
 
   //Returns an object with an array of all chars
   //and an array of chars that make up at least 10% of the string
   static #getCharProfileFromString(string) {
     const profile = {};
-    const chars = [];
-    const topOccurringChars = [];
-
     for (const char of string) {
-      if (!profile[char]) {
-        chars.push(char);
-        PuzzleGenerator.#addCharToProfile(profile, char);
-      }
-      profile[char].occurrence++;
-      if (PuzzleGenerator.#doAddToTopOccurringChars(profile, string, char)) {
-        topOccurringChars.push(char);
-      }
-      PuzzleGenerator.#validateCharacterDistribution(profile, string, char);
+      profile[char] = (profile[char] || 0) + 1;
+      if (profile[char] > string.length * 0.9)
+        throw APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION;
     }
-    return {
-      chars,
-      topOccurringChars,
-    };
-  }
-
-  static #validateCharacterDistribution(profile, string, char) {
-    if (profile[char].occurrence > string.length * 0.9)
-      throw APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION;
-  }
-
-  //Checks whether char comprises at least 10% of the string and
-  //has not already been added to the top occurring chars
-  static #doAddToTopOccurringChars(profile, string, char) {
-    if (
-      !profile[char].inTopOccurringChars &&
-      profile[char].occurrence >= string.length / 10
-    ) {
-      profile[char].inTopOccurringChars = true;
-      return true;
-    }
-  }
-
-  //Adds initial profile object for a given char to the profile
-  static #addCharToProfile(profile, char) {
-    profile[char] = {
-      occurrence: 0,
-      inTopOccurringChars: false,
-    };
+    return Object.entries(profile).map(([char, occurrence]) => {
+      return { char, occurrence };
+    });
   }
 
   static #getClues(solution, puzzleSize) {
