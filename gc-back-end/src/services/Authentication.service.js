@@ -30,10 +30,12 @@ export default class AuthenticationService {
   };
 
   validateToken = async (token) => {
-    const decodedToken = this.#decodeToken(token);
     try {
-      await User.findById(decodedToken._id);
+      const decodedToken = this.#decodeToken(token);
+      const userDocument = await User.findById(decodedToken._id);
+      if (!userDocument) throw APIErrors.UNAUTHORISED_ERROR;
     } catch (err) {
+      if (err instanceof HTTPError) throw err;
       throw APIErrors.SERVER_ERROR;
     }
   };

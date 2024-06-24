@@ -393,5 +393,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS6-5
+    it("should throw an unauthorised error if findById returns a falsy value", async () => {
+      //Arrange
+      findByIdStub.resolves(null);
+      const expected = APIErrors.UNAUTHORISED_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.validateToken(testToken);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
