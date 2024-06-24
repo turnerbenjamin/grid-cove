@@ -254,6 +254,8 @@ describe("Authentication controller tests", () => {
     let authenticationController;
     const testToken = "jwt=xxxxx";
     let authenticationService;
+    let next;
+
     beforeEach(() => {
       authenticationService = {
         validateToken: sinon.stub(),
@@ -264,6 +266,7 @@ describe("Authentication controller tests", () => {
       req.cookies = {
         jwt: testToken,
       };
+      next = sinon.spy();
     });
 
     afterEach(() => {
@@ -275,7 +278,7 @@ describe("Authentication controller tests", () => {
       //Arrange
       req.cookies.jwt = undefined;
       //Act
-      await authenticationController.requireLoggedIn(req, res);
+      await authenticationController.requireLoggedIn(req, res, next);
       //Assert
       expect(res.status.calledWith(401)).to.equal(true);
     });
@@ -283,7 +286,7 @@ describe("Authentication controller tests", () => {
     //? AC6-2
     it("should call validateToken on the user service", async () => {
       //Act
-      await authenticationController.requireLoggedIn(req, res);
+      await authenticationController.requireLoggedIn(req, res, next);
       //Assert
       expect(
         authenticationService.validateToken.calledWith(testToken)
@@ -295,7 +298,7 @@ describe("Authentication controller tests", () => {
       //Arrange
       authenticationService.validateToken.rejects(APIErrors.UNAUTHORISED_ERROR);
       //Act
-      await authenticationController.requireLoggedIn(req, res);
+      await authenticationController.requireLoggedIn(req, res, next);
       //Assert
       expect(res.status.calledWith(401)).to.equal(true);
     });
@@ -305,7 +308,7 @@ describe("Authentication controller tests", () => {
       //Arrange
       authenticationService.validateToken.rejects(APIErrors.SERVER_ERROR);
       //Act
-      await authenticationController.requireLoggedIn(req, res);
+      await authenticationController.requireLoggedIn(req, res, next);
       //Assert
       expect(res.status.calledWith(500)).to.equal(true);
     });
@@ -316,9 +319,20 @@ describe("Authentication controller tests", () => {
       const expected = userTestData.documents[0];
       authenticationService.validateToken.resolves(expected);
       //Act
-      await authenticationController.requireLoggedIn(req, res);
+      await authenticationController.requireLoggedIn(req, res, next);
       //Assert
       expect(req.user).to.equal(expected);
+    });
+
+    //? AC6-6
+    it("should call next if the user service resolves", async () => {
+      //Arrange
+      const expected = userTestData.documents[0];
+      authenticationService.validateToken.resolves(expected);
+      //Act
+      await authenticationController.requireLoggedIn(req, res, next);
+      //Assert
+      expect(next.calledWith()).to.equal(true);
     });
   });
 });

@@ -22,7 +22,7 @@ Note, user story 5 related exclusively to frontend functionality.
 - [x] AC6-3: It should respond with status code of 401 if Authentication Service throws an unauthorised error
 - [x] AC6-4: It should respond with status code of 500 if Authentication Service throws a server error
 - [x] AC6-5: It should attach the user returned from the Authentication Service to req object
-- [ ] AC6-6: It should call next if the user service resolves
+- [x] AC6-6: It should call next if the user service resolves
 
 ## Puzzle Generator (PG)
 

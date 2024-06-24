@@ -44,6 +44,7 @@ export default class AuthenticationController {
       req.user = await this.#authenticationService.validateToken(
         req.cookies.jwt
       );
+      next();
     } catch (err) {
       this.#handleErrors(res, err);
     }
