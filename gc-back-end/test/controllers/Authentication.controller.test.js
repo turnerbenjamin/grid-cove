@@ -250,4 +250,28 @@ describe("Authentication controller tests", () => {
       expect(res.status.calledWith(500)).to.equal(true);
     });
   });
+  describe("Register logged In tests", () => {
+    let authenticationController;
+    const testToken = "jwt=xxxxx";
+    beforeEach(() => {
+      authenticationController = new AuthenticationController({});
+      req.cookies = {
+        jwt: testToken,
+      };
+    });
+
+    afterEach(() => {
+      authenticationController = null;
+    });
+
+    //? AC6-1
+    it("should respond with status code of 401 if no req.cookies.jwt", async () => {
+      //Arrange
+      req.cookies.jwt = undefined;
+      //Act
+      await authenticationController.requireLoggedIn(req, res);
+      //Assert
+      expect(res.status.calledWith(401)).to.equal(true);
+    });
+  });
 });

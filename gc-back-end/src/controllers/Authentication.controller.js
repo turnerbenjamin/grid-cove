@@ -38,6 +38,14 @@ export default class AuthenticationController {
     }
   };
 
+  requireLoggedIn = async (req, res, next) => {
+    try {
+      if (!req?.cookies?.jwt) throw APIErrors.UNAUTHORISED_ERROR;
+    } catch (err) {
+      this.#handleErrors(res, err);
+    }
+  };
+
   #setCookie = (res, token) => {
     res.cookie("jwt", token, {
       maxAge: process.env.COOKIE_EXPIRES_IN,
