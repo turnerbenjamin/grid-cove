@@ -8,7 +8,7 @@ import * as userTestData from "../data/User.test.data.js";
 import * as puzzleTestData from "../data/Puzzle.test.data.js";
 
 describe("Puzzle service tests: ", () => {
-  const testAuthor = userTestData.documents[0];
+  const testArtist = userTestData.documents[0];
   const testPuzzleSubmission = puzzleTestData.submissions[0];
   const testSolutionString = "111111";
   const testClues = {
@@ -43,7 +43,7 @@ describe("Puzzle service tests: ", () => {
     await puzzleService.createPuzzle(
       testPuzzleSubmission.pixelArt,
       testPuzzleSubmission.title,
-      testAuthor,
+      testArtist,
       testPuzzleSubmission.size
     );
     const [actualPixelArtArg, actualPuzzleSizeArg] =
@@ -51,5 +51,27 @@ describe("Puzzle service tests: ", () => {
     //Assert
     expect(actualPixelArtArg).to.equal(expectedPixelArtArg);
     expect(actualPuzzleSizeArg).to.equal(expectedPuzzleSizeArg);
+  });
+
+  //? PS6-2
+  it("should call create on the Puzzle model with the correct arguments", async () => {
+    const expected = {
+      pixelArt: testPuzzleSubmission.pixelArt,
+      title: testPuzzleSubmission.title,
+      solution: testSolutionString,
+      clues: testClues,
+      size: testPuzzleSubmission.size,
+      artist: testArtist._id,
+    };
+    //Act
+    await puzzleService.createPuzzle(
+      testPuzzleSubmission.pixelArt,
+      testPuzzleSubmission.title,
+      testArtist,
+      testPuzzleSubmission.size
+    );
+    const [actual] = createStub.getCall(0).args;
+    //Assert
+    expect(actual).to.deep.equal(expected);
   });
 });

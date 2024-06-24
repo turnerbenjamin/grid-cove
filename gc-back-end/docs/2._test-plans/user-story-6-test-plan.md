@@ -41,7 +41,7 @@ I will relocate grid size validation to a middleware validator
 ## Puzzle Service (PS)
 
 - [x] PS6-1: It should call PuzzleGenerator with the pixel art string
-- [ ] PS6-2: It should call create on the Puzzle model with the correct arguments
+- [x] PS6-2: It should call create on the Puzzle model with the correct arguments
 - [ ] PS6-3: It should throw a duplicate pixel art error where the pixel art is a duplicate
 - [ ] PS6-4: It should rethrow an invalid puzzle art distribution error where thrown by the Puzzle Generator
 - [ ] PS6-5: It should throw a server error for all other errors

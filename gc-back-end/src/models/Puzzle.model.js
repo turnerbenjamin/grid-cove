@@ -21,7 +21,7 @@ const puzzleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  solutionString: {
+  solution: {
     type: String,
     required: true,
   },
