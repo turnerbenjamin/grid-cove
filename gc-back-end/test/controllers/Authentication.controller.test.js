@@ -309,5 +309,16 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(res.status.calledWith(500)).to.equal(true);
     });
+
+    //? AC6-5
+    it("should attach the user returned from the Authentication Service to req object", async () => {
+      //Arrange
+      const expected = userTestData.documents[0];
+      authenticationService.validateToken.resolves(expected);
+      //Act
+      await authenticationController.requireLoggedIn(req, res);
+      //Assert
+      expect(req.user).to.equal(expected);
+    });
   });
 });
