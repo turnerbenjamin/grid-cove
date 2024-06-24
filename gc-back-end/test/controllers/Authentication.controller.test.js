@@ -292,12 +292,22 @@ describe("Authentication controller tests", () => {
 
     //? AC6-3
     it("should respond with status code of 401 if Authentication Service throws an unauthorised error", async () => {
+      //Arrange
+      authenticationService.validateToken.rejects(APIErrors.UNAUTHORISED_ERROR);
       //Act
       await authenticationController.requireLoggedIn(req, res);
       //Assert
-      expect(
-        authenticationService.validateToken.calledWith(testToken)
-      ).to.equal(true);
+      expect(res.status.calledWith(401)).to.equal(true);
+    });
+
+    //? AC6-4
+    it("should respond with status code of 500 if Authentication Service throws a server error", async () => {
+      //Arrange
+      authenticationService.validateToken.rejects(APIErrors.SERVER_ERROR);
+      //Act
+      await authenticationController.requireLoggedIn(req, res);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
     });
   });
 });
