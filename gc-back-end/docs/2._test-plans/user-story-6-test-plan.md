@@ -9,7 +9,7 @@ Note, user story 5 related exclusively to frontend functionality.
 ## Authentication Service (AS)
 
 - [x] AS6-1: It should call jwt.verify with correct arguments
-- [ ] AS6-2: It should throw an unauthorised error if jwt.verify throws
+- [x] AS6-2: It should throw an unauthorised error if jwt.verify throws
 - [ ] AS6-3: It should call findById on the User Service with correct id if verify resolves
 - [ ] AS6-4: It should throw a server error if findById rejects
 - [ ] AS6-5: It should throw an unauthorised error if findById returns a falsy value

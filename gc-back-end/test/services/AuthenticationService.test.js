@@ -334,7 +334,7 @@ describe("Authentication service tests", () => {
     });
 
     //? AS6-1
-    it("It should call jwt.verify with correct arguments", async () => {
+    it("should call jwt.verify with correct arguments", async () => {
       //Arrange
       verifyStub.returns(testDecodedToken);
       const expectedJWTArg = testToken;
@@ -345,6 +345,22 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actualJWTArg).to.equal(expectedJWTArg);
       expect(actualSecretArg).to.equal(expectedSecretArg);
+    });
+
+    //? AS6-2
+    it("should throw an unauthorised error if jwt.verify throws", async () => {
+      //Arrange
+      verifyStub.throws(new Error());
+      const expected = APIErrors.UNAUTHORISED_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.validateToken(testToken);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
     });
   });
 });

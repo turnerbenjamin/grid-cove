@@ -30,7 +30,11 @@ export default class AuthenticationService {
   };
 
   validateToken = async (token) => {
-    jwt.verify(token, process.env.JWT_SECRET_KEY);
+    try {
+      jwt.verify(token, process.env.JWT_SECRET_KEY);
+    } catch (err) {
+      throw APIErrors.UNAUTHORISED_ERROR;
+    }
   };
 
   #verifyUser = async (userCredentials, userDocument) => {
