@@ -27,7 +27,8 @@ Note, user story 5 related exclusively to frontend functionality.
 ## Puzzle Generator (PG)
 
 - [x] PG6-1: It should generate a solution string from a given pixel art string
-- [ ] PG6-2: It should return a clues object with row and column properties which have two dimensional arrays, the length of which should equal the puzzle size
+- [x] PG6-2: It should throw an error if any one character makes up over 90 percent of the string
+- [ ] PG6-3: It should return a clues object with row and column properties which have two dimensional arrays, the length of which should equal the puzzle size
 
 ## Puzzle Service (PS)
 
@@ -41,6 +42,7 @@ Note, user story 5 related exclusively to frontend functionality.
 
 - [ ] PC6-1: It should call the puzzle service with the correct arguments
 - [ ] PC6-2: It should respond with a 400 status code if Puzzle Service throws a duplicate pixel art error
+- [ ] PC6-2: It should respond with a 400 status code if Puzzle Service throws a invalid character distribution error
 - [ ] PC6-3: It should respond with a 500 error code if Puzzle Service throws a server error
 - [ ] PC6-4: It should respond with a 201 status code if Puzzle Service resolves
 - [ ] PC6-5: It should call res.json with the value returned from puzzle service

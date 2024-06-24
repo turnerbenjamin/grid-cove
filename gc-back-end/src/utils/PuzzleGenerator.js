@@ -1,3 +1,5 @@
+import APIErrors from "./APIErrors.js";
+
 export default class PuzzleGenerator {
   static generate(pixelArt) {
     const solution = PuzzleGenerator.#getSolutionString(pixelArt);
@@ -63,11 +65,17 @@ export default class PuzzleGenerator {
       if (PuzzleGenerator.#doAddToTopOccurringChars(profile, string, char)) {
         topOccurringChars.push(char);
       }
+      PuzzleGenerator.#validateCharacterDistribution(profile, string, char);
     }
     return {
       chars,
       topOccurringChars,
     };
+  }
+
+  static #validateCharacterDistribution(profile, string, char) {
+    if (profile[char].occurrence > string.length * 0.9)
+      throw APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION;
   }
 
   //Checks whether char comprises at least 10% of the string and

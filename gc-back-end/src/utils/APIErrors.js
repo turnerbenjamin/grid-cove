@@ -16,6 +16,11 @@ export default class APIErrors {
     "Incorrect authentication details"
   );
 
+  static #INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION = new HTTPError(
+    400,
+    "Your art may not include a single colour that makes up over 90% of the image"
+  );
+
   //GETTERS
   static get DUPLICATE_USERNAME() {
     return this.#DUPLICATE_USERNAME;
@@ -27,6 +32,10 @@ export default class APIErrors {
 
   static get UNAUTHORISED_ERROR() {
     return this.#UNAUTHORISED_ERROR;
+  }
+
+  static get INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION() {
+    return this.#INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION;
   }
 
   static get SERVER_ERROR() {
