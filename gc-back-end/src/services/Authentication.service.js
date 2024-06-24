@@ -31,7 +31,11 @@ export default class AuthenticationService {
 
   validateToken = async (token) => {
     const decodedToken = this.#decodeToken(token);
-    await User.findById(decodedToken._id);
+    try {
+      await User.findById(decodedToken._id);
+    } catch (err) {
+      throw APIErrors.SERVER_ERROR;
+    }
   };
 
   #verifyUser = async (userCredentials, userDocument) => {

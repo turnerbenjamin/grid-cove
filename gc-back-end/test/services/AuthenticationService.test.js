@@ -377,5 +377,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS6-4
+    it("should throw a server error if findById rejects", async () => {
+      //Arrange
+      findByIdStub.rejects(new Error());
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.validateToken(testToken);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
