@@ -250,7 +250,7 @@ describe("Authentication controller tests", () => {
       expect(res.status.calledWith(500)).to.equal(true);
     });
   });
-  describe("Register logged In tests", () => {
+  describe("Require logged In tests", () => {
     let authenticationController;
     const testToken = "jwt=xxxxx";
     let authenticationService;
@@ -282,6 +282,16 @@ describe("Authentication controller tests", () => {
 
     //? AC6-2
     it("should call validateToken on the user service", async () => {
+      //Act
+      await authenticationController.requireLoggedIn(req, res);
+      //Assert
+      expect(
+        authenticationService.validateToken.calledWith(testToken)
+      ).to.equal(true);
+    });
+
+    //? AC6-3
+    it("should respond with status code of 401 if Authentication Service throws an unauthorised error", async () => {
       //Act
       await authenticationController.requireLoggedIn(req, res);
       //Assert
