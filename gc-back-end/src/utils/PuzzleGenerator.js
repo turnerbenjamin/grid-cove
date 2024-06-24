@@ -13,6 +13,8 @@ export default class PuzzleGenerator {
 
   static #validatePuzzleSize(pixelArt, puzzleSize) {
     if (puzzleSize % 5 !== 0) throw APIErrors.INVALID_PUZZLE_SIZE;
+    if (pixelArt.length !== puzzleSize ** 2)
+      throw APIErrors.INVALID_PIXEL_ART_LENGTH;
   }
 
   //Builds a solution string from the given pixel art string

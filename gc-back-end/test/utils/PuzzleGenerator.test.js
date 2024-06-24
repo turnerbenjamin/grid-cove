@@ -21,12 +21,12 @@ describe("Puzzle generator tests: ", () => {
   //? PG6-2
   it("should throw an error if any one character makes up over 90 percent of the string", async () => {
     //Arrange
-    const invalidPuzzle = "0".repeat(91) + "1".repeat(10);
+    const invalidPuzzle = "0".repeat(91) + "1".repeat(9);
     const expected = APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION;
     let actual;
     //Act
     try {
-      PuzzleGenerator.generate(invalidPuzzle, testPuzzleSize);
+      PuzzleGenerator.generate(invalidPuzzle, 10);
     } catch (err) {
       actual = err;
     }
@@ -45,7 +45,7 @@ describe("Puzzle generator tests: ", () => {
   });
 
   //? PG6-4
-  it("It should throw an error if the grid size is not a multiple of 5", async () => {
+  it("should throw an error if the grid size is not a multiple of 5", async () => {
     //Arrange
     const expected = APIErrors.INVALID_PUZZLE_SIZE;
     const invalidPuzzleSize = 4;
@@ -53,6 +53,21 @@ describe("Puzzle generator tests: ", () => {
     //Act
     try {
       PuzzleGenerator.generate(testPixelArt, invalidPuzzleSize);
+    } catch (err) {
+      actual = err;
+    }
+    //Assert
+    expect(actual).to.equal(expected);
+  });
+
+  //? PG6-5
+  it("should throw an error if the pixel art string does not match the grid size", async () => {
+    //Arrange
+    const expected = APIErrors.INVALID_PIXEL_ART_LENGTH;
+    let actual;
+    //Act
+    try {
+      PuzzleGenerator.generate(testPixelArt + "0", testPuzzleSize);
     } catch (err) {
       actual = err;
     }
