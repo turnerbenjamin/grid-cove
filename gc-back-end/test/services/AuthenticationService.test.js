@@ -324,19 +324,23 @@ describe("Authentication service tests", () => {
     const testToken = "jwt=xxxxx";
     const testUserDocument = userTestData.documents[0];
     let verifyStub;
+    let findByIdStub;
 
     beforeEach(() => {
       verifyStub = sinon.stub(jwt, "verify");
+      verifyStub.returns(testDecodedToken);
+      findByIdStub = sinon.stub(User, "findById");
+      findByIdStub.resolves(testUserDocument);
     });
 
     afterEach(() => {
       verifyStub.restore();
+      findByIdStub.restore();
     });
 
     //? AS6-1
     it("should call jwt.verify with correct arguments", async () => {
       //Arrange
-      verifyStub.returns(testDecodedToken);
       const expectedJWTArg = testToken;
       const expectedSecretArg = process.env.JWT_SECRET_KEY;
       //Act
@@ -359,6 +363,17 @@ describe("Authentication service tests", () => {
       } catch (err) {
         actual = err;
       }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
+
+    //? AS6-3
+    it("should call findById on the User Service with correct id if verify resolves", async () => {
+      //Arrange
+      const expected = testDecodedToken._id;
+      //Act
+      await authenticationService.validateToken(testToken);
+      const [actual] = findByIdStub.getCall(0).args;
       //Assert
       expect(actual).to.equal(expected);
     });

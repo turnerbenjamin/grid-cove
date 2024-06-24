@@ -30,11 +30,8 @@ export default class AuthenticationService {
   };
 
   validateToken = async (token) => {
-    try {
-      jwt.verify(token, process.env.JWT_SECRET_KEY);
-    } catch (err) {
-      throw APIErrors.UNAUTHORISED_ERROR;
-    }
+    const decodedToken = this.#decodeToken(token);
+    await User.findById(decodedToken._id);
   };
 
   #verifyUser = async (userCredentials, userDocument) => {
@@ -55,6 +52,14 @@ export default class AuthenticationService {
       }
     );
     return token;
+  };
+
+  #decodeToken = (token) => {
+    try {
+      return jwt.verify(token, process.env.JWT_SECRET_KEY);
+    } catch (err) {
+      throw APIErrors.UNAUTHORISED_ERROR;
+    }
   };
 
   #handleError = (err) => {
