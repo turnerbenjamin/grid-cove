@@ -253,8 +253,14 @@ describe("Authentication controller tests", () => {
   describe("Register logged In tests", () => {
     let authenticationController;
     const testToken = "jwt=xxxxx";
+    let authenticationService;
     beforeEach(() => {
-      authenticationController = new AuthenticationController({});
+      authenticationService = {
+        validateToken: sinon.stub(),
+      };
+      authenticationController = new AuthenticationController(
+        authenticationService
+      );
       req.cookies = {
         jwt: testToken,
       };
@@ -272,6 +278,16 @@ describe("Authentication controller tests", () => {
       await authenticationController.requireLoggedIn(req, res);
       //Assert
       expect(res.status.calledWith(401)).to.equal(true);
+    });
+
+    //? AC6-2
+    it("should call validateToken on the user service", async () => {
+      //Act
+      await authenticationController.requireLoggedIn(req, res);
+      //Assert
+      expect(
+        authenticationService.validateToken.calledWith(testToken)
+      ).to.equal(true);
     });
   });
 });

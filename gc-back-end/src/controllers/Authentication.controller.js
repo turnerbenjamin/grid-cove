@@ -41,6 +41,7 @@ export default class AuthenticationController {
   requireLoggedIn = async (req, res, next) => {
     try {
       if (!req?.cookies?.jwt) throw APIErrors.UNAUTHORISED_ERROR;
+      this.#authenticationService.validateToken(req.cookies.jwt);
     } catch (err) {
       this.#handleErrors(res, err);
     }

@@ -18,7 +18,7 @@ Note, user story 5 related exclusively to frontend functionality.
 ## Authentication Controller (AS)
 
 - [x] AC6-1: It should respond with status code of 401 if no req.cookies.jwt
-- [ ] AC6-2: It should call validateToken on the user service
+- [x] AC6-2: It should call validateToken on the user service
 - [ ] AC6-3: It should respond with status code of 401 if Authentication Service throws an unauthorised error
 - [ ] AC6-4: It should respond with status code of 500 if Authentication Service throws a server error
 - [ ] AC6-5: It should attach the user returned from the Authentication Service to req object
