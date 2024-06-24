@@ -2,9 +2,12 @@ import APIErrors from "./APIErrors.js";
 
 export default class PuzzleGenerator {
   static generate(pixelArt) {
+    const puzzleSize = Math.round(Math.sqrt(pixelArt.length));
     const solution = PuzzleGenerator.#getSolutionString(pixelArt);
+    const clues = PuzzleGenerator.#getClues(solution, puzzleSize);
     return {
       solution,
+      clues,
     };
   }
 
@@ -96,5 +99,48 @@ export default class PuzzleGenerator {
       occurrence: 0,
       inTopOccurringChars: false,
     };
+  }
+
+  static #getClues(solution, puzzleSize) {
+    const rowClues = [];
+    const columnClues = [];
+    for (let i = 0; i < puzzleSize; i++) {
+      rowClues.push(PuzzleGenerator.#getRowClue(i, puzzleSize, solution));
+      columnClues.push(PuzzleGenerator.#getColumnClue(i, puzzleSize, solution));
+    }
+    return {
+      rowClues,
+      columnClues,
+    };
+  }
+
+  static #getRowClue(index, puzzleSize, solution) {
+    const lineString = solution.slice(
+      index * puzzleSize,
+      index * puzzleSize + puzzleSize
+    );
+    return PuzzleGenerator.#getLineClue(lineString);
+  }
+
+  static #getColumnClue(index, puzzleSize, solution) {
+    let lineString = "";
+    for (let i = index; i < solution.length; i += puzzleSize) {
+      lineString += solution[i];
+    }
+    return PuzzleGenerator.#getLineClue(lineString);
+  }
+
+  static #getLineClue(lineString) {
+    const clue = [];
+    let runningFillLength = 0;
+    for (const char of lineString) {
+      if (char === "1") runningFillLength++;
+      else {
+        if (runningFillLength > 0) clue.push(runningFillLength);
+        runningFillLength = 0;
+      }
+    }
+    if (runningFillLength > 0) clue.push(runningFillLength);
+    return clue;
   }
 }

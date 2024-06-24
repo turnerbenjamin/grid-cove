@@ -28,7 +28,7 @@ Note, user story 5 related exclusively to frontend functionality.
 
 - [x] PG6-1: It should generate a solution string from a given pixel art string
 - [x] PG6-2: It should throw an error if any one character makes up over 90 percent of the string
-- [ ] PG6-3: It should return a clues object with row and column properties which have two dimensional arrays, the length of which should equal the puzzle size
+- [x] PG6-3: It should return a clues object with row and column properties which have two dimensional arrays, the length of which should equal the puzzle size
 
 ## Puzzle Service (PS)
 

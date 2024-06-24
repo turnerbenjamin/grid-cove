@@ -32,4 +32,16 @@ describe("Puzzle generator tests: ", () => {
     //Assert
     expect(actual).to.equal(expected);
   });
+
+  //? PG6-3
+  it("should return a clues object with row and column properties which have two dimensional arrays, the length of which should equal the puzzle size", async () => {
+    //Arrange
+    const puzzleSize = Math.round(Math.sqrt(testPixelArt.length));
+    //Act
+    const puzzle = PuzzleGenerator.generate(testPixelArt);
+    const { rowClues, columnClues } = puzzle.clues;
+    //Assert
+    expect(columnClues).has.length(puzzleSize);
+    expect(rowClues).has.length(puzzleSize);
+  });
 });
