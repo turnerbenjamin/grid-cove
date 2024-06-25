@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 export const register = async (newUserSubmission) => {
   let url = import.meta.env.VITE_APP_REGISTRATION_URL;

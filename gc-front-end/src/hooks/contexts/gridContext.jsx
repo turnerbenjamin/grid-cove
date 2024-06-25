@@ -18,17 +18,8 @@ const GridContextProvider = function ({
   const [gridSize, setGridSize] = useState(null);
   const [gridCells, setGridCells] = useState(null);
   const [originTarget, setOriginTarget] = useState(null);
-
-  useEffect(() => {
-    if (!gridSize) return;
-    setGridCells(
-      Array.from({ length: gridSize ** 2 }, (_, i) => {
-        const row = Math.floor(i / gridSize) + 1;
-        const col = Math.floor(i % gridSize) + 1;
-        return { colour: GridColours.WHITE, key: i, col, row };
-      })
-    );
-  }, [gridSize]);
+  const [gridFillString, setGridFillString] = useState(null);
+  const [doUpdateGridString, setDoUpdateGridString] = useState(null);
 
   const handleUpdateCellColour = useCallback(
     (cellKey) => {
@@ -71,9 +62,29 @@ const GridContextProvider = function ({
     };
   }, [handleUpdateCellColour]);
 
-  const getPuzzleString = () => {
-    return gridCells.map((cell) => cell.colour.colourCode).join("");
+  const handleUpdateGridFillString = () => {
+    if (!gridCells) return;
+    const string = gridCells.map((cell) => cell.colour.colourCode).join("");
+    setGridFillString(string);
   };
+
+  useEffect(() => {
+    if (!doUpdateGridString) return;
+    handleUpdateGridFillString();
+    setDoUpdateGridString(false);
+  }, [doUpdateGridString]);
+
+  useEffect(() => {
+    if (!gridSize) return;
+    setGridCells(
+      Array.from({ length: gridSize ** 2 }, (_, i) => {
+        const row = Math.floor(i / gridSize) + 1;
+        const col = Math.floor(i % gridSize) + 1;
+        return { colour: GridColours.WHITE, key: i, col, row };
+      })
+    );
+    setDoUpdateGridString(true);
+  }, [gridSize]);
 
   useEffect(() => {
     if (!originTarget) return;
@@ -84,6 +95,7 @@ const GridContextProvider = function ({
     };
     const handleMouseUp = (e) => {
       setOriginTarget(null);
+      setDoUpdateGridString(true);
     };
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -100,7 +112,7 @@ const GridContextProvider = function ({
     gridSize,
     setGridSize,
     gridCells,
-    getPuzzleString,
+    gridFillString,
   };
 
   return <GridContext.Provider value={model}>{children}</GridContext.Provider>;

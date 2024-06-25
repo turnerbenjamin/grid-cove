@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext } from "react";
 import useGridCoveUserService from "../useGridCoveUserService";
 
 const AppContext = createContext();

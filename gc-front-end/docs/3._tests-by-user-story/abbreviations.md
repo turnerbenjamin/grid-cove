@@ -14,6 +14,8 @@ This document is a reference for abbreviations used in test codes:
 - MDL: components/general/UserDetailsForm
 - PTP: components/build/PaintPot
 - PTS: components/build/PaintSet
+- PVR: utils/PuzzleValidator
 - PWI: components/header/inputFields/PasswordInputField
+- PZS: services/puzzle.service
 - UDF: components/header/UserDetailsForm
 - UNI: components/header/inputFields/UserNameInputField

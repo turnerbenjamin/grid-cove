@@ -5,6 +5,7 @@ import { useAppContext } from "../../hooks/contexts/appContext";
 
 import Modal from "../general/Modal";
 import RenderedErrors from "../general/RenderedErrors";
+import ErrorModal from "../general/ErrorModal";
 
 export default function ActiveUserControl() {
   const [doShowLogoutButton, setDoShowLogOutButton] = useState(false);
@@ -53,13 +54,17 @@ export default function ActiveUserControl() {
         )}
       </div>
       {authenticationErrors && (
-        <Modal onClose={handleClearAuthenticationErrors}>
-          <div>
-            <h3 className="text-lg text-center">Error</h3>
-            <p>Sorry, we have experienced an error:</p>
-            <RenderedErrors errors={authenticationErrors} />
-          </div>
-        </Modal>
+        <ErrorModal
+          onClose={handleClearAuthenticationErrors}
+          errors={authenticationErrors}
+        />
+        // <Modal onClose={handleClearAuthenticationErrors}>
+        //   <div>
+        //     <h3 className="text-lg text-center">Error</h3>
+        //     <p>Sorry, we have experienced an error:</p>
+        //     <RenderedErrors errors={authenticationErrors} />
+        //   </div>
+        // </Modal>
       )}
     </>
   );
