@@ -112,5 +112,16 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(401);
     });
+
+    //?INT6-4
+    it("should respond with a 401 status code if invalid req.cookies.jwt", async () => {
+      //Act
+      const response = await request
+        .post(cretePuzzleEndpoint)
+        .set("Cookie", "jwt=notAValidToken")
+        .send(testPuzzleSubmission);
+      //Assert
+      expect(response.status).to.equal(401);
+    });
   });
 });
