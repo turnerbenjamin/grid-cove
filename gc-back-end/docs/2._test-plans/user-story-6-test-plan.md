@@ -77,5 +77,5 @@ Note: INT6-7 relates to validation, but the validation is performed by the Puzzl
 - [x] INT6-12: It should respond with a 400 status code if the pixel art string is missing
 - [x] INT6-13: It should respond with a 400 status code if the pixel art string length is not the square of the puzzle size
 - [x] INT6-14: It should respond with a 400 status code if the title is missing
-- [ ] INT6-15: It should respond with a 400 status code if the title is not greater or equal to 3 chars
+- [x] INT6-15: It should respond with a 400 status code if the title is not greater or equal to 3 chars
 - [ ] INT6-16: It should respond with a 400 status code if the title is not less than or equal to 32 chars
