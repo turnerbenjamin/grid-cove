@@ -10,7 +10,11 @@ export default class PuzzleValidator {
         .notEmpty()
         .withMessage("Size is required")
         .isInt({ min: 5, max: 15 })
-        .withMessage("Size must be between 5 and 15"),
+        .withMessage("Size must be between 5 and 15")
+        .custom((value) => {
+          if (value % 5 !== 0) throw new Error("Size must be a multiple of 5");
+          return true;
+        }),
       PuzzleValidator.handleValidationErrors,
     ];
   };
