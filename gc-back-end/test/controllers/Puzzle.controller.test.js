@@ -71,4 +71,14 @@ describe("Puzzle controller tests", () => {
     //Assert
     expect(res.status.calledWith(400)).to.equal(true);
   });
+
+  //? PC6-3
+  it("should respond with a 500 error code if Puzzle Service throws a server error", async () => {
+    //Arrange
+    puzzleService.createPuzzle.rejects(APIErrors.SERVER_ERROR);
+    //Act
+    await puzzleController.createPuzzle(req, res);
+    //Assert
+    expect(res.status.calledWith(500)).to.equal(true);
+  });
 });
