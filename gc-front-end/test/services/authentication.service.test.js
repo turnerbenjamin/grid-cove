@@ -1,4 +1,4 @@
-import { beforeAll, expect } from "vitest";
+import { expect } from "vitest";
 import axios from "axios";
 
 import * as authenticationService from "../../src/services/authentication.service";
