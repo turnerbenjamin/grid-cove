@@ -226,5 +226,18 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //?INT6-12
+    it("should respond with a 400 status code if the pixel art string is missing", async () => {
+      //Arrange
+      delete testPuzzleSubmission.pixelArt;
+      //Act
+      const response = await request
+        .post(createPuzzleEndpoint)
+        .set("Cookie", accessToken)
+        .send(testPuzzleSubmission);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });

@@ -74,8 +74,8 @@ Note: INT6-7 relates to validation, but the validation is performed by the Puzzl
 - [x] INT6-9: It should respond with a 400 status code if the grid size is not greater or equal to 5
 - [x] INT6-10: It should respond with a 400 status code if the grid size is not less than or equal to 15
 - [x] INT6-11: It should respond with a 400 status code if the grid size is not a multiple of 5
-- [ ] INT6-12: It should respond with a 400 status code if the pixel art string size is missing
-- [ ] INT6-13: It should respond with a 400 status code if the pixel art string size length is not the square of the puzzle size
+- [x] INT6-12: It should respond with a 400 status code if the pixel art string is missing
+- [ ] INT6-13: It should respond with a 400 status code if the pixel art string length is not the square of the puzzle size
 - [ ] INT6-14: It should respond with a 400 status code if the title is missing
 - [ ] INT6-15: It should respond with a 400 status code if the title is not greater or equal to 3 chars
 - [ ] INT6-16: It should respond with a 400 status code if the title is not less than or equal to 32 chars

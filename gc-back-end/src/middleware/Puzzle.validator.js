@@ -15,6 +15,12 @@ export default class PuzzleValidator {
           if (value % 5 !== 0) throw new Error("Size must be a multiple of 5");
           return true;
         }),
+      expressValidator
+        .body("pixelArt")
+        .exists()
+        .trim()
+        .notEmpty()
+        .withMessage("pixel art is required"),
       PuzzleValidator.handleValidationErrors,
     ];
   };
