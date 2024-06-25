@@ -139,5 +139,18 @@ describe("Save control tests: ", () => {
         screen.getByText(/puzzle created successfully/i)
       ).toBeInTheDocument();
     });
+
+    //? US6-SVC-7
+    test("It should close the success modal when the close button is clicked", async () => {
+      //Act
+      await act(async () => {
+        createPuzzleResolver({});
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(/close/is));
+      });
+      //Assert
+      expect(screen.queryByText(/puzzle created successfully/i)).toBeNull();
+    });
   });
 });
