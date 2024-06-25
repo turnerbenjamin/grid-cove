@@ -27,6 +27,7 @@ describe("Save control tests: ", () => {
     gridContext.useGridContext.mockReturnValue({
       gridFillString: testPuzzle.pixelArt,
       gridSize: testPuzzle.size,
+      resetGrid: () => null,
     });
 
     Object.defineProperty(global.window, "scrollTo", {

@@ -1,10 +1,11 @@
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
-import { afterAll, beforeEach, expect } from "vitest";
+import { beforeEach, expect } from "vitest";
 
 import Build from "../../../src/components/build/Build";
 import GridColours from "../../../src/utils/GridColours";
 import * as puzzleService from "../../../src/services/puzzle.service";
 
+vi.mock("../../../src/components/general/Modal");
 describe("Build tests", () => {
   beforeEach(() => {
     render(<Build />);
@@ -189,12 +190,10 @@ describe("Build tests", () => {
       title: "Test title",
     };
     let createPuzzleResolver;
-    let createPuzzleRejecter;
 
     beforeEach(async () => {
       const promise = new Promise((resolve, reject) => {
         createPuzzleResolver = resolve;
-        createPuzzleRejecter = reject;
       });
       puzzleService.createPuzzle.mockReturnValue(promise);
 
@@ -229,6 +228,18 @@ describe("Build tests", () => {
       //Assert
       expect(screen.getByTestId("build-wrapper").classList).toContain(
         "disabled"
+      );
+    });
+
+    //? US6-BLD-3
+    test("It should reset the grid cells to white when createPuzzle resolves", async () => {
+      //Act
+      await act(async () => {
+        createPuzzleResolver({});
+      });
+      //Assert
+      expect(screen.getByTitle("1,1").style.backgroundColor).toEqual(
+        GridColours.WHITE.rgb
       );
     });
   });

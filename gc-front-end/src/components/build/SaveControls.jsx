@@ -10,7 +10,7 @@ import TitleInput from "./TitleInput";
 import RenderedErrors from "../general/RenderedErrors";
 
 export default function SaveControls() {
-  const { gridFillString, gridSize } = useGridContext();
+  const { gridFillString, gridSize, resetGrid } = useGridContext();
   const {
     createNewPuzzle,
     puzzleServiceIsLoading,
@@ -26,7 +26,10 @@ export default function SaveControls() {
     if (validationErrors) return;
     const title = pixelArtTitle;
     const newPuzzle = await createNewPuzzle(gridFillString, title, gridSize);
-    if (newPuzzle) setDoShowSuccessModal(true);
+    if (newPuzzle) {
+      setDoShowSuccessModal(true);
+      resetGrid();
+    }
   };
 
   const validationErrors = useMemo(() => {

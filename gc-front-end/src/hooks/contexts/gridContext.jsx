@@ -31,6 +31,15 @@ const GridContextProvider = function ({
     [gridCells, fillStyle]
   );
 
+  const resetGrid = () => {
+    setGridCells((curr) =>
+      curr.map((cell) => {
+        cell.colour = GridColours.WHITE;
+        return cell;
+      })
+    );
+  };
+
   const doUpdateCellOnDrag = useCallback(
     (cellToCheck) => {
       if (!cellToCheck.dataset?.key) return false;
@@ -113,6 +122,7 @@ const GridContextProvider = function ({
     setGridSize,
     gridCells,
     gridFillString,
+    resetGrid,
   };
 
   return <GridContext.Provider value={model}>{children}</GridContext.Provider>;
