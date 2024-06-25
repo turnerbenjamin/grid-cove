@@ -93,4 +93,17 @@ describe("Save control tests: ", () => {
       )
     ).toBeInTheDocument();
   });
+
+  //? US6-SVC-5
+  test("It should show a loading spinner while createPuzzle is pending", async () => {
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText(/title/i), {
+        target: { value: testPuzzle.title },
+      });
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByText(/save/i));
+    });
+    expect(screen.getByRole("status")).toBeInTheDocument();
+  });
 });
