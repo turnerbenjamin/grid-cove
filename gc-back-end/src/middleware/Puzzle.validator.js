@@ -32,8 +32,8 @@ export default class PuzzleValidator {
         .trim()
         .notEmpty()
         .withMessage("Title is required")
-        .isLength({ min: 3 })
-        .withMessage("Title must be at least 3 characters long"),
+        .isLength({ min: 3, max: 32 })
+        .withMessage("Title must be between 3 and 32 characters long"),
       PuzzleValidator.handleValidationErrors,
     ];
   };
