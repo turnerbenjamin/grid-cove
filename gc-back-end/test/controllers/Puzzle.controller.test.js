@@ -59,4 +59,16 @@ describe("Puzzle controller tests", () => {
     //Assert
     expect(res.status.calledWith(400)).to.equal(true);
   });
+
+  //? PC6-3
+  it("should respond with a 400 status code if Puzzle Service throws a invalid character distribution error", async () => {
+    //Arrange
+    puzzleService.createPuzzle.rejects(
+      APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION
+    );
+    //Act
+    await puzzleController.createPuzzle(req, res);
+    //Assert
+    expect(res.status.calledWith(400)).to.equal(true);
+  });
 });
