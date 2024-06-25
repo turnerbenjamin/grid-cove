@@ -152,5 +152,17 @@ describe("Save control tests: ", () => {
       //Assert
       expect(screen.queryByText(/puzzle created successfully/i)).toBeNull();
     });
+
+    //? US6-SVC-8
+    test("It should display errors in a modal when createPuzzle rejects", async () => {
+      //Arrange
+      const testErrorMessage = "Test error";
+      //Act
+      await act(async () => {
+        createPuzzleRejecter(testErrorMessage);
+      });
+      //Assert
+      expect(screen.queryByText(testErrorMessage)).toBeInTheDocument();
+    });
   });
 });

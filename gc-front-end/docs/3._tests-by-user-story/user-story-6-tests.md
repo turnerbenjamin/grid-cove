@@ -30,7 +30,7 @@ These tests focus on link between the save control and the puzzle service. The g
 - [x] US6-SVC-5: It should show a loading spinner while createPuzzle is pending
 - [x] US6-SVC-6: It should show a success modal when createPuzzle resolves
 - [x] US6-SVC-7: It should close the success modal when the close button is clicked
-- [ ] US6-SVC-8: It should display errors in a modal when createPuzzle rejects
+- [x] US6-SVC-8: It should display errors in a modal when createPuzzle rejects
 - [ ] US6-SVC-9: It should close the errors modal when the close button is clicked
 
 ## Build tests (BLD)
