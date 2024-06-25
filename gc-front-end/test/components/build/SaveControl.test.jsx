@@ -28,6 +28,14 @@ describe("Save control tests: ", () => {
       gridFillString: testPuzzle.pixelArt,
       gridSize: testPuzzle.size,
     });
+
+    Object.defineProperty(global.window, "scrollTo", {
+      value: () => null,
+    });
+    const modalRoot = document.createElement("div");
+    modalRoot.setAttribute("id", "modal");
+    document.body.appendChild(modalRoot);
+
     render(
       <PuzzleContextProvider>
         <SaveControls />
@@ -36,6 +44,7 @@ describe("Save control tests: ", () => {
   });
 
   afterEach(() => {
+    document.body.removeChild(document.getElementById("modal"));
     vi.resetAllMocks();
   });
 
@@ -105,5 +114,30 @@ describe("Save control tests: ", () => {
       fireEvent.click(screen.getByText(/save/i));
     });
     expect(screen.getByRole("status")).toBeInTheDocument();
+  });
+
+  describe("Modal alerts tests: ", () => {
+    beforeEach(async () => {
+      await act(async () => {
+        fireEvent.change(screen.getByPlaceholderText(/title/i), {
+          target: { value: testPuzzle.title },
+        });
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByText(/save/i));
+      });
+    });
+
+    //? US6-SVC-6
+    test("It should show a success modal when createPuzzle resolves", async () => {
+      //Act
+      await act(async () => {
+        createPuzzleResolver({});
+      });
+      //Assert
+      expect(
+        screen.getByText(/puzzle created successfully/i)
+      ).toBeInTheDocument();
+    });
   });
 });
