@@ -71,4 +71,26 @@ describe("Save control tests: ", () => {
       screen.getByText(/title must be between 3 and 32 characters/i)
     ).toBeInTheDocument();
   });
+
+  //? US6-SVC-4
+  test("It should display errors after clicking save where the puzzleString is invalid", async () => {
+    //Arrange
+    gridContext.useGridContext.mockReturnValue({
+      gridFillString: "0".repeat(23) + "1".repeat(2),
+      gridSize: testPuzzle.size,
+    });
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText(/title/i), {
+        target: testPuzzle.title,
+      });
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByText(/save/i));
+    });
+    expect(
+      screen.getByText(
+        /your art may not include a single colour that makes up over 90% of the image/i
+      )
+    ).toBeInTheDocument();
+  });
 });

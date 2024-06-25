@@ -26,7 +26,7 @@ These tests focus on link between the save control and the puzzle service. The g
 - [x] US6-SVC-1: It should call createPuzzle on the puzzle service with the correct arguments
 - [x] US6-SVC-2: It should not display validation errors on render
 - [x] US6-SVC-3: It should display errors after clicking save where the title is too short
-- [ ] US6-SVC-4: It should display errors after clicking save where the puzzleString is invalid
+- [x] US6-SVC-4: It should display errors after clicking save where the puzzleString is invalid
 - [ ] US6-SVC-5: It should show a loading spinner while createPuzzle is pending
 - [ ] US6-SVC-6: It should show a success modal when createPuzzle resolves
 - [ ] US6-SVC-7: It should close the success modal when the close button is clicked
