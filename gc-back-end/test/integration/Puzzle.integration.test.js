@@ -16,6 +16,7 @@ import User from "../../src/models/User.model.js";
 import * as puzzleTestData from "../data/Puzzle.test.data.js";
 import * as userTestData from "../data/User.test.data.js";
 import Puzzle from "../../src/models/Puzzle.model.js";
+import mongoose from "mongoose";
 
 describe("Puzzle integration tests: ", () => {
   const testUserCredentials = userTestData.submissions[0];
@@ -83,6 +84,23 @@ describe("Puzzle integration tests: ", () => {
         .send(testPuzzleSubmission);
       //Assert
       expect(response.status).to.equal(201);
+    });
+
+    //?INT6-2
+    it("should return a new puzzle object for a valid request", async () => {
+      //Act
+      const response = await request
+        .post(cretePuzzleEndpoint)
+        .set("Cookie", accessToken)
+        .send(testPuzzleSubmission);
+      //Assert
+      expect(response.body.pixelArt).to.equal(testPuzzleSubmission.pixelArt);
+      expect(response.body.title).to.equal(testPuzzleSubmission.title);
+      expect(response.body.size).to.equal(testPuzzleSubmission.size);
+      expect(response.body).to.haveOwnProperty("artist");
+      expect(response.body).to.haveOwnProperty("solution");
+      expect(response.body).to.haveOwnProperty("clues");
+      expect(response.body).to.haveOwnProperty("_id");
     });
   });
 });
