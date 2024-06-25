@@ -20,7 +20,12 @@ export default class PuzzleValidator {
         .exists()
         .trim()
         .notEmpty()
-        .withMessage("pixel art is required"),
+        .withMessage("pixel art is required")
+        .custom((value, { req }) => {
+          if (value.length !== parseInt(req?.body?.size) ** 2)
+            throw new Error("Pixel art length must be the square of size");
+          return true;
+        }),
       PuzzleValidator.handleValidationErrors,
     ];
   };

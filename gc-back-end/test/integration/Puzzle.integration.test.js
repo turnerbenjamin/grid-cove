@@ -163,6 +163,7 @@ describe("Puzzle integration tests: ", () => {
     it("should respond with a 400 status code if the pixel art string distribution is invalid", async () => {
       //Arrange
       testPuzzleSubmission.pixelArt = "0".repeat(91) + "1".repeat(9);
+      testPuzzleSubmission.size = 10;
       //Act
       const response = await request
         .post(createPuzzleEndpoint)
@@ -231,6 +232,19 @@ describe("Puzzle integration tests: ", () => {
     it("should respond with a 400 status code if the pixel art string is missing", async () => {
       //Arrange
       delete testPuzzleSubmission.pixelArt;
+      //Act
+      const response = await request
+        .post(createPuzzleEndpoint)
+        .set("Cookie", accessToken)
+        .send(testPuzzleSubmission);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
+
+    //?INT6-13
+    it("should respond with a 400 status code if the pixel art string length is not the square of the puzzle size", async () => {
+      //Arrange
+      testPuzzleSubmission.pixelArt += "a";
       //Act
       const response = await request
         .post(createPuzzleEndpoint)
