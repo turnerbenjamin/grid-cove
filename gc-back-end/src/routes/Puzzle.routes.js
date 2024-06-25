@@ -1,5 +1,7 @@
 import { Router } from "express";
 
+import PuzzleValidator from "../middleware/Puzzle.validator.js";
+
 export default class AuthenticationRoutes {
   #router;
   #root;
@@ -22,6 +24,7 @@ export default class AuthenticationRoutes {
     this.#router.post(
       "/",
       this.#authenticationController.requireLoggedIn,
+      PuzzleValidator.validate(),
       this.#puzzleController.createPuzzle
     );
   }

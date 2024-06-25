@@ -21,7 +21,6 @@ import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("Puzzle integration tests: ", () => {
   const testUserCredentials = userTestData.submissions[0];
-  const testPuzzleSubmission = puzzleTestData.submissions[0];
   let accessToken;
   let server;
   let database;
@@ -71,9 +70,15 @@ describe("Puzzle integration tests: ", () => {
 
   describe("Create puzzle tests: ", () => {
     const createPuzzleEndpoint = "/puzzles";
+    let testPuzzleSubmission;
+
+    beforeEach(() => {
+      testPuzzleSubmission = { ...puzzleTestData.submissions[0] };
+    });
 
     afterEach(async () => {
       await Puzzle.deleteMany();
+      testPuzzleSubmission = null;
     });
 
     //?INT6-1
@@ -157,21 +162,30 @@ describe("Puzzle integration tests: ", () => {
     //?INT6-7
     it("should respond with a 400 status code if the pixel art string distribution is invalid", async () => {
       //Arrange
-      const puzzleWithInvalidDistribution = {
-        pixelArt: "0".repeat(91) + "1".repeat(9),
-        size: 10,
-        title: "Invalid distribution",
-      };
+      testPuzzleSubmission.pixelArt = "0".repeat(91) + "1".repeat(9);
       //Act
       const response = await request
         .post(createPuzzleEndpoint)
         .set("Cookie", accessToken)
-        .send(puzzleWithInvalidDistribution);
+        .send(testPuzzleSubmission);
       //Assert
       expect(response.status).to.equal(400);
       expect(response.body).to.equal(
         APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION.message
       );
+    });
+
+    //?INT6-8
+    it("should respond with a 400 status code if the grid size is missing", async () => {
+      //Arrange
+      testPuzzleSubmission.size = null;
+      //Act
+      const response = await request
+        .post(createPuzzleEndpoint)
+        .set("Cookie", accessToken)
+        .send(testPuzzleSubmission);
+      //Assert
+      expect(response.status).to.equal(400);
     });
   });
 });
