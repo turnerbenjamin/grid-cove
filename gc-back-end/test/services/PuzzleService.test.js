@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
+import APIErrors from "../../src/utils/APIErrors.js";
 import Puzzle from "../../src/models/Puzzle.model.js";
 import PuzzleGenerator from "../../src/utils/PuzzleGenerator.js";
 import PuzzleService from "../../src/services/Puzzle.service.js";
-import * as userTestData from "../data/User.test.data.js";
 import * as puzzleTestData from "../data/Puzzle.test.data.js";
-import APIErrors from "../../src/utils/APIErrors.js";
+import * as userTestData from "../data/User.test.data.js";
 
 describe("Puzzle service tests: ", () => {
   const testArtist = userTestData.documents[0];
@@ -32,8 +32,8 @@ describe("Puzzle service tests: ", () => {
     createPuzzleArgs = [
       testPuzzleSubmission.pixelArt,
       testPuzzleSubmission.title,
-      testArtist,
       testPuzzleSubmission.size,
+      testArtist,
     ];
   });
 

@@ -4,7 +4,7 @@ import HTTPError from "../utils/HTTPError.js";
 import PuzzleGenerator from "../utils/PuzzleGenerator.js";
 
 export default class PuzzleService {
-  createPuzzle = async (pixelArt, title, artist, size) => {
+  createPuzzle = async (pixelArt, title, size, artist) => {
     try {
       const { clues, solution } = PuzzleGenerator.generate(pixelArt, size);
       const puzzle = await Puzzle.create({
