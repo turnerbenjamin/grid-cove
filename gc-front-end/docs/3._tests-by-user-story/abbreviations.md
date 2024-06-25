@@ -17,5 +17,6 @@ This document is a reference for abbreviations used in test codes:
 - PVR: utils/PuzzleValidator
 - PWI: components/header/inputFields/PasswordInputField
 - PZS: services/puzzle.service
+- SVC: components/build/SaveControls
 - UDF: components/header/UserDetailsForm
 - UNI: components/header/inputFields/UserNameInputField

@@ -19,15 +19,22 @@
 - [x] US6-PZS-3: It should throw err?.response?.data where validation error received
 - [x] US6-PZS-4: It should return response data where axios resolves
 
+## Save Controls Tests (SVC)
+
+These tests focus on link between the save control and the puzzle service. The grid context will be mocked to limit the number of user events required. The subsequent tests in Build will bridge the gap between this component and the grid context.
+
+- [x] US6-SVC-1: It should call createPuzzle on the puzzle service with the correct arguments
+- [ ] US6-SVC-2: It should not display validation errors on render
+- [ ] US6-SVC-3: It should display errors after clicking save where the title is too short
+- [ ] US6-SVC-4: It should display errors after clicking save where the puzzleString is invalid
+- [ ] US6-SVC-5: It should show a loading spinner while createPuzzle is pending
+- [ ] US6-SVC-6: It should show a success modal when createPuzzle resolves
+- [ ] US6-SVC-7: It should close the success modal when the close button is clicked
+- [ ] US6-SVC-8: It should reset the grid cells to white when createPuzzle resolves
+- [ ] US6-SVC-9: It should display errors in a modal when createPuzzle rejects
+- [ ] US6-SVC-10: It should close the errors modal when the close button is clicked
+
 ## Build tests (BLD)
 
 - [ ] US6-BLD-1: It should call createPuzzle on the puzzle service with the correct arguments
-- [ ] US6-BLD-3: It should not display validation errors on render
-- [ ] US6-BLD-4: It should display errors after clicking save where the title is too short
-- [ ] US6-BLD-5: It should display errors after clicking save where the puzzleString is invalid
-- [ ] US6-BLD-6: It should show a loading spinner while createPuzzle is pending
-- [ ] US6-BLD-7: It should show a success modal when createPuzzle resolves
-- [ ] US6-BLD-8: It should close the success modal when the close button is clicked
-- [ ] US6-BLD-9: It should reset the grid cells to white when createPuzzle resolves
-- [ ] US6-BLD-10: It should display errors in a modal when createPuzzle rejects
-- [ ] US6-BLD-11: It should close the errors modal when the close button is clicked
+- [ ] US6-BLD-2: It should disable elements on the page when the puzzle service is loading
