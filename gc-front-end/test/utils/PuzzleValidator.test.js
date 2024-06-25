@@ -24,4 +24,16 @@ describe("Register tests", () => {
     expect(actualIsValidated).toBe(true);
     expect(actualErrors.length).toBe(0);
   });
+
+  //?US6-PVR-2
+  test("It should return false and an errors array with a length greater than 0 where title is less than 3 characters", () => {
+    //Arrange
+    testSubmission.title = "12";
+    //Act
+    const [actualIsValidated, actualErrors] =
+      PuzzleValidator.validate(testSubmission);
+    //Assert
+    expect(actualIsValidated).toBe(false);
+    expect(actualErrors.length).greaterThan(0);
+  });
 });
