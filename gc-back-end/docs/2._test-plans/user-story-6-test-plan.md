@@ -62,19 +62,18 @@ I will relocate grid size validation to a middleware validator
 - [x] INT6-2: It should return a new puzzle object for a valid request
 - [x] INT6-3: It should respond with a 401 status code if not req.cookies.jwt
 - [x] INT6-4: It should respond with a 401 status code if invalid req.cookies.jwt
-- [ ] INT6-5: It should respond with a 401 status code if getById returns a falsy value
-- [ ] INT6-6: It should respond with a 500 status code if getById rejects
-- [ ] INT6-7: It should respond with a 400 status code if the puzzle art is duplicated
-- [ ] INT6-8: It should respond with a 400 status code if the pixel art string distribution is invalid
+- [x] INT6-5: It should respond with a 500 status code if create rejects
+- [ ] INT6-6: It should respond with a 400 status code if the puzzle art is duplicated
+- [ ] INT6-7: It should respond with a 400 status code if the pixel art string distribution is invalid
 
 ### validation
 
-- [ ] INT6-9: It should respond with a 400 status code if the grid size is missing
-- [ ] INT6-10: It should respond with a 400 status code if the grid size is not greater or equal to 5
-- [ ] INT6-11: It should respond with a 400 status code if the grid size is not less than or equal to 15
-- [ ] INT6-12: It should respond with a 400 status code if the grid size is not a multiple of 5
-- [ ] INT6-13: It should respond with a 400 status code if the pixel art string size is missing
-- [ ] INT6-14: It should respond with a 400 status code if the pixel art string size length is not the square of the puzzle size
-- [ ] INT6-15: It should respond with a 400 status code if the title is missing
-- [ ] INT6-16: It should respond with a 400 status code if the title is not greater or equal to 3 chars
-- [ ] INT6-17: It should respond with a 400 status code if the title is not less than or equal to 32 chars
+- [ ] INT6-8: It should respond with a 400 status code if the grid size is missing
+- [ ] INT6-9: It should respond with a 400 status code if the grid size is not greater or equal to 5
+- [ ] INT6-10: It should respond with a 400 status code if the grid size is not less than or equal to 15
+- [ ] INT6-11: It should respond with a 400 status code if the grid size is not a multiple of 5
+- [ ] INT6-12: It should respond with a 400 status code if the pixel art string size is missing
+- [ ] INT6-13: It should respond with a 400 status code if the pixel art string size length is not the square of the puzzle size
+- [ ] INT6-14: It should respond with a 400 status code if the title is missing
+- [ ] INT6-15: It should respond with a 400 status code if the title is not greater or equal to 3 chars
+- [ ] INT6-16: It should respond with a 400 status code if the title is not less than or equal to 32 chars

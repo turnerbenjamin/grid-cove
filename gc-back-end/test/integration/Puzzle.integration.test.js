@@ -69,7 +69,7 @@ describe("Puzzle integration tests: ", () => {
   });
 
   describe("Create puzzle tests: ", () => {
-    const cretePuzzleEndpoint = "/puzzles";
+    const createPuzzleEndpoint = "/puzzles";
 
     afterEach(async () => {
       await Puzzle.deleteMany();
@@ -79,7 +79,7 @@ describe("Puzzle integration tests: ", () => {
     it("should respond with a 201 status code for a valid request", async () => {
       //Act
       const response = await request
-        .post(cretePuzzleEndpoint)
+        .post(createPuzzleEndpoint)
         .set("Cookie", accessToken)
         .send(testPuzzleSubmission);
       //Assert
@@ -90,7 +90,7 @@ describe("Puzzle integration tests: ", () => {
     it("should return a new puzzle object for a valid request", async () => {
       //Act
       const response = await request
-        .post(cretePuzzleEndpoint)
+        .post(createPuzzleEndpoint)
         .set("Cookie", accessToken)
         .send(testPuzzleSubmission);
       //Assert
@@ -107,7 +107,7 @@ describe("Puzzle integration tests: ", () => {
     it("should respond with a 401 status code if not req.cookies.jwt", async () => {
       //Act
       const response = await request
-        .post(cretePuzzleEndpoint)
+        .post(createPuzzleEndpoint)
         .send(testPuzzleSubmission);
       //Assert
       expect(response.status).to.equal(401);
@@ -117,11 +117,26 @@ describe("Puzzle integration tests: ", () => {
     it("should respond with a 401 status code if invalid req.cookies.jwt", async () => {
       //Act
       const response = await request
-        .post(cretePuzzleEndpoint)
+        .post(createPuzzleEndpoint)
         .set("Cookie", "jwt=notAValidToken")
         .send(testPuzzleSubmission);
       //Assert
       expect(response.status).to.equal(401);
+    });
+
+    //?INT6-5
+    it("should respond with a 500 status code if create rejects", async () => {
+      //Arrange
+      const createStub = sinon.stub(Puzzle, "create");
+      createStub.rejects();
+      //Act
+      const response = await request
+        .post(createPuzzleEndpoint)
+        .set("Cookie", accessToken)
+        .send(testPuzzleSubmission);
+      createStub.restore();
+      //Assert
+      expect(response.status).to.equal(500);
     });
   });
 });
