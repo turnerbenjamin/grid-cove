@@ -153,5 +153,25 @@ describe("Puzzle integration tests: ", () => {
       expect(response.status).to.equal(400);
       expect(response.body).to.equal(APIErrors.DUPLICATE_PIXEL_ART.message);
     });
+
+    //?INT6-7
+    it("should respond with a 400 status code if the pixel art string distribution is invalid", async () => {
+      //Arrange
+      const puzzleWithInvalidDistribution = {
+        pixelArt: "0".repeat(91) + "1".repeat(9),
+        size: 10,
+        title: "Invalid distribution",
+      };
+      //Act
+      const response = await request
+        .post(createPuzzleEndpoint)
+        .set("Cookie", accessToken)
+        .send(puzzleWithInvalidDistribution);
+      //Assert
+      expect(response.status).to.equal(400);
+      expect(response.body).to.equal(
+        APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION.message
+      );
+    });
   });
 });
