@@ -39,6 +39,7 @@ describe("Save control tests: ", () => {
     vi.resetAllMocks();
   });
 
+  //? US6-SVC-1
   test("It should call createPuzzle on the puzzle service with the correct arguments", async () => {
     await act(async () => {
       fireEvent.change(screen.getByPlaceholderText(/title/i), {
@@ -50,5 +51,10 @@ describe("Save control tests: ", () => {
     });
     screen.debug();
     expect(puzzleService.createPuzzle).toBeCalledWith(testPuzzle);
+  });
+
+  //? US6-SVC-2
+  test("It should not display validation errors on render", async () => {
+    expect(screen.queryByRole("alert")).toBeNull();
   });
 });

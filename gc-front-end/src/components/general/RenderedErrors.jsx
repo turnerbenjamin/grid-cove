@@ -10,7 +10,7 @@ export default function RenderedErrors({ errors }) {
   });
 
   return (
-    <div className="mt-4 p-2 pl-6 bg-grid-white bg-opacity-80">
+    <div className="mt-4 p-2 pl-6 bg-grid-white bg-opacity-80" role="alert">
       {errorItems}
     </div>
   );
