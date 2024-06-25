@@ -187,5 +187,18 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //?INT6-9
+    it("should respond with a 400 status code if the grid size is not greater or equal to 5", async () => {
+      //Arrange
+      testPuzzleSubmission.size = 4;
+      //Act
+      const response = await request
+        .post(createPuzzleEndpoint)
+        .set("Cookie", accessToken)
+        .send(testPuzzleSubmission);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });

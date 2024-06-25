@@ -71,7 +71,7 @@ I will relocate grid size validation to a middleware validator
 Note: INT6-7 relates to validation, but the validation is performed by the PuzzleGenerator class. This is because the PuzzleGenerator already calculates character distribution when generating a solution. The below tests will be performed by dedicated validator middleware.
 
 - [x] INT6-8: It should respond with a 400 status code if the grid size is missing
-- [ ] INT6-9: It should respond with a 400 status code if the grid size is not greater or equal to 5
+- [x] INT6-9: It should respond with a 400 status code if the grid size is not greater or equal to 5
 - [ ] INT6-10: It should respond with a 400 status code if the grid size is not less than or equal to 15
 - [ ] INT6-11: It should respond with a 400 status code if the grid size is not a multiple of 5
 - [ ] INT6-12: It should respond with a 400 status code if the pixel art string size is missing

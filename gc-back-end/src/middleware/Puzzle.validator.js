@@ -8,7 +8,8 @@ export default class PuzzleValidator {
         .exists()
         .trim()
         .notEmpty()
-        .withMessage("Size is required"),
+        .withMessage("Size is required")
+        .isInt({ min: 5 }),
       PuzzleValidator.handleValidationErrors,
     ];
   };
