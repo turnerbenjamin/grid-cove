@@ -102,5 +102,15 @@ describe("Puzzle integration tests: ", () => {
       expect(response.body).to.haveOwnProperty("clues");
       expect(response.body).to.haveOwnProperty("_id");
     });
+
+    //?INT6-3
+    it("should respond with a 401 status code if not req.cookies.jwt", async () => {
+      //Act
+      const response = await request
+        .post(cretePuzzleEndpoint)
+        .send(testPuzzleSubmission);
+      //Assert
+      expect(response.status).to.equal(401);
+    });
   });
 });

@@ -60,8 +60,8 @@ I will relocate grid size validation to a middleware validator
 
 - [x] INT6-1: It should respond with a 201 status code for a valid request
 - [x] INT6-2: It should return a new puzzle object for a valid request
-- [ ] INT6-3: It should respond with a 401 status code if not req.cookies.jwt
-- [ ] INT6-4: It should respond with a 401 status code if jwt.verify throws
+- [x] INT6-3: It should respond with a 401 status code if not req.cookies.jwt
+- [ ] INT6-4: It should respond with a 401 status code if invalid req.cookies.jwt
 - [ ] INT6-5: It should respond with a 401 status code if getById returns a falsy value
 - [ ] INT6-6: It should respond with a 500 status code if getById rejects
 - [ ] INT6-7: It should respond with a 400 status code if the puzzle art is duplicated
