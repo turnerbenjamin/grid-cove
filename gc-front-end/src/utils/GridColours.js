@@ -40,8 +40,8 @@ export default class GridColours {
   };
 
   static #labelToColourCodeMap = {
-    BLACK: "0",
-    SAPPHIRE: "1",
+    WHITE: "0",
+    BLACK: "1",
     BLUE: "2",
     GREY: "3",
     CYAN: "4",
@@ -49,7 +49,7 @@ export default class GridColours {
     GREEN: "6",
     PURPLE: "7",
     APPLE: "8",
-    WHITE: "9",
+    SAPPHIRE: "9",
     PINK: "A",
     GOLD: "B",
     YELLOW: "C",

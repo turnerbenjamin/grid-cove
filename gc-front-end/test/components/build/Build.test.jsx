@@ -1,12 +1,17 @@
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
-import { beforeEach, expect } from "vitest";
+import { afterAll, beforeEach, expect } from "vitest";
 
 import Build from "../../../src/components/build/Build";
 import GridColours from "../../../src/utils/GridColours";
+import * as puzzleService from "../../../src/services/puzzle.service";
 
 describe("Build tests", () => {
   beforeEach(() => {
     render(<Build />);
+  });
+
+  afterEach(() => {
+    vi.resetAllMocks();
   });
 
   describe("Before grid size set tests", () => {
@@ -172,6 +177,51 @@ describe("Build tests", () => {
       expect(screen.getByRole("grid").style.gridTemplateColumns).toBe(
         `repeat(${gridSize}, minmax(0, 1fr))`
       );
+    });
+  });
+
+  describe("Create puzzle tests", () => {
+    vi.mock("../../../src/services/puzzle.service");
+
+    const testPuzzle = {
+      pixelArt: "1".repeat(3) + "0".repeat(22),
+      size: 5,
+      title: "Test title",
+    };
+    let createPuzzleResolver;
+    let createPuzzleRejecter;
+
+    beforeEach(async () => {
+      const promise = new Promise((resolve, reject) => {
+        createPuzzleResolver = resolve;
+        createPuzzleRejecter = reject;
+      });
+      puzzleService.createPuzzle.mockReturnValue(promise);
+
+      await act(async () => {
+        fireEvent.click(screen.getByText(/continue/i));
+      });
+    });
+
+    //? US6-BLD-1
+    test("It should call createPuzzle on the puzzle service with the correct arguments", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(screen.getByTitle("1,1"));
+        fireEvent.mouseDown(screen.getByTitle("2,1"));
+        fireEvent.mouseDown(screen.getByTitle("3,1"));
+        fireEvent.change(screen.getByPlaceholderText(/title/i), {
+          target: { value: testPuzzle.title },
+        });
+      });
+      await act(async () => {
+        fireEvent.mouseUp(screen.getByTitle("3,1"));
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByText(/save/i));
+      });
+      //Assert
+      expect(puzzleService.createPuzzle).toBeCalledWith(testPuzzle);
     });
   });
 });
