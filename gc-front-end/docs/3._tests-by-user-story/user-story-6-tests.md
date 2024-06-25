@@ -10,7 +10,7 @@
 - [x] US6-PVR-2: It should return false and an errors array with a length greater than 0 where title is less than 3 characters
 - [x] US6-PVR-3: It should return false and an errors array with a length greater than 0 where title is more than 32 characters
 - [x] US6-PVR-4: It should return false and an errors array with a length greater than 0 where there is no pixel art string
-- [ ] US6-PVR-5: It should return false and an errors array with a length greater than 0 where one character comprises over 90% of the pixel art string
+- [x] US6-PVR-5: It should return false and an errors array with a length greater than 0 where one character comprises over 90% of the pixel art string
 
 ## Puzzle service tests (PZS)
 

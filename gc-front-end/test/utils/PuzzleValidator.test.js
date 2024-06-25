@@ -49,10 +49,21 @@ describe("Register tests", () => {
     expect(actualErrors.length).greaterThan(0);
   });
 
-  //?US6-PVR-3
+  //?US6-PVR-4
   test("It should return false and an errors array with a length greater than 0 where there is no pixel art string", () => {
     //Arrange
     delete testSubmission.pixelArt;
+    //Act
+    const [actualIsValidated, actualErrors] =
+      PuzzleValidator.validate(testSubmission);
+    //Assert
+    expect(actualIsValidated).toBe(false);
+    expect(actualErrors.length).greaterThan(0);
+  });
+  //?US6-PVR-5
+  test("It should return false and an errors array with a length greater than 0 where one character comprises over 90% of the pixel art string", () => {
+    //Arrange
+    testSubmission.pixelArt = "0".repeat(23) + "1".repeat(2);
     //Act
     const [actualIsValidated, actualErrors] =
       PuzzleValidator.validate(testSubmission);
