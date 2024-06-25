@@ -201,11 +201,7 @@ describe("Build tests", () => {
       await act(async () => {
         fireEvent.click(screen.getByText(/continue/i));
       });
-    });
 
-    //? US6-BLD-1
-    test("It should call createPuzzle on the puzzle service with the correct arguments", async () => {
-      //Act
       await act(async () => {
         fireEvent.mouseDown(screen.getByTitle("1,1"));
         fireEvent.mouseDown(screen.getByTitle("2,1"));
@@ -220,8 +216,20 @@ describe("Build tests", () => {
       await act(async () => {
         fireEvent.click(screen.getByText(/save/i));
       });
+    });
+
+    //? US6-BLD-1
+    test("It should call createPuzzle on the puzzle service with the correct arguments", async () => {
       //Assert
       expect(puzzleService.createPuzzle).toBeCalledWith(testPuzzle);
+    });
+
+    //? US6-BLD-2
+    test("It should disable elements on the page when the puzzle service is loading", async () => {
+      //Assert
+      expect(screen.getByTestId("build-wrapper").classList).toContain(
+        "disabled"
+      );
     });
   });
 });

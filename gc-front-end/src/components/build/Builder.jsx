@@ -15,7 +15,7 @@ export default function Builder() {
   });
 
   return (
-    <div className={classes}>
+    <div className={classes} data-testid="build-wrapper">
       {!gridCells && <GridSizeSelector />}
       {gridCells && (
         <>
