@@ -164,5 +164,20 @@ describe("Save control tests: ", () => {
       //Assert
       expect(screen.queryByText(testErrorMessage)).toBeInTheDocument();
     });
+
+    //? US6-SVC-9
+    test("It should close the errors modal when the close button is clicked", async () => {
+      //Arrange
+      const testErrorMessage = "Test error";
+      //Act
+      await act(async () => {
+        createPuzzleRejecter(testErrorMessage);
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(/close/i));
+      });
+      //Assert
+      expect(screen.queryByText(testErrorMessage)).toBeNull();
+    });
   });
 });
