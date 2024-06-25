@@ -50,7 +50,7 @@ I will relocate grid size validation to a middleware validator
 ## Puzzle Controller (PC)
 
 - [x] PC6-1: It should call the puzzle service with the correct arguments
-- [ ] PC6-2: It should respond with a 400 status code if Puzzle Service throws a duplicate pixel art error
+- [x] PC6-2: It should respond with a 400 status code if Puzzle Service throws a duplicate pixel art error
 - [ ] PC6-2: It should respond with a 400 status code if Puzzle Service throws a invalid character distribution error
 - [ ] PC6-3: It should respond with a 500 error code if Puzzle Service throws a server error
 - [ ] PC6-4: It should respond with a 201 status code if Puzzle Service resolves

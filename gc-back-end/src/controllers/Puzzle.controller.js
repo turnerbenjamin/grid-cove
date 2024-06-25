@@ -1,3 +1,5 @@
+import HTTPError from "../utils/HTTPError.js";
+
 export default class PuzzleController {
   #puzzleService;
 
@@ -5,12 +7,22 @@ export default class PuzzleController {
     this.#puzzleService = puzzleService;
   }
 
-  createPuzzle = async (req) => {
-    await this.#puzzleService.createPuzzle(
-      req.body.pixelArt,
-      req.body.title,
-      req.body.size,
-      req.user
-    );
+  createPuzzle = async (req, res) => {
+    try {
+      await this.#puzzleService.createPuzzle(
+        req.body.pixelArt,
+        req.body.title,
+        req.body.size,
+        req.user
+      );
+    } catch (err) {
+      this.#handleErrors(res, err);
+    }
+  };
+
+  #handleErrors = (res, err) => {
+    let userError = err;
+    if (!err instanceof HTTPError) userError = APIErrors.SERVER_ERROR;
+    res.status(userError.statusCode).json(userError.message);
   };
 }
