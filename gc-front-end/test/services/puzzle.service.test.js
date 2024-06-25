@@ -18,7 +18,7 @@ describe("Puzzle service tests", () => {
       size: 5,
     };
 
-    //?US1-AHS-1
+    //?US6-PZS-1
     test("It should call axios post with the correct url and payload", async () => {
       //Arrange
       const expectedURL = import.meta.env.VITE_APP_CREATE_PUZZLE_URL;
@@ -29,11 +29,27 @@ describe("Puzzle service tests", () => {
       expect(axios.post).toBeCalledWith(expectedURL, testSubmission);
     });
 
-    //?US1-AHS-2
+    //?US6-PZS-2
     test("It should throw err if post rejects with standard error object", async () => {
       //Arrange
       const expected = new Error("Server error");
       axios.post.mockRejectedValueOnce(expected);
+      let actual;
+      //Act
+      try {
+        await puzzleService.createPuzzle(testSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
+
+    //?US6-PZS-3
+    test("It should throw err?.response?.data where validation error received", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.post.mockRejectedValueOnce({ response: { data: expected } });
       let actual;
       //Act
       try {
