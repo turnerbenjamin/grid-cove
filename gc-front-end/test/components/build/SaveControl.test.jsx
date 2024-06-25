@@ -180,5 +180,22 @@ describe("Save control tests: ", () => {
       //Assert
       expect(screen.queryByText(testErrorMessage)).toBeNull();
     });
+
+    //? US6-SVC-10
+    test("It should display errors in a modal when createPuzzle rejects with an array of errors", async () => {
+      //Arrange
+      const testErrorMessages = [
+        { msg: "Test error1" },
+        { msg: "Test error2" },
+      ];
+
+      //Act
+      await act(async () => {
+        createPuzzleRejecter(testErrorMessages);
+      });
+      //Assert
+      expect(screen.queryByText(testErrorMessages[0].msg)).toBeInTheDocument();
+      expect(screen.queryByText(testErrorMessages[1].msg)).toBeInTheDocument();
+    });
   });
 });
