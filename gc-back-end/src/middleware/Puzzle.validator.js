@@ -26,6 +26,12 @@ export default class PuzzleValidator {
             throw new Error("Pixel art length must be the square of size");
           return true;
         }),
+      expressValidator
+        .body("title")
+        .exists()
+        .trim()
+        .notEmpty()
+        .withMessage("Title is required"),
       PuzzleValidator.handleValidationErrors,
     ];
   };
