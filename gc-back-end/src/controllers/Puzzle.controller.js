@@ -15,6 +15,7 @@ export default class PuzzleController {
         req.body.size,
         req.user
       );
+      res.status(201);
     } catch (err) {
       this.#handleErrors(res, err);
     }
