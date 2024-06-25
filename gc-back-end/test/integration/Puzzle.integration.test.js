@@ -17,6 +17,7 @@ import * as puzzleTestData from "../data/Puzzle.test.data.js";
 import * as userTestData from "../data/User.test.data.js";
 import Puzzle from "../../src/models/Puzzle.model.js";
 import mongoose from "mongoose";
+import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("Puzzle integration tests: ", () => {
   const testUserCredentials = userTestData.submissions[0];
@@ -137,6 +138,20 @@ describe("Puzzle integration tests: ", () => {
       createStub.restore();
       //Assert
       expect(response.status).to.equal(500);
+    });
+
+    //?INT6-6
+    it("should respond with a 400 status code if the puzzle art is duplicated", async () => {
+      //Arrange
+      await Puzzle.create(puzzleTestData.documents[0]);
+      //Act
+      const response = await request
+        .post(createPuzzleEndpoint)
+        .set("Cookie", accessToken)
+        .send(testPuzzleSubmission);
+      //Assert
+      expect(response.status).to.equal(400);
+      expect(response.body).to.equal(APIErrors.DUPLICATE_PIXEL_ART.message);
     });
   });
 });
