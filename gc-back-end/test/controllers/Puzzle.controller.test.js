@@ -91,4 +91,15 @@ describe("Puzzle controller tests", () => {
     //Assert
     expect(res.status.calledWith(201)).to.equal(true);
   });
+
+  //? PC6-6
+  it("should call res.json with the value returned from puzzle service", async () => {
+    //Arrange
+    const expected = puzzleTestData.documents[0];
+    puzzleService.createPuzzle.resolves(expected);
+    //Act
+    await puzzleController.createPuzzle(req, res);
+    //Assert
+    expect(res.json.calledWith(expected)).to.equal(true);
+  });
 });

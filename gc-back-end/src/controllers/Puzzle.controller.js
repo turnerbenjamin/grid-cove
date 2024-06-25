@@ -9,13 +9,13 @@ export default class PuzzleController {
 
   createPuzzle = async (req, res) => {
     try {
-      await this.#puzzleService.createPuzzle(
+      const puzzleDocument = await this.#puzzleService.createPuzzle(
         req.body.pixelArt,
         req.body.title,
         req.body.size,
         req.user
       );
-      res.status(201);
+      res.status(201).json(puzzleDocument);
     } catch (err) {
       this.#handleErrors(res, err);
     }

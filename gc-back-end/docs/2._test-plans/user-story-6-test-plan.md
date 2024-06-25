@@ -54,7 +54,7 @@ I will relocate grid size validation to a middleware validator
 - [x] PC6-3: It should respond with a 400 status code if Puzzle Service throws a invalid character distribution error
 - [x] PC6-4: It should respond with a 500 error code if Puzzle Service throws a server error
 - [x] PC6-5: It should respond with a 201 status code if Puzzle Service resolves
-- [ ] PC6-6: It should call res.json with the value returned from puzzle service
+- [x] PC6-6: It should call res.json with the value returned from puzzle service
 
 ## Integration Tests (INT)
 
