@@ -49,12 +49,26 @@ describe("Save control tests: ", () => {
     await act(async () => {
       fireEvent.click(screen.getByText(/save/i));
     });
-    screen.debug();
     expect(puzzleService.createPuzzle).toBeCalledWith(testPuzzle);
   });
 
   //? US6-SVC-2
   test("It should not display validation errors on render", async () => {
     expect(screen.queryByRole("alert")).toBeNull();
+  });
+
+  //? US6-SVC-3
+  test("It should display errors after clicking save where the title is too short", async () => {
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText(/title/i), {
+        target: { value: "12" },
+      });
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByText(/save/i));
+    });
+    expect(
+      screen.getByText(/title must be between 3 and 32 characters/i)
+    ).toBeInTheDocument();
   });
 });
