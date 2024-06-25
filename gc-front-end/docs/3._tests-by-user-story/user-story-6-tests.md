@@ -15,7 +15,7 @@
 ## Puzzle service tests (PZS)
 
 - [x] US6-PZS-1: It should call axios post with the correct url and payload
-- [ ] US6-PZS-2: It should throw err if post rejects with standard error object
+- [x] US6-PZS-2: It should throw err if post rejects with standard error object
 - [ ] US6-PZS-3: It should throw err?.response?.data where validation error received
 - [ ] US6-PZS-4: It should return response data where axios resolves
 
