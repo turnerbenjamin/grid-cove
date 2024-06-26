@@ -21,6 +21,10 @@ export default class PuzzleController {
     }
   };
 
+  getPuzzles = async () => {
+    await this.#puzzleService.getPuzzles();
+  };
+
   #handleErrors = (res, err) => {
     let userError = err;
     if (!err instanceof HTTPError) userError = APIErrors.SERVER_ERROR;

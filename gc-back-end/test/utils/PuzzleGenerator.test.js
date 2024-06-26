@@ -14,8 +14,13 @@ describe("Puzzle generator tests: ", () => {
     //Arrange
     const randomStub = sinon.stub(Math, "random");
     randomStub.returns(0.4);
+    const pixelArtThatRequiresRedistributionWhenRandomSetToZeroPointFour =
+      "1110000000000000000000032";
     //Act
-    const puzzle = PuzzleGenerator.generate(testPixelArt);
+    const puzzle = PuzzleGenerator.generate(
+      pixelArtThatRequiresRedistributionWhenRandomSetToZeroPointFour,
+      5
+    );
     randomStub.restore();
     const solution = puzzle.solution;
     //Assert

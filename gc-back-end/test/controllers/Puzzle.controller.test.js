@@ -7,99 +7,126 @@ import * as userTestData from "../data/User.test.data.js";
 import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("Puzzle controller tests", () => {
-  const testPuzzleSubmission = puzzleTestData.submissions[0];
-  const testUser = userTestData.documents[0];
   let puzzleController;
   let puzzleService;
   let req;
   let res;
-
-  beforeEach(() => {
-    puzzleService = {
-      createPuzzle: sinon.stub(),
-    };
-    puzzleController = new PuzzleController(puzzleService);
-    req = {
-      body: testPuzzleSubmission,
-      user: testUser,
-    };
-    res = {
-      status: sinon.stub().returnsThis(),
-      json: sinon.spy(),
-    };
-  });
 
   afterEach(() => {
     puzzleService = null;
     puzzleController = null;
   });
 
-  //? PC6-1
-  it("should call the puzzle service with the correct arguments", async () => {
-    //Arrange
-    const expected = [
-      testPuzzleSubmission.pixelArt,
-      testPuzzleSubmission.title,
-      testPuzzleSubmission.size,
-      testUser,
-    ];
-    //Act
-    await puzzleController.createPuzzle(req, res);
-    const actual = puzzleService.createPuzzle.getCall(0)?.args;
-    //Assert
-    expect(actual).to.deep.equal(expected);
+  describe("Create puzzle tests: ", () => {
+    const testPuzzleSubmission = puzzleTestData.submissions[0];
+    const testUser = userTestData.documents[0];
+
+    beforeEach(() => {
+      puzzleService = {
+        createPuzzle: sinon.stub(),
+      };
+      puzzleController = new PuzzleController(puzzleService);
+      req = {
+        body: testPuzzleSubmission,
+        user: testUser,
+      };
+      res = {
+        status: sinon.stub().returnsThis(),
+        json: sinon.spy(),
+      };
+    });
+
+    //? PC6-1
+    it("should call the puzzle service with the correct arguments", async () => {
+      //Arrange
+      const expected = [
+        testPuzzleSubmission.pixelArt,
+        testPuzzleSubmission.title,
+        testPuzzleSubmission.size,
+        testUser,
+      ];
+      //Act
+      await puzzleController.createPuzzle(req, res);
+      const actual = puzzleService.createPuzzle.getCall(0)?.args;
+      //Assert
+      expect(actual).to.deep.equal(expected);
+    });
+
+    //? PC6-2
+    it("should respond with a 400 status code if Puzzle Service throws a duplicate pixel art error", async () => {
+      //Arrange
+      puzzleService.createPuzzle.rejects(APIErrors.DUPLICATE_PIXEL_ART);
+      //Act
+      await puzzleController.createPuzzle(req, res);
+      //Assert
+      expect(res.status.calledWith(400)).to.equal(true);
+    });
+
+    //? PC6-3
+    it("should respond with a 400 status code if Puzzle Service throws a invalid character distribution error", async () => {
+      //Arrange
+      puzzleService.createPuzzle.rejects(
+        APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION
+      );
+      //Act
+      await puzzleController.createPuzzle(req, res);
+      //Assert
+      expect(res.status.calledWith(400)).to.equal(true);
+    });
+
+    //? PC6-4
+    it("should respond with a 500 error code if Puzzle Service throws a server error", async () => {
+      //Arrange
+      puzzleService.createPuzzle.rejects(APIErrors.SERVER_ERROR);
+      //Act
+      await puzzleController.createPuzzle(req, res);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+    });
+
+    //? PC6-5
+    it("should respond with a 201 status code if Puzzle Service resolves", async () => {
+      //Arrange
+      puzzleService.createPuzzle.resolves(puzzleTestData.documents[0]);
+      //Act
+      await puzzleController.createPuzzle(req, res);
+      //Assert
+      expect(res.status.calledWith(201)).to.equal(true);
+    });
+
+    //? PC6-6
+    it("should call res.json with the value returned from puzzle service", async () => {
+      //Arrange
+      const expected = puzzleTestData.documents[0];
+      puzzleService.createPuzzle.resolves(expected);
+      //Act
+      await puzzleController.createPuzzle(req, res);
+      //Assert
+      expect(res.json.calledWith(expected)).to.equal(true);
+    });
   });
 
-  //? PC6-2
-  it("should respond with a 400 status code if Puzzle Service throws a duplicate pixel art error", async () => {
-    //Arrange
-    puzzleService.createPuzzle.rejects(APIErrors.DUPLICATE_PIXEL_ART);
-    //Act
-    await puzzleController.createPuzzle(req, res);
-    //Assert
-    expect(res.status.calledWith(400)).to.equal(true);
-  });
+  describe("Get puzzles tests: ", () => {
+    const testPuzzles = puzzleTestData.aggregateReport;
+    beforeEach(() => {
+      puzzleService = {
+        getPuzzles: sinon.stub(),
+      };
+      puzzleService.getPuzzles.resolves(testPuzzles);
+      puzzleController = new PuzzleController(puzzleService);
+      req = {};
+      res = {
+        status: sinon.stub().returnsThis(),
+        json: sinon.spy(),
+      };
+    });
 
-  //? PC6-3
-  it("should respond with a 400 status code if Puzzle Service throws a invalid character distribution error", async () => {
-    //Arrange
-    puzzleService.createPuzzle.rejects(
-      APIErrors.INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION
-    );
-    //Act
-    await puzzleController.createPuzzle(req, res);
-    //Assert
-    expect(res.status.calledWith(400)).to.equal(true);
-  });
-
-  //? PC6-4
-  it("should respond with a 500 error code if Puzzle Service throws a server error", async () => {
-    //Arrange
-    puzzleService.createPuzzle.rejects(APIErrors.SERVER_ERROR);
-    //Act
-    await puzzleController.createPuzzle(req, res);
-    //Assert
-    expect(res.status.calledWith(500)).to.equal(true);
-  });
-
-  //? PC6-5
-  it("should respond with a 201 status code if Puzzle Service resolves", async () => {
-    //Arrange
-    puzzleService.createPuzzle.resolves(puzzleTestData.documents[0]);
-    //Act
-    await puzzleController.createPuzzle(req, res);
-    //Assert
-    expect(res.status.calledWith(201)).to.equal(true);
-  });
-
-  //? PC6-6
-  it("should call res.json with the value returned from puzzle service", async () => {
-    //Arrange
-    const expected = puzzleTestData.documents[0];
-    puzzleService.createPuzzle.resolves(expected);
-    //Act
-    await puzzleController.createPuzzle(req, res);
-    //Assert
-    expect(res.json.calledWith(expected)).to.equal(true);
+    //? PC8-1
+    it("should call getPuzzles on the puzzle service", async () => {
+      //Act
+      await puzzleController.getPuzzles();
+      //Assert
+      expect(puzzleService.getPuzzles.calledOnce).to.equal(true);
+    });
   });
 });

@@ -13,7 +13,7 @@
 
 ## Puzzle Controller (PC)
 
-- [ ] PC8-1: It should call getPuzzles on the puzzle service
+- [x] PC8-1: It should call getPuzzles on the puzzle service
 - [ ] PC8-2: It should call res.json with the response from getPuzzles where it resolves to an empty array
 - [ ] PC8-3: It should call res.json with the response from getPuzzles where it resolves to an array with a length greater than 0
 - [ ] PC8-4: It should call res.status with 200 where getPuzzles resolves
