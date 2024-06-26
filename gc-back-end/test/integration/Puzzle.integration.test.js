@@ -344,6 +344,16 @@ describe("Puzzle integration tests: ", () => {
         //Assert
         expect(response.status).to.equal(200);
       });
+
+      //?INT8-5
+      it("should respond with an empty array where no puzzles found", async () => {
+        //Arrange
+        const expected = [];
+        //Act
+        const response = await request.get(getPuzzleEndpoint);
+        //Assert
+        expect(response.body).to.deep.equal(expected);
+      });
     });
   });
 });
