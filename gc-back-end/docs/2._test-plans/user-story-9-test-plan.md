@@ -29,4 +29,4 @@
 - [x] INT9-2: It should respond with a correctly formatted puzzle object with a successful request
 - [x] INT9-3: It should respond with a status of 404 where the puzzleId is not found
 - [x] INT9-4: It should respond with a status of 400 where the puzzleId is not in a valid format
-- [ ] INT9-5: It should respond with a status of 500 where a server error is thrown
+- [x] INT9-5: It should respond with a status of 500 where a server error is thrown

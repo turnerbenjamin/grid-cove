@@ -415,6 +415,21 @@ describe("Puzzle integration tests: ", () => {
       );
       //Assert
       expect(response.status).to.equal(400);
+      expect(response.body).to.equal(APIErrors.INVALID_PUZZLE_ID.message);
+    });
+
+    //?INT9-5
+    it("should respond with a status of 500 where a server error is thrown", async () => {
+      //Arrange
+      const findByIdStub = sinon.stub(Puzzle, "findById");
+      findByIdStub.rejects();
+      //Act
+      const response = await request.get(
+        getPuzzleByIdEndpoint(puzzleInDatabase)
+      );
+      findByIdStub.restore();
+      //Assert
+      expect(response.status).to.equal(500);
     });
   });
 });
