@@ -47,4 +47,21 @@ describe("Puzzles list tests: ", () => {
   test("It should display a loading spiner while getAllPuzzles is pending", () => {
     expect(screen.getByRole("status")).toBeInTheDocument();
   });
+
+  //? US8-PZL-3
+  test("It should display all puzzles with a heading for each size group when getAllPuzzles resolves", async () => {
+    //Arrange
+    const expectedPuzzleCount = getAllPuzzles.flatMap(
+      (puzzleGroup) => puzzleGroup.puzzles
+    ).length;
+    //Act
+    await act(async () => {
+      getPuzzlesResolver(getAllPuzzles);
+    });
+
+    expect(screen.getAllByRole("puzzleCard")).toHaveLength(expectedPuzzleCount);
+    expect(screen.getByText("5 x 5")).toBeInTheDocument();
+    expect(screen.getByText("10 x 10")).toBeInTheDocument();
+    expect(screen.getByText("15 x 15")).toBeInTheDocument();
+  });
 });
