@@ -183,5 +183,21 @@ describe("Puzzle service tests: ", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? PS8-4
+    it("should reject with a server error if aggregate rejects", async () => {
+      aggregateStub.rejects(new Error());
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await puzzleService.getPuzzles();
+      } catch (err) {
+        actual = err;
+      }
+
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
