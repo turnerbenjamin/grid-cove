@@ -261,11 +261,27 @@ describe("Puzzle service tests: ", () => {
       expect(actual).to.equal(expected);
     });
 
-    //? PS9-4
-    it("should throw a puzzle not found error where findById returns a falsy value", async () => {
+    //? PS9-5
+    it("should throw an invalid puzzle id error where findById throws a cast error", async () => {
       //Arrange
       populateStub.rejects({ name: "CastError" });
       const expected = APIErrors.INVALID_PUZZLE_ID;
+      let actual;
+      //Act
+      try {
+        await puzzleService.getPuzzleById(testId);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
+
+    //? PS9-6
+    it("should throw a server error where findById rejects", async () => {
+      //Arrange
+      populateStub.rejects(new Error());
+      const expected = APIErrors.SERVER_ERROR;
       let actual;
       //Act
       try {
