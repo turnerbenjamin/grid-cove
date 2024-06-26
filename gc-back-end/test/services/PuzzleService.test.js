@@ -232,5 +232,16 @@ describe("Puzzle service tests: ", () => {
       //Assert
       expect(populateStub.calledOnce).to.equal(true);
     });
+
+    //? PS9-3
+    it("should return the puzzle returned by findById", async () => {
+      //Arrange
+      const expected = puzzleTestData.documents[0];
+      populateStub.resolves(expected);
+      //Act
+      const actual = await puzzleService.getPuzzleById(testId);
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
