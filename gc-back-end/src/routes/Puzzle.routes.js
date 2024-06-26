@@ -19,6 +19,7 @@ export default class AuthenticationRoutes {
   #initialiseRoutes() {
     this.#initialiseCreatePuzzleRoute();
     this.#initialiseGetPuzzlesRoute();
+    this.#initialiseGetPuzzleByIdRoute();
   }
 
   #initialiseCreatePuzzleRoute() {
@@ -32,6 +33,10 @@ export default class AuthenticationRoutes {
 
   #initialiseGetPuzzlesRoute() {
     this.#router.get("/", this.#puzzleController.getPuzzles);
+  }
+
+  #initialiseGetPuzzleByIdRoute() {
+    this.#router.get("/:puzzleId", this.#puzzleController.getPuzzleById);
   }
 
   getRouter() {

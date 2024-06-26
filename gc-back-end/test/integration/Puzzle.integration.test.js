@@ -356,4 +356,29 @@ describe("Puzzle integration tests: ", () => {
       });
     });
   });
+
+  describe("Where puzzles in database: ", () => {
+    const puzzleInDatabase = puzzleTestData.documents[0];
+    const puzzleNotInDatabase = puzzleTestData.documents[1];
+    const getPuzzleByIdEndpoint = (id) => `/puzzles/${id}`;
+
+    before(async () => {
+      await Puzzle.insertMany([puzzleInDatabase]);
+    });
+
+    after(async () => {
+      await Puzzle.deleteMany();
+    });
+
+    //?INT9-1
+    it("should respond with a status of 200 for a successful request", async () => {
+      //Act
+      const response = await request.get(
+        getPuzzleByIdEndpoint(puzzleInDatabase._id)
+      );
+      console.log();
+      //Assert
+      expect(response.status).to.equal(200);
+    });
+  });
 });
