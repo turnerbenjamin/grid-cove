@@ -225,5 +225,15 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(res.status.calledWith(404)).to.equal(true);
     });
+
+    //? PC9-5
+    it("should respond with a status code of 400 where getPuzzleById throws an invalid puzzle id error", async () => {
+      //Arrange
+      puzzleService.getPuzzleById.rejects(APIErrors.INVALID_PUZZLE_ID);
+      //Act
+      await puzzleController.getPuzzleById(req, res);
+      //Assert
+      expect(res.status.calledWith(400)).to.equal(true);
+    });
   });
 });
