@@ -301,7 +301,7 @@ describe("Puzzle integration tests: ", () => {
       await Puzzle.insertMany(puzzleTestData.documents);
     });
 
-    afterEach(async () => {
+    after(async () => {
       await Puzzle.deleteMany();
     });
 
@@ -311,6 +311,16 @@ describe("Puzzle integration tests: ", () => {
       const response = await request.get(getPuzzleEndpoint);
       //Assert
       expect(response.status).to.equal(200);
+    });
+
+    //?INT8-2
+    it("should respond with a report in the correct format", async () => {
+      //Arrange
+      const expected = puzzleTestData.aggregateReport;
+      //Act
+      const response = await request.get(getPuzzleEndpoint);
+      //Assert
+      expect(response.body).to.deep.equal(expected);
     });
   });
 });

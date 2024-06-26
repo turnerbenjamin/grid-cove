@@ -280,7 +280,7 @@ export const documents = [
 export const aggregateReport = [
   {
     size: 5,
-    documents: [
+    puzzles: [
       "667b67fe69053b11fd943b40",
       "667b684169053b11fd943b44",
       "667b686e69053b11fd943b48",
@@ -290,10 +290,10 @@ export const aggregateReport = [
   },
   {
     size: 10,
-    documents: ["667b69a469053b11fd943b54", "667b6aa869053b11fd943b58"],
+    puzzles: ["667b69a469053b11fd943b54", "667b6aa869053b11fd943b58"],
   },
   {
     size: 15,
-    documents: ["667b6ba369053b11fd943b5c", "667b6d4d69053b11fd943b60"],
+    puzzles: ["667b6ba369053b11fd943b5c", "667b6d4d69053b11fd943b60"],
   },
 ];

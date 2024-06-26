@@ -30,6 +30,16 @@ export default class PuzzleService {
             puzzles: { $push: "$_id" },
           },
         },
+        {
+          $project: {
+            _id: 0,
+            size: "$_id",
+            puzzles: 1,
+          },
+        },
+        {
+          $sort: { size: 1 },
+        },
       ]);
       return puzzles;
     } catch (err) {
