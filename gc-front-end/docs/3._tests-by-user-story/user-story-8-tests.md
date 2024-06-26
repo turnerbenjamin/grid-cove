@@ -11,7 +11,7 @@
 
 ## Puzzles List Tests (PLT)
 
-- [ ] US8-PLT-1: It should all puzzles passed to it
+- [x] US8-PLT-1: It should all puzzles passed to it
 
 ## Puzzles Tests (PZL)
 
@@ -22,5 +22,7 @@
 - [ ] US8-PLT-4: It should display an error message where getAllPuzzles rejects
 
 ## Integration
+
+### Navigation
 
 - [ ] US8-INT-1: It should navigate to the correct page when a Puzzle card is clicked
