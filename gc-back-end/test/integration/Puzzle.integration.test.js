@@ -322,5 +322,17 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.body).to.deep.equal(expected);
     });
+
+    //?INT8-3
+    it("should respond with a status of 500 where a server error is thrown", async () => {
+      //Arrange
+      const aggregateStub = sinon.stub(Puzzle, "aggregate");
+      aggregateStub.rejects();
+      //Act
+      const response = await request.get(getPuzzleEndpoint);
+      aggregateStub.restore();
+      //Assert
+      expect(response.status).to.equal(500);
+    });
   });
 });
