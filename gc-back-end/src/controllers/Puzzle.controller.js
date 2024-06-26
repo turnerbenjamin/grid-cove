@@ -23,7 +23,7 @@ export default class PuzzleController {
 
   getPuzzles = async (_, res) => {
     const puzzles = await this.#puzzleService.getPuzzles();
-    res.status().json(puzzles);
+    res.status(200).json(puzzles);
   };
 
   #handleErrors = (res, err) => {

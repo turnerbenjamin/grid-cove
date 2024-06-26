@@ -148,5 +148,13 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(res.json.calledWith(expected)).to.equal(true);
     });
+
+    //? PC8-4
+    it("should call res.status with 200 where getPuzzles resolves", async () => {
+      //Act
+      await puzzleController.getPuzzles(req, res);
+      //Assert
+      expect(res.status.calledWith(200)).to.equal(true);
+    });
   });
 });
