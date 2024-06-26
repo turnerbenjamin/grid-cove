@@ -197,5 +197,13 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(puzzleService.getPuzzleById.calledWith(expected)).to.equal(true);
     });
+
+    //? PC9-2
+    it("should respond with a status code of 200 where getPuzzleById resolves", async () => {
+      //Act
+      await puzzleController.getPuzzleById(req, res);
+      //Assert
+      expect(res.status.calledWith(200)).to.equal(true);
+    });
   });
 });

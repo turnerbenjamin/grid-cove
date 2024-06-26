@@ -31,8 +31,9 @@ export default class PuzzleController {
     }
   };
 
-  getPuzzleById = async (req) => {
+  getPuzzleById = async (req, res) => {
     this.#puzzleService.getPuzzleById(req?.params?.puzzleId);
+    res.status(200);
   };
 
   #handleErrors = (res, err) => {

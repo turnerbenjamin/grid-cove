@@ -17,7 +17,7 @@
 ## Puzzle Controller (PC)
 
 - [x] PC9-1: It should call getPuzzleById on the puzzle service with the correct argument
-- [ ] PC9-2: It should respond with a status code of 200 where getPuzzleById resolves
+- [x] PC9-2: It should respond with a status code of 200 where getPuzzleById resolves
 - [ ] PC9-3: It should respond with the value returned from getPuzzleById where getPuzzleById resolves
 - [ ] PC9-4: It should respond with a status code of 404 where getPuzzleById throws a puzzle not found error
 - [ ] PC9-5: It should respond with a status code of 400 where getPuzzleById throws an invalid puzzle id error
