@@ -21,6 +21,10 @@ export default class PuzzleService {
     }
   };
 
+  getPuzzles = async () => {
+    Puzzle.aggregate();
+  };
+
   #handleErrors(err) {
     if (err.code === 11000) throw APIErrors.DUPLICATE_PIXEL_ART;
     if (err instanceof HTTPError) throw err;

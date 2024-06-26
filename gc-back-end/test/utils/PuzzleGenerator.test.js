@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import sinon from "sinon";
 
 import * as puzzleTestData from "../data/Puzzle.test.data.js";
 import PuzzleGenerator from "../../src/utils/PuzzleGenerator.js";
@@ -10,8 +11,12 @@ describe("Puzzle generator tests: ", () => {
 
   //? PG6-1
   it("should generate a solution string from a given pixel art string", async () => {
+    //Arrange
+    const randomStub = sinon.stub(Math, "random");
+    randomStub.returns(0.4);
     //Act
-    const puzzle = PuzzleGenerator.generate(testPixelArt, testPuzzleSize);
+    const puzzle = PuzzleGenerator.generate(testPixelArt);
+    randomStub.restore();
     const solution = puzzle.solution;
     //Assert
     expect(solution).to.match(/^[01]+$/);

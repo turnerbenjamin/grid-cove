@@ -27,16 +27,6 @@ export default class APIErrors {
     "Your art may not include a single colour that makes up over 90% of the image"
   );
 
-  static #INVALID_PUZZLE_SIZE = new HTTPError(
-    400,
-    "The puzzle size must be a multiple of 5"
-  );
-
-  static #INVALID_PIXEL_ART_LENGTH = new HTTPError(
-    400,
-    "The length of the pixel art string must equal the square of the puzzle size"
-  );
-
   //GETTERS
   static get DUPLICATE_USERNAME() {
     return this.#DUPLICATE_USERNAME;
@@ -56,14 +46,6 @@ export default class APIErrors {
 
   static get INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION() {
     return this.#INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION;
-  }
-
-  static get INVALID_PUZZLE_SIZE() {
-    return this.#INVALID_PUZZLE_SIZE;
-  }
-
-  static get INVALID_PIXEL_ART_LENGTH() {
-    return this.#INVALID_PIXEL_ART_LENGTH;
   }
 
   static get SERVER_ERROR() {

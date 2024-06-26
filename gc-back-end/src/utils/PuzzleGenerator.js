@@ -3,7 +3,7 @@ import APIErrors from "./APIErrors.js";
 export default class PuzzleGenerator {
   static generate(pixelArt, puzzleSize) {
     const solution = PuzzleGenerator.#getSolutionString(pixelArt);
-    const clues = PuzzleGenerator.#getClues(solution, puzzleSize);
+    const clues = PuzzleGenerator.#getClues(solution, parseInt(puzzleSize));
     return {
       solution,
       clues,
@@ -83,7 +83,6 @@ export default class PuzzleGenerator {
     const indexToSplitAt = Math.floor(Math.random() * (arr.length - 1)) + 1;
     const firstHalf = arr.slice(0, indexToSplitAt);
     const secondHalf = arr.slice(indexToSplitAt);
-
     return [firstHalf, secondHalf];
   }
 
@@ -115,10 +114,9 @@ export default class PuzzleGenerator {
   }
 
   static #getRowClue(index, puzzleSize, solution) {
-    const lineString = solution.slice(
-      index * puzzleSize,
-      index * puzzleSize + puzzleSize
-    );
+    const left = index * puzzleSize;
+    const right = left + puzzleSize;
+    const lineString = solution.slice(left, right);
     return PuzzleGenerator.#getLineClue(lineString);
   }
 
