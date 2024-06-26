@@ -23,7 +23,14 @@ export default class PuzzleService {
 
   getPuzzles = async () => {
     try {
-      const puzzles = await Puzzle.aggregate();
+      const puzzles = await Puzzle.aggregate([
+        {
+          $group: {
+            _id: "$size",
+            puzzles: { $push: "$_id" },
+          },
+        },
+      ]);
       return puzzles;
     } catch (err) {
       this.#handleErrors(err);

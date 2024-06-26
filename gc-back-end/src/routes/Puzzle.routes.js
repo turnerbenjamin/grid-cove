@@ -18,6 +18,7 @@ export default class AuthenticationRoutes {
 
   #initialiseRoutes() {
     this.#initialiseCreatePuzzleRoute();
+    this.#initialiseGetPuzzlesRoute();
   }
 
   #initialiseCreatePuzzleRoute() {
@@ -27,6 +28,10 @@ export default class AuthenticationRoutes {
       PuzzleValidator.validate(),
       this.#puzzleController.createPuzzle
     );
+  }
+
+  #initialiseGetPuzzlesRoute() {
+    this.#router.get("/", this.#puzzleController.getPuzzles);
   }
 
   getRouter() {

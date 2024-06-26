@@ -293,4 +293,24 @@ describe("Puzzle integration tests: ", () => {
       expect(response.status).to.equal(400);
     });
   });
+
+  describe("Get puzzles tests: ", () => {
+    const getPuzzleEndpoint = "/puzzles";
+
+    before(async () => {
+      await Puzzle.insertMany(puzzleTestData.documents);
+    });
+
+    afterEach(async () => {
+      await Puzzle.deleteMany();
+    });
+
+    //?INT8-1
+    it("should respond with a status of 200 for a successful request", async () => {
+      //Act
+      const response = await request.get(getPuzzleEndpoint);
+      //Assert
+      expect(response.status).to.equal(200);
+    });
+  });
 });
