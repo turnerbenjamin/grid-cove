@@ -406,5 +406,15 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(404);
     });
+
+    //?INT9-4
+    it("should respond with a status of 400 where the puzzleId is not in a valid format", async () => {
+      //Act
+      const response = await request.get(
+        getPuzzleByIdEndpoint("invalidIdFormat")
+      );
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });
