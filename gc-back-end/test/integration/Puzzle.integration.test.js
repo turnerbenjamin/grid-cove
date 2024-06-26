@@ -297,42 +297,53 @@ describe("Puzzle integration tests: ", () => {
   describe("Get puzzles tests: ", () => {
     const getPuzzleEndpoint = "/puzzles";
 
-    before(async () => {
-      await Puzzle.insertMany(puzzleTestData.documents);
-    });
+    describe("Where puzzles in database: ", () => {
+      before(async () => {
+        await Puzzle.insertMany(puzzleTestData.documents);
+      });
 
-    after(async () => {
-      await Puzzle.deleteMany();
-    });
+      after(async () => {
+        await Puzzle.deleteMany();
+      });
 
-    //?INT8-1
-    it("should respond with a status of 200 for a successful request", async () => {
-      //Act
-      const response = await request.get(getPuzzleEndpoint);
-      //Assert
-      expect(response.status).to.equal(200);
-    });
+      //?INT8-1
+      it("should respond with a status of 200 for a successful request", async () => {
+        //Act
+        const response = await request.get(getPuzzleEndpoint);
+        //Assert
+        expect(response.status).to.equal(200);
+      });
 
-    //?INT8-2
-    it("should respond with a report in the correct format", async () => {
-      //Arrange
-      const expected = puzzleTestData.aggregateReport;
-      //Act
-      const response = await request.get(getPuzzleEndpoint);
-      //Assert
-      expect(response.body).to.deep.equal(expected);
-    });
+      //?INT8-2
+      it("should respond with a report in the correct format", async () => {
+        //Arrange
+        const expected = puzzleTestData.aggregateReport;
+        //Act
+        const response = await request.get(getPuzzleEndpoint);
+        //Assert
+        expect(response.body).to.deep.equal(expected);
+      });
 
-    //?INT8-3
-    it("should respond with a status of 500 where a server error is thrown", async () => {
-      //Arrange
-      const aggregateStub = sinon.stub(Puzzle, "aggregate");
-      aggregateStub.rejects();
-      //Act
-      const response = await request.get(getPuzzleEndpoint);
-      aggregateStub.restore();
-      //Assert
-      expect(response.status).to.equal(500);
+      //?INT8-3
+      it("should respond with a status of 500 where a server error is thrown", async () => {
+        //Arrange
+        const aggregateStub = sinon.stub(Puzzle, "aggregate");
+        aggregateStub.rejects();
+        //Act
+        const response = await request.get(getPuzzleEndpoint);
+        aggregateStub.restore();
+        //Assert
+        expect(response.status).to.equal(500);
+      });
+    });
+    describe("Where no puzzles in database: ", () => {
+      //?INT8-4
+      it("should respond with a status of 200 where no puzzles found", async () => {
+        //Act
+        const response = await request.get(getPuzzleEndpoint);
+        //Assert
+        expect(response.status).to.equal(200);
+      });
     });
   });
 });

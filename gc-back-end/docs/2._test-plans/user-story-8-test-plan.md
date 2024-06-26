@@ -24,5 +24,5 @@
 - [x] INT8-1: It should respond with a status of 200 for a successful request
 - [x] INT8-2: It should respond with a report in the correct format
 - [x] INT8-3: It should respond with a status of 500 where a server error is thrown
-- [ ] INT8-4: It should respond with a status of 200 where no puzzles found
+- [x] INT8-4: It should respond with a status of 200 where no puzzles found
 - [ ] INT8-5: It should respond with an empty array where no puzzles found
