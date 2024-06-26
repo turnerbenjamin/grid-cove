@@ -150,7 +150,6 @@ describe("Puzzle service tests: ", () => {
     let aggregateStub;
     beforeEach(() => {
       aggregateStub = sinon.stub(Puzzle, "aggregate");
-      aggregateStub.resolves(puzzleTestData.aggregateReport);
     });
 
     afterEach(() => {
@@ -168,6 +167,16 @@ describe("Puzzle service tests: ", () => {
     //? PS8-2
     it("should return an empty array when no puzzles found", async () => {
       const expected = [];
+      aggregateStub.resolves(expected);
+      //Act
+      const actual = await puzzleService.getPuzzles();
+      //Assert
+      expect(actual).to.equal(expected);
+    });
+
+    //? PS8-3
+    it("should return the result of this query when puzzles are found", async () => {
+      const expected = puzzleTestData.aggregateReport;
       aggregateStub.resolves(expected);
       //Act
       const actual = await puzzleService.getPuzzles();

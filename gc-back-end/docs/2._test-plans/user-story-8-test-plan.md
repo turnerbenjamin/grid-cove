@@ -8,7 +8,7 @@
 
 - [x] PS8-1: It should call aggregate on the puzzle model
 - [x] PS8-2: It should return an empty array when no puzzles found
-- [ ] PS8-3: It should return the result of this query when puzzles are found
+- [x] PS8-3: It should return the result of this query when puzzles are found
 - [ ] PS8-4: It should reject with a server error if aggregate rejects
 
 ## Puzzle Controller (PC)
