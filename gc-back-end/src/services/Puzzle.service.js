@@ -50,7 +50,10 @@ export default class PuzzleService {
 
   getPuzzleById = async (puzzleId) => {
     try {
-      const puzzle = await Puzzle.findById(puzzleId).populate();
+      const puzzle = await Puzzle.findById(puzzleId).populate({
+        path: "artist",
+        select: "username -_id",
+      });
       if (!puzzle) throw APIErrors.PUZZLE_NOT_FOUND;
       return puzzle;
     } catch (err) {

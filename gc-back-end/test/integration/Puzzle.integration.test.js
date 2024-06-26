@@ -376,9 +376,25 @@ describe("Puzzle integration tests: ", () => {
       const response = await request.get(
         getPuzzleByIdEndpoint(puzzleInDatabase._id)
       );
-      console.log();
       //Assert
       expect(response.status).to.equal(200);
+    });
+
+    //?INT9-2
+    it("should respond with a correctly formatted puzzle object with a successful request", async () => {
+      //Arrange
+      const expected = puzzleInDatabase;
+      puzzleInDatabase.artist = {
+        username: userTestData.documents[0].username,
+      };
+      //Act
+      const response = await request.get(
+        getPuzzleByIdEndpoint(puzzleInDatabase._id)
+      );
+      delete response.body.__v;
+      delete response.body.clues?._id;
+      //Assert
+      expect(response.body).to.deep.equal(expected);
     });
   });
 });
