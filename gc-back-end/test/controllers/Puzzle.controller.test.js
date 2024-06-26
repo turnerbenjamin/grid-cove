@@ -138,5 +138,15 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(res.json.calledWith(expected)).to.equal(true);
     });
+
+    //? PC8-3
+    it("should call res.json with the response from getPuzzles where it resolves to an array with a length greater than 0", async () => {
+      const expected = ["1"];
+      puzzleService.getPuzzles.resolves(expected);
+      //Act
+      await puzzleController.getPuzzles(req, res);
+      //Assert
+      expect(res.json.calledWith(expected)).to.equal(true);
+    });
   });
 });
