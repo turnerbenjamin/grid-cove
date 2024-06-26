@@ -25,7 +25,7 @@
 
 - [x] US8-PZS-1: It should call axios get with the correct url
 - [x] US8-PZS-2: It should throw err if get rejects with standard error object
-- [ ] US8-PZS-3: It should throw err?.response?.data where validation error received
+- [x] US8-PZS-3: It should throw err?.response?.data where validation error received
 - [ ] US8-PZS-4: It should return response data where axios resolves
 
 ## Integration
