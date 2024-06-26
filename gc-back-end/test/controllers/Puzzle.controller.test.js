@@ -156,5 +156,18 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(res.status.calledWith(200)).to.equal(true);
     });
+
+    //? PC8-5
+    it("should call res.status with 500 where getPuzzles rejects", async () => {
+      //Arrange
+      puzzleService.getPuzzles.rejects(new Error());
+      //Act
+      await puzzleController.getPuzzles(req, res);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+      expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(
+        true
+      );
+    });
   });
 });

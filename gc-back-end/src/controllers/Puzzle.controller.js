@@ -1,4 +1,5 @@
 import HTTPError from "../utils/HTTPError.js";
+import APIErrors from "../utils/APIErrors.js";
 
 export default class PuzzleController {
   #puzzleService;
@@ -22,13 +23,17 @@ export default class PuzzleController {
   };
 
   getPuzzles = async (_, res) => {
-    const puzzles = await this.#puzzleService.getPuzzles();
-    res.status(200).json(puzzles);
+    try {
+      const puzzles = await this.#puzzleService.getPuzzles();
+      res.status(200).json(puzzles);
+    } catch (err) {
+      this.#handleErrors(res, err);
+    }
   };
 
   #handleErrors = (res, err) => {
     let userError = err;
-    if (!err instanceof HTTPError) userError = APIErrors.SERVER_ERROR;
+    if (!(err instanceof HTTPError)) userError = APIErrors.SERVER_ERROR;
     res.status(userError.statusCode).json(userError.message);
   };
 }

@@ -17,7 +17,7 @@
 - [x] PC8-2: It should call res.json with the response from getPuzzles where it resolves to an empty array
 - [x] PC8-3: It should call res.json with the response from getPuzzles where it resolves to an array with a length greater than 0
 - [x] PC8-4: It should call res.status with 200 where getPuzzles resolves
-- [ ] PC8-5: It should call res.status with 500 where getPuzzles rejects
+- [x] PC8-5: It should call res.status with 500 where getPuzzles rejects
 
 ## Integration Tests (INT)
 
