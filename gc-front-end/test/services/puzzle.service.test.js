@@ -86,7 +86,7 @@ describe("Puzzle service tests", () => {
     });
 
     //?US8-PZS-2
-    test("US8-PZS-2: It should throw err if get rejects with standard error object", async () => {
+    test("It should throw err if get rejects with standard error object", async () => {
       //Arrange
       const expected = new Error("Server error");
       axios.get.mockRejectedValueOnce(expected);
@@ -113,6 +113,17 @@ describe("Puzzle service tests", () => {
       } catch (err) {
         actual = err;
       }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
+
+    //?US8-PZS-4
+    test("It should return response data where axios resolves", async () => {
+      //Arrange
+      const expected = testResponse.data;
+      axios.get.mockResolvedValueOnce(testResponse);
+      //Act
+      const actual = await puzzleService.getPuzzles();
       //Assert
       expect(actual).toEqual(expected);
     });
