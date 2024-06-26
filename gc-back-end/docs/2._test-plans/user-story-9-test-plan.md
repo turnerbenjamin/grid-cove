@@ -10,7 +10,7 @@
 - [x] PS9-2: It should call populate
 - [x] PS9-3: It should return the puzzle returned by findById
 - [x] PS9-4: It should throw a puzzle not found error where findById returns a falsy value
-- [ ] PS9-5: It should throw a invalid puzzle id error where findById throws a cast error
+- [x] PS9-5: It should throw an invalid puzzle id error where findById throws a cast error
 - [ ] PS9-6: It should throw a server error where findById rejects
 - [ ] PS9-7: It should throw a server error where populate rejects
 

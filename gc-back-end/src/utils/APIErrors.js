@@ -20,6 +20,8 @@ export default class APIErrors {
     "Your art may not include a single colour that makes up over 90% of the image"
   );
 
+  static #INVALID_PUZZLE_ID = new HTTPError(400, "The puzzle id is invalid");
+
   static #UNAUTHORISED_ERROR = new HTTPError(
     401,
     "Incorrect authentication details"
@@ -52,6 +54,10 @@ export default class APIErrors {
 
   static get INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION() {
     return this.#INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION;
+  }
+
+  static get INVALID_PUZZLE_ID() {
+    return this.#INVALID_PUZZLE_ID;
   }
 
   static get SERVER_ERROR() {

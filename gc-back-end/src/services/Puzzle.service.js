@@ -17,6 +17,7 @@ export default class PuzzleService {
       });
       return puzzle;
     } catch (err) {
+      if (err.code === 11000) throw APIErrors.DUPLICATE_PIXEL_ART;
       this.#handleErrors(err);
     }
   };
@@ -53,12 +54,12 @@ export default class PuzzleService {
       if (!puzzle) throw APIErrors.PUZZLE_NOT_FOUND;
       return puzzle;
     } catch (err) {
+      if (err.name === "CastError") throw APIErrors.INVALID_PUZZLE_ID;
       this.#handleErrors(err);
     }
   };
 
   #handleErrors(err) {
-    if (err.code === 11000) throw APIErrors.DUPLICATE_PIXEL_ART;
     if (err instanceof HTTPError) throw err;
     throw APIErrors.SERVER_ERROR;
   }

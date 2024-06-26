@@ -260,5 +260,21 @@ describe("Puzzle service tests: ", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? PS9-4
+    it("should throw a puzzle not found error where findById returns a falsy value", async () => {
+      //Arrange
+      populateStub.rejects({ name: "CastError" });
+      const expected = APIErrors.INVALID_PUZZLE_ID;
+      let actual;
+      //Act
+      try {
+        await puzzleService.getPuzzleById(testId);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
