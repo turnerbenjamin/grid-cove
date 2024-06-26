@@ -7,7 +7,7 @@
 ## Puzzle Service (PS)
 
 - [x] PS9-1: It should call findById with the correct argument
-- [ ] PS9-2: It should call populate with the correct argument
+- [x] PS9-2: It should call populate with the correct argument
 - [ ] PS9-3: It should return the puzzle returned by findById
 - [ ] PS9-4: It should throw a puzzle not found error where findById returns a falsy value
 - [ ] PS9-5: It should throw a invalid puzzle id error where findById throws a cast error

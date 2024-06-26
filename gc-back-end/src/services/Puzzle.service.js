@@ -48,7 +48,7 @@ export default class PuzzleService {
   };
 
   getPuzzleById = async (puzzleId) => {
-    await Puzzle.findById(puzzleId);
+    await Puzzle.findById(puzzleId).populate();
   };
 
   #handleErrors(err) {
