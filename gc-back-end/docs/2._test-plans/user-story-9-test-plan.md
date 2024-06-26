@@ -21,7 +21,7 @@
 - [x] PC9-3: It should respond with the value returned from getPuzzleById where getPuzzleById resolves
 - [x] PC9-4: It should respond with a status code of 404 where getPuzzleById throws a puzzle not found error
 - [x] PC9-5: It should respond with a status code of 400 where getPuzzleById throws an invalid puzzle id error
-- [ ] PC9-6: It should respond with a status code of 500 where getPuzzleById throws a server error
+- [x] PC9-6: It should respond with a status code of 500 where getPuzzleById throws a server error
 
 ## Integration Tests (INT)
 
