@@ -396,5 +396,15 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.body).to.deep.equal(expected);
     });
+
+    //?INT9-3
+    it("should respond with a status of 404 where the puzzleId is not found", async () => {
+      //Act
+      const response = await request.get(
+        getPuzzleByIdEndpoint(puzzleNotInDatabase._id)
+      );
+      //Assert
+      expect(response.status).to.equal(404);
+    });
   });
 });
