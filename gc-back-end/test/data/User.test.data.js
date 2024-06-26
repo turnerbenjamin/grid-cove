@@ -20,7 +20,7 @@ export const submissions = [
 
 export const documents = [
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: "667422cc3eba2d502111b150",
     username: "test-user-1",
     emailAddress: "testuser1@example.com",
     password: "$2b$10$h.UxSp7TfI2qmtq/zQjixeObdi7KrR2rltRz6b9hQ4c74dCSpFyqG",

@@ -200,4 +200,29 @@ describe("Puzzle service tests: ", () => {
       expect(actual).to.equal(expected);
     });
   });
+
+  describe("Get puzzle by id tests: ", () => {
+    let findByIdStub;
+    let populateStub;
+    const testId = puzzleTestData.documents[0]._id;
+    beforeEach(() => {
+      findByIdStub = sinon.stub(Puzzle, "findById");
+      populateStub = sinon.stub(Puzzle, "populate");
+      findByIdStub.returns({ populate: populateStub });
+    });
+
+    afterEach(() => {
+      findByIdStub.restore();
+      populateStub.restore();
+    });
+
+    //? PS9-1
+    it("should call findById with the correct argument", async () => {
+      const expected = testId;
+      //Act
+      await puzzleService.getPuzzleById(testId);
+      //Assert
+      expect(findByIdStub.calledWith(expected)).to.equal(true);
+    });
+  });
 });
