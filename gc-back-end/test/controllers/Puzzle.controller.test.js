@@ -205,5 +205,14 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(res.status.calledWith(200)).to.equal(true);
     });
+
+    //? PC9-3
+    it("should respond with the value returned from getPuzzleById where getPuzzleById resolves", async () => {
+      const expected = testPuzzle;
+      //Act
+      await puzzleController.getPuzzleById(req, res);
+      //Assert
+      expect(res.json.calledWith(expected)).to.equal(true);
+    });
   });
 });
