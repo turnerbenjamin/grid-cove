@@ -64,4 +64,13 @@ describe("Puzzles list tests: ", () => {
     expect(screen.getByText("10 x 10")).toBeInTheDocument();
     expect(screen.getByText("15 x 15")).toBeInTheDocument();
   });
+
+  //? US8-PZL-4
+  test("It should display a notification where getAllPuzzles finds no puzzles", async () => {
+    //Act
+    await act(async () => {
+      getPuzzlesResolver([]);
+    });
+    expect(screen.getByText(/No puzzles found/i)).toBeInTheDocument();
+  });
 });
