@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Puzzles from "../../../src/components/puzzles/Puzzles";
 
-import { getAllPuzzles } from "../../data/puzzles.test.data";
+import { getAllPuzzlesTestData } from "../../data/puzzles.test.data";
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
 
 import * as puzzlesService from "../../../src/services/puzzle.service";
@@ -51,12 +51,12 @@ describe("Puzzles list tests: ", () => {
   //? US8-PZL-3
   test("It should display all puzzles with a heading for each size group when getAllPuzzles resolves", async () => {
     //Arrange
-    const expectedPuzzleCount = getAllPuzzles.flatMap(
+    const expectedPuzzleCount = getAllPuzzlesTestData.flatMap(
       (puzzleGroup) => puzzleGroup.puzzles
     ).length;
     //Act
     await act(async () => {
-      getPuzzlesResolver(getAllPuzzles);
+      getPuzzlesResolver(getAllPuzzlesTestData);
     });
 
     expect(screen.getAllByRole("puzzleCard")).toHaveLength(expectedPuzzleCount);

@@ -72,4 +72,17 @@ describe("Puzzle service tests", () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  describe("Get puzzles tests", () => {
+    //?US8-PZS-1
+    test("It should call axios get with the correct url", async () => {
+      //Arrange
+      const expectedURL = import.meta.env.VITE_APP_GET_PUZZLES_URL;
+      axios.get.mockResolvedValueOnce(testResponse);
+      //Act
+      await puzzleService.getPuzzles();
+      //Assert
+      expect(axios.get).toBeCalledWith(expectedURL);
+    });
+  });
 });

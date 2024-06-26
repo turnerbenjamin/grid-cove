@@ -1,4 +1,4 @@
-export const getAllPuzzles = [
+export const getAllPuzzlesTestData = [
   {
     size: 5,
     puzzles: [

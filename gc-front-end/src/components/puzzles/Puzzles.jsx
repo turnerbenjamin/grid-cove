@@ -18,7 +18,12 @@ export default function Puzzles() {
   }, []);
 
   if (puzzleServiceErrors) {
-    return <RenderedErrors errors={puzzleServiceErrors} />;
+    return (
+      <div className="flex flex-col items-center mt-12">
+        <h3>Sorry, there has been an error</h3>
+        <RenderedErrors errors={puzzleServiceErrors} />
+      </div>
+    );
   }
 
   if (puzzles === null || puzzleServiceIsLoading)
