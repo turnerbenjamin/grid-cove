@@ -32,10 +32,14 @@ export default class PuzzleController {
   };
 
   getPuzzleById = async (req, res) => {
-    const puzzle = await this.#puzzleService.getPuzzleById(
-      req?.params?.puzzleId
-    );
-    res.status(200).json(puzzle);
+    try {
+      const puzzle = await this.#puzzleService.getPuzzleById(
+        req?.params?.puzzleId
+      );
+      res.status(200).json(puzzle);
+    } catch (err) {
+      this.#handleErrors(res, err);
+    }
   };
 
   #handleErrors = (res, err) => {

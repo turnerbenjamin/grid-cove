@@ -208,11 +208,22 @@ describe("Puzzle controller tests", () => {
 
     //? PC9-3
     it("should respond with the value returned from getPuzzleById where getPuzzleById resolves", async () => {
+      //Arrange
       const expected = testPuzzle;
       //Act
       await puzzleController.getPuzzleById(req, res);
       //Assert
       expect(res.json.calledWith(expected)).to.equal(true);
+    });
+
+    //? PC9-4
+    it("should respond with a status code of 404 where getPuzzleById throws a puzzle not found error", async () => {
+      //Arrange
+      puzzleService.getPuzzleById.rejects(APIErrors.PUZZLE_NOT_FOUND);
+      //Act
+      await puzzleController.getPuzzleById(req, res);
+      //Assert
+      expect(res.status.calledWith(404)).to.equal(true);
     });
   });
 });
