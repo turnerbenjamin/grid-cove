@@ -15,11 +15,11 @@
 
 ## Puzzles Tests (PZL)
 
-- [ ] US8-PLT-1: It should call getAllPuzzles
-- [ ] US8-PLT-2: It should display a loading spiner while getAllPuzzles is pending
-- [ ] US8-PLT-3: It should display all puzzles with a heading for each size group when getAllPuzzles resolves
-- [ ] US8-PLT-4: It should display a notification where getAllPuzzles finds no puzzles
-- [ ] US8-PLT-4: It should display an error message where getAllPuzzles rejects
+- [x] US8-PZL-1: It should call getAllPuzzles
+- [ ] US8-PZL-2: It should display a loading spiner while getAllPuzzles is pending
+- [ ] US8-PZL-3: It should display all puzzles with a heading for each size group when getAllPuzzles resolves
+- [ ] US8-PZL-4: It should display a notification where getAllPuzzles finds no puzzles
+- [ ] US8-PZL-4: It should display an error message where getAllPuzzles rejects
 
 ## Integration
 
