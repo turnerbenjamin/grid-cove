@@ -73,4 +73,15 @@ describe("Puzzles list tests: ", () => {
     });
     expect(screen.getByText(/No puzzles found/i)).toBeInTheDocument();
   });
+
+  //? US8-PZL-5
+  test("It should display an error message where getAllPuzzles rejects", async () => {
+    //Arrange
+    const testError = "Test error";
+    //Act
+    await act(async () => {
+      getPuzzlesRejecter(new Error(testError));
+    });
+    expect(screen.getByText(testError)).toBeInTheDocument();
+  });
 });

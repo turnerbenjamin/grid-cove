@@ -3,18 +3,28 @@ import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 import { CgSpinner } from "react-icons/cg";
 
 import PuzzlesList from "./PuzzlesList";
+import RenderedErrors from "../general/RenderedErrors";
 
 export default function Puzzles() {
-  const { puzzles, puzzleServiceIsLoading, getAllPuzzles } = usePuzzleContext();
+  const {
+    puzzles,
+    puzzleServiceIsLoading,
+    getAllPuzzles,
+    puzzleServiceErrors,
+  } = usePuzzleContext();
 
   useEffect(() => {
     getAllPuzzles();
   }, []);
 
+  if (puzzleServiceErrors) {
+    return <RenderedErrors errors={puzzleServiceErrors} />;
+  }
+
   if (puzzles === null || puzzleServiceIsLoading)
     return <CgSpinner className="animate-spin text-2xl" role="status" />;
 
-  if (!puzzles || puzzles.length === 0) {
+  if (puzzles.length === 0) {
     return <p>No puzzles found...</p>;
   }
 
