@@ -18,8 +18,12 @@ export default function useGridCoveUserService() {
   const handleErrors = (err) => {
     let errorMessages;
     if (Array.isArray(err)) errorMessages = err.map((err) => err.msg);
-    else errorMessages = [err];
+    else errorMessages = [err.message || err];
     setAuthenticationErrors(errorMessages);
+  };
+
+  const handleClearErrors = () => {
+    setAuthenticationErrors(null);
   };
 
   const handleClearIsRegistrationSuccessful = () =>
@@ -78,5 +82,6 @@ export default function useGridCoveUserService() {
     isSignInSuccessful,
     handleClearSignInIsSuccessful,
     signOutUser,
+    handleClearErrors,
   };
 }

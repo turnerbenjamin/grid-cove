@@ -29,6 +29,8 @@ export default function SaveControls() {
     if (newPuzzle) {
       setDoShowSuccessModal(true);
       resetGrid();
+      setDoShowValidationErrors(false);
+      setPixelArtTitle("");
     }
   };
 

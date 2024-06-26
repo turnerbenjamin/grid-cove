@@ -153,12 +153,26 @@ describe("Puzzle service tests: ", () => {
       aggregateStub.resolves(puzzleTestData.aggregateReport);
     });
 
+    afterEach(() => {
+      aggregateStub.restore();
+    });
+
     //? PS8-1
     it("should call aggregate on the puzzle model", async () => {
       //Act
       await puzzleService.getPuzzles();
       //Assert
       expect(aggregateStub.calledOnce).to.equal(true);
+    });
+
+    //? PS8-2
+    it("should return an empty array when no puzzles found", async () => {
+      const expected = [];
+      aggregateStub.resolves(expected);
+      //Act
+      const actual = await puzzleService.getPuzzles();
+      //Assert
+      expect(actual).to.equal(expected);
     });
   });
 });

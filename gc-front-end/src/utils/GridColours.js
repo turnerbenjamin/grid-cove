@@ -6,11 +6,11 @@ export default class GridColours {
     SAPPHIRE: "rgb(42, 102, 212)",
     BLUE: "rgb(43, 206, 255)",
     GREY: "rgb(68, 68, 68)",
-    CYAN: "rgb(83, 222, 247)",
+    BROWN: "rgb(160,82,45)",
     MINT: "rgb(86, 213, 118)",
     GREEN: "rgb(94, 214, 46)",
     PURPLE: "rgb(171, 64, 183)",
-    APPLE: "rgb(174, 235, 32)",
+    CREAM: "rgb(248,226,177)",
     WHITE: "rgb(238, 238, 238)",
     PINK: "rgb(250, 48, 163)",
     GOLD: "rgb(254, 205, 12)",
@@ -25,11 +25,11 @@ export default class GridColours {
     1: "BLACK",
     2: "BLUE",
     3: "GREY",
-    4: "CYAN",
+    4: "BROWN",
     5: "MINT",
     6: "GREEN",
     7: "PURPLE",
-    8: "APPLE",
+    8: "CREAM",
     9: "SAPPHIRE",
     A: "PINK",
     B: "GOLD",
@@ -44,11 +44,11 @@ export default class GridColours {
     BLACK: "1",
     BLUE: "2",
     GREY: "3",
-    CYAN: "4",
+    BROWN: "4",
     MINT: "5",
     GREEN: "6",
     PURPLE: "7",
-    APPLE: "8",
+    CREAM: "8",
     SAPPHIRE: "9",
     PINK: "A",
     GOLD: "B",
@@ -82,10 +82,10 @@ export default class GridColours {
     this.#labelToColourCodeMap.GREY
   );
 
-  static #CYAN = new GridColour(
-    "Cyan",
-    this.#rgbCodes.CYAN,
-    this.#labelToColourCodeMap.CYAN
+  static #BROWN = new GridColour(
+    "Brown",
+    this.#rgbCodes.BROWN,
+    this.#labelToColourCodeMap.BROWN
   );
   static #MINT = new GridColour(
     "Mint",
@@ -105,10 +105,10 @@ export default class GridColours {
     this.#labelToColourCodeMap.PURPLE
   );
 
-  static #APPLE = new GridColour(
-    "Apple",
-    this.#rgbCodes.APPLE,
-    this.#labelToColourCodeMap.APPLE
+  static #CREAM = new GridColour(
+    "Cream",
+    this.#rgbCodes.CREAM,
+    this.#labelToColourCodeMap.CREAM
   );
 
   static #WHITE = new GridColour(
@@ -169,8 +169,8 @@ export default class GridColours {
     return this.#GREY;
   }
 
-  static get CYAN() {
-    return this.#CYAN;
+  static get BROWN() {
+    return this.#BROWN;
   }
 
   static get MINT() {
@@ -185,8 +185,8 @@ export default class GridColours {
     return this.#PURPLE;
   }
 
-  static get APPLE() {
-    return this.#APPLE;
+  static get CREAM() {
+    return this.#CREAM;
   }
 
   static get WHITE() {
@@ -223,11 +223,11 @@ export default class GridColours {
       this.SAPPHIRE,
       this.BLUE,
       this.GREY,
-      this.CYAN,
+      this.BROWN,
       this.MINT,
       this.GREEN,
       this.PURPLE,
-      this.APPLE,
+      this.CREAM,
       this.WHITE,
       this.PINK,
       this.GOLD,

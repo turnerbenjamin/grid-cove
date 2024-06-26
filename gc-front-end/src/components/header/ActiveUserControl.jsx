@@ -3,8 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { GiPlagueDoctorProfile } from "react-icons/gi";
 import { useAppContext } from "../../hooks/contexts/appContext";
 
-import Modal from "../general/Modal";
-import RenderedErrors from "../general/RenderedErrors";
 import ErrorModal from "../general/ErrorModal";
 
 export default function ActiveUserControl() {
@@ -13,7 +11,7 @@ export default function ActiveUserControl() {
     signOutUser,
     authenticationIsLoading,
     authenticationErrors,
-    handleClearAuthenticationErrors,
+    handleClearErrors,
   } = useAppContext();
 
   const wrapperRef = useRef(null);
@@ -54,17 +52,7 @@ export default function ActiveUserControl() {
         )}
       </div>
       {authenticationErrors && (
-        <ErrorModal
-          onClose={handleClearAuthenticationErrors}
-          errors={authenticationErrors}
-        />
-        // <Modal onClose={handleClearAuthenticationErrors}>
-        //   <div>
-        //     <h3 className="text-lg text-center">Error</h3>
-        //     <p>Sorry, we have experienced an error:</p>
-        //     <RenderedErrors errors={authenticationErrors} />
-        //   </div>
-        // </Modal>
+        <ErrorModal onClose={handleClearErrors} errors={authenticationErrors} />
       )}
     </>
   );
