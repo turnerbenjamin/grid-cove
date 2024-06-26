@@ -21,8 +21,9 @@ export default class PuzzleController {
     }
   };
 
-  getPuzzles = async () => {
-    await this.#puzzleService.getPuzzles();
+  getPuzzles = async (_, res) => {
+    const puzzles = await this.#puzzleService.getPuzzles();
+    res.status().json(puzzles);
   };
 
   #handleErrors = (res, err) => {

@@ -124,9 +124,19 @@ describe("Puzzle controller tests", () => {
     //? PC8-1
     it("should call getPuzzles on the puzzle service", async () => {
       //Act
-      await puzzleController.getPuzzles();
+      await puzzleController.getPuzzles(req, res);
       //Assert
       expect(puzzleService.getPuzzles.calledOnce).to.equal(true);
+    });
+
+    //? PC8-2
+    it("should call res.json with the response from getPuzzles where it resolves to an empty array", async () => {
+      const expected = [];
+      puzzleService.getPuzzles.resolves(expected);
+      //Act
+      await puzzleController.getPuzzles(req, res);
+      //Assert
+      expect(res.json.calledWith(expected)).to.equal(true);
     });
   });
 });
