@@ -170,4 +170,32 @@ describe("Puzzle controller tests", () => {
       );
     });
   });
+
+  describe("Get puzzle By Id tests: ", () => {
+    const testPuzzle = puzzleTestData.documents[0];
+    beforeEach(() => {
+      puzzleService = {
+        getPuzzleById: sinon.stub(),
+      };
+      puzzleService.getPuzzleById.resolves(testPuzzle);
+      puzzleController = new PuzzleController(puzzleService);
+      req = {
+        params: { puzzleId: testPuzzle._id },
+      };
+      res = {
+        status: sinon.stub().returnsThis(),
+        json: sinon.spy(),
+      };
+    });
+
+    //? PC9-1
+    it("should call getPuzzleById on the puzzle service with the correct argument", async () => {
+      //Arrange
+      const expected = req.params.puzzleId;
+      //Act
+      await puzzleController.getPuzzleById(req, res);
+      //Assert
+      expect(puzzleService.getPuzzleById.calledWith(expected)).to.equal(true);
+    });
+  });
 });

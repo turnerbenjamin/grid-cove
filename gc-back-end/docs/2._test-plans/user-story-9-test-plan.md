@@ -16,12 +16,12 @@
 
 ## Puzzle Controller (PC)
 
-- [ ] PC9-1: It should call getPuzzle on the puzzle service with the correct argument
-- [ ] PC9-2: It should respond with a status code of 200 where getPuzzle resolves
-- [ ] PC9-3: It should respond with the value returned from getPuzzle where getPuzzle resolves
-- [ ] PC9-4: It should respond with a status code of 404 where getPuzzle throws a puzzle not found error
-- [ ] PC9-5: It should respond with a status code of 400 where getPuzzle throws an invalid puzzle id error
-- [ ] PC9-6: It should respond with a status code of 500 where getPuzzle throws a server error
+- [x] PC9-1: It should call getPuzzleById on the puzzle service with the correct argument
+- [ ] PC9-2: It should respond with a status code of 200 where getPuzzleById resolves
+- [ ] PC9-3: It should respond with the value returned from getPuzzleById where getPuzzleById resolves
+- [ ] PC9-4: It should respond with a status code of 404 where getPuzzleById throws a puzzle not found error
+- [ ] PC9-5: It should respond with a status code of 400 where getPuzzleById throws an invalid puzzle id error
+- [ ] PC9-6: It should respond with a status code of 500 where getPuzzleById throws a server error
 
 ## Integration Tests (INT)
 

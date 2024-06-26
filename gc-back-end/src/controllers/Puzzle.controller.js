@@ -31,6 +31,10 @@ export default class PuzzleController {
     }
   };
 
+  getPuzzleById = async (req) => {
+    this.#puzzleService.getPuzzleById(req?.params?.puzzleId);
+  };
+
   #handleErrors = (res, err) => {
     let userError = err;
     if (!(err instanceof HTTPError)) userError = APIErrors.SERVER_ERROR;
