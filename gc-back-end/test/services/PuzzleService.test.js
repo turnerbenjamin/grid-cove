@@ -209,6 +209,7 @@ describe("Puzzle service tests: ", () => {
       findByIdStub = sinon.stub(Puzzle, "findById");
       populateStub = sinon.stub(Puzzle, "populate");
       findByIdStub.returns({ populate: populateStub });
+      populateStub.resolves(puzzleTestData.documents[0]);
     });
 
     afterEach(() => {
@@ -240,6 +241,22 @@ describe("Puzzle service tests: ", () => {
       populateStub.resolves(expected);
       //Act
       const actual = await puzzleService.getPuzzleById(testId);
+      //Assert
+      expect(actual).to.equal(expected);
+    });
+
+    //? PS9-4
+    it("should throw a puzzle not found error where findById returns a falsy value", async () => {
+      //Arrange
+      populateStub.resolves(null);
+      const expected = APIErrors.PUZZLE_NOT_FOUND;
+      let actual;
+      //Act
+      try {
+        await puzzleService.getPuzzleById(testId);
+      } catch (err) {
+        actual = err;
+      }
       //Assert
       expect(actual).to.equal(expected);
     });

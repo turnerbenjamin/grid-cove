@@ -15,17 +15,19 @@ export default class APIErrors {
     "This pixel art has been saved previously"
   );
 
-  static #SERVER_ERROR = new HTTPError(500, "Server error");
+  static #INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION = new HTTPError(
+    400,
+    "Your art may not include a single colour that makes up over 90% of the image"
+  );
 
   static #UNAUTHORISED_ERROR = new HTTPError(
     401,
     "Incorrect authentication details"
   );
 
-  static #INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION = new HTTPError(
-    400,
-    "Your art may not include a single colour that makes up over 90% of the image"
-  );
+  static #PUZZLE_NOT_FOUND = new HTTPError(404, "Puzzle not found");
+
+  static #SERVER_ERROR = new HTTPError(500, "Server error");
 
   //GETTERS
   static get DUPLICATE_USERNAME() {
@@ -42,6 +44,10 @@ export default class APIErrors {
 
   static get UNAUTHORISED_ERROR() {
     return this.#UNAUTHORISED_ERROR;
+  }
+
+  static get PUZZLE_NOT_FOUND() {
+    return this.#PUZZLE_NOT_FOUND;
   }
 
   static get INVALID_PIXEL_ART_CHARACTER_DISTRIBUTION() {

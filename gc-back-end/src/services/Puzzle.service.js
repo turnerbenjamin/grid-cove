@@ -48,8 +48,13 @@ export default class PuzzleService {
   };
 
   getPuzzleById = async (puzzleId) => {
-    const puzzle = await Puzzle.findById(puzzleId).populate();
-    return puzzle;
+    try {
+      const puzzle = await Puzzle.findById(puzzleId).populate();
+      if (!puzzle) throw APIErrors.PUZZLE_NOT_FOUND;
+      return puzzle;
+    } catch (err) {
+      this.#handleErrors(err);
+    }
   };
 
   #handleErrors(err) {
