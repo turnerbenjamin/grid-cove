@@ -280,6 +280,22 @@ describe("Puzzle service tests: ", () => {
     //? PS9-6
     it("should throw a server error where findById rejects", async () => {
       //Arrange
+      findByIdStub.throws(new Error());
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await puzzleService.getPuzzleById(testId);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
+
+    //? PS9-7
+    it("should throw a server error where populate rejects", async () => {
+      //Arrange
       populateStub.rejects(new Error());
       const expected = APIErrors.SERVER_ERROR;
       let actual;

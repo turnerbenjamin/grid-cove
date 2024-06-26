@@ -12,7 +12,7 @@
 - [x] PS9-4: It should throw a puzzle not found error where findById returns a falsy value
 - [x] PS9-5: It should throw an invalid puzzle id error where findById throws a cast error
 - [x] PS9-6: It should throw a server error where findById rejects
-- [ ] PS9-7: It should throw a server error where populate rejects
+- [x] PS9-7: It should throw a server error where populate rejects
 
 ## Puzzle Controller (PC)
 
