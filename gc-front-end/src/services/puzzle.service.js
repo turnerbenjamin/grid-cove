@@ -9,3 +9,13 @@ export const createPuzzle = async (payload) => {
     throw err?.response?.data ?? err;
   }
 };
+
+export const getPuzzles = async () => {
+  let url = import.meta.env.VITE_APP_GET_PUZZLES_URL;
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (err) {
+    throw err?.response?.data ?? err;
+  }
+};
