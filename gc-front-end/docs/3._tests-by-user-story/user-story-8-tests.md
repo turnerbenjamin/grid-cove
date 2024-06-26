@@ -7,7 +7,7 @@
 ## Puzzles Card Tests (PZC)
 
 - [x] US8-PZC-1: It should display the puzzleIndex
-- [ ] US8-PZC-2: It should call Link when clicked with the correct url
+- [x] US8-PZC-2: It should call Link when clicked with the correct url
 
 ## Puzzles List Tests (PLT)
 

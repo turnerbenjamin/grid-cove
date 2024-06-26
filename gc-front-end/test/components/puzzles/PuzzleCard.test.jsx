@@ -17,7 +17,11 @@ describe("Puzzle Card tests: ", () => {
 
   //? US8-PZC-1
   test("It should display the puzzleIndex", () => {
-    screen.debug();
     expect(screen.getByText(`${testIndex}`)).toBeInTheDocument();
+  });
+
+  //? US8-PZC-2
+  test("It should call Link when clicked with the correct url", () => {
+    expect(screen.getByTestId(`/puzzles/${testId}`)).toBeInTheDocument();
   });
 });
