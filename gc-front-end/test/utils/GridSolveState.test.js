@@ -59,4 +59,14 @@ describe("Grid Solve State tests: ", () => {
     //Assert
     expect(gridSolveState.getColumnSolveState(0)).toEqual(false);
   });
+
+  //?US9-GSS-5
+  test("It should return true for a given column where it's state matches the solution", () => {
+    //Arrange
+    testGridFillString = "0000000000001000000000000";
+    //Act
+    const gridSolveState = new GridSolveState(testGridFillString, testPuzzle);
+    //Assert
+    expect(gridSolveState.getColumnSolveState(2)).toEqual(true);
+  });
 });
