@@ -8,6 +8,7 @@ import { getPuzzleTestData } from "../../data/puzzles.test.data";
 
 import * as puzzleService from "../../../src/services/puzzle.service";
 import * as reactRouterDom from "react-router-dom";
+import GridColours from "../../../src/utils/GridColours";
 
 vi.mock("../../../src/services/puzzle.service");
 vi.mock("react-router-dom");
@@ -68,6 +69,18 @@ describe("Solve tests: ", () => {
     //Assert
     expect(screen.getAllByRole("cell")).toHaveLength(
       getPuzzleTestData.solution.length
+    );
+  });
+
+  //? US5-SLV-5
+  test("It should set the default fill style to black", async () => {
+    //Act
+    await act(async () => {
+      getPuzzleResolver(getPuzzleTestData);
+    });
+    //Assert
+    expect(screen.getByTitle(GridColours.BLACK.label)).toHaveClass(
+      "border-primary-500"
     );
   });
 });
