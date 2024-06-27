@@ -1,9 +1,10 @@
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 import { GridContextProvider } from "../../../src/hooks/contexts/gridContext";
+
 import Grid from "../../../src/components/grid/Grid";
 import GridColours from "../../../src/utils/GridColours";
-import ModeSelector from "../../../src/components/solve/ModeSelector";
+import Mode from "../../../src/components/solve/Mode";
 
 describe("Grid tests: ", () => {
   const testGridSize = 5;
@@ -134,7 +135,7 @@ describe("Grid tests: ", () => {
           doNotOverwriteFilledCellsOnDrag
         >
           <Grid />
-          <ModeSelector colour={GridColours.ELIMINATED} />
+          <Mode />
         </GridContextProvider>
       );
     });
@@ -175,6 +176,9 @@ describe("Grid tests: ", () => {
       await act(async () => {
         fireEvent.mouseUp(testCellToMoveTo);
       });
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(GridColours.BLACK.label));
+      });
 
       //Act
       await act(async () => {
@@ -186,6 +190,40 @@ describe("Grid tests: ", () => {
       const actual = testCellToMoveTo.style.backgroundColor;
       //Assert
       expect(actual).toBe(expected);
+      expect(testCellToMoveTo.querySelector("canvas")).toBeInTheDocument();
+    });
+
+    //? US9-GRD-3
+    test("It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the mode is white but the fill style is not", async () => {
+      //Arrange
+      const testOriginCell = screen.getByTitle("1,1");
+      const testCellToMoveTo = screen.getByTitle("1,2");
+      const expected = GridColours.WHITE.rgb;
+
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(GridColours.ELIMINATED.label));
+      });
+      await act(async () => {
+        fireEvent.mouseDown(testCellToMoveTo);
+      });
+      await act(async () => {
+        fireEvent.mouseUp(testCellToMoveTo);
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(GridColours.WHITE.label));
+      });
+
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(testOriginCell);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(testCellToMoveTo);
+      });
+      const actual = testCellToMoveTo.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+      expect(testCellToMoveTo.querySelector("canvas")).toBeNull();
     });
   });
 });
