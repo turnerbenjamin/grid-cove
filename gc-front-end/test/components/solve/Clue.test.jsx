@@ -10,12 +10,15 @@ describe("Clue test: ", () => {
   const testClue = [1, 2];
   const testIndex = 0;
   let getColumnSolveStateMock;
+  let getRowSolveStateMock;
 
   beforeEach(() => {
     getColumnSolveStateMock = vi.fn();
+    getRowSolveStateMock = vi.fn();
     puzzleContext.usePuzzleContext.mockReturnValue({
       solveState: {
         getColumnSolveState: getColumnSolveStateMock,
+        getRowSolveState: getRowSolveStateMock,
       },
     });
   });
@@ -56,5 +59,13 @@ describe("Clue test: ", () => {
     //Assert
     expect(getColumnSolveStateMock).toHaveBeenCalledWith(testIndex);
     expect(screen.getByRole("figure").classList).toContain("opacity-100");
+  });
+
+  //? US9-CLU-5
+  test("It should display as a flex row where isRow prop is true", () => {
+    //Arrange
+    render(<Clue clue={testClue} index={testIndex} isRow />);
+    //Assert
+    expect(screen.getByRole("figure").classList).toContain("flex-row");
   });
 });
