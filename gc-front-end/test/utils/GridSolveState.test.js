@@ -54,7 +54,6 @@ describe("Grid Solve State tests: ", () => {
 
   //?US9-GSS-4
   test("It should return false for a given column where the state of that column does not match its clue signature", () => {
-    //Act
     const gridSolveState = new GridSolveState(testGridFillString, testPuzzle);
     //Assert
     expect(gridSolveState.getColumnSolveState(0)).toEqual(false);
@@ -63,10 +62,36 @@ describe("Grid Solve State tests: ", () => {
   //?US9-GSS-5
   test("It should return true for a given column where it's state matches the solution", () => {
     //Arrange
-    testGridFillString = "0000000000001000000000000";
+    let updatedGridFillString = "";
+    for (let i = 0; i < testGridFillString.length; i++) {
+      if (i % testPuzzle.size === 0)
+        updatedGridFillString += testPuzzle.solution[i];
+      else updatedGridFillString += testGridFillString[i];
+    }
     //Act
-    const gridSolveState = new GridSolveState(testGridFillString, testPuzzle);
+    const gridSolveState = new GridSolveState(
+      updatedGridFillString,
+      testPuzzle
+    );
     //Assert
-    expect(gridSolveState.getColumnSolveState(2)).toEqual(true);
+    expect(gridSolveState.getColumnSolveState(0)).toEqual(true);
+  });
+
+  //?US9-GSS-6
+  test("It should return true for a given column where it's state matches the its clue signature but not the solution", () => {
+    //Arrange
+    let updatedGridFillString = "";
+    for (let i = 0; i < testGridFillString.length; i++) {
+      if (i % testPuzzle.size === 0)
+        updatedGridFillString += testPuzzle.alternativeSolution[i];
+      else updatedGridFillString += testGridFillString[i];
+    }
+    //Act
+    const gridSolveState = new GridSolveState(
+      updatedGridFillString,
+      testPuzzle
+    );
+    //Assert
+    expect(gridSolveState.getColumnSolveState(0)).toEqual(true);
   });
 });
