@@ -175,5 +175,16 @@ describe("Puzzle service tests", () => {
       //Assert
       expect(actual).toEqual(expected);
     });
+
+    //?US9-PZS-4
+    test("It should return response data where axios resolves", async () => {
+      //Arrange
+      const expected = testResponse.data;
+      axios.get.mockResolvedValueOnce(testResponse);
+      //Act
+      const actual = await puzzleService.getPuzzle(testId);
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
