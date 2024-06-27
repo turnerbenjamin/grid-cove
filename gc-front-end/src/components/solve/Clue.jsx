@@ -14,6 +14,7 @@ export default function Clue({ clue, isRow, index }) {
       "flex-row m-auto mr-0": isRow,
       "flex-col m-auto mb-0 ": !isRow,
       "opacity-50": isSolved,
+      "opacity-100": !isSolved,
     }
   );
 
