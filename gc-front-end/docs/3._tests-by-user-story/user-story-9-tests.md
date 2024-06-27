@@ -36,7 +36,7 @@
 ## Clue Tests (CLU)
 
 - [x] US9-CLU-1: It should display each clue element
-- [ ] US9-CLU-2: It should display as a flex col where isRow prop is false
+- [x] US9-CLU-2: It should display as a flex col where isRow prop is false
 - [ ] US9-CLU-3: It should set opacity below 100 where the clue is solved
 - [ ] US9-CLU-4: It should set opacity to 100 where the clue is not solved
 - [ ] US9-CLU-5: It should display as a flex row where isRow prop is true

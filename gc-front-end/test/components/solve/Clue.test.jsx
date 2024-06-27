@@ -27,4 +27,10 @@ describe("Clue test: ", () => {
     expect(screen.getByText(expected[0])).toBeInTheDocument();
     expect(screen.getByText(expected[1])).toBeInTheDocument();
   });
+
+  //? US9-CLU-2
+  test("It should display as a flex col where isRow prop is false", () => {
+    //Assert
+    expect(screen.getByRole("figure").classList).toContain("flex-col");
+  });
 });
