@@ -16,15 +16,15 @@
 - [x] US9-GSS-8: It should return true for isSolved where all lines match the solution
 - [x] US9-GSS-9: It should return true for isSolved where all lines match their clue signatures but not the solution
 
-## Mode Selector Tests(MDS)
+## Mode Selector Tests(MDE)
 
-- [ ] US9-MDS-1: It should display the 3 modes
+- [x] US9-MDE-1: It should display the 3 modes
 
-## Mode Selector Tests (MDE)
+## Mode Selector Tests (MDS)
 
-- [ ] US9-MDE-1: It should correctly set its RGB value and title based on the colour provided
-- [ ] US9-MDE-2: It should display a crossed out div where eliminate is selected
-- [ ] US9-MDE-3: It should have a border where selected
+- [ ] US9-MDS-1: It should correctly set its RGB value and title based on the colour provided
+- [ ] US9-MDS-2: It should display a crossed out div where eliminate is selected
+- [ ] US9-MDS-3: It should have a border where selected
 
 ## Clues Tests (CLS)
 
