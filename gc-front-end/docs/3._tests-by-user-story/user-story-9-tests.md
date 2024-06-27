@@ -67,6 +67,6 @@
 - [x] US5-SLV-1: It should call getPuzzle with the correct argument
 - [x] US5-SLV-2: It should show a loading spinner while getPuzzle is pending
 - [x] US5-SLV-3: It should display errors where getPuzzle rejects
-- [ ] US5-SLV-4: It should render a grid with the correct number of cells
+- [x] US5-SLV-4: It should render a grid with the correct number of cells
 - [ ] US5-SLV-5: It should set the default fill style to black
 - [ ] US5-SLV-6: It should correctly change the style of a cell where a non-default mode is selected

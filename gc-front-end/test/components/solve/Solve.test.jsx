@@ -2,8 +2,11 @@ import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 
 import Solve from "../../../src/components/solve/Solve";
-import * as puzzleService from "../../../src/services/puzzle.service";
+
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
+import { getPuzzleTestData } from "../../data/puzzles.test.data";
+
+import * as puzzleService from "../../../src/services/puzzle.service";
 import * as reactRouterDom from "react-router-dom";
 
 vi.mock("../../../src/services/puzzle.service");
@@ -54,5 +57,17 @@ describe("Solve tests: ", () => {
     });
     //Assert
     expect(screen.getByText("Test Error")).toBeInTheDocument();
+  });
+
+  //? US5-SLV-4
+  test("It should render a grid with the correct number of cells", async () => {
+    //Act
+    await act(async () => {
+      getPuzzleResolver(getPuzzleTestData);
+    });
+    //Assert
+    expect(screen.getAllByRole("cell")).toHaveLength(
+      getPuzzleTestData.solution.length
+    );
   });
 });
