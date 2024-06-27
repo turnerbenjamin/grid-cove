@@ -49,7 +49,7 @@
 ## Puzzle service tests (PZS)
 
 - [x] US9-PZS-1: It should call axios get with the correct url
-- [ ] US9-PZS-2: It should throw err if get rejects with standard error object
+- [x] US9-PZS-2: It should throw err if get rejects with standard error object
 - [ ] US9-PZS-3: It should throw err?.response?.data where validation error received
 - [ ] US9-PZS-4: It should return response data where axios resolves
 

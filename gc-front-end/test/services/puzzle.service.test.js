@@ -131,7 +131,7 @@ describe("Puzzle service tests", () => {
 
   describe("Get puzzle by id tests", () => {
     const testId = "123";
-    //?US8-PZS-1
+    //?US9-PZS-1
     test("It should call axios get with the correct url", async () => {
       //Arrange
       const expectedURL = `${
@@ -142,6 +142,22 @@ describe("Puzzle service tests", () => {
       await puzzleService.getPuzzle(testId);
       //Assert
       expect(axios.get).toBeCalledWith(expectedURL);
+    });
+
+    //?US9-PZS-2
+    test("It should throw err if get rejects with standard error object", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.get.mockRejectedValueOnce(expected);
+      let actual;
+      //Act
+      try {
+        await puzzleService.getPuzzle(testId);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
     });
   });
 });
