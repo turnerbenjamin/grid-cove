@@ -9,8 +9,6 @@ export default function Solver({ puzzle }) {
   const { updateSolveState, solveState } = usePuzzleContext();
   const { gridRef, getCurrentGridFillString } = useGridContext();
 
-  if (solveState?.isSolved) console.log("YEAH!!!!!!");
-
   const handleUpdateSolveState = () => {
     const gridCellString = getCurrentGridFillString();
     if (!gridCellString) return;

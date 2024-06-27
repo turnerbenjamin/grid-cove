@@ -24,6 +24,7 @@ describe("Solve tests: ", () => {
     });
 
     puzzleService.getPuzzle.mockReturnValue(promise);
+
     await act(async () =>
       render(
         <PuzzleContextProvider>
@@ -41,5 +42,17 @@ describe("Solve tests: ", () => {
   //? US5-SLV-2
   test("It should show a loading spinner while getPuzzle is pending", () => {
     expect(screen.getByRole("status")).toBeInTheDocument();
+  });
+
+  //? US5-SLV-3
+  test("It should display errors where getPuzzle rejects", async () => {
+    //Arrange
+    const expected = "Test Error";
+    //Act
+    await act(async () => {
+      getPuzzleRejecter(expected);
+    });
+    //Assert
+    expect(screen.getByText("Test Error")).toBeInTheDocument();
   });
 });

@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
-import Grid from "../grid/Grid";
+
 import AdminActions from "./AdminActions";
-import Clues from "./Clues";
-import Mode from "./Mode";
 import { GridContextProvider } from "../../hooks/contexts/gridContext";
 import Solver from "./Solver";
 import LoadingSpinner from "../general/LoadingSpinner";
+import RenderedErrors from "../general/RenderedErrors";
+import ErrorPage from "../general/ErrorPage";
 
 export default function Solve() {
   const [puzzle, setPuzzle] = useState(false);
-  const { getPuzzleById, puzzleServiceIsLoading } = usePuzzleContext();
+  const { getPuzzleById, puzzleServiceIsLoading, puzzleServiceErrors } =
+    usePuzzleContext();
   const puzzleId = useParams().puzzleId;
 
   const handleGetPuzzle = async () => {
@@ -23,6 +24,7 @@ export default function Solve() {
     handleGetPuzzle();
   }, []);
 
+  if (puzzleServiceErrors) return <ErrorPage errors={puzzleServiceErrors} />;
   if (!puzzle || puzzleServiceIsLoading) return <LoadingSpinner />;
 
   return (
