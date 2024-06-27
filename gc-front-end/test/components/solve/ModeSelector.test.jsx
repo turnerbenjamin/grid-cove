@@ -22,4 +22,13 @@ describe("Mode Selector tests: ", () => {
     expect(modeSelector.style.backgroundColor).toEqual(testColour.rgb);
     expect(modeSelector.title).toEqual(testColour.label);
   });
+
+  //?US9-MDS-2
+  test("It should display a crossed out div where eliminate is selected", () => {
+    //Act
+    const modeSelector = screen.getByRole("option");
+    const crossedOutDiv = modeSelector.querySelector("canvas");
+    //Assert
+    expect(crossedOutDiv).toBeInTheDocument();
+  });
 });
