@@ -1,13 +1,27 @@
 import classNames from "classnames";
+import { useGridContext } from "../../hooks/contexts/gridContext";
+import CrossOutDiv from "../general/CrossOutDiv";
 
-export default function ModeSelector({ isFill, isClear, isEliminate }) {
+export default function ModeSelector({ colour }) {
+  const { fillStyle, setFillStyle } = useGridContext();
+  const isSelected = fillStyle === colour;
+
   const classes = classNames(
-    "w-12 h-12 flex flex-col items-center justify-center text-grid-red text-4xl border border-grid-white cursor-pointer select-none",
+    "relative w-12 h-12 flex flex-col items-center justify-center text-grid-red text-4xl border border-grid-white cursor-pointer select-none",
     {
-      "bg-grid-black": isFill,
-      "bg-grid-white": isClear || isEliminate,
+      "border-2 border-primary-500 shadow shadow-primary-300": isSelected,
     }
   );
 
-  return <div className={classes}>{isEliminate && "X"}</div>;
+  return (
+    <div
+      className={classes}
+      style={{ backgroundColor: colour.rgb }}
+      onClick={() => setFillStyle(colour)}
+      role="option"
+      title={colour.label}
+    >
+      {colour?.isEliminated && <CrossOutDiv />}
+    </div>
+  );
 }

@@ -6,7 +6,8 @@ export default function Clues({ clues, isRow }) {
     : { gridTemplateColumns: `repeat(${clues.length},1fr)` };
 
   const clueElements = clues.map((clue, i) => {
-    return <Clue key={i} clue={clue} isRow={isRow} />;
+    if (clue.length === 0) clue.push(0);
+    return <Clue key={i} clue={clue} isRow={isRow} index={i} />;
   });
 
   return (

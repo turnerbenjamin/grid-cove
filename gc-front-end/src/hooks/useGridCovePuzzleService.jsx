@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-import { createPuzzle, getPuzzles } from "../services/puzzle.service";
+import {
+  createPuzzle,
+  getPuzzles,
+  getPuzzle,
+} from "../services/puzzle.service";
 
 export default function useGridCovePuzzleService() {
   const [puzzles, setPuzzles] = useState(null);
@@ -44,8 +48,22 @@ export default function useGridCovePuzzleService() {
     }
   };
 
+  const getPuzzleById = async (puzzleId) => {
+    try {
+      setPuzzleServiceErrors(null);
+      setPuzzleServiceIsLoading(true);
+      const puzzle = await getPuzzle(puzzleId);
+      return puzzle;
+    } catch (err) {
+      handleErrors(err);
+    } finally {
+      setPuzzleServiceIsLoading(false);
+    }
+  };
+
   return {
     puzzles,
+    getPuzzleById,
     getAllPuzzles,
     createNewPuzzle,
     puzzleServiceIsLoading,

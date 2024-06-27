@@ -16,7 +16,7 @@ export default function GridDividingLines() {
     const c = canvas.getContext("2d");
     c.scale(dpr, dpr);
 
-    c.strokeStyle = "rgba(212, 42, 102, 1)";
+    c.strokeStyle = "rgb(94, 214, 46)";
     c.lineWidth = 2;
 
     const drawLine = (relativePosition) => {

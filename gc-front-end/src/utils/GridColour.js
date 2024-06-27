@@ -3,12 +3,14 @@ export default class GridColour {
   #label;
   #rgb;
   #isDark;
+  #isEliminated;
 
-  constructor(label, rgb, colourCode) {
+  constructor(label, rgb, colourCode, isEliminated = false) {
     this.#label = label;
     this.#rgb = rgb;
     this.#colourCode = colourCode;
     this.#isDark = this.#checkIfIsDark(rgb);
+    this.#isEliminated = isEliminated;
   }
 
   #checkIfIsDark(rgb) {
@@ -31,5 +33,8 @@ export default class GridColour {
 
   get rgb() {
     return this.#rgb;
+  }
+  get isEliminated() {
+    return this.#isEliminated;
   }
 }

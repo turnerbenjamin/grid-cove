@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import GridColours from "../../utils/GridColours";
@@ -11,19 +12,32 @@ const GridContext = createContext();
 
 const GridContextProvider = function ({
   defaultFillStyle,
+  size,
   doColourInsideTheLines = false,
+  doNotOverwriteFilledCellsOnDrag = false,
   children,
 }) {
-  const [fillStyle, setFillStyle] = useState(defaultFillStyle || null);
-  const [gridSize, setGridSize] = useState(null);
+  const [fillStyle, setFillStyle] = useState(
+    defaultFillStyle || GridColours.BLACK
+  );
+  const [gridSize, setGridSize] = useState(size ?? null);
   const [gridCells, setGridCells] = useState(null);
   const [originTarget, setOriginTarget] = useState(null);
   const [gridFillString, setGridFillString] = useState(null);
   const [doUpdateGridString, setDoUpdateGridString] = useState(null);
 
+  const gridRef = useRef();
+
   const handleUpdateCellColour = useCallback(
-    (cellKey) => {
-      if (setGridCells[cellKey] === fillStyle) return;
+    (cellKey, isDrag) => {
+      if (gridCells[cellKey].colour === fillStyle) return;
+      if (
+        isDrag &&
+        doNotOverwriteFilledCellsOnDrag &&
+        fillStyle !== GridColours.WHITE &&
+        gridCells[cellKey].colour !== GridColours.WHITE
+      )
+        return;
       const gridCellsClone = [...gridCells];
       gridCellsClone[cellKey].colour = fillStyle;
       setGridCells(gridCellsClone);
@@ -61,7 +75,7 @@ const GridContextProvider = function ({
       if (e.button !== 0) return;
       const cellKey = e.target?.dataset?.key;
       if (cellKey === undefined) return;
-      handleUpdateCellColour(cellKey);
+      handleUpdateCellColour(cellKey, false);
       setOriginTarget(gridCells[cellKey]);
     };
 
@@ -71,16 +85,22 @@ const GridContextProvider = function ({
     };
   }, [handleUpdateCellColour]);
 
-  const handleUpdateGridFillString = () => {
+  const getCurrentGridFillString = () => {
     if (!gridCells) return;
-    const string = gridCells.map((cell) => cell.colour.colourCode).join("");
-    setGridFillString(string);
+    return gridCells.map((cell) => cell.colour.colourCode).join("");
+  };
+
+  const handleUpdateGridFillString = () => {
+    const fillString = getCurrentGridFillString();
+    if (!fillString) return;
+    setGridFillString(fillString);
   };
 
   useEffect(() => {
     if (!doUpdateGridString) return;
     handleUpdateGridFillString();
     setDoUpdateGridString(false);
+    gridRef?.current?.dispatchEvent(new Event("change"));
   }, [doUpdateGridString]);
 
   useEffect(() => {
@@ -100,11 +120,12 @@ const GridContextProvider = function ({
     const handleMouseMove = (e) => {
       if (!doUpdateCellOnDrag(e.target)) return;
       const { key } = e.target.dataset;
-      handleUpdateCellColour(key);
+      handleUpdateCellColour(key, true);
     };
     const handleMouseUp = (e) => {
       setOriginTarget(null);
       setDoUpdateGridString(true);
+      gridRef?.current?.dispatchEvent(new Event("change"));
     };
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -116,12 +137,14 @@ const GridContextProvider = function ({
   }, [originTarget]);
 
   const model = {
+    gridRef,
     fillStyle,
     setFillStyle,
     gridSize,
     setGridSize,
     gridCells,
     gridFillString,
+    getCurrentGridFillString,
     resetGrid,
   };
 

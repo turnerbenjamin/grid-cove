@@ -5,13 +5,20 @@ This document is a reference for abbreviations used in test codes:
 - AHS: services/authentication.service
 - AUC: components/header/ActiveUserControl
 - BLD: components/build/Build
+- CLL: components/grid/Cell
+- CLS: components/solve/Clues
+- CLU: components/solve/Clue
 - CPI: components/header/inputFields/ConfirmPasswordInputField
 - EAI: components/header/inputFields/EmailAddressInputField
 - FVD: utils/FormValidator
 - GCR: utils/GridColour
 - GCS: utils/GridColours
+- GRD: components/grid/Grid
+- GSS: utils/GridSolveState
 - INT: Integration tests
+- MDE: components/solve/Mode
 - MDL: components/general/UserDetailsForm
+- MDS: components/solve/ModeSelector
 - PLT: components/puzzles/PuzzleList
 - PTP: components/build/PaintPot
 - PTS: components/build/PaintSet
@@ -20,6 +27,7 @@ This document is a reference for abbreviations used in test codes:
 - PZC: components/puzzles/PuzzleCard
 - PZS: services/puzzle.service
 - PZL: components/puzzles/Puzzles
+- SLV: components/solve/Solve
 - SVC: components/build/SaveControls
 - UDF: components/header/UserDetailsForm
 - UNI: components/header/inputFields/UserNameInputField

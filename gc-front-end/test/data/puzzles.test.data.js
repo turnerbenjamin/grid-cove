@@ -18,3 +18,16 @@ export const getAllPuzzlesTestData = [
     puzzles: ["667b6ba369053b11fd943b5c", "667b6d4d69053b11fd943b60"],
   },
 ];
+
+export const getPuzzleTestData = {
+  _id: "667b67fe69053b11fd943b40",
+  pixelArt: "1114111D88144D81414188188",
+  title: "Kong",
+  solution: "1110111000100001010100100",
+  size: 5,
+  clues: {
+    rowClues: [[3, 1], [2], [1], [1, 1, 1], [1]],
+    columnClues: [[4], [2], [1, 2], [], [1, 1]],
+  },
+  artist: "667422cc3eba2d502111b150",
+};

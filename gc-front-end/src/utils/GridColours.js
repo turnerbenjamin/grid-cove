@@ -153,6 +153,17 @@ export default class GridColours {
     this.#labelToColourCodeMap.ORANGE
   );
 
+  static #ELIMINATED = new GridColour(
+    "Eliminated",
+    this.#rgbCodes.WHITE,
+    "x",
+    true
+  );
+
+  static get ELIMINATED() {
+    return this.#ELIMINATED;
+  }
+
   static get BLACK() {
     return this.#BLACK;
   }

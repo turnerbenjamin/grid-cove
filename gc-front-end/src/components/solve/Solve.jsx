@@ -1,41 +1,42 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 import Grid from "../grid/Grid";
 import AdminActions from "./AdminActions";
 import Clues from "./Clues";
 import Mode from "./Mode";
+import { GridContextProvider } from "../../hooks/contexts/gridContext";
+import Solver from "./Solver";
 
 export default function Solve() {
+  const [puzzle, setPuzzle] = useState(false);
+  const { getPuzzleById } = usePuzzleContext();
   const puzzleId = useParams().puzzleId;
-  console.log(puzzleId);
-  const rowClues = [
-    [1, 2],
-    [1],
-    [10],
-    [1, 1, 1, 1, 2],
-    [9],
-    [5],
-    [4, 3],
-    [1, 1],
-    [4, 1, 2],
-    [6],
-  ];
-  const colClues = rowClues;
+
+  const handleGetPuzzle = async () => {
+    const response = await getPuzzleById(puzzleId);
+    setPuzzle(response);
+  };
+
+  useEffect(() => {
+    handleGetPuzzle();
+  }, []);
+
+  if (!puzzle) return;
 
   return (
     <div
       className="flex flex-col items-center mt-[5vh]"
       data-testid={`puzzles/${puzzleId}`}
     >
-      {/* <div className="grid md:grid-cols-[1fr_auto] items-center gap-2 md:gap-4">
-        <div className="grid grid-cols-[auto_1fr] w-[95vw] max-w-lg gap-2">
-          <div />
-          <Clues clues={colClues} />
-          <Clues clues={rowClues} isRow />
-          <Grid doCountInFives />
-        </div>
-        <Mode />
-      </div>
-      <AdminActions className="mt-6 mb-2" /> */}
+      <GridContextProvider
+        size={puzzle.size}
+        doColourInsideTheLines
+        doNotOverwriteFilledCellsOnDrag
+      >
+        <Solver puzzle={puzzle} />
+        <AdminActions className="mt-6 mb-2" />
+      </GridContextProvider>
     </div>
   );
 }
