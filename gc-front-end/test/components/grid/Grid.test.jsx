@@ -122,4 +122,39 @@ describe("Grid tests: ", () => {
       expect(actual).toBe(expected);
     });
   });
+
+  describe("Solve configuration tests: ", () => {
+    beforeEach(() => {
+      render(
+        <GridContextProvider
+          size={testGridSize}
+          defaultFillStyle={testDefaultFillStyle}
+          doColourInsideTheLines
+          doNotOverwriteFilledCellsOnDrag
+        >
+          <Grid />
+        </GridContextProvider>
+      );
+    });
+
+    //? US9-GRD-1
+    test("It should not style cells when the mouse is moved over them between a mouse down and mouse up event where the mouse down event occurred in a different row or column", async () => {
+      //Arrange
+      const testOriginCell = screen.getByTitle("1,1");
+      const testCellToMoveToInDifferentRowAndColumn = screen.getByTitle("2,2");
+      const expected =
+        testCellToMoveToInDifferentRowAndColumn.style.backgroundColor;
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(testOriginCell);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(testCellToMoveToInDifferentRowAndColumn);
+      });
+      const actual =
+        testCellToMoveToInDifferentRowAndColumn.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+    });
+  });
 });
