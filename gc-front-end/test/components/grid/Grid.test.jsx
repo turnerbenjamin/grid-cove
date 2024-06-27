@@ -3,6 +3,7 @@ import { beforeEach, expect } from "vitest";
 import { GridContextProvider } from "../../../src/hooks/contexts/gridContext";
 import Grid from "../../../src/components/grid/Grid";
 import GridColours from "../../../src/utils/GridColours";
+import ModeSelector from "../../../src/components/solve/ModeSelector";
 
 describe("Grid tests: ", () => {
   const testGridSize = 5;
@@ -133,6 +134,7 @@ describe("Grid tests: ", () => {
           doNotOverwriteFilledCellsOnDrag
         >
           <Grid />
+          <ModeSelector colour={GridColours.ELIMINATED} />
         </GridContextProvider>
       );
     });
@@ -153,6 +155,35 @@ describe("Grid tests: ", () => {
       });
       const actual =
         testCellToMoveToInDifferentRowAndColumn.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+    });
+
+    //? US9-GRD-2
+    test("It should not style cells when the mouse is moved over them between a mouse down and mouse up event where the mouse down event occurred in a different row or column", async () => {
+      //Arrange
+      const testOriginCell = screen.getByTitle("1,1");
+      const testCellToMoveTo = screen.getByTitle("1,2");
+      const expected = GridColours.ELIMINATED.rgb;
+
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(GridColours.ELIMINATED.label));
+      });
+      await act(async () => {
+        fireEvent.mouseDown(testCellToMoveTo);
+      });
+      await act(async () => {
+        fireEvent.mouseUp(testCellToMoveTo);
+      });
+
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(testOriginCell);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(testCellToMoveTo);
+      });
+      const actual = testCellToMoveTo.style.backgroundColor;
       //Assert
       expect(actual).toBe(expected);
     });
