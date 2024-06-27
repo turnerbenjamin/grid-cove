@@ -27,5 +27,9 @@ export default function Clue({ clue, isRow, index }) {
     );
   });
 
-  return <div className={clueClasses}>{clueElements}</div>;
+  return (
+    <div className={clueClasses} role="figure">
+      {clueElements}
+    </div>
+  );
 }
