@@ -47,4 +47,14 @@ describe("Clue test: ", () => {
     expect(getColumnSolveStateMock).toHaveBeenCalledWith(testIndex);
     expect(screen.getByRole("figure").classList).toContain("opacity-50");
   });
+
+  //? US9-CLU-4
+  test("It should set opacity to 100 where the clue is not solved", () => {
+    //Arrange
+    getColumnSolveStateMock.mockReturnValue(false);
+    render(<Clue clue={testClue} index={testIndex} />);
+    //Assert
+    expect(getColumnSolveStateMock).toHaveBeenCalledWith(testIndex);
+    expect(screen.getByRole("figure").classList).toContain("opacity-100");
+  });
 });
