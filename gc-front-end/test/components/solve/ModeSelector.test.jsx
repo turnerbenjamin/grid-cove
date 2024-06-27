@@ -8,7 +8,7 @@ describe("Mode Selector tests: ", () => {
   const testColour = GridColours.ELIMINATED;
   beforeEach(() => {
     render(
-      <GridContextProvider>
+      <GridContextProvider defaultFillStyle={GridColours.BLACK}>
         <ModeSelector colour={testColour} />
       </GridContextProvider>
     );
@@ -30,5 +30,13 @@ describe("Mode Selector tests: ", () => {
     const crossedOutDiv = modeSelector.querySelector("canvas");
     //Assert
     expect(crossedOutDiv).toBeInTheDocument();
+  });
+
+  //?US9-MDS-3
+  test("It should not a white border where not selected", () => {
+    //Act
+    const modeSelector = screen.getByRole("option");
+    //Assert
+    expect(modeSelector.classList).toContain("border-grid-white");
   });
 });
