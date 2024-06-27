@@ -60,7 +60,7 @@
 - [x] US9-GRD-1: It should not style cells when the mouse is moved over them between a mouse down and mouse up event where the mouse down event occurred in a different row or column
 - [x] US9-GRD-2: It should not colour cells when the mouse is moved over them between a mouse down and mouse up event where neither the mode, nor the fill style of the cell moved over, are set to white
 - [x] US9-GRD-3: It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the mode is white but the fill style is not
-- [ ] US9-GRD-4: It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the fill style is white but the mode is not
+- [x] US9-GRD-4: It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the fill style is white but the mode is not
 
 ## Solve Tests (SLV)
 

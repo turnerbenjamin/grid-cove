@@ -7,7 +7,7 @@ import GridColours from "../../../src/utils/GridColours";
 import Mode from "../../../src/components/solve/Mode";
 
 describe("Grid tests: ", () => {
-  const testGridSize = 5;
+  const testGridSize = 2;
   const testDefaultFillStyle = GridColours.BLACK;
 
   describe("General grid tests: ", () => {
@@ -224,6 +224,24 @@ describe("Grid tests: ", () => {
       //Assert
       expect(actual).toBe(expected);
       expect(testCellToMoveTo.querySelector("canvas")).toBeNull();
+    });
+
+    //? US9-GRD-4
+    test("It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the fill style is white but the mode is not", async () => {
+      //Arrange
+      const testOriginCell = screen.getByTitle("1,1");
+      const testCellToMoveTo = screen.getByTitle("1,2");
+      const expected = GridColours.BLACK.rgb;
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(testOriginCell);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(testCellToMoveTo);
+      });
+      const actual = testCellToMoveTo.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
     });
   });
 });
