@@ -59,5 +59,14 @@ describe("Mode Selector tests: ", () => {
       //Assert
       expect(modeSelector.classList).toContain("border-primary-500");
     });
+
+    //?US9-MDS-5
+    test("It should not display a crossed out div where eliminate is not selected", () => {
+      //Act
+      const modeSelector = screen.getByRole("option");
+      const crossedOutDiv = modeSelector.querySelector("canvas");
+      //Assert
+      expect(crossedOutDiv).toBeNull();
+    });
   });
 });
