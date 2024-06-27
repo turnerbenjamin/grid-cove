@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { afterEach, beforeEach, expect, test } from "vitest";
+import { beforeEach, expect, test } from "vitest";
 
 import Clue from "../../../src/components/solve/Clue";
 import * as puzzleContext from "../../../src/hooks/contexts/puzzleContext";
