@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { beforeEach, expect, test } from "vitest";
+import { expect, test } from "vitest";
 
 import Cell from "../../../src/components/grid/Cell";
 import GridColours from "../../../src/utils/GridColours";

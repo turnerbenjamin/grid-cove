@@ -128,4 +128,20 @@ describe("Puzzle service tests", () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  describe("Get puzzle by id tests", () => {
+    const testId = "123";
+    //?US8-PZS-1
+    test("It should call axios get with the correct url", async () => {
+      //Arrange
+      const expectedURL = `${
+        import.meta.env.VITE_APP_GET_PUZZLES_URL
+      }/${testId}`;
+      axios.get.mockResolvedValueOnce(testResponse);
+      //Act
+      await puzzleService.getPuzzle(testId);
+      //Assert
+      expect(axios.get).toBeCalledWith(expectedURL);
+    });
+  });
 });
