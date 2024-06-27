@@ -25,7 +25,7 @@
 - [x] US9-MDS-1: It should correctly set its RGB value and title based on the colour provided
 - [x] US9-MDS-2: It should display a crossed out div where eliminate is selected
 - [x] US9-MDS-3: It should not a white border where not selected
-- [ ] US9-MDS-4: It should have a green border where selected
+- [x] US9-MDS-4: It should have a green border where selected
 - [ ] US9-MDS-5: It should not display a crossed out div where eliminate is not selected
 
 ## Clues Tests (CLS)

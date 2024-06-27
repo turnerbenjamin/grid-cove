@@ -7,9 +7,10 @@ export default function ModeSelector({ colour }) {
   const isSelected = fillStyle === colour;
 
   const classes = classNames(
-    "relative w-12 h-12 flex flex-col items-center justify-center text-grid-red text-4xl border border-grid-white cursor-pointer select-none",
+    "relative w-12 h-12 flex flex-col items-center justify-center text-grid-red text-4xl border-2 cursor-pointer select-none",
     {
-      "border-2 border-primary-500 shadow shadow-primary-300": isSelected,
+      " border-grid-white": !isSelected,
+      "border-primary-500 shadow shadow-primary-300": isSelected,
     }
   );
 
