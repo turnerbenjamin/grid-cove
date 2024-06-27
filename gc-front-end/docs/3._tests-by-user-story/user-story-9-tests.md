@@ -12,7 +12,7 @@
 - [x] US9-GSS-4: It should return false for a given column where the state of that column does not match its clue signature
 - [x] US9-GSS-5: It should return true for a given column where it's state matches the solution
 - [x] US9-GSS-6: It should return true for a given column where it's state matches the its clue signature but not the solution
-- [ ] US9-GSS-7: It should return false for isSolved where one or more lines does not match the relevant clue signature
+- [x] US9-GSS-7: It should return false for isSolved where one or more lines does not match the relevant clue signature
 - [ ] US9-GSS-8: It should return true for isSolved where all lines match the solution
 - [ ] US9-GSS-9: It should return true for isSolved where all lines match their clue signatures but not the solution
 

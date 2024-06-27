@@ -94,4 +94,12 @@ describe("Grid Solve State tests: ", () => {
     //Assert
     expect(gridSolveState.getColumnSolveState(0)).toEqual(true);
   });
+
+  //?US9-GSS-7
+  test("It should return true for a given column where it's state matches the its clue signature but not the solution", () => {
+    //Act
+    const gridSolveState = new GridSolveState(testGridFillString, testPuzzle);
+    //Assert
+    expect(gridSolveState.isSolved).toEqual(false);
+  });
 });
