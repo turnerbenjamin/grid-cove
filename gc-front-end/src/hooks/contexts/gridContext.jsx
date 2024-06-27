@@ -92,7 +92,6 @@ const GridContextProvider = function ({
 
   const handleUpdateGridFillString = () => {
     const fillString = getCurrentGridFillString();
-    if (!fillString) return;
     setGridFillString(fillString);
   };
 

@@ -13,7 +13,7 @@ export default function Grid({ doCountInFives }) {
   return (
     <div
       ref={gridRef}
-      className="relative grid justify-center gap-[2px]"
+      className="relative grid justify-center gap-[3px]"
       style={{
         gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))`,
       }}

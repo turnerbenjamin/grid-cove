@@ -7,10 +7,11 @@ import Clues from "./Clues";
 import Mode from "./Mode";
 import { GridContextProvider } from "../../hooks/contexts/gridContext";
 import Solver from "./Solver";
+import LoadingSpinner from "../general/LoadingSpinner";
 
 export default function Solve() {
   const [puzzle, setPuzzle] = useState(false);
-  const { getPuzzleById } = usePuzzleContext();
+  const { getPuzzleById, puzzleServiceIsLoading } = usePuzzleContext();
   const puzzleId = useParams().puzzleId;
 
   const handleGetPuzzle = async () => {
@@ -22,7 +23,7 @@ export default function Solve() {
     handleGetPuzzle();
   }, []);
 
-  if (!puzzle) return;
+  if (!puzzle || puzzleServiceIsLoading) return <LoadingSpinner />;
 
   return (
     <div
