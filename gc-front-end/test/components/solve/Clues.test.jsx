@@ -6,6 +6,8 @@ import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext
 
 import { getPuzzleTestData } from "../../data/puzzles.test.data";
 
+vi.mock("react-router-dom");
+
 describe("Clues tests: ", () => {
   let testClues;
   beforeEach(() => {

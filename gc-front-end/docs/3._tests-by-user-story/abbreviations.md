@@ -27,6 +27,7 @@ This document is a reference for abbreviations used in test codes:
 - PZC: components/puzzles/PuzzleCard
 - PZS: services/puzzle.service
 - PZL: components/puzzles/Puzzles
+- RPA: utils/RevealPixelArtTransition
 - SLV: components/solve/Solve
 - SVC: components/build/SaveControls
 - UDF: components/header/UserDetailsForm

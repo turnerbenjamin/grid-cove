@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
-import { CgSpinner } from "react-icons/cg";
 
 import PuzzlesList from "./PuzzlesList";
-import RenderedErrors from "../general/RenderedErrors";
+import LoadingSpinner from "../general/LoadingSpinner";
+import ErrorPage from "../general/ErrorPage";
 
 export default function Puzzles() {
   const {
@@ -17,17 +17,9 @@ export default function Puzzles() {
     getAllPuzzles();
   }, []);
 
-  if (puzzleServiceErrors) {
-    return (
-      <div className="flex flex-col items-center mt-12">
-        <h3>Sorry, there has been an error</h3>
-        <RenderedErrors errors={puzzleServiceErrors} />
-      </div>
-    );
-  }
+  if (puzzleServiceErrors) return <ErrorPage errors={puzzleServiceErrors} />;
 
-  if (puzzles === null || puzzleServiceIsLoading)
-    return <CgSpinner className="animate-spin text-2xl" role="status" />;
+  if (puzzles === null || puzzleServiceIsLoading) return <LoadingSpinner />;
 
   if (puzzles.length === 0) {
     return <p>No puzzles found...</p>;

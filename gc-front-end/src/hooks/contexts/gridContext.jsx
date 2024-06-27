@@ -25,6 +25,7 @@ const GridContextProvider = function ({
   const [originTarget, setOriginTarget] = useState(null);
   const [gridFillString, setGridFillString] = useState(null);
   const [doUpdateGridString, setDoUpdateGridString] = useState(null);
+  const [doRevealPixelArt, setDoRevealPixelArt] = useState(false);
 
   const gridRef = useRef();
 
@@ -145,6 +146,8 @@ const GridContextProvider = function ({
     gridFillString,
     getCurrentGridFillString,
     resetGrid,
+    doRevealPixelArt,
+    setDoRevealPixelArt,
   };
 
   return <GridContext.Provider value={model}>{children}</GridContext.Provider>;

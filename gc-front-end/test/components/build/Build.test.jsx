@@ -6,6 +6,8 @@ import GridColours from "../../../src/utils/GridColours";
 import * as puzzleService from "../../../src/services/puzzle.service";
 
 vi.mock("../../../src/components/general/Modal");
+vi.mock("react-router-dom");
+
 describe("Build tests", () => {
   beforeEach(() => {
     render(<Build />);
@@ -102,7 +104,7 @@ describe("Build tests", () => {
     let createPuzzleResolver;
 
     beforeEach(async () => {
-      const promise = new Promise((resolve, reject) => {
+      const promise = new Promise((resolve) => {
         createPuzzleResolver = resolve;
       });
       puzzleService.createPuzzle.mockReturnValue(promise);

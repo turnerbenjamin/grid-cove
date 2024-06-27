@@ -8,6 +8,7 @@ import * as puzzleService from "../../../src/services/puzzle.service.js";
 
 vi.mock("../../../src/hooks/contexts/gridContext");
 vi.mock("../../../src/services/puzzle.service");
+vi.mock("react-router-dom");
 
 describe("Save control tests: ", () => {
   let createPuzzleResolver;

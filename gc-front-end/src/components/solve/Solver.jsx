@@ -7,13 +7,17 @@ import { useGridContext } from "../../hooks/contexts/gridContext";
 
 export default function Solver({ puzzle }) {
   const { updateSolveState, solveState } = usePuzzleContext();
-  const { gridRef, getCurrentGridFillString } = useGridContext();
+  const { gridRef, getCurrentGridFillString, setDoRevealPixelArt } =
+    useGridContext();
 
   const handleUpdateSolveState = () => {
     const gridCellString = getCurrentGridFillString();
-    if (!gridCellString) return;
     updateSolveState(gridCellString, puzzle);
   };
+
+  useEffect(() => {
+    if (solveState?.isSolved) setDoRevealPixelArt(true);
+  }, [solveState]);
 
   useEffect(() => {
     if (!gridRef?.current) return;
@@ -29,7 +33,7 @@ export default function Solver({ puzzle }) {
         <div />
         <Clues clues={puzzle.clues.columnClues} />
         <Clues clues={puzzle.clues.rowClues} isRow />
-        <Grid doCountInFives />
+        <Grid doCountInFives pixelArt={puzzle.pixelArt} />
       </div>
       <Mode />
     </div>

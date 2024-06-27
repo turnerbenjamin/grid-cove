@@ -1,4 +1,19 @@
 import("tailwindcss").Config;
+import plugin from "tailwindcss/plugin";
+
+const transformPlugins = plugin(function ({ addUtilities }) {
+  addUtilities({
+    ".backface-visible": {
+      "backface-visibility": "visible",
+    },
+    ".backface-hidden": {
+      "backface-visibility": "hidden",
+    },
+    ".rotate-Y-180": {
+      transform: "rotateY(180deg)",
+    },
+  });
+});
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -72,4 +87,5 @@ export default {
       transform: ["hover", "focus", "rotate"],
     },
   },
+  plugins: [transformPlugins],
 };
