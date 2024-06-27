@@ -22,7 +22,7 @@
 
 ## Mode Selector Tests (MDS)
 
-- [ ] US9-MDS-1: It should correctly set its RGB value and title based on the colour provided
+- [x] US9-MDS-1: It should correctly set its RGB value and title based on the colour provided
 - [ ] US9-MDS-2: It should display a crossed out div where eliminate is selected
 - [ ] US9-MDS-3: It should have a border where selected
 
