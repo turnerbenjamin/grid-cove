@@ -102,4 +102,12 @@ describe("Grid Solve State tests: ", () => {
     //Assert
     expect(gridSolveState.isSolved).toEqual(false);
   });
+
+  //?US9-GSS-8
+  test("It should return true for isSolved where all lines match the solution", () => {
+    //Act
+    const gridSolveState = new GridSolveState(testPuzzle.solution, testPuzzle);
+    //Assert
+    expect(gridSolveState.isSolved).toEqual(true);
+  });
 });
