@@ -110,4 +110,15 @@ describe("Grid Solve State tests: ", () => {
     //Assert
     expect(gridSolveState.isSolved).toEqual(true);
   });
+
+  //?US9-GSS-9
+  test("It should return true for isSolved where all lines match their clue signatures but not the solution", () => {
+    //Act
+    const gridSolveState = new GridSolveState(
+      testPuzzle.alternativeSolution,
+      testPuzzle
+    );
+    //Assert
+    expect(gridSolveState.isSolved).toEqual(true);
+  });
 });
