@@ -68,4 +68,14 @@ describe("Clue test: ", () => {
     //Assert
     expect(screen.getByRole("figure").classList).toContain("flex-row");
   });
+
+  //? US9-CLU-6
+  test("It should call getRowState where isRow prop is true", () => {
+    //Arrange
+    getRowSolveStateMock.mockReturnValue(true);
+    render(<Clue clue={testClue} index={testIndex} isRow />);
+    //Assert
+    expect(getRowSolveStateMock).toBeCalledWith(testIndex);
+    expect(screen.getByRole("figure").classList).toContain("opacity-50");
+  });
 });

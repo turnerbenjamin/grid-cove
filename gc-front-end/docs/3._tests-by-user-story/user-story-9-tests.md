@@ -40,7 +40,7 @@
 - [x] US9-CLU-3: It should set opacity below 100 where the clue is solved
 - [x] US9-CLU-4: It should set opacity to 100 where the clue is not solved
 - [x] US9-CLU-5: It should display as a flex row where isRow prop is true
-- [ ] US9-CLU-6: It should call getRowState where isRow prop is true
+- [x] US9-CLU-6: It should call getRowState where isRow prop is true
 
 ## Cell Tests (CLL)
 
