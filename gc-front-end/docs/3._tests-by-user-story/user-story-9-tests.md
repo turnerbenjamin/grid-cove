@@ -6,7 +6,7 @@
 
 ## Grid Solve State Tests (GSS)
 
-- [ ] US9-GSS-1: It should return false for a given row where the state of that row does not match its clue signature
+- [x] US9-GSS-1: It should return false for a given row where the state of that row does not match its clue signature
 - [ ] US9-GSS-2: It should return true for a given row where it's state matches the solution
 - [ ] US9-GSS-3: It should return true for a given row where it's state matches the its clue signature but not the solution
 - [ ] US9-GSS-4: It should return false for a given column where the state of that column does not match its clue signature
