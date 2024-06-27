@@ -37,4 +37,9 @@ describe("Solve tests: ", () => {
   test("It should call getPuzzle with the correct argument", () => {
     expect(puzzleService.getPuzzle).toBeCalledWith(testPuzzleId);
   });
+
+  //? US5-SLV-2
+  test("It should show a loading spinner while getPuzzle is pending", () => {
+    expect(screen.getByRole("status")).toBeInTheDocument();
+  });
 });

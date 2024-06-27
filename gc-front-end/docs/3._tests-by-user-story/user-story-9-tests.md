@@ -65,7 +65,7 @@
 ## Solve Tests (SLV)
 
 - [x] US5-SLV-1: It should call getPuzzle with the correct argument
-- [ ] US5-SLV-2: It should show a loading spinner while getPuzzle is pending
+- [x] US5-SLV-2: It should show a loading spinner while getPuzzle is pending
 - [ ] US5-SLV-3: It should display errors where getPuzzle rejects
 - [ ] US5-SLV-4: It should render a grid with the correct number of cells
 - [ ] US5-SLV-5: It should set the default fill style to black
