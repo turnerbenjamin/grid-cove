@@ -31,7 +31,7 @@
 ## Clues Tests (CLS)
 
 - [x] US9-CLS-1: It should display all clues passed to it
-- [ ] US9-CLS-2: It should show a 0 where a clue has no elements
+- [x] US9-CLS-2: It should show a 0 where a clue has no elements
 
 ## Clue Tests (CLU)
 

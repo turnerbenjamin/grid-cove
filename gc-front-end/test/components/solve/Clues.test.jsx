@@ -26,4 +26,17 @@ describe("Clues tests: ", () => {
     );
     expect(screen.getAllByRole("figure")).toHaveLength(testClues.length);
   });
+
+  //? US9-CLS-2
+  test("It should show a 0 where a clue has no elements", () => {
+    const cluesWithAnEmptyElement = [...testClues];
+    cluesWithAnEmptyElement.push([]);
+    //Act
+    render(
+      <PuzzleContextProvider>
+        <Clues clues={cluesWithAnEmptyElement} />
+      </PuzzleContextProvider>
+    );
+    expect(screen.getByText("0")).toBeInTheDocument();
+  });
 });
