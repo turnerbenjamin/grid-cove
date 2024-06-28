@@ -8,8 +8,12 @@ import SolvedScreen from "./SolvedScreen";
 
 export default function Solver({ puzzle }) {
   const { updateSolveState, solveState } = usePuzzleContext();
-  const { gridRef, getCurrentGridFillString, setDoRevealPixelArt } =
-    useGridContext();
+  const {
+    gridRef,
+    getCurrentGridFillString,
+    doRevealPixelArt,
+    setDoRevealPixelArt,
+  } = useGridContext();
 
   const handleUpdateSolveState = () => {
     const gridCellString = getCurrentGridFillString();
@@ -42,7 +46,7 @@ export default function Solver({ puzzle }) {
         </div>
         {<Mode disabled={solveState?.isSolved} />}
       </div>
-      {solveState?.isSolved && <SolvedScreen puzzle={puzzle} />}
+      {doRevealPixelArt && <SolvedScreen puzzle={puzzle} />}
     </>
   );
 }

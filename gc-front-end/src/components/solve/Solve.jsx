@@ -3,16 +3,18 @@ import { useParams } from "react-router-dom";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 
 import AdminActions from "./AdminActions";
-import { GridContextProvider } from "../../hooks/contexts/gridContext";
 import Solver from "./Solver";
 import LoadingSpinner from "../general/LoadingSpinner";
-import RenderedErrors from "../general/RenderedErrors";
 import ErrorPage from "../general/ErrorPage";
+
+import { GridContextProvider } from "../../hooks/contexts/gridContext";
+import { useAppContext } from "../../hooks/contexts/appContext";
 
 export default function Solve() {
   const [puzzle, setPuzzle] = useState(false);
   const { getPuzzleById, puzzleServiceIsLoading, puzzleServiceErrors } =
     usePuzzleContext();
+  const { activeUser } = useAppContext();
   const puzzleId = useParams().puzzleId;
 
   const handleGetPuzzle = async () => {
@@ -26,7 +28,6 @@ export default function Solve() {
 
   if (puzzleServiceErrors) return <ErrorPage errors={puzzleServiceErrors} />;
   if (!puzzle || puzzleServiceIsLoading) return <LoadingSpinner />;
-
   return (
     <div
       className="flex flex-col items-center mt-[5vh]"
@@ -38,7 +39,9 @@ export default function Solve() {
         doNotOverwriteFilledCellsOnDrag
       >
         <Solver puzzle={puzzle} />
-        <AdminActions className="mt-6 mb-2" />
+        {activeUser?.roles.includes("admin") && (
+          <AdminActions className="mt-6 mb-2" />
+        )}
       </GridContextProvider>
     </div>
   );

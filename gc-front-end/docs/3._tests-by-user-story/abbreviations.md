@@ -2,6 +2,7 @@
 
 This document is a reference for abbreviations used in test codes:
 
+- ADM: components/solve/AdminActions
 - AHS: services/authentication.service
 - AUC: components/header/ActiveUserControl
 - BLD: components/build/Build

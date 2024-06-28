@@ -1,10 +1,4 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 
 import Solve from "../../../src/components/solve/Solve";
@@ -20,8 +14,10 @@ import RevealPixelArtTransition from "../../../src/utils/RevealPixelArtTransitio
 
 import * as puzzleService from "../../../src/services/puzzle.service";
 import * as reactRouterDom from "react-router-dom";
+import { useAppContext } from "../../../src/hooks/contexts/appContext";
 
 vi.mock("../../../src/services/puzzle.service");
+vi.mock("../../../src/hooks/contexts/appContext");
 vi.mock("../../../src/utils/RevealPixelArtTransition");
 vi.mock("react-router-dom");
 
@@ -40,6 +36,7 @@ describe("Solve tests: ", () => {
     });
 
     puzzleService.getPuzzle.mockReturnValue(promise);
+    useAppContext.mockReturnValue({});
 
     await act(async () =>
       render(
@@ -150,8 +147,6 @@ describe("Solve tests: ", () => {
     await act(async () => {
       fireEvent.mouseUp(screen.getByTitle("1,1"));
     });
-
-    console.log(testPuzzle);
 
     expect(screen.getByText(/solved/i)).toBeInTheDocument();
     expect(
