@@ -1,5 +1,5 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { beforeEach, expect } from "vitest";
+import { beforeEach, expect, vi } from "vitest";
 
 import Solve from "../../../src/components/solve/Solve";
 
@@ -219,6 +219,7 @@ describe("Solve tests: ", () => {
       describe("Delete puzzle tests: ", () => {
         let deletePuzzleResolver;
         let deletePuzzleRejecter;
+        let useNavigationMock;
 
         beforeEach(async () => {
           Object.defineProperty(global.window, "scrollTo", {
@@ -233,6 +234,12 @@ describe("Solve tests: ", () => {
             deletePuzzleRejecter = reject;
           });
           puzzleService.deletePuzzle.mockReturnValue(promise);
+          useNavigationMock = vi.fn();
+
+          reactRouterDom.useNavigate = vi
+            .fn()
+            .mockReturnValue(useNavigationMock);
+
           await act(async () => getPuzzleResolver(getPuzzleTestData));
           await act(async () => fireEvent.click(screen.getByText(/delete/i)));
           await act(async () => fireEvent.click(screen.getByText(/proceed/i)));
@@ -241,8 +248,15 @@ describe("Solve tests: ", () => {
         //?US12-SLV-1
         test("It should show a loading spinner while delete puzzle is pending", async () => {
           //Assert
-          screen.debug();
           expect(screen.queryByRole("status")).toBeInTheDocument();
+        });
+
+        //?US12-SLV-2
+        test("It should call navigate with the correct url when delete puzzle resolves", async () => {
+          //Act
+          await act(async () => deletePuzzleResolver(true));
+          //Assert
+          expect(useNavigationMock).toBeCalledWith("/puzzles");
         });
       });
     });

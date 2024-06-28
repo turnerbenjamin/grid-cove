@@ -13,7 +13,7 @@
 ## Solve Tests (SLV)
 
 - [x] US12-SLV-1: It should show a loading spinner while delete puzzle is pending
-- [ ] US12-SLV-2: It should call navigate with the correct url when delete puzzle resolves
+- [x] US12-SLV-2: It should call navigate with the correct url when delete puzzle resolves
 - [ ] US12-SLV-3: It should display errors if delete puzzle rejects
 
 ### Navigation
