@@ -4,7 +4,7 @@ import Mode from "./Mode";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 import { useEffect } from "react";
 import { useGridContext } from "../../hooks/contexts/gridContext";
-import SolvedScreen from "./SolvedScreen";
+import PixelArtInfo from "./PixelArtInfo";
 
 export default function Solver({ puzzle }) {
   const { updateSolveState, solveState } = usePuzzleContext();
@@ -46,7 +46,9 @@ export default function Solver({ puzzle }) {
         </div>
         {<Mode disabled={solveState?.isSolved} />}
       </div>
-      {doRevealPixelArt && <SolvedScreen puzzle={puzzle} />}
+      {doRevealPixelArt && (
+        <PixelArtInfo puzzle={puzzle} isSolved={solveState?.isSolved} />
+      )}
     </>
   );
 }

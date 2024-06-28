@@ -15,7 +15,7 @@ Note, user story 5 related exclusively to frontend functionality.
 - [x] AS6-5: It should throw an unauthorised error if findById returns a falsy value
 - [x] AS6-6: It should return the user document
 
-## Authentication Controller (AS)
+## Authentication Controller (AC)
 
 - [x] AC6-1: It should respond with status code of 401 if no req.cookies.jwt
 - [x] AC6-2: It should call validateToken on the user service

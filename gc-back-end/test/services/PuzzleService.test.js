@@ -309,4 +309,27 @@ describe("Puzzle service tests: ", () => {
       expect(actual).to.equal(expected);
     });
   });
+
+  describe("Delete puzzle by id tests: ", () => {
+    let findByIdAndDeleteStub;
+    const testId = puzzleTestData.documents[0]._id;
+    beforeEach(() => {
+      findByIdAndDeleteStub = sinon.stub(Puzzle, "findByIdAndDelete");
+      findByIdAndDeleteStub.resolves({});
+    });
+
+    afterEach(() => {
+      findByIdAndDeleteStub.restore();
+    });
+
+    //?PS12-1
+    it("should call findByIdAndDelete with the correct argument", async () => {
+      const expected = testId;
+      //Act
+      await puzzleService.deletePuzzleById(testId);
+      const [actual] = findByIdAndDeleteStub.getCall(0).args;
+      //Assert
+      expect(actual).to.equal(expected);
+    });
+  });
 });

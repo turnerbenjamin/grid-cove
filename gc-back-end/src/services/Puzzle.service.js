@@ -62,6 +62,10 @@ export default class PuzzleService {
     }
   };
 
+  deletePuzzleById = async (puzzleId) => {
+    Puzzle.findByIdAndDelete(puzzleId);
+  };
+
   #handleErrors(err) {
     if (err instanceof HTTPError) throw err;
     throw APIErrors.SERVER_ERROR;
