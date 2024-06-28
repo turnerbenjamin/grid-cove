@@ -511,14 +511,23 @@ describe("Puzzle integration tests: ", () => {
     it("should respond with a 403 error if res.cookies.jwt is invalid", async () => {
       //Arrange
       const puzzleToDelete = puzzleInDatabase;
-      console.log(accessTokenOfAdminUser);
-      console.log(accessTokenOfNonAdminUser);
       //Act
       const response = await request
         .delete(deletePuzzleByIdEndpoint(puzzleToDelete._id))
         .set("Cookie", accessTokenOfNonAdminUser);
       //Assert
       expect(response.status).to.equal(403);
+    });
+
+    //?INT9-6
+    it("should respond with a status of 400 where the puzzleId is not in a valid format", async () => {
+      //Act
+      const response = await request
+        .delete(deletePuzzleByIdEndpoint("invalidIdFormat"))
+        .set("Cookie", accessTokenOfAdminUser);
+      //Assert
+      expect(response.status).to.equal(400);
+      expect(response.body).to.equal(APIErrors.INVALID_PUZZLE_ID.message);
     });
   });
 });
