@@ -284,5 +284,13 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(res.status.calledWith(204)).to.equal(true);
     });
+
+    //? PC12-3
+    it("should call res.json with no args where the puzzle service resolves", async () => {
+      //Act
+      await puzzleController.deletePuzzleById(req, res);
+      //Assert
+      expect(res.json.calledWith()).to.equal(true);
+    });
   });
 });

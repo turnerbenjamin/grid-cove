@@ -44,7 +44,7 @@ export default class PuzzleController {
 
   deletePuzzleById = async (req, res) => {
     await this.#puzzleService.deletePuzzleById(req?.params?.puzzleId);
-    res.status(204);
+    res.status(204).json();
   };
 
   #handleErrors = (res, err) => {
