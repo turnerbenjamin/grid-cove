@@ -250,6 +250,7 @@ describe("Authentication controller tests", () => {
       expect(res.status.calledWith(500)).to.equal(true);
     });
   });
+
   describe("Require logged In tests", () => {
     let authenticationController;
     const testToken = "jwt=xxxxx";
@@ -331,6 +332,34 @@ describe("Authentication controller tests", () => {
       authenticationService.validateToken.resolves(expected);
       //Act
       await authenticationController.requireLoggedIn(req, res, next);
+      //Assert
+      expect(next.calledWith()).to.equal(true);
+    });
+  });
+
+  describe("Require admin role tests", () => {
+    const testUserWithAdminRole = userTestData.documents[1];
+    const testUserWithOutAdminRole = userTestData.documents[0];
+    let authenticationController;
+    let next;
+
+    beforeEach(() => {
+      const authenticationService = {};
+      authenticationController = new AuthenticationController(
+        authenticationService
+      );
+      req.user = testUserWithAdminRole;
+      next = sinon.spy();
+    });
+
+    afterEach(() => {
+      authenticationController = null;
+    });
+
+    //? AC12-1
+    it("should call next if req.user has an admin role", async () => {
+      //Act
+      await authenticationController.requireAdminRole(req, res, next);
       //Assert
       expect(next.calledWith()).to.equal(true);
     });

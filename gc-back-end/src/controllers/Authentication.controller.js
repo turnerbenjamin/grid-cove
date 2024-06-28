@@ -50,6 +50,10 @@ export default class AuthenticationController {
     }
   };
 
+  requireAdminRole = async (req, res, next) => {
+    next();
+  };
+
   #setCookie = (res, token) => {
     res.cookie("jwt", token, {
       maxAge: process.env.COOKIE_EXPIRES_IN,

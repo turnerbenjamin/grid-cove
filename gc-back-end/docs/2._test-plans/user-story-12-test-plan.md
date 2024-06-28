@@ -22,7 +22,7 @@
 
 ## Authentication Controller (AC)
 
-- [ ] AC12-1: It should call next if req.user has an admin role
+- [x] AC12-1: It should call next if req.user has an admin role
 - [ ] AC12-2: It should respond with a status code of 500 if req.user is null
 - [ ] AC12-3: It should respond with a status code of 403 if req.user does not have an admin role
 
