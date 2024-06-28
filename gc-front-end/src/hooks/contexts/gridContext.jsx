@@ -87,7 +87,6 @@ const GridContextProvider = function ({
   }, [handleUpdateCellColour]);
 
   const getCurrentGridFillString = () => {
-    if (!gridCells) return;
     return gridCells.map((cell) => cell.colour.colourCode).join("");
   };
 
@@ -122,7 +121,7 @@ const GridContextProvider = function ({
       const { key } = e.target.dataset;
       handleUpdateCellColour(key, true);
     };
-    const handleMouseUp = (e) => {
+    const handleMouseUp = () => {
       setOriginTarget(null);
       setDoUpdateGridString(true);
       gridRef?.current?.dispatchEvent(new Event("change"));

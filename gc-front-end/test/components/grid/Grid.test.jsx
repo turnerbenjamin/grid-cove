@@ -48,6 +48,21 @@ describe("Grid tests: ", () => {
       //Assert
       expect(actual).toBe(expected);
     });
+
+    //? US5-GRD-6
+    test("It should not colour a cell where the right mouse button is clicked", async () => {
+      const cellToColour = screen.getByTitle("1,1");
+      const expected = cellToColour.style.backgroundColor;
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(cellToColour, {
+          button: 1,
+        });
+      });
+      const actual = cellToColour.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+    });
   });
 
   describe("Build configuration tests: ", () => {

@@ -39,6 +39,11 @@
 - [x] US5-GRD-4: It should colour cells when the mouse is moved over them between a mouse down and mouse up event where the mouse down event occurred in a different row or column
 - [x] US5-GRD-5: It should not continue to colour cells after a mouse up event
 
+### Coverage
+
+- [ ] US5-GRD-6: It should not colour a cell where the right mouse button is clicked
+- [ ] US5-GRD-7: It should not colour a cell where the element clicked does not have a key data attribute
+
 ## Build tests (BLD)
 
 - [x] US5-BLD-1: It should show a dropdown with size options for the grid
