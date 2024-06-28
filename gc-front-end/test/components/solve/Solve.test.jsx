@@ -1,16 +1,22 @@
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 
 import Solve from "../../../src/components/solve/Solve";
 
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
-import { getPuzzleTestData } from "../../data/puzzles.test.data";
+import {
+  getPuzzleTestData,
+  solvedWhenTopLeftCellFilled,
+} from "../../data/puzzles.test.data";
+
+import GridColours from "../../../src/utils/GridColours";
+import RevealPixelArtTransition from "../../../src/utils/RevealPixelArtTransition";
 
 import * as puzzleService from "../../../src/services/puzzle.service";
 import * as reactRouterDom from "react-router-dom";
-import GridColours from "../../../src/utils/GridColours";
 
 vi.mock("../../../src/services/puzzle.service");
+vi.mock("../../../src/utils/RevealPixelArtTransition");
 vi.mock("react-router-dom");
 
 describe("Solve tests: ", () => {
@@ -102,5 +108,25 @@ describe("Solve tests: ", () => {
       GridColours.ELIMINATED.rgb
     );
     expect(cellToChange.querySelector("canvas")).toBeInTheDocument();
+  });
+
+  //? US10-SLV-1
+  test("It should show the pixel art once the puzzle is solved", async () => {
+    //Arrange
+    const testPuzzle = solvedWhenTopLeftCellFilled;
+    RevealPixelArtTransition.getDelay.mockReturnValue(0);
+    const expectedCalls = testPuzzle.size ** 2;
+    //Act
+    await act(async () => {
+      getPuzzleResolver(testPuzzle);
+    });
+    await act(async () => {
+      fireEvent.mouseDown(screen.getByTitle("1,1"));
+    });
+    await act(async () => {
+      fireEvent.mouseUp(screen.getByTitle("1,1"));
+    });
+
+    expect(RevealPixelArtTransition.getDelay).toBeCalledTimes(expectedCalls);
   });
 });

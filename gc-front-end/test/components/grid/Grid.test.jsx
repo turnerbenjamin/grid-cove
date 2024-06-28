@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 import { GridContextProvider } from "../../../src/hooks/contexts/gridContext";
 

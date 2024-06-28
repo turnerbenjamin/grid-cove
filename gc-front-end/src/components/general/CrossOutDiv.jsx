@@ -5,7 +5,6 @@ export default function CrossOutDiv() {
   const canvasRef = useRef(null);
   const dpr = Math.ceil(window.devicePixelRatio);
   useEffect(() => {
-    if (!canvasRef.current) return;
     const canvas = canvasRef.current;
     canvas.width = canvasRef.current.getBoundingClientRect().width * dpr;
     canvas.height = canvasRef.current.getBoundingClientRect().height * dpr;

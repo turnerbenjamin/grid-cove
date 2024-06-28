@@ -31,3 +31,16 @@ export const getPuzzleTestData = {
   },
   artist: "667422cc3eba2d502111b150",
 };
+
+export const solvedWhenTopLeftCellFilled = {
+  _id: "667b67fe69053b11fd943b42",
+  pixelArt: "1114111D88144D81414188188",
+  title: "EasySolve",
+  solution: "1" + "0".repeat("99"),
+  size: 10,
+  clues: {
+    rowClues: [[1], [], [], [], [], [], [], [], [], []],
+    columnClues: [[1], [], [], [], [], [], [], [], [], []],
+  },
+  artist: "667422cc3eba2d502111b150",
+};

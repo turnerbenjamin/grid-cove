@@ -15,5 +15,4 @@
 
 ## Solve Tests (SLV)
 
-- [ ] US9-SLV-1: It should not show the pixel art on render
-- [ ] US9-SLV-2: It should show the pixel art once the puzzle is solved
+- [x] US10-SLV-1: It should show the pixel art once the puzzle is solved
