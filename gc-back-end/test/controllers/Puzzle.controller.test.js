@@ -292,5 +292,15 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(res.json.calledWith()).to.equal(true);
     });
+
+    //? PC12-4
+    it("should respond with a status code of 400 where the puzzle service rejects with an invalid puzzle id error", async () => {
+      //Arrange
+      puzzleService.deletePuzzleById.rejects(APIErrors.INVALID_PUZZLE_ID);
+      //Act
+      await puzzleController.deletePuzzleById(req, res);
+      //Assert
+      expect(res.status.calledWith(400)).to.equal(true);
+    });
   });
 });
