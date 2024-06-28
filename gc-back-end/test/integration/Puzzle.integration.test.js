@@ -494,5 +494,17 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(401);
     });
+
+    //?INT9-4
+    it("should respond with a 401 error if res.cookies.jwt is invalid", async () => {
+      //Arrange
+      const puzzleToDelete = puzzleInDatabase;
+      //Act
+      const response = await request
+        .delete(deletePuzzleByIdEndpoint(puzzleToDelete._id))
+        .set("Cookie", "jwt=notAValidToken");
+      //Assert
+      expect(response.status).to.equal(401);
+    });
   });
 });
