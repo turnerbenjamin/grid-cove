@@ -55,7 +55,7 @@ describe("Puzzle integration tests: ", () => {
     server.start();
     request = supertest(app);
 
-    await request.post("/authentication/register").send(testUserCredentials);
+    await User.insertMany(userTestData.documents);
     const response = await request
       .post("/authentication/sign-in")
       .send(testUserCredentials);
@@ -357,13 +357,13 @@ describe("Puzzle integration tests: ", () => {
     });
   });
 
-  describe("Where puzzles in database: ", () => {
-    const puzzleInDatabase = puzzleTestData.documents[0];
+  describe("Get puzzle by id tests: ", () => {
+    const puzzleInDatabase = { ...puzzleTestData.documents[0] };
     const puzzleNotInDatabase = puzzleTestData.documents[1];
     const getPuzzleByIdEndpoint = (id) => `/puzzles/${id}`;
 
     before(async () => {
-      await Puzzle.insertMany([puzzleInDatabase]);
+      await Puzzle.create(puzzleInDatabase);
     });
 
     after(async () => {
@@ -430,6 +430,45 @@ describe("Puzzle integration tests: ", () => {
       findByIdStub.restore();
       //Assert
       expect(response.status).to.equal(500);
+    });
+  });
+
+  describe("Delete puzzle by id tests: ", () => {
+    const puzzleInDatabase = puzzleTestData.documents[0];
+    const puzzleNotInDatabase = puzzleTestData.documents[1];
+    const deletePuzzleByIdEndpoint = (id) => `/puzzles/${id}`;
+    let accessTokenOfNonAdminUser;
+    let accessTokenOfAdminUser;
+
+    before(async () => {
+      let response = await request
+        .post("/authentication/sign-in")
+        .send(userTestData.submissions[0]);
+      accessTokenOfNonAdminUser = response.header["set-cookie"][0];
+      response = await request
+        .post("/authentication/sign-in")
+        .send(userTestData.submissions[1]);
+      accessTokenOfAdminUser = response.header["set-cookie"][0];
+    });
+
+    beforeEach(async () => {
+      await Puzzle.create(puzzleInDatabase);
+    });
+
+    afterEach(async () => {
+      await Puzzle.deleteMany();
+    });
+
+    //?INT9-1
+    it(" should respond with a status of 200 for a successful request", async () => {
+      //Arrange
+      const puzzleToDelete = puzzleInDatabase;
+      //Act
+      const response = await request
+        .delete(deletePuzzleByIdEndpoint(puzzleToDelete._id))
+        .set("Cookie", accessTokenOfAdminUser);
+      //Assert
+      expect(response.status).to.equal(200);
     });
   });
 });

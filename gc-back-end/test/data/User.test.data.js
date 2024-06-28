@@ -27,14 +27,14 @@ export const documents = [
     roles: ["user"],
   },
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: "667e50710501310ca397df06",
     username: "test-admin-1",
     emailAddress: "testadmin1@example.com",
     password: "$2b$10$gLk9vZ57FaRwUTjDz1Ien.pfYZ0UEPek6xKbinvEmeXKNBxGi1tqS",
     roles: ["user", "admin"],
   },
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: "667e52910501310ca397df1b",
     username: "testUser2",
     emailAddress: "testuser2@example.com",
     password: "$2b$10$mqYIbZMWRdTUcLNkTNm2R.iD.fkvwtpBA7gpgx9ZN7MWrS.oU8hM2",

@@ -20,6 +20,7 @@ export default class AuthenticationRoutes {
     this.#initialiseCreatePuzzleRoute();
     this.#initialiseGetPuzzlesRoute();
     this.#initialiseGetPuzzleByIdRoute();
+    this.#initialiseDeletePuzzleByIdRoute();
   }
 
   #initialiseCreatePuzzleRoute() {
@@ -37,6 +38,15 @@ export default class AuthenticationRoutes {
 
   #initialiseGetPuzzleByIdRoute() {
     this.#router.get("/:puzzleId", this.#puzzleController.getPuzzleById);
+  }
+
+  #initialiseDeletePuzzleByIdRoute() {
+    this.#router.delete(
+      "/:puzzleId",
+      this.#authenticationController.requireLoggedIn,
+      this.#authenticationController.requireAdminRole,
+      this.#puzzleController.getPuzzleById
+    );
   }
 
   getRouter() {

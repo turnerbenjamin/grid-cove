@@ -291,6 +291,10 @@ describe("Authentication integration tests: ", () => {
       await User.create(userTestData.documents[0]);
     });
 
+    after(async () => {
+      await User.deleteMany();
+    });
+
     //? INT3-1
     it("should respond with a 200 status code with valid request", async () => {
       //Act
@@ -302,7 +306,7 @@ describe("Authentication integration tests: ", () => {
     //? INT3-2
     it("should include the correct user details, without the password, in the response body", async () => {
       //Arrange
-      const expected = userTestData.documents[0];
+      const expected = { ...userTestData.documents[0] };
       expected._id = expected._id.toString();
       delete expected.password;
       //Act
