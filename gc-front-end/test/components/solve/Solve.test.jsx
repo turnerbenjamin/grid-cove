@@ -1,4 +1,10 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 
 import Solve from "../../../src/components/solve/Solve";
@@ -128,5 +134,31 @@ describe("Solve tests: ", () => {
     });
 
     expect(RevealPixelArtTransition.getDelay).toBeCalledTimes(expectedCalls);
+  });
+
+  //? US7-SLV-1
+  test("It should show the puzzle title and artist username once the puzzle is solved", async () => {
+    //Arrange
+    const testPuzzle = solvedWhenTopLeftCellFilled;
+    //Act
+    await act(async () => {
+      getPuzzleResolver(testPuzzle);
+    });
+    await act(async () => {
+      fireEvent.mouseDown(screen.getByTitle("1,1"));
+    });
+    await act(async () => {
+      fireEvent.mouseUp(screen.getByTitle("1,1"));
+    });
+
+    console.log(testPuzzle);
+
+    expect(screen.getByText(/solved/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(new RegExp(testPuzzle.title, "i"))
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(new RegExp(testPuzzle.artist.username, "i"))
+    ).toBeInTheDocument();
   });
 });

@@ -29,7 +29,9 @@ export const getPuzzleTestData = {
     rowClues: [[3, 1], [2], [1], [1, 1, 1], [1]],
     columnClues: [[4], [2], [1, 2], [], [1, 1]],
   },
-  artist: "667422cc3eba2d502111b150",
+  artist: {
+    username: "test-username",
+  },
 };
 
 export const solvedWhenTopLeftCellFilled = {
@@ -42,5 +44,7 @@ export const solvedWhenTopLeftCellFilled = {
     rowClues: [[1], [], [], [], [], [], [], [], [], []],
     columnClues: [[1], [], [], [], [], [], [], [], [], []],
   },
-  artist: "667422cc3eba2d502111b150",
+  artist: {
+    username: "test-username",
+  },
 };

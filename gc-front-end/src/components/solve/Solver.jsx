@@ -4,6 +4,7 @@ import Mode from "./Mode";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 import { useEffect } from "react";
 import { useGridContext } from "../../hooks/contexts/gridContext";
+import SolvedScreen from "./SolvedScreen";
 
 export default function Solver({ puzzle }) {
   const { updateSolveState, solveState } = usePuzzleContext();
@@ -28,14 +29,20 @@ export default function Solver({ puzzle }) {
   }, [getCurrentGridFillString]);
 
   return (
-    <div className="grid md:grid-cols-[1fr_auto] items-center gap-2 md:gap-4">
-      <div className="grid grid-cols-[auto_1fr] w-[95vw] max-w-lg gap-2">
-        <div />
-        <Clues clues={puzzle.clues.columnClues} />
-        <Clues clues={puzzle.clues.rowClues} isRow />
-        <Grid doCountInFives pixelArt={puzzle.pixelArt} />
+    <>
+      <div className="grid md:grid-cols-[1fr_auto] items-center gap-2 md:gap-4 ">
+        <div className="grid grid-cols-[auto_1fr] w-[95vw] max-w-lg gap-2">
+          <div />
+          <Clues clues={puzzle.clues.columnClues} />
+          <Clues clues={puzzle.clues.rowClues} isRow />
+          <Grid
+            doCountInFives={!solveState?.isSolved}
+            pixelArt={puzzle.pixelArt}
+          />
+        </div>
+        {<Mode disabled={solveState?.isSolved} />}
       </div>
-      <Mode />
-    </div>
+      {solveState?.isSolved && <SolvedScreen puzzle={puzzle} />}
+    </>
   );
 }
