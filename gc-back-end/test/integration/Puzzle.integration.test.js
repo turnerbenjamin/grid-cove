@@ -529,5 +529,16 @@ describe("Puzzle integration tests: ", () => {
       expect(response.status).to.equal(400);
       expect(response.body).to.equal(APIErrors.INVALID_PUZZLE_ID.message);
     });
+
+    //?INT9-7
+    it("should respond with a status of 404 where the puzzleId is not found", async () => {
+      //Act
+      const response = await request
+        .delete(deletePuzzleByIdEndpoint(puzzleNotInDatabase._id))
+        .set("Cookie", accessTokenOfAdminUser);
+      //Assert
+      expect(response.status).to.equal(404);
+      expect(response.body).to.equal(APIErrors.PUZZLE_NOT_FOUND.message);
+    });
   });
 });
