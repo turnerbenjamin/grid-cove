@@ -51,7 +51,12 @@ export default class AuthenticationController {
   };
 
   requireAdminRole = async (req, res, next) => {
-    next();
+    try {
+      if (!req.user) throw APIErrors.SERVER_ERROR;
+      next();
+    } catch (err) {
+      this.#handleErrors(res, err);
+    }
   };
 
   #setCookie = (res, token) => {

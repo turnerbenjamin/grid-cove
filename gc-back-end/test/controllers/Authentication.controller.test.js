@@ -363,5 +363,15 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(next.calledWith()).to.equal(true);
     });
+
+    //? AC12-2
+    it("should respond with a status code of 500 if req.user is null", async () => {
+      //Arrange
+      req.user = null;
+      //Act
+      await authenticationController.requireAdminRole(req, res, next);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+    });
   });
 });
