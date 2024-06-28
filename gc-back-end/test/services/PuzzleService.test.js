@@ -331,5 +331,21 @@ describe("Puzzle service tests: ", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //?PS12-2
+    it("should throw an invalid puzzle id error where findByIdAndDelete rejects with a cast error", async () => {
+      //Arrange
+      findByIdAndDeleteStub.rejects({ name: "CastError" });
+      const expected = APIErrors.INVALID_PUZZLE_ID;
+      let actual;
+      //Act
+      try {
+        await puzzleService.deletePuzzleById(testId);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });

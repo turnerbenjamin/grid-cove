@@ -63,7 +63,12 @@ export default class PuzzleService {
   };
 
   deletePuzzleById = async (puzzleId) => {
-    Puzzle.findByIdAndDelete(puzzleId);
+    try {
+      await Puzzle.findByIdAndDelete(puzzleId);
+    } catch (err) {
+      if (err.name === "CastError") throw APIErrors.INVALID_PUZZLE_ID;
+      this.#handleErrors(err);
+    }
   };
 
   #handleErrors(err) {
