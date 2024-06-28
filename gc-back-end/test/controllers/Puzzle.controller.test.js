@@ -312,5 +312,15 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(res.status.calledWith(404)).to.equal(true);
     });
+
+    //? PC12-6
+    it("should respond with a status code of 500 where the puzzle service rejects with a server error", async () => {
+      //Arrange
+      puzzleService.deletePuzzleById.rejects(APIErrors.SERVER_ERROR);
+      //Act
+      await puzzleController.deletePuzzleById(req, res);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+    });
   });
 });
