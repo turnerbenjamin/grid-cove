@@ -42,6 +42,10 @@ export default class PuzzleController {
     }
   };
 
+  deletePuzzleById = async (req, res) => {
+    await this.#puzzleService.deletePuzzleById(req?.params?.puzzleId);
+  };
+
   #handleErrors = (res, err) => {
     let userError = err;
     if (!(err instanceof HTTPError)) userError = APIErrors.SERVER_ERROR;

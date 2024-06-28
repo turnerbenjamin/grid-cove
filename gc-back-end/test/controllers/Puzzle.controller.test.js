@@ -246,4 +246,35 @@ describe("Puzzle controller tests", () => {
       expect(res.status.calledWith(500)).to.equal(true);
     });
   });
+
+  describe("Delete puzzle By Id tests: ", () => {
+    const testPuzzle = puzzleTestData.documents[0];
+
+    beforeEach(() => {
+      puzzleService = {
+        deletePuzzleById: sinon.stub(),
+      };
+      puzzleService.deletePuzzleById.resolves(testPuzzle);
+      puzzleController = new PuzzleController(puzzleService);
+      req = {
+        params: { puzzleId: testPuzzle._id },
+      };
+      res = {
+        status: sinon.stub().returnsThis(),
+        json: sinon.spy(),
+      };
+    });
+
+    //? PC12-1
+    it("should call deletePuzzleById on the puzzle service with the correct argument", async () => {
+      //Arrange
+      const expected = req.params.puzzleId;
+      //Act
+      await puzzleController.deletePuzzleById(req, res);
+      //Assert
+      expect(puzzleService.deletePuzzleById.calledWith(expected)).to.equal(
+        true
+      );
+    });
+  });
 });

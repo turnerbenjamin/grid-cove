@@ -13,12 +13,12 @@
 
 ## Puzzle Controller (PC)
 
-- [ ] PC12-1: It should call deletePuzzleById on the puzzle service with the correct argument
-- [ ] PC12-1: It should respond with a status code of 204 where the puzzle service resolves
-- [ ] PC12-1: It should call res.json with an empty object where the puzzle service resolves
-- [ ] PC12-1: It should respond with a status code of 400 where the puzzle service rejects with an invalid puzzle id error
-- [ ] PC12-1: It should respond with a status code of 404 where the puzzle service rejects with a puzzle not found error
-- [ ] PC12-1: It should respond with a status code of 500 where the puzzle service rejects with a server error
+- [x] PC12-1: It should call deletePuzzleById on the puzzle service with the correct argument
+- [ ] PC12-2: It should respond with a status code of 204 where the puzzle service resolves
+- [ ] PC12-3: It should call res.json with an empty object where the puzzle service resolves
+- [ ] PC12-4: It should respond with a status code of 400 where the puzzle service rejects with an invalid puzzle id error
+- [ ] PC12-5: It should respond with a status code of 404 where the puzzle service rejects with a puzzle not found error
+- [ ] PC12-6: It should respond with a status code of 500 where the puzzle service rejects with a server error
 
 ## Authentication Controller (AC)
 
