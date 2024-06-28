@@ -459,7 +459,7 @@ describe("Puzzle integration tests: ", () => {
       await Puzzle.deleteMany();
     });
 
-    //?INT9-1
+    //?INT12-1
     it("should respond with a status of 204 for a successful request", async () => {
       //Arrange
       const puzzleToDelete = puzzleInDatabase;
@@ -471,7 +471,7 @@ describe("Puzzle integration tests: ", () => {
       expect(response.status).to.equal(204);
     });
 
-    //?INT9-2
+    //?INT12-2
     it("should respond with an empty body for a successful request", async () => {
       //Arrange
       const puzzleToDelete = puzzleInDatabase;
@@ -483,7 +483,7 @@ describe("Puzzle integration tests: ", () => {
       expect(response.body).to.deep.equal({});
     });
 
-    //?INT9-3
+    //?INT12-3
     it("should respond with a 401 error if res.cookies.jwt is missing", async () => {
       //Arrange
       const puzzleToDelete = puzzleInDatabase;
@@ -495,7 +495,7 @@ describe("Puzzle integration tests: ", () => {
       expect(response.status).to.equal(401);
     });
 
-    //?INT9-4
+    //?INT12-4
     it("should respond with a 401 error if res.cookies.jwt is invalid", async () => {
       //Arrange
       const puzzleToDelete = puzzleInDatabase;
@@ -507,7 +507,7 @@ describe("Puzzle integration tests: ", () => {
       expect(response.status).to.equal(401);
     });
 
-    //?INT9-5
+    //?INT12-5
     it("should respond with a 403 error if res.cookies.jwt is invalid", async () => {
       //Arrange
       const puzzleToDelete = puzzleInDatabase;
@@ -519,7 +519,7 @@ describe("Puzzle integration tests: ", () => {
       expect(response.status).to.equal(403);
     });
 
-    //?INT9-6
+    //?INT12-6
     it("should respond with a status of 400 where the puzzleId is not in a valid format", async () => {
       //Act
       const response = await request
@@ -530,7 +530,7 @@ describe("Puzzle integration tests: ", () => {
       expect(response.body).to.equal(APIErrors.INVALID_PUZZLE_ID.message);
     });
 
-    //?INT9-7
+    //?INT12-7
     it("should respond with a status of 404 where the puzzleId is not found", async () => {
       //Act
       const response = await request
@@ -539,6 +539,21 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(404);
       expect(response.body).to.equal(APIErrors.PUZZLE_NOT_FOUND.message);
+    });
+
+    //?INT12-8
+    it("should respond with a status of 500 where a server error is thrown", async () => {
+      //Arrange
+      const findByIdAndDeleteStub = sinon.stub(Puzzle, "findByIdAndDelete");
+      findByIdAndDeleteStub.rejects(new Error());
+      //Act
+      const response = await request
+        .delete(deletePuzzleByIdEndpoint(puzzleInDatabase._id))
+        .set("Cookie", accessTokenOfAdminUser);
+      findByIdAndDeleteStub.restore();
+      //Assert
+      expect(response.status).to.equal(500);
+      expect(response.body).to.equal(APIErrors.SERVER_ERROR.message);
     });
   });
 });
