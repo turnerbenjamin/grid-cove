@@ -258,6 +258,15 @@ describe("Solve tests: ", () => {
           //Assert
           expect(useNavigationMock).toBeCalledWith("/puzzles");
         });
+
+        //?US12-SLV-3
+        test("It should display errors if delete puzzle rejects", async () => {
+          const testError = "test error";
+          //Act
+          await act(async () => deletePuzzleRejecter(testError));
+          //Assert
+          expect(screen.getByText(testError)).toBeInTheDocument();
+        });
       });
     });
   });
