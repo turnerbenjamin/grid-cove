@@ -11,8 +11,8 @@
 ## Cell tests
 
 - [x] US10-CLL-1: It should call getDelay from RevealPixelArtTransition when doRevealPixelArt is true
-- [ ] US10-CLL-2: It should not show hidden face when doRevealPixelArt is false
-- [ ] US10-CLL-3: It should show hidden face when doRevealPixelArt is true
+- [x] US10-CLL-2: It should show hidden face when doRevealPixelArt is true
+- [ ] US10-CLL-3: It should not show hidden face when doRevealPixelArt is false
 
 ## Solve Tests (SLV)
 

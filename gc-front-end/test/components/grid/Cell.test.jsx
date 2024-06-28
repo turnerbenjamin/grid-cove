@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, expect, test } from "vitest";
 
 import Cell from "../../../src/components/grid/Cell";
@@ -51,5 +51,27 @@ describe("Cell tests: ", () => {
     render(<Cell cellData={testCellData} />);
     //Assert
     expect(RevealPixelArtTransition.getDelay).toBeCalledWith(...expected);
+  });
+
+  //?US10-CLL-2
+  test("It should show hidden face when doRevealPixelArt is true", async () => {
+    //Arrange
+    useGridContext.mockReturnValue({
+      doRevealPixelArt: true,
+      gridSize: testGridSize,
+    });
+    RevealPixelArtTransition.getDelay.mockReturnValue(0);
+    //Act
+    render(
+      <Cell
+        cellData={testCellData}
+        hiddenColour={GridColours.GREEN.colourCode}
+      />
+    );
+    //Assert
+    await waitFor(() =>
+      expect(screen.getByRole("cell").classList).toContain("rotate-Y-180")
+    );
+    expect(screen.getByRole("img").classList).not.toContain("rotate-Y-180");
   });
 });
