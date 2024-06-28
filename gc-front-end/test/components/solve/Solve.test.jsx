@@ -162,53 +162,89 @@ describe("Solve tests: ", () => {
   });
 
   describe("Admin actions tests: ", () => {
-    //?US11-SLV-1
-    test("It should not show admin actions when no current user", async () => {
-      //Arrange
-      await act(async () =>
-        render(
-          <PuzzleContextProvider>
-            <Solve />
-          </PuzzleContextProvider>
-        )
-      );
-      await act(async () => getPuzzleResolver(getPuzzleTestData));
-      //Assert
-      expect(screen.queryByText(/admin actions/i)).toBeNull();
-    });
-
-    //?US11-SLV-2
-    test("It should not show admin actions when current user does not have admin role", async () => {
-      //Arrange
-      useAppContext.mockReturnValue({ activeUser: { roles: ["user"] } });
-      await act(async () =>
-        render(
-          <PuzzleContextProvider>
-            <Solve />
-          </PuzzleContextProvider>
-        )
-      );
-      await act(async () => getPuzzleResolver(getPuzzleTestData));
-      //Assert
-      expect(screen.queryByText(/admin actions/i)).toBeNull();
-    });
-
-    //?US11-SLV-3
-    test("It should show admin actions when current user does not have admin role", async () => {
-      //Arrange
-      useAppContext.mockReturnValue({
-        activeUser: { roles: ["user", "admin"] },
+    describe("Without admin permissions tests: ", () => {
+      //?US11-SLV-1
+      test("It should not show admin actions when no current user", async () => {
+        //Arrange
+        await act(async () =>
+          render(
+            <PuzzleContextProvider>
+              <Solve />
+            </PuzzleContextProvider>
+          )
+        );
+        await act(async () => getPuzzleResolver(getPuzzleTestData));
+        //Assert
+        expect(screen.queryByText(/admin actions/i)).toBeNull();
       });
-      await act(async () =>
-        render(
-          <PuzzleContextProvider>
-            <Solve />
-          </PuzzleContextProvider>
-        )
-      );
-      await act(async () => getPuzzleResolver(getPuzzleTestData));
-      //Assert
-      expect(screen.queryByText(/admin actions/i)).toBeInTheDocument();
+
+      //?US11-SLV-2
+      test("It should not show admin actions when current user does not have admin role", async () => {
+        //Arrange
+        useAppContext.mockReturnValue({ activeUser: { roles: ["user"] } });
+        await act(async () =>
+          render(
+            <PuzzleContextProvider>
+              <Solve />
+            </PuzzleContextProvider>
+          )
+        );
+        await act(async () => getPuzzleResolver(getPuzzleTestData));
+        //Assert
+        expect(screen.queryByText(/admin actions/i)).toBeNull();
+      });
+    });
+
+    describe("With admin permissions tests: ", () => {
+      beforeEach(async () => {
+        useAppContext.mockReturnValue({
+          activeUser: { roles: ["user", "admin"] },
+        });
+        await act(async () =>
+          render(
+            <PuzzleContextProvider>
+              <Solve />
+            </PuzzleContextProvider>
+          )
+        );
+      });
+
+      //?US11-SLV-3
+      test("It should show admin actions when current user does have a admin role", async () => {
+        await act(async () => getPuzzleResolver(getPuzzleTestData));
+        //Assert
+        expect(screen.queryByText(/admin actions/i)).toBeInTheDocument();
+      });
+
+      describe("Delete puzzle tests: ", () => {
+        let deletePuzzleResolver;
+        let deletePuzzleRejecter;
+
+        beforeEach(async () => {
+          Object.defineProperty(global.window, "scrollTo", {
+            value: () => null,
+          });
+          const modalRoot = document.createElement("div");
+          modalRoot.setAttribute("id", "modal");
+          document.body.appendChild(modalRoot);
+
+          const promise = new Promise((resolve, reject) => {
+            deletePuzzleResolver = resolve;
+            deletePuzzleRejecter = reject;
+          });
+          puzzleService.deletePuzzle.mockReturnValue(promise);
+          await act(async () => getPuzzleResolver(getPuzzleTestData));
+          await act(async () => fireEvent.click(screen.getByText(/delete/i)));
+          await act(async () => fireEvent.click(screen.getByText(/proceed/i)));
+        });
+
+        //?US12-SLV-1
+        test("It should show a loading spinner while delete puzzle is pending", async () => {
+          //Assert
+          screen.debug();
+          expect(screen.queryByRole("status")).toBeInTheDocument();
+        });
+      });
     });
   });
 });
