@@ -63,6 +63,24 @@ describe("Grid tests: ", () => {
       //Assert
       expect(actual).toBe(expected);
     });
+
+    //? US5-GRD-7
+    test("It should not colour a cell where the origin element clicked does not have a key data attribute", async () => {
+      //Arrange
+      const testOriginElement = document;
+      const testCellToMoveTo = screen.getByTitle("2,1");
+      const expected = testCellToMoveTo.style.backgroundColor;
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(testOriginElement);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(testCellToMoveTo);
+      });
+      const actual = testCellToMoveTo.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+    });
   });
 
   describe("Build configuration tests: ", () => {

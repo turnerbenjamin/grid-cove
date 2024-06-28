@@ -41,8 +41,8 @@
 
 ### Coverage
 
-- [ ] US5-GRD-6: It should not colour a cell where the right mouse button is clicked
-- [ ] US5-GRD-7: It should not colour a cell where the element clicked does not have a key data attribute
+- [x] US5-GRD-6: It should not colour a cell where the right mouse button is clicked
+- [x] US5-GRD-7: It should not colour a cell where the origin element clicked does not have a key data attribute
 
 ## Build tests (BLD)
 
