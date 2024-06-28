@@ -45,7 +45,7 @@ export default class AuthenticationRoutes {
       "/:puzzleId",
       this.#authenticationController.requireLoggedIn,
       this.#authenticationController.requireAdminRole,
-      this.#puzzleController.getPuzzleById
+      this.#puzzleController.deletePuzzleById
     );
   }
 

@@ -460,7 +460,7 @@ describe("Puzzle integration tests: ", () => {
     });
 
     //?INT9-1
-    it(" should respond with a status of 200 for a successful request", async () => {
+    it("should respond with a status of 204 for a successful request", async () => {
       //Arrange
       const puzzleToDelete = puzzleInDatabase;
       //Act
@@ -468,7 +468,19 @@ describe("Puzzle integration tests: ", () => {
         .delete(deletePuzzleByIdEndpoint(puzzleToDelete._id))
         .set("Cookie", accessTokenOfAdminUser);
       //Assert
-      expect(response.status).to.equal(200);
+      expect(response.status).to.equal(204);
+    });
+
+    //?INT9-2
+    it("should respond with an empty body for a successful request", async () => {
+      //Arrange
+      const puzzleToDelete = puzzleInDatabase;
+      //Act
+      const response = await request
+        .delete(deletePuzzleByIdEndpoint(puzzleToDelete._id))
+        .set("Cookie", accessTokenOfAdminUser);
+      //Assert
+      expect(response.body).to.deep.equal({});
     });
   });
 });
