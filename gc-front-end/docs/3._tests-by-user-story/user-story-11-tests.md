@@ -11,5 +11,5 @@
 ## Solve Tests (SLV)
 
 - [x] US11-SLV-1: It should not show admin actions when no current user
-- [ ] US11-SLV-2: It should not show admin actions when current user does not have admin role
+- [x] US11-SLV-2: It should not show admin actions when current user does not have admin role
 - [ ] US11-SLV-3: It should show admin actions when current user does not have admin role
