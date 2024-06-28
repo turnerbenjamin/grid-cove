@@ -482,5 +482,17 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.body).to.deep.equal({});
     });
+
+    //?INT9-3
+    it("should respond with a 401 error if res.cookies.jwt is missing", async () => {
+      //Arrange
+      const puzzleToDelete = puzzleInDatabase;
+      //Act
+      const response = await request.delete(
+        deletePuzzleByIdEndpoint(puzzleToDelete._id)
+      );
+      //Assert
+      expect(response.status).to.equal(401);
+    });
   });
 });
