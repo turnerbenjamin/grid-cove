@@ -192,5 +192,23 @@ describe("Solve tests: ", () => {
       //Assert
       expect(screen.queryByText(/admin actions/i)).toBeNull();
     });
+
+    //?US11-SLV-3
+    test("It should show admin actions when current user does not have admin role", async () => {
+      //Arrange
+      useAppContext.mockReturnValue({
+        activeUser: { roles: ["user", "admin"] },
+      });
+      await act(async () =>
+        render(
+          <PuzzleContextProvider>
+            <Solve />
+          </PuzzleContextProvider>
+        )
+      );
+      await act(async () => getPuzzleResolver(getPuzzleTestData));
+      //Assert
+      expect(screen.queryByText(/admin actions/i)).toBeInTheDocument();
+    });
   });
 });
