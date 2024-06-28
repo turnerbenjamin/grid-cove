@@ -4,6 +4,7 @@ import {
   createPuzzle,
   getPuzzles,
   getPuzzle,
+  deletePuzzle,
 } from "../services/puzzle.service";
 
 export default function useGridCovePuzzleService() {
@@ -61,13 +62,29 @@ export default function useGridCovePuzzleService() {
     }
   };
 
+  const deletePuzzleById = async (puzzleId) => {
+    try {
+      setPuzzleServiceErrors(null);
+      setPuzzleServiceIsLoading(true);
+      await deletePuzzle(puzzleId);
+      await getAllPuzzles();
+      return true;
+    } catch (err) {
+      console.log(err);
+      handleErrors(err);
+    } finally {
+      setPuzzleServiceIsLoading(false);
+    }
+  };
+
   return {
-    puzzles,
-    getPuzzleById,
-    getAllPuzzles,
     createNewPuzzle,
-    puzzleServiceIsLoading,
-    puzzleServiceErrors,
+    deletePuzzleById,
+    getAllPuzzles,
+    getPuzzleById,
     handleClearErrors,
+    puzzles,
+    puzzleServiceErrors,
+    puzzleServiceIsLoading,
   };
 }

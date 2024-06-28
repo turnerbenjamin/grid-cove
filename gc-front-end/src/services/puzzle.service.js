@@ -29,3 +29,12 @@ export const getPuzzle = async (puzzleId) => {
     throw err?.response?.data ?? err;
   }
 };
+
+export const deletePuzzle = async (puzzleId) => {
+  let url = import.meta.env.VITE_APP_DELETE_PUZZLES_URL;
+  try {
+    await axios.delete(`${url}/${puzzleId}`);
+  } catch (err) {
+    throw err?.response?.data ?? err;
+  }
+};

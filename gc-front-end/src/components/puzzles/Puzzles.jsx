@@ -17,20 +17,33 @@ export default function Puzzles() {
     getAllPuzzles();
   }, []);
 
-  if (puzzleServiceErrors) return <ErrorPage errors={puzzleServiceErrors} />;
+  const wrapperClasses = "py-6 px-4 mb-8 flex flex-col justify-center";
 
-  if (puzzles === null || puzzleServiceIsLoading) return <LoadingSpinner />;
+  if (puzzleServiceErrors)
+    return (
+      <div className={wrapperClasses}>
+        <ErrorPage errors={puzzleServiceErrors} />
+      </div>
+    );
+
+  if (puzzles === null || puzzleServiceIsLoading)
+    return (
+      <div className={wrapperClasses}>
+        <LoadingSpinner />
+      </div>
+    );
 
   if (puzzles.length === 0) {
-    return <p>No puzzles found...</p>;
+    return (
+      <div className={wrapperClasses}>
+        <p>No puzzles found...</p>
+      </div>
+    );
   }
 
   const puzzleLists = puzzles.map((puzzleGroup) => {
     return (
-      <div
-        key={puzzleGroup.size}
-        className="py-6 px-4 mb-8 flex flex-col justify-center"
-      >
+      <div key={puzzleGroup.size} className={wrapperClasses}>
         <h3 className="text-center text-xl mb-2 text-secondary-100">{`${puzzleGroup.size} x ${puzzleGroup.size}`}</h3>
         <div className="w-full h-[1px] bg-primary-300 mb-6" />
         <PuzzlesList puzzles={puzzleGroup.puzzles} />

@@ -26,13 +26,22 @@ export default function Solve() {
     handleGetPuzzle();
   }, []);
 
-  if (puzzleServiceErrors) return <ErrorPage errors={puzzleServiceErrors} />;
-  if (!puzzle || puzzleServiceIsLoading) return <LoadingSpinner />;
+  const wrapperClasses = "flex flex-col items-center mt-[5vh]";
+
+  if (puzzleServiceErrors)
+    return (
+      <div className={wrapperClasses}>
+        <ErrorPage errors={puzzleServiceErrors} />
+      </div>
+    );
+  if (!puzzle || puzzleServiceIsLoading)
+    return (
+      <div className={wrapperClasses}>
+        <LoadingSpinner />
+      </div>
+    );
   return (
-    <div
-      className="flex flex-col items-center mt-[5vh]"
-      data-testid={`puzzles/${puzzleId}`}
-    >
+    <div className={wrapperClasses} data-testid={`puzzles/${puzzleId}`}>
       <GridContextProvider
         size={puzzle.size}
         doColourInsideTheLines
@@ -40,7 +49,7 @@ export default function Solve() {
       >
         <Solver puzzle={puzzle} />
         {activeUser?.roles.includes("admin") && (
-          <AdminActions className="mt-6 mb-2" />
+          <AdminActions className="mt-6 mb-2" puzzle={puzzle} />
         )}
       </GridContextProvider>
     </div>
