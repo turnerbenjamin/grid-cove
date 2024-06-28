@@ -32,7 +32,7 @@
 - [x] INT12-2: It should respond with an empty body for a successful request
 - [x] INT12-3: It should respond with a 401 error if res.cookies.jwt is missing
 - [x] INT12-4: It should respond with a 401 error if res.cookies.jwt is invalid
-- [ ] INT12-5: It should respond with a 403 error if the authenticated user does not have an admin role
+- [x] INT12-5: It should respond with a 403 error if the authenticated user does not have an admin role
 - [ ] INT12-6: It should respond with a status of 400 where the puzzleId is not in a valid format
 - [ ] INT12-7: It should respond with a status of 404 where the puzzleId is not found
 - [ ] INT12-8: It should respond with a status of 500 where a server error is thrown

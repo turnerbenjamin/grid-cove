@@ -506,5 +506,19 @@ describe("Puzzle integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(401);
     });
+
+    //?INT9-5
+    it("should respond with a 403 error if res.cookies.jwt is invalid", async () => {
+      //Arrange
+      const puzzleToDelete = puzzleInDatabase;
+      console.log(accessTokenOfAdminUser);
+      console.log(accessTokenOfNonAdminUser);
+      //Act
+      const response = await request
+        .delete(deletePuzzleByIdEndpoint(puzzleToDelete._id))
+        .set("Cookie", accessTokenOfNonAdminUser);
+      //Assert
+      expect(response.status).to.equal(403);
+    });
   });
 });
