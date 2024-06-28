@@ -43,6 +43,7 @@
 
 - [x] US5-GRD-6: It should not colour a cell where the right mouse button is clicked
 - [x] US5-GRD-7: It should not colour a cell where the origin element clicked does not have a key data attribute
+- [ ] US5-GRD-8: It should handle a mouse move over a non-cell element
 
 ## Build tests (BLD)
 

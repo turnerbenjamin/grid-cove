@@ -88,4 +88,19 @@ describe("Log out integration tests", () => {
     expect(screen.getByText(/register/i)).toBeInTheDocument();
     expect(screen.getByText(/sign-in/i)).toBeInTheDocument();
   });
+
+  //?US4-INT-5
+  test("It should close the error modal when the close button is clicked", async () => {
+    const testErrorMessage = "testErrorMessage";
+    //Act
+    await act(async () => {
+      fireEvent.click(logOutButton);
+      signOutRejecter(testErrorMessage);
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByTitle(/close/i));
+    });
+    //Assert
+    expect(screen.queryByText(testErrorMessage)).toBeNull();
+  });
 });

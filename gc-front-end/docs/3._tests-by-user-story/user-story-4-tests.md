@@ -29,3 +29,4 @@
 - [x] US4-INT-2: It should show a loading spinner when the authentication service is loading
 - [x] US4-INT-3: It should display an error modal where the auth service throws an error
 - [x] US4-INT-4: It should show Register and Sign-In Buttons after successful log out
+- [x] US4-INT-5: It should close the error modal when the close button is clicked

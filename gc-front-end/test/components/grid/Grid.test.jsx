@@ -81,6 +81,27 @@ describe("Grid tests: ", () => {
       //Assert
       expect(actual).toBe(expected);
     });
+
+    //? US5-GRD-8
+    test("It should handle a mouse move over a non-cell element", async () => {
+      //Arrange
+      const testOriginCell = screen.getByTitle("1,1");
+      const testCellToMoveTo = screen.getByTitle("2,1");
+      const expected = GridColours.BLACK.rgb;
+      //Act
+      await act(async () => {
+        fireEvent.mouseDown(testOriginCell);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(document);
+      });
+      await act(async () => {
+        fireEvent.mouseMove(testCellToMoveTo);
+      });
+      const actual = testCellToMoveTo.style.backgroundColor;
+      //Assert
+      expect(actual).toBe(expected);
+    });
   });
 
   describe("Build configuration tests: ", () => {
