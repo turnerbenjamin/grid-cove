@@ -53,6 +53,8 @@ export default class AuthenticationController {
   requireAdminRole = async (req, res, next) => {
     try {
       if (!req.user) throw APIErrors.SERVER_ERROR;
+      if (!req.user.roles.includes("admin"))
+        throw APIErrors.ADMIN_ROLE_REQUIRED_ERROR;
       next();
     } catch (err) {
       this.#handleErrors(res, err);

@@ -339,7 +339,7 @@ describe("Authentication controller tests", () => {
 
   describe("Require admin role tests", () => {
     const testUserWithAdminRole = userTestData.documents[1];
-    const testUserWithOutAdminRole = userTestData.documents[0];
+    const testUserWithoutAdminRole = userTestData.documents[0];
     let authenticationController;
     let next;
 
@@ -358,6 +358,7 @@ describe("Authentication controller tests", () => {
 
     //? AC12-1
     it("should call next if req.user has an admin role", async () => {
+      console.log(req.user);
       //Act
       await authenticationController.requireAdminRole(req, res, next);
       //Assert
@@ -372,6 +373,16 @@ describe("Authentication controller tests", () => {
       await authenticationController.requireAdminRole(req, res, next);
       //Assert
       expect(res.status.calledWith(500)).to.equal(true);
+    });
+
+    //? AC12-3
+    it("should respond with a status code of 403 if req.user does not have an admin role", async () => {
+      //Arrange
+      req.user = testUserWithoutAdminRole;
+      //Act
+      await authenticationController.requireAdminRole(req, res, next);
+      //Assert
+      expect(res.status.calledWith(403)).to.equal(true);
     });
   });
 });

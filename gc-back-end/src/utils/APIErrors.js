@@ -27,6 +27,11 @@ export default class APIErrors {
     "Incorrect authentication details"
   );
 
+  static #ADMIN_ROLE_REQUIRED_ERROR = new HTTPError(
+    403,
+    "An admin permission is required to access this resource"
+  );
+
   static #PUZZLE_NOT_FOUND = new HTTPError(404, "Puzzle not found");
 
   static #SERVER_ERROR = new HTTPError(500, "Server error");
@@ -46,6 +51,10 @@ export default class APIErrors {
 
   static get UNAUTHORISED_ERROR() {
     return this.#UNAUTHORISED_ERROR;
+  }
+
+  static get ADMIN_ROLE_REQUIRED_ERROR() {
+    return this.#ADMIN_ROLE_REQUIRED_ERROR;
   }
 
   static get PUZZLE_NOT_FOUND() {
