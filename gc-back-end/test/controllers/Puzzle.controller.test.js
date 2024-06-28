@@ -302,5 +302,15 @@ describe("Puzzle controller tests", () => {
       //Assert
       expect(res.status.calledWith(400)).to.equal(true);
     });
+
+    //? PC12-5
+    it("should respond with a status code of 404 where the puzzle service rejects with a puzzle not found error", async () => {
+      //Arrange
+      puzzleService.deletePuzzleById.rejects(APIErrors.PUZZLE_NOT_FOUND);
+      //Act
+      await puzzleController.deletePuzzleById(req, res);
+      //Assert
+      expect(res.status.calledWith(404)).to.equal(true);
+    });
   });
 });
