@@ -276,5 +276,13 @@ describe("Puzzle controller tests", () => {
         true
       );
     });
+
+    //? PC12-2
+    it("should respond with a status code of 204 where the puzzle service resolves", async () => {
+      //Act
+      await puzzleController.deletePuzzleById(req, res);
+      //Assert
+      expect(res.status.calledWith(204)).to.equal(true);
+    });
   });
 });

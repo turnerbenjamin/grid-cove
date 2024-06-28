@@ -171,9 +171,9 @@ describe("Authentication controller tests", () => {
       const expectedToken = testToken;
       const expectedOptions = {
         maxAge: process.env.COOKIE_EXPIRES_IN,
-        secure: process.env.NODE_ENV === "production",
-        httpOnly: true,
-        sameSite: "none",
+        secure: true,
+        sameSite: "None",
+        partitioned: true,
       };
       //Act
       await authenticationController.signIn(req, res);

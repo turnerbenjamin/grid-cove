@@ -53,9 +53,9 @@ export default class AuthenticationController {
   #setCookie = (res, token) => {
     res.cookie("jwt", token, {
       maxAge: process.env.COOKIE_EXPIRES_IN,
-      secure: process.env.NODE_ENV === "production",
-      httpOnly: true,
-      sameSite: "none",
+      secure: true,
+      sameSite: "None",
+      partitioned: true,
     });
   };
 
