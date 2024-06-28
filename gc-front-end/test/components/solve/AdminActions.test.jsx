@@ -56,4 +56,36 @@ describe("Admin Actions tests: ", () => {
     expect(screen.queryByText(/warning/i)).toBeInTheDocument();
     expect(deletePuzzleByIdMock).toBeCalledTimes(0);
   });
+
+  //? US12-ADM-2
+  test("It should close the warning and not call delete puzzle when cancel is called", async () => {
+    //Act
+    render(<AdminActions />);
+    await act(async () => {
+      fireEvent.click(screen.getByText(/delete/i));
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByText(/cancel/i));
+    });
+    //Assert
+    expect(screen.queryByText(/warning/i)).toBeNull();
+    expect(deletePuzzleByIdMock).toBeCalledTimes(0);
+  });
+
+  //? US12-ADM-3
+  test("It should call delete when the user clicks proceed", async () => {
+    //Arrange
+    const testId = "testId";
+    //Act
+    render(<AdminActions puzzle={{ _id: testId }} />);
+    await act(async () => {
+      fireEvent.click(screen.getByText(/delete/i));
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByText(/proceed/i));
+    });
+    //Assert
+    expect(deletePuzzleByIdMock).toBeCalledTimes(1);
+    expect(deletePuzzleByIdMock).toBeCalledWith(testId);
+  });
 });
