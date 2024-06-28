@@ -64,7 +64,8 @@ export default class PuzzleService {
 
   deletePuzzleById = async (puzzleId) => {
     try {
-      await Puzzle.findByIdAndDelete(puzzleId);
+      const deletedPuzzle = await Puzzle.findByIdAndDelete(puzzleId);
+      if (!deletedPuzzle) throw APIErrors.PUZZLE_NOT_FOUND;
     } catch (err) {
       if (err.name === "CastError") throw APIErrors.INVALID_PUZZLE_ID;
       this.#handleErrors(err);

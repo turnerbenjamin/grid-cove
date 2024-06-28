@@ -347,5 +347,21 @@ describe("Puzzle service tests: ", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //?PS12-3
+    it("should throw a puzzle not found error where findByIdAndDelete resolves with null", async () => {
+      //Arrange
+      findByIdAndDeleteStub.resolves(null);
+      const expected = APIErrors.PUZZLE_NOT_FOUND;
+      let actual;
+      //Act
+      try {
+        await puzzleService.deletePuzzleById(testId);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });

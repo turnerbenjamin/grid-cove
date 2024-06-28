@@ -8,7 +8,7 @@
 
 - [x] PS12-1: It should call findByIdAndDelete with the correct argument
 - [x] PS12-2: It should throw an invalid puzzle id error where findByIdAndDelete rejects with a cast error
-- [ ] PS12-3: It should throw a puzzle not found error where findByIdAndDelete resolves with null
+- [x] PS12-3: It should throw a puzzle not found error where findByIdAndDelete resolves with null
 - [ ] PS12-4: It should throw a server error if findByIdAndDelete rejects for any other reason
 
 ## Puzzle Controller (PC)
