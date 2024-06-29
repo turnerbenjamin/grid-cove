@@ -20,11 +20,11 @@ describe("User service tests: ", () => {
   describe("Update user tests: ", () => {
     let findByIdAndUpdateStub;
 
-    let testUserSubmission = {
-      emailAddress: userTestData.submissions[0].emailAddress,
-      username: userTestData.submissions[0].username,
+    const testUserSubmission = {
+      emailAddress: "new@emailaddress.com",
+      username: "new-username",
     };
-    let testUserId = userTestData.documents[0]._id;
+    const testUserId = userTestData.documents[0]._id;
 
     beforeEach(() => {
       findByIdAndUpdateStub = sinon.stub(User, "findByIdAndUpdate");

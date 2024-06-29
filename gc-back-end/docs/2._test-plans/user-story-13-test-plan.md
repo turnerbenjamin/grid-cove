@@ -15,7 +15,7 @@
 
 ## User Controller (UC)
 
-- [ ] UC13-1: It should call updateById on the user service with the correct argument
+- [x] UC13-1: It should call updateById on the user service with the correct argument
 - [ ] UC13-2: It should respond with a status code of 200 where updateUserById resolves
 - [ ] UC13-3: It should respond with the updated user where updateUserById resolves
 - [ ] UC13-3: It should respond with a status of 400 where the user service throws a duplicate email address error
