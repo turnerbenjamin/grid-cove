@@ -84,5 +84,21 @@ describe("User service tests: ", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? US13-4
+    it("should throw a server error where findByIdAndUpdate rejects", async () => {
+      //Arrange
+      findByIdAndUpdateStub.rejects(new Error());
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await userService.updateById(testUserId, testUserSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
