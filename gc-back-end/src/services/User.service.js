@@ -13,6 +13,7 @@ export default class UserService {
   #handleError = (err) => {
     if (err.code === 11000) {
       if (err.keyPattern?.emailAddress) throw APIErrors.DUPLICATE_EMAIL_ADDRESS;
+      if (err.keyPattern?.username) throw APIErrors.DUPLICATE_USERNAME;
     }
     throw APIErrors.SERVER_ERROR;
   };

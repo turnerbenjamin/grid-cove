@@ -64,5 +64,25 @@ describe("User service tests: ", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? US13-3
+    it("should throw a duplicate username error where the username is a duplicate", async () => {
+      //Arrange
+      const testDuplicateKeyError = {
+        code: 11000,
+        keyPattern: { username: 1 },
+      };
+      findByIdAndUpdateStub.rejects(testDuplicateKeyError);
+      const expected = APIErrors.DUPLICATE_USERNAME;
+      let actual;
+      //Act
+      try {
+        await userService.updateById(testUserId, testUserSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });

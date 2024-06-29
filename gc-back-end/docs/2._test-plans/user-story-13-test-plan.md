@@ -8,7 +8,7 @@
 
 - [x] US13-1: It should call findByIdAndUpdate with the correct arguments
 - [x] US13-2: It should throw a duplicate email address error where the email address is a duplicate
-- [ ] US13-3: It should throw a duplicate username error where the username is a duplicate
+- [x] US13-3: It should throw a duplicate username error where the username is a duplicate
 - [ ] US13-4: It should throw a server error where findByIdAndUpdate rejects
 - [ ] US13-5: It should throw a server error where findByIdAndUpdate resolves with null
 - [ ] US13-6: It should return the value returned from findByIdAndUpdate where it resolves with a user object
