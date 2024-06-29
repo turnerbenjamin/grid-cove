@@ -117,5 +117,18 @@ describe("User service tests: ", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? US13-5
+    it("should throw a server error where findByIdAndUpdate resolves with null", async () => {
+      //Arrange
+      const expected = userTestData.documents[0];
+      findByIdAndUpdateStub.resolves(expected);
+      const actual = await userService.updateById(
+        testUserId,
+        testUserSubmission
+      );
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });

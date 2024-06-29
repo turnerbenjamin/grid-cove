@@ -11,7 +11,7 @@
 - [x] US13-3: It should throw a duplicate username error where the username is a duplicate
 - [x] US13-4: It should throw a server error where findByIdAndUpdate rejects
 - [x] US13-5: It should throw a server error where findByIdAndUpdate resolves with null
-- [ ] US13-6: It should return the value returned from findByIdAndUpdate where it resolves with a user object
+- [x] US13-6: It should return the value returned from findByIdAndUpdate where it resolves with a user object
 
 ## User Controller (UC)
 

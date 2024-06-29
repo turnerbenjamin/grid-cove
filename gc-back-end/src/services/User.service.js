@@ -11,6 +11,7 @@ export default class UserService {
         { new: true }
       );
       if (!updatedUser) throw APIErrors.SERVER_ERROR;
+      return updatedUser;
     } catch (err) {
       this.#handleError(err);
     }
