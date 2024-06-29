@@ -1,8 +1,7 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, screen } from "@testing-library/react";
 import { beforeEach, expect, vi } from "vitest";
 
-import Solve from "../../../src/components/solve/Solve";
-
+import { useAppContext } from "../../../src/hooks/contexts/appContext";
 import { renderWithRouter } from "../../test.utils";
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
 import {
@@ -12,9 +11,9 @@ import {
 
 import GridColours from "../../../src/utils/GridColours";
 import RevealPixelArtTransition from "../../../src/utils/RevealPixelArtTransition";
+import Solve from "../../../src/components/solve/Solve";
 
 import * as puzzleService from "../../../src/services/puzzle.service";
-import { useAppContext } from "../../../src/hooks/contexts/appContext";
 
 vi.mock("../../../src/services/puzzle.service");
 vi.mock("../../../src/hooks/contexts/appContext");
@@ -255,8 +254,7 @@ describe("Solve tests: ", () => {
           //Act
           await act(async () => deletePuzzleResolver(true));
           //Assert
-          expect(screen.getByTestId("pageNavigatedTo")).toHaveAttribute(
-            "location",
+          expect(screen.getByTestId("pageNavigatedTo").dataset.location).toBe(
             expectedLocation
           );
         });

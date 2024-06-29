@@ -111,3 +111,17 @@
 - As an Admin
 - I want to be able to remove puzzles
 - So that I can take action where I believe that the pixel art behind a puzzle is not appropriate for the platform
+
+##### Feature 5 - User Stories
+
+###### User Story 13
+
+- As a registered user
+- I want to be able to update my email address and username
+- So that I can keep these details current
+
+###### User Story 14
+
+- As a registered user
+- I want to be able to update my password
+- So that I have an additional tool to help keep my account secure

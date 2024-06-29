@@ -9,7 +9,9 @@ import {
 export const renderWithRouter = (element, elementPath, params) => {
   const PageNavigatedTo = () => {
     const location = useLocation();
-    return <div data-testid="pageNavigatedTo" location={location.pathname} />;
+    return (
+      <div data-testid="pageNavigatedTo" data-location={location.pathname} />
+    );
   };
 
   let initialPath = elementPath;
@@ -33,10 +35,10 @@ export const renderWithRouter = (element, elementPath, params) => {
 };
 
 export const renderAppWithLocationWrapper = () => {
-  const WrappedElement = () => {
+  const AppWrappedWithLocationData = () => {
     const location = useLocation();
     return (
-      <div data-testid="current-location" data-pathname={location.pathname}>
+      <div data-testid="current-location" data-location={location.pathname}>
         <App />
       </div>
     );
@@ -44,7 +46,7 @@ export const renderAppWithLocationWrapper = () => {
 
   render(
     <MemoryRouter initialEntries={initialEntries}>
-      <WrappedElement>{element}</WrappedElement>
+      <AppWrappedWithLocationData />
     </MemoryRouter>
   );
 };

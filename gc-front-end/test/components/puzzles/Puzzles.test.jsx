@@ -106,8 +106,7 @@ describe("Puzzles list tests: ", () => {
       fireEvent.click(puzzleCard);
     });
     //Assert
-    expect(screen.getByTestId("pageNavigatedTo")).toHaveAttribute(
-      "location",
+    expect(screen.getByTestId("pageNavigatedTo").dataset.location).toBe(
       expectedLocation
     );
   });

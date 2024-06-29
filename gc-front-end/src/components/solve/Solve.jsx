@@ -41,7 +41,7 @@ export default function Solve() {
       </div>
     );
   return (
-    <div className={wrapperClasses} data-testid={`puzzles/${puzzleId}`}>
+    <div className={wrapperClasses}>
       <GridContextProvider
         size={puzzle.size}
         doColourInsideTheLines
