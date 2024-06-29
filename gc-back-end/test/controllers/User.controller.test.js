@@ -105,5 +105,18 @@ describe("User controller tests: ", () => {
         res.json.calledWith(APIErrors.DUPLICATE_USERNAME.message)
       ).to.equal(true);
     });
+
+    //? UC13-6
+    it("should respond with a status code of 500 where updateUserById rejects", async () => {
+      //Arrange
+      userService.updateById.rejects(new Error());
+      //Act
+      await userController.updateById(req, res);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+      expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(
+        true
+      );
+    });
   });
 });

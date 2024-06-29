@@ -20,7 +20,7 @@
 - [x] UC13-3: It should respond with the updated user where updateUserById resolves
 - [x] UC13-4: It should respond with a status of 400 where the user service throws a duplicate email address error
 - [x] UC13-5: It should respond with a status of 400 where the user service throws a duplicate username error
-- [ ] UC13-6: It should respond with a status code of 500 where updateUserById rejects
+- [x] UC13-6: It should respond with a status code of 500 where updateUserById rejects
 
 ## Authentication Controller
 
