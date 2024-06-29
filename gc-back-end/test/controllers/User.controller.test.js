@@ -92,5 +92,18 @@ describe("User controller tests: ", () => {
         res.json.calledWith(APIErrors.DUPLICATE_EMAIL_ADDRESS.message)
       ).to.equal(true);
     });
+
+    //? UC13-5
+    it("should respond with a status of 400 where the user service throws a duplicate username error", async () => {
+      //Arrange
+      userService.updateById.rejects(APIErrors.DUPLICATE_USERNAME);
+      //Act
+      await userController.updateById(req, res);
+      //Assert
+      expect(res.status.calledWith(400)).to.equal(true);
+      expect(
+        res.json.calledWith(APIErrors.DUPLICATE_USERNAME.message)
+      ).to.equal(true);
+    });
   });
 });
