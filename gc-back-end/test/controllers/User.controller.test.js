@@ -3,6 +3,7 @@ import sinon from "sinon";
 
 import * as userTestData from "../data/User.test.data.js";
 import UserController from "../../src/controllers/User.controller.js";
+import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("User controller tests: ", () => {
   let req;
@@ -77,6 +78,19 @@ describe("User controller tests: ", () => {
       await userController.updateById(req, res);
       //Assert
       expect(res.json.calledWith(expected)).to.equal(true);
+    });
+
+    //? UC13-4
+    it("should respond with a status of 400 where the user service throws a duplicate email address error", async () => {
+      //Arrange
+      userService.updateById.rejects(APIErrors.DUPLICATE_EMAIL_ADDRESS);
+      //Act
+      await userController.updateById(req, res);
+      //Assert
+      expect(res.status.calledWith(400)).to.equal(true);
+      expect(
+        res.json.calledWith(APIErrors.DUPLICATE_EMAIL_ADDRESS.message)
+      ).to.equal(true);
     });
   });
 });
