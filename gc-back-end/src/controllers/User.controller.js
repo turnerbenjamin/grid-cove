@@ -6,6 +6,10 @@ export default class UserController {
   }
 
   updateById = async (req, res) => {
-    this.#userService.updateById(req.user._id, req.body);
+    const updatedUser = await this.#userService.updateById(
+      req.user._id,
+      req.body
+    );
+    return updatedUser;
   };
 }

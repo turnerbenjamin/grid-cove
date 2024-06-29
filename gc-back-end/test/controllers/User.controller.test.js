@@ -46,6 +46,7 @@ describe("User controller tests: ", () => {
 
     //? UC13-1
     it("should call updateById on the user service with the correct argument", async () => {
+      //Arrange
       const expectedUserIdToUpdate = req.user._id;
       const expectedUpdates = req.body;
       //Act
@@ -55,6 +56,17 @@ describe("User controller tests: ", () => {
       //Assert
       expect(actualUserIdToUpdate).to.equal(expectedUserIdToUpdate);
       expect(actualUpdates).to.equal(expectedUpdates);
+    });
+
+    //? UC13-2
+    it("should respond with a status code of 200 where updateUserById resolves", async () => {
+      //Arrange
+      const expected = testUser;
+      userService.updateById.resolves(expected);
+      //Act
+      const actual = await userController.updateById(req, res);
+      //Assert
+      expect(actual).to.equal(expected);
     });
   });
 });
