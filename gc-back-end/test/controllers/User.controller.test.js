@@ -61,12 +61,22 @@ describe("User controller tests: ", () => {
     //? UC13-2
     it("should respond with a status code of 200 where updateUserById resolves", async () => {
       //Arrange
-      const expected = testUser;
-      userService.updateById.resolves(expected);
+      userService.updateById.resolves(testUser);
       //Act
       const actual = await userController.updateById(req, res);
       //Assert
-      expect(actual).to.equal(expected);
+      expect(res.status.calledWith(200)).to.equal(true);
+    });
+
+    //? UC13-3
+    it("should respond with the updated user where updateUserById resolves", async () => {
+      //Arrange
+      const expected = testUser;
+      userService.updateById.resolves(expected);
+      //Act
+      await userController.updateById(req, res);
+      //Assert
+      expect(res.json.calledWith(expected)).to.equal(true);
     });
   });
 });

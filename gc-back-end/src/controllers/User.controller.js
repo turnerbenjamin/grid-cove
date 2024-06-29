@@ -10,6 +10,6 @@ export default class UserController {
       req.user._id,
       req.body
     );
-    return updatedUser;
+    res.status(200).json(updatedUser);
   };
 }
