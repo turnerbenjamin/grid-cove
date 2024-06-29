@@ -28,6 +28,7 @@ describe("User service tests: ", () => {
 
     beforeEach(() => {
       findByIdAndUpdateStub = sinon.stub(User, "findByIdAndUpdate");
+      findByIdAndUpdateStub.resolves({});
     });
 
     afterEach(() => {
@@ -89,6 +90,22 @@ describe("User service tests: ", () => {
     it("should throw a server error where findByIdAndUpdate rejects", async () => {
       //Arrange
       findByIdAndUpdateStub.rejects(new Error());
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await userService.updateById(testUserId, testUserSubmission);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
+
+    //? US13-5
+    it("should throw a server error where findByIdAndUpdate resolves with null", async () => {
+      //Arrange
+      findByIdAndUpdateStub.resolves(null);
       const expected = APIErrors.SERVER_ERROR;
       let actual;
       //Act
