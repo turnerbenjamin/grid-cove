@@ -10,7 +10,12 @@ export default defineConfig({
     testMatch: ["./tests/**/*.test.jsx$?"],
     globals: true,
     coverage: {
-      exclude: [...configDefaults.exclude, "**/*config.js", "**/*eslintrc.cjs"],
+      exclude: [
+        ...configDefaults.exclude,
+        "**/*config.js",
+        "**/*eslintrc.cjs",
+        "**/test.utils.jsx",
+      ],
     },
   },
   server: {

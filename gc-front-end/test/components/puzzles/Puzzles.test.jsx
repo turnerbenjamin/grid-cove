@@ -1,15 +1,15 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, fireEvent, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test } from "vitest";
 import { Link } from "react-router-dom";
 
 import Puzzles from "../../../src/components/puzzles/Puzzles";
 
+import { renderWithRouter } from "../../test.utils";
 import { getAllPuzzlesTestData } from "../../data/puzzles.test.data";
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
 
 import * as puzzlesService from "../../../src/services/puzzle.service";
 
-vi.mock("react-router-dom");
 vi.mock("../../../src/services/puzzle.service");
 
 describe("Puzzles list tests: ", () => {
@@ -22,14 +22,15 @@ describe("Puzzles list tests: ", () => {
       getPuzzlesRejecter = reject;
     });
 
-    Link = vi.fn(({ children }) => <div role="puzzleCard">{children}</div>);
+    // Link = vi.fn(({ children }) => <div role="puzzleCard">{children}</div>);
     puzzlesService.getPuzzles.mockReturnValueOnce(promise);
 
     await act(async () => {
-      render(
+      renderWithRouter(
         <PuzzleContextProvider>
           <Puzzles />
-        </PuzzleContextProvider>
+        </PuzzleContextProvider>,
+        "/puzzles"
       );
     });
   });
@@ -59,7 +60,9 @@ describe("Puzzles list tests: ", () => {
       getPuzzlesResolver(getAllPuzzlesTestData);
     });
 
-    expect(screen.getAllByRole("puzzleCard")).toHaveLength(expectedPuzzleCount);
+    expect(screen.getAllByTitle(/click to solve/i)).toHaveLength(
+      expectedPuzzleCount
+    );
     expect(screen.getByText("5 x 5")).toBeInTheDocument();
     expect(screen.getByText("10 x 10")).toBeInTheDocument();
     expect(screen.getByText("15 x 15")).toBeInTheDocument();
@@ -83,5 +86,29 @@ describe("Puzzles list tests: ", () => {
       getPuzzlesRejecter(new Error(testError));
     });
     expect(screen.getByText(testError)).toBeInTheDocument();
+  });
+
+  //? US8-PZL-6
+  test("should navigate to the correct page when a Puzzle card is clicked", async () => {
+    const testPuzzleId = "testPuzzleId";
+    const expectedLocation = `/puzzles/${testPuzzleId}`;
+    //Act
+    await act(async () => {
+      getPuzzlesResolver([
+        {
+          size: 5,
+          puzzles: [testPuzzleId],
+        },
+      ]);
+    });
+    const puzzleCard = screen.getByTitle(/click to solve/i);
+    await act(async () => {
+      fireEvent.click(puzzleCard);
+    });
+    //Assert
+    expect(screen.getByTestId("pageNavigatedTo")).toHaveAttribute(
+      "location",
+      expectedLocation
+    );
   });
 });

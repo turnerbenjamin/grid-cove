@@ -20,6 +20,7 @@
 - [x] US8-PZL-3: It should display all puzzles with a heading for each size group when getAllPuzzles resolves
 - [x] US8-PZL-4: It should display a notification where getAllPuzzles finds no puzzles
 - [x] US8-PZL-5: It should display an error message where getAllPuzzles rejects
+- [x] US8-PZL-6: It should navigate to the correct page when a Puzzle card is clicked
 
 ## Puzzle service tests (PZS)
 
@@ -27,9 +28,3 @@
 - [x] US8-PZS-2: It should throw err if get rejects with standard error object
 - [x] US8-PZS-3: It should throw err?.response?.data where validation error received
 - [x] US8-PZS-4: It should return response data where axios resolves
-
-## Integration
-
-### Navigation
-
-- [x] US8-INT-1: It should navigate to the correct page when a Puzzle card is clicked

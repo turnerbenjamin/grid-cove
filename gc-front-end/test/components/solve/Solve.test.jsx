@@ -3,6 +3,7 @@ import { beforeEach, expect, vi } from "vitest";
 
 import Solve from "../../../src/components/solve/Solve";
 
+import { renderWithRouter } from "../../test.utils";
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
 import {
   getPuzzleTestData,
@@ -13,13 +14,11 @@ import GridColours from "../../../src/utils/GridColours";
 import RevealPixelArtTransition from "../../../src/utils/RevealPixelArtTransition";
 
 import * as puzzleService from "../../../src/services/puzzle.service";
-import * as reactRouterDom from "react-router-dom";
 import { useAppContext } from "../../../src/hooks/contexts/appContext";
 
 vi.mock("../../../src/services/puzzle.service");
 vi.mock("../../../src/hooks/contexts/appContext");
 vi.mock("../../../src/utils/RevealPixelArtTransition");
-vi.mock("react-router-dom");
 
 describe("Solve tests: ", () => {
   let getPuzzleResolver;
@@ -27,9 +26,6 @@ describe("Solve tests: ", () => {
   const testPuzzleId = "testPuzzleId";
 
   beforeEach(() => {
-    reactRouterDom.useParams = vi.fn().mockReturnValue({
-      puzzleId: testPuzzleId,
-    });
     const promise = new Promise((resolve, reject) => {
       getPuzzleResolver = resolve;
       getPuzzleRejecter = reject;
@@ -42,10 +38,12 @@ describe("Solve tests: ", () => {
   describe("General User tests ", () => {
     beforeEach(async () => {
       await act(async () =>
-        render(
+        renderWithRouter(
           <PuzzleContextProvider>
             <Solve />
-          </PuzzleContextProvider>
+          </PuzzleContextProvider>,
+          `/puzzles/:puzzleId`,
+          { puzzleId: testPuzzleId }
         )
       );
     });
@@ -167,10 +165,12 @@ describe("Solve tests: ", () => {
       test("It should not show admin actions when no current user", async () => {
         //Arrange
         await act(async () =>
-          render(
+          renderWithRouter(
             <PuzzleContextProvider>
               <Solve />
-            </PuzzleContextProvider>
+            </PuzzleContextProvider>,
+            `/puzzles/:puzzleId`,
+            { puzzleId: testPuzzleId }
           )
         );
         await act(async () => getPuzzleResolver(getPuzzleTestData));
@@ -183,10 +183,12 @@ describe("Solve tests: ", () => {
         //Arrange
         useAppContext.mockReturnValue({ activeUser: { roles: ["user"] } });
         await act(async () =>
-          render(
+          renderWithRouter(
             <PuzzleContextProvider>
               <Solve />
-            </PuzzleContextProvider>
+            </PuzzleContextProvider>,
+            `/puzzles/:puzzleId`,
+            { puzzleId: testPuzzleId }
           )
         );
         await act(async () => getPuzzleResolver(getPuzzleTestData));
@@ -201,10 +203,12 @@ describe("Solve tests: ", () => {
           activeUser: { roles: ["user", "admin"] },
         });
         await act(async () =>
-          render(
+          renderWithRouter(
             <PuzzleContextProvider>
               <Solve />
-            </PuzzleContextProvider>
+            </PuzzleContextProvider>,
+            `/puzzles/:puzzleId`,
+            { puzzleId: testPuzzleId }
           )
         );
       });
@@ -219,7 +223,6 @@ describe("Solve tests: ", () => {
       describe("Delete puzzle tests: ", () => {
         let deletePuzzleResolver;
         let deletePuzzleRejecter;
-        let useNavigationMock;
 
         beforeEach(async () => {
           Object.defineProperty(global.window, "scrollTo", {
@@ -234,11 +237,6 @@ describe("Solve tests: ", () => {
             deletePuzzleRejecter = reject;
           });
           puzzleService.deletePuzzle.mockReturnValue(promise);
-          useNavigationMock = vi.fn();
-
-          reactRouterDom.useNavigate = vi
-            .fn()
-            .mockReturnValue(useNavigationMock);
 
           await act(async () => getPuzzleResolver(getPuzzleTestData));
           await act(async () => fireEvent.click(screen.getByText(/delete/i)));
@@ -253,10 +251,14 @@ describe("Solve tests: ", () => {
 
         //?US12-SLV-2
         test("It should call navigate with the correct url when delete puzzle resolves", async () => {
+          const expectedLocation = "/puzzles";
           //Act
           await act(async () => deletePuzzleResolver(true));
           //Assert
-          expect(useNavigationMock).toBeCalledWith("/puzzles");
+          expect(screen.getByTestId("pageNavigatedTo")).toHaveAttribute(
+            "location",
+            expectedLocation
+          );
         });
 
         //?US12-SLV-3
