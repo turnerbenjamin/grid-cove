@@ -24,7 +24,7 @@
 
 ## Authentication Controller
 
-- [ ] AC13-1: It should throw an error where mismatch between req.user and req.params.userId
+- [x] AC13-1: It should throw an error where mismatch between req.user and req.params.userId
 
 ## Integration Tests (INT)
 

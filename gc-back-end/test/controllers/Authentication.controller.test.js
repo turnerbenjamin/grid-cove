@@ -335,6 +335,21 @@ describe("Authentication controller tests", () => {
       //Assert
       expect(next.calledWith()).to.equal(true);
     });
+
+    //? AC13-1
+    it("should throw an error where mismatch between req.user and req.params.userId", async () => {
+      //Arrange
+      authenticationService.validateToken.resolves(userTestData.documents[0]);
+      req.params = { userId: "incorrectUserId" };
+      //Act
+      await authenticationController.requireLoggedIn(req, res, next);
+      //Assert
+      console.log(res.status.getCall(0));
+      expect(res.status.calledWith(401)).to.equal(true);
+      expect(
+        res.json.calledWith(APIErrors.UNAUTHORISED_ERROR.message)
+      ).to.equal(true);
+    });
   });
 
   describe("Require admin role tests", () => {

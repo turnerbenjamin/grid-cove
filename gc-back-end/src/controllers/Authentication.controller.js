@@ -44,6 +44,7 @@ export default class AuthenticationController {
       req.user = await this.#authenticationService.validateToken(
         req.cookies.jwt
       );
+      this.#validateNoMismatchWithParams(req);
       next();
     } catch (err) {
       this.#handleErrors(res, err);
@@ -59,6 +60,11 @@ export default class AuthenticationController {
     } catch (err) {
       this.#handleErrors(res, err);
     }
+  };
+
+  #validateNoMismatchWithParams = (req) => {
+    if (!req.params?.userId) return;
+    if (req.params.userId !== req.user._id) throw APIErrors.UNAUTHORISED_ERROR;
   };
 
   #setCookie = (res, token) => {
