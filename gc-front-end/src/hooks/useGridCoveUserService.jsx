@@ -6,6 +6,7 @@ import {
   signIn,
   signOut,
 } from "../services/authentication.service";
+import { updateUser } from "../services/user.service";
 
 export default function useGridCoveUserService() {
   const [activeUser, setActiveUser] = useState(getActiveUser());
@@ -71,17 +72,33 @@ export default function useGridCoveUserService() {
     }
   };
 
+  const updateUserById = async (userToUpdateId, updates) => {
+    try {
+      setAuthenticationErrors(null);
+      setAuthenticationIsLoading(true);
+      const user = await updateUser(userToUpdateId, updates);
+      setActiveUser(user);
+      return user;
+    } catch (err) {
+      console.log(err);
+      handleErrors(err);
+    } finally {
+      setAuthenticationIsLoading(false);
+    }
+  };
+
   return {
-    activeUser,
-    registerNewUser,
-    authenticationIsLoading,
     authenticationErrors,
-    isRegistrationSuccessful,
-    handleClearIsRegistrationSuccessful,
-    signInUser,
-    isSignInSuccessful,
-    handleClearSignInIsSuccessful,
-    signOutUser,
+    authenticationIsLoading,
+    activeUser,
     handleClearErrors,
+    handleClearIsRegistrationSuccessful,
+    handleClearSignInIsSuccessful,
+    isRegistrationSuccessful,
+    isSignInSuccessful,
+    registerNewUser,
+    signInUser,
+    signOutUser,
+    updateUserById,
   };
 }

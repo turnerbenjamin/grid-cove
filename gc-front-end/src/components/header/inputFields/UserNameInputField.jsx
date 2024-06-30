@@ -18,6 +18,7 @@ export default function UserNameInputField({
       doSkipValidation={doSkipValidation}
     >
       <FormInput
+        value={userNameValue}
         labelTitle="Username"
         placeholder="your-username"
         type="text"

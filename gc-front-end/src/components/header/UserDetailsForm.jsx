@@ -18,9 +18,12 @@ export default function UserDetailsForm({
   onSubmit,
   doSkipValidation,
   successMessage,
+  defaultValues,
 }) {
-  const [username, setUsername] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
+  const [username, setUsername] = useState(defaultValues?.username ?? "");
+  const [emailAddress, setEmailAddress] = useState(
+    defaultValues?.emailAddress ?? ""
+  );
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -43,9 +46,18 @@ export default function UserDetailsForm({
   const isFormValidated =
     doSkipValidation || FormValidator.isValidated(submission);
 
+  const updatesMade =
+    !defaultValues ||
+    Object.keys(activeFields).some((field) => {
+      return submission[field] !== defaultValues[field];
+    });
+
+  const submitIsDisabled =
+    errors?.length > 0 || !isFormValidated || !updatesMade;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!isFormValidated) return;
+    if (submitIsDisabled) return;
     delete submission.confirmPassword;
     onSubmit(submission);
   };
@@ -98,7 +110,7 @@ export default function UserDetailsForm({
         primary
         className="mt-8"
         isLoading={isLoading}
-        isDisabled={errors?.length > 0 || !isFormValidated}
+        isDisabled={submitIsDisabled}
         onClick={handleSubmit}
         title="Submit"
         type="submit"

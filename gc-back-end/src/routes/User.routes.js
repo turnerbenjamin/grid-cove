@@ -17,10 +17,10 @@ export default class UserRoutes {
   }
 
   #initialiseRoutes() {
-    this.#UpdateUserByIdRoute();
+    this.#initialiseUpdateUserByIdRoute();
   }
 
-  #UpdateUserByIdRoute() {
+  #initialiseUpdateUserByIdRoute() {
     this.#router.patch(
       "/:userId",
       this.#authenticationController.requireLoggedIn,

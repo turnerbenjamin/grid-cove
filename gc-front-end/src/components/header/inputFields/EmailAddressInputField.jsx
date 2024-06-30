@@ -19,6 +19,7 @@ export default function EmailAddressInputField({
     >
       <FormInput
         labelTitle="Email address"
+        value={emailAddressValue}
         placeholder="your@email.com"
         type="email"
         isDisabled={isDisabled}

@@ -18,6 +18,7 @@ export default function PasswordInputField({
       doSkipValidation={doSkipValidation}
     >
       <FormInput
+        value={passwordValue}
         labelTitle="Password"
         placeholder="Your password"
         type="password"

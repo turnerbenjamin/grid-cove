@@ -4,6 +4,7 @@ import { GiPlagueDoctorProfile } from "react-icons/gi";
 import { useAppContext } from "../../hooks/contexts/appContext";
 
 import ErrorModal from "../general/ErrorModal";
+import { Link } from "react-router-dom";
 
 export default function ActiveUserControl() {
   const [doShowLogoutButton, setDoShowLogOutButton] = useState(false);
@@ -32,8 +33,10 @@ export default function ActiveUserControl() {
 
   return (
     <>
-      <div className="relative h-full pl-2" ref={wrapperRef}>
-        <GiPlagueDoctorProfile className="text-4xl" title="Profile" />
+      <div className="relative h-full pl-2" ref={wrapperRef} title="Profile">
+        <Link to="/me">
+          <GiPlagueDoctorProfile className="text-4xl hover:fill-primary-200" />
+        </Link>
         {doShowLogoutButton && (
           <>
             <div className="absolute top-[90%] right-0 w-fit">

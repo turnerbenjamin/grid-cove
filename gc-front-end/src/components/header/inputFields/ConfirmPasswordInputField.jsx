@@ -19,6 +19,7 @@ export default function ConfirmPasswordInputField({
       doSkipValidation={doSkipValidation}
     >
       <FormInput
+        value={confirmPasswordValue}
         labelTitle="Confirm Password"
         placeholder="Confirm password"
         type="password"
