@@ -14,6 +14,7 @@ import UserService from "../../src/services/User.service.js";
 
 import * as userTestData from "../data/User.test.data.js";
 import AuthenticationRoutes from "../../src/routes/Authentication.routes.js";
+import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("User integration tests: ", () => {
   let server;
@@ -174,6 +175,20 @@ describe("User integration tests: ", () => {
         .send(testUpdates);
       //Assert
       expect(response.status).to.equal(401);
+    });
+
+    //? INT13-8
+    it("should respond with a 400 response if an email address is provided which is a duplicate", async () => {
+      //Arrange
+      testUpdates.emailAddress = userNotToUpdate.emailAddress;
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(400);
+      expect(response.body).to.equal(APIErrors.DUPLICATE_EMAIL_ADDRESS.message);
     });
   });
 });
