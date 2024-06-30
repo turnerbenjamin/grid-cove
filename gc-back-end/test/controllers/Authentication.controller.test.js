@@ -433,5 +433,17 @@ describe("Authentication controller tests", () => {
         )
       ).to.equal(true);
     });
+
+    //? AC14-2
+    it("should respond with 200 if the authentication service resolves", async () => {
+      //Arrange
+      const testResponse = { test: "test" };
+      authenticationService.updatePassword.resolves(testResponse);
+      //Act
+      await authenticationController.updatePassword(req, res, next);
+      //Assert
+      expect(res.status.calledWith(200)).to.equal(true);
+      expect(res.json.calledWith(testResponse)).to.equal(true);
+    });
   });
 });

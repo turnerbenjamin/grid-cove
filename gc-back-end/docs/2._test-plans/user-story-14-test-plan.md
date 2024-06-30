@@ -24,7 +24,7 @@
 ## update password (AC)
 
 - [x] AC14-1: It should call updatePassword by id on the authentication service with the correct arguments
-- [ ] AC14-2: It should respond with 200 if the authentication service resolves
+- [x] AC14-2: It should respond with 200 if the authentication service resolves
 - [ ] AC14-3: It should respond with 500 if the authentication service rejects with a server error
 
 ## revalidate password (AC)

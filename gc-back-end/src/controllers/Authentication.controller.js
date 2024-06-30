@@ -18,10 +18,11 @@ export default class AuthenticationController {
   };
 
   updatePassword = async (req, res) => {
-    this.#authenticationService.updatePassword(
+    const updatedUser = await this.#authenticationService.updatePassword(
       req.user._id,
       req.body.updatedPassword
     );
+    res.status(200).json(updatedUser);
   };
 
   signIn = async (req, res) => {
