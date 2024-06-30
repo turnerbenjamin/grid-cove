@@ -412,8 +412,9 @@ describe("Authentication integration tests: ", () => {
         updatedPassword: "new-password",
       };
     });
-    afterEach(() => {
+    afterEach(async () => {
       testSubmission = null;
+      await User.findByIdAndUpdate(userToUpdate._id, userToUpdate);
     });
 
     //? INT14-1
@@ -425,6 +426,20 @@ describe("Authentication integration tests: ", () => {
         .send(testSubmission);
       //Assert
       expect(response.status).to.equal(200);
+    });
+
+    //? INT14-2
+    it("should respond with the updated user, without their password, for a successful request", async () => {
+      //Arrange
+      const expected = { ...userToUpdate };
+      delete expected.password;
+      //Act
+      const response = await request
+        .patch(updatePasswordEndpoint)
+        .set("Cookie", authenticationToken)
+        .send(testSubmission);
+      //Assert
+      expect(response.body).to.deep.equal(expected);
     });
   });
 });

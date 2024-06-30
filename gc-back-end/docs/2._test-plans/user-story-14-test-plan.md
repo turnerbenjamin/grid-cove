@@ -40,7 +40,7 @@
 ## Integration Tests (INT)
 
 - [x] INT14-1: It should respond with a status of 200 for a successful request
-- [ ] INT14-2: It should respond with the updated user, without their password, for a successful request
+- [x] INT14-2: It should respond with the updated user, without their password, for a successful request
 - [ ] INT14-3: It should respond with a 401 status code if no req.cookies.jwt
 - [ ] INT14-4: It should respond with a 401 status code if invalid req.cookies.jwt
 - [ ] INT14-5: It should respond with a 403 status code if the password does not match
