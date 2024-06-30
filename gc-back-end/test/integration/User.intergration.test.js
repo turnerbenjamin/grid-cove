@@ -282,5 +282,18 @@ describe("User integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT13-16
+    it("should respond with a 400 response if an email address is provided and it is invalid", async () => {
+      //Arrange
+      testUpdates.emailAddress = "invalid.email.com";
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });

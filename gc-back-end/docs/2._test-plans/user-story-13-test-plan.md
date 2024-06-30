@@ -43,5 +43,5 @@
 - [x] INT13-13: It should respond with a 400 response if a username is provided and it is too short
 - [x] INT13-14: It should respond with a 400 response if a username is provided and it is too long
 - [x] INT13-15: It should respond with a 400 response if a username is provided and it is contains invalid characters
-- [ ] INT13-16: It should respond with a 400 response if an email address is provided and it is invalid
+- [x] INT13-16: It should respond with a 400 response if an email address is provided and it is invalid
 - [ ] INT13-17: It should respond with a 500 response if findByIdAndUpdate rejects

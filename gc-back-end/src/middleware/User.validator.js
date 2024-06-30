@@ -24,6 +24,7 @@ export default class UserValidator {
         blacklist: ["password", "roles"],
       }),
       this.#validateUsername({ isOptional: true }),
+      this.#validateEmailAddress({ isOptional: true }),
       UserValidator.#handleValidationErrors,
     ];
   };
