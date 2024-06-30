@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt";
+
 import APIErrors from "../utils/APIErrors.js";
 import HTTPError from "../utils/HTTPError.js";
 
@@ -76,11 +78,19 @@ export default class AuthenticationController {
 
   requirePassword = async (req, res, next) => {
     try {
-      if (!req.user?.password) throw APIErrors.SERVER_ERROR;
-      throw APIErrors.UNAUTHORISED_ERROR;
+      const isValidated = await this.#comparePasswords(
+        req.body.password,
+        req.user?.password
+      );
     } catch (err) {
       this.#handleErrors(res, err);
     }
+  };
+
+  #comparePasswords = async (submittedPassword, savedPassword) => {
+    if (!submittedPassword) throw APIErrors.UNAUTHORISED_ERROR;
+    if (!savedPassword) throw APIErrors.SERVER_ERROR;
+    return await bcrypt.compare(submittedPassword, savedPassword);
   };
 
   #validateNoMismatchWithParams = (req) => {
@@ -100,7 +110,7 @@ export default class AuthenticationController {
 
   #handleErrors = (res, err) => {
     let userError = err;
-    if (!err.statusCode) userError = APIErrors.SERVER_ERROR;
+    if (!(err instanceof HTTPError)) userError = APIErrors.SERVER_ERROR;
     res.status(userError.statusCode).json(userError.message);
   };
 }

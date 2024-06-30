@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import bcrypt from "bcrypt";
 import sinon from "sinon";
 
 import APIErrors from "../../src/utils/APIErrors.js";
@@ -465,19 +466,21 @@ describe("Authentication controller tests", () => {
 
   describe("Require password tests: ", () => {
     let testUser;
-    const correctPassword = userTestData.submissions[0].password;
-    const incorrectPassword = correctPassword + "x";
+    const testPasswordSubmission = userTestData.submissions[0].password;
+    let compareStub;
     let authenticationController;
     let next;
 
     beforeEach(() => {
+      compareStub = sinon.stub(bcrypt, "compare");
       authenticationController = new AuthenticationController({});
       testUser = { ...userTestData.documents[0] };
       req.user = testUser;
-      req.body = { password: correctPassword };
+      req.body = { password: testPasswordSubmission };
     });
 
     afterEach(() => {
+      compareStub.restore();
       authenticationController = null;
     });
 
@@ -518,6 +521,19 @@ describe("Authentication controller tests", () => {
       expect(
         res.json.calledWith(APIErrors.UNAUTHORISED_ERROR.message)
       ).to.equal(true);
+    });
+
+    //? AC14-7
+    it("should call compare on bcrypt with the correct arguments", async () => {
+      const expectedSubmittedPasswordArg = testPasswordSubmission;
+      const expectedSavedPasswordArg = testUser.password;
+      //Act
+      await authenticationController.requirePassword(req, res, next);
+      const [actualSubmittedPasswordArg, actualSavedPasswordArg] =
+        compareStub.getCall(0).args;
+      //Assert
+      expect(actualSubmittedPasswordArg).to.equal(expectedSubmittedPasswordArg);
+      expect(actualSavedPasswordArg).to.equal(expectedSavedPasswordArg);
     });
   });
 });
