@@ -70,7 +70,6 @@ export default function useGridCovePuzzleService() {
       await getAllPuzzles();
       return true;
     } catch (err) {
-      console.log(err);
       handleErrors(err);
     } finally {
       setPuzzleServiceIsLoading(false);

@@ -344,7 +344,6 @@ describe("Authentication controller tests", () => {
       //Act
       await authenticationController.requireLoggedIn(req, res, next);
       //Assert
-      console.log(res.status.getCall(0));
       expect(res.status.calledWith(401)).to.equal(true);
       expect(
         res.json.calledWith(APIErrors.UNAUTHORISED_ERROR.message)
@@ -373,7 +372,6 @@ describe("Authentication controller tests", () => {
 
     //? AC12-1
     it("should call next if req.user has an admin role", async () => {
-      console.log(req.user);
       //Act
       await authenticationController.requireAdminRole(req, res, next);
       //Assert

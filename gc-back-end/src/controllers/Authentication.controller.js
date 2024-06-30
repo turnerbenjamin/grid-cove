@@ -64,7 +64,8 @@ export default class AuthenticationController {
 
   #validateNoMismatchWithParams = (req) => {
     if (!req.params?.userId) return;
-    if (req.params.userId !== req.user._id) throw APIErrors.UNAUTHORISED_ERROR;
+    if (req.params.userId !== req.user._id.toString())
+      throw APIErrors.UNAUTHORISED_ERROR;
   };
 
   #setCookie = (res, token) => {
