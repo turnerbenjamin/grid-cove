@@ -418,6 +418,7 @@ describe("Authentication controller tests", () => {
     });
 
     afterEach(() => {
+      authenticationService = null;
       authenticationController = null;
     });
 
@@ -452,6 +453,37 @@ describe("Authentication controller tests", () => {
       authenticationService.updatePassword.rejects(APIErrors.SERVER_ERROR);
       //Act
       await authenticationController.updatePassword(req, res, next);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+      expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(
+        true
+      );
+    });
+  });
+
+  describe("Require password tests: ", () => {
+    const testUser = userTestData.documents[0];
+    const correctPassword = userTestData.submissions[0].password;
+    const incorrectPassword = correctPassword + "x";
+    let authenticationController;
+    let next;
+
+    beforeEach(() => {
+      authenticationController = new AuthenticationController({});
+      req.user = testUser;
+      req.body = { password: correctPassword };
+    });
+
+    afterEach(() => {
+      authenticationController = null;
+    });
+
+    //? AC14-4
+    it("should respond with a status of 500 if no req.user", async () => {
+      //Arrange
+      delete req.user;
+      //Act
+      await authenticationController.requirePassword(req, res, next);
       //Assert
       expect(res.status.calledWith(500)).to.equal(true);
       expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(

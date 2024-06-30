@@ -74,6 +74,14 @@ export default class AuthenticationController {
     }
   };
 
+  requirePassword = async (req, res, next) => {
+    try {
+      throw APIErrors.SERVER_ERROR;
+    } catch (err) {
+      this.#handleErrors(res, err);
+    }
+  };
+
   #validateNoMismatchWithParams = (req) => {
     if (!req.params?.userId) return;
     if (req.params.userId !== req.user._id.toString())

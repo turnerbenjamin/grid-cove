@@ -21,21 +21,21 @@
 
 ## Authentication Controller (AC)
 
-## update password (AC)
+### update password (AC)
 
 - [x] AC14-1: It should call updatePassword by id on the authentication service with the correct arguments
 - [x] AC14-2: It should respond with 200 if the authentication service resolves
 - [x] AC14-3: It should respond with 500 if the authentication service rejects with a server error
 
-## revalidate password (AC)
+### require password (AC)
 
-- [ ] AS14-4: It should respond with a status of 500 if no req.user
-- [ ] AS14-5: It should respond with a status of 500 req.user.password
-- [ ] AS14-6: It should respond with a status of 401 if no req.body.password
-- [ ] AS14-7: It should call compare on bcrypt with the correct arguments
-- [ ] AS14-8: It should respond with a status of 401 if bcrypt returns false
-- [ ] AS14-9: It should respond with a status of 500 if bcrypt rejects
-- [ ] AS14-10: It call next if bcrypt returns true
+- [x] AC14-4: It should respond with a status of 500 if no req.user
+- [ ] AC14-5: It should respond with a status of 500 req.user.password
+- [ ] AC14-6: It should respond with a status of 401 if no req.body.password
+- [ ] AC14-7: It should call compare on bcrypt with the correct arguments
+- [ ] AC14-8: It should respond with a status of 401 if bcrypt returns false
+- [ ] AC14-9: It should respond with a status of 500 if bcrypt rejects
+- [ ] AC14-10: It call next if bcrypt returns true
 
 ## Integration Tests (INT)
 
