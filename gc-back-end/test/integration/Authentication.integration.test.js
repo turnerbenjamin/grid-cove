@@ -523,5 +523,16 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT14-10
+    it("should respond with a 400 response if the updated password does not contain at least one special character", async () => {
+      //Act
+      const response = await request
+        .patch(updatePasswordEndpoint)
+        .set("Cookie", authenticationToken)
+        .send({ ...testSubmission, updatedPassword: "x".repeat(8) + "1" });
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });
