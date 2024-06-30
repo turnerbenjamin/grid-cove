@@ -10,6 +10,7 @@ import Database from "../../src/database/database.js";
 import Server from "../../src/server/Server.js";
 import User from "../../src/models/User.model.js";
 import * as userTestData from "../data/User.test.data.js";
+import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("Authentication integration tests: ", () => {
   let server;
@@ -440,6 +441,17 @@ describe("Authentication integration tests: ", () => {
         .send(testSubmission);
       //Assert
       expect(response.body).to.deep.equal(expected);
+    });
+
+    //? INT14-3
+    it("should respond with a 401 status code if no req.cookies.jwt", async () => {
+      //Act
+      const response = await request
+        .patch(updatePasswordEndpoint)
+        .send(testSubmission);
+      //Assert
+      expect(response.status).to.equal(401);
+      expect(response.body).to.equal(APIErrors.UNAUTHORISED_ERROR.message);
     });
   });
 });
