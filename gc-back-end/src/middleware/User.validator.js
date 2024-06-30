@@ -23,6 +23,7 @@ export default class UserValidator {
         whitelist: ["username", "emailAddress"],
         blacklist: ["password", "roles"],
       }),
+      this.#validateUsername({ isOptional: true }),
       UserValidator.#handleValidationErrors,
     ];
   };
@@ -71,16 +72,18 @@ export default class UserValidator {
       .withMessage("Password must contain a special character");
   };
 
-  static #validateEmailAddress = () => {
+  static #validateEmailAddress = ({ isOptional }) => {
     return expressValidator
       .body("emailAddress")
+      .optional(isOptional)
       .isEmail()
       .withMessage("Email address is invalid");
   };
 
-  static #validateUsername = () => {
+  static #validateUsername = ({ isOptional }) => {
     return expressValidator
       .body("username")
+      .optional(isOptional)
       .isLength({ min: 8, max: 24 })
       .withMessage("Username must be between 8 and 24 characters")
       .matches(/^[a-z0-9-]*$/)
