@@ -535,5 +535,18 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS14-6
+    it("should return the value returned from findByIdAndUpdate where it resolves with a user object", async () => {
+      //Arrange
+      const expected = testUpdatedUser;
+      //Act
+      const actual = await authenticationService.updatePassword(
+        testUserToUpdateId,
+        testUpdatedPassword
+      );
+      //Assert
+      expect(actual).to.deep.equal(expected);
+    });
   });
 });

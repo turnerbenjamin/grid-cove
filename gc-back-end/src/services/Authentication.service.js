@@ -27,6 +27,7 @@ export default class AuthenticationService {
         { new: true }
       );
       if (!updatedUser) throw APIErrors.SERVER_ERROR;
+      return this.#formatUserDocument(updatedUser);
     } catch (err) {
       this.#handleError(err);
     }
