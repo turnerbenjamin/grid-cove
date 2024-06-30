@@ -79,6 +79,7 @@ export default class AuthenticationController {
   requirePassword = async (req, res, next) => {
     try {
       await this.#comparePasswords(req.body.password, req.user?.password);
+      next();
     } catch (err) {
       this.#handleErrors(res, err);
     }

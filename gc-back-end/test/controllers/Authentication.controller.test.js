@@ -477,6 +477,7 @@ describe("Authentication controller tests", () => {
       testUser = { ...userTestData.documents[0] };
       req.user = testUser;
       req.body = { password: testPasswordSubmission };
+      next = sinon.spy();
     });
 
     afterEach(() => {
@@ -558,6 +559,15 @@ describe("Authentication controller tests", () => {
       expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(
         true
       );
+    });
+
+    //? AC14-10
+    it("should call next if bcrypt returns true", async () => {
+      compareStub.resolves(true);
+      //Act
+      await authenticationController.requirePassword(req, res, next);
+      //Assert
+      expect(next.calledWith()).to.equal(true);
     });
   });
 });
