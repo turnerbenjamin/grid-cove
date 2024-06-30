@@ -3,58 +3,97 @@ import * as expressValidator from "express-validator";
 export default class UserValidator {
   static validateRegistrationSubmission = () => {
     return [
-      expressValidator
-        .body("username")
-        .exists()
-        .trim()
-        .notEmpty()
-        .withMessage("Username must be provided")
-        .isLength({ min: 8, max: 24 })
-        .withMessage("Username must be between 8 and 24 characters")
-        .matches(/^[a-z0-9-]*$/)
-        .withMessage(
-          "Username must contain only digits, lowercase letters or a hyphen"
-        ),
-      expressValidator
-        .body("emailAddress")
-        .exists()
-        .trim()
-        .notEmpty()
-        .isEmail()
-        .withMessage("Email address is invalid"),
-      expressValidator
-        .body("password")
-        .exists()
-        .trim()
-        .notEmpty()
-        .withMessage("Password is invalid")
-        .isLength({ min: 8, max: 32 })
-        .withMessage("Password must be 8-32 characters long")
-        .matches(/\d/)
-        .withMessage("Password must contain a digit")
-        .matches(/[!@#$£%&?]/)
-        .withMessage("Password must contain a special character"),
-
-      UserValidator.handleValidationErrors,
+      this.#validatePropertyExists("username"),
+      this.#validateUsername({ isOptional: false }),
+      this.#validatePropertyExists("emailAddress"),
+      this.#validateEmailAddress({ isOptional: false }),
+      this.#validatePropertyExists("password"),
+      this.#validatePassword({ isOptional: false }),
+      this.#sanitiseBody({
+        whitelist: ["username", "emailAddress", "password"],
+      }),
+      UserValidator.#handleValidationErrors,
     ];
   };
 
-  static handleValidationErrors = (req, res, next) => {
+  static validateUpdateUserSubmission = () => {
+    return [
+      this.#validateBodyIncludesOneOf(["username", "emailAddress"]),
+      UserValidator.#handleValidationErrors,
+    ];
+  };
+
+  static #handleValidationErrors = (req, res, next) => {
     const errors = expressValidator.validationResult(req, {
       strictParams: true,
     });
     if (!errors.isEmpty()) {
       return res.status(400).json(errors.array());
     }
-    this.#stripInvalidProperties(req);
     next();
   };
 
-  static #stripInvalidProperties = (req) => {
-    req.body = {
-      username: req.body.username,
-      emailAddress: req.body.emailAddress,
-      password: req.body.password,
+  static #validateBodyIncludesOneOf = (properties) => {
+    return expressValidator.body().custom((body) => {
+      for (const property of properties) {
+        if (body.hasOwnProperty(property)) return true;
+      }
+      throw new Error(
+        `At least on of the following must be provided: ${properties.join(
+          ", "
+        )}`
+      );
+    });
+  };
+
+  static #validatePropertyExists = (property) => {
+    return expressValidator
+      .body(property)
+      .exists()
+      .trim()
+      .notEmpty()
+      .withMessage(`${property} is required`);
+  };
+
+  static #validatePassword = ({ isOptional }) => {
+    return expressValidator
+      .body("password")
+      .optional(isOptional)
+      .isLength({ min: 8, max: 32 })
+      .withMessage("Password must be 8-32 characters long")
+      .matches(/\d/)
+      .withMessage("Password must contain a digit")
+      .matches(/[!@#$£%&?]/)
+      .withMessage("Password must contain a special character");
+  };
+
+  static #validateEmailAddress = () => {
+    return expressValidator
+      .body("emailAddress")
+      .isEmail()
+      .withMessage("Email address is invalid");
+  };
+
+  static #validateUsername = () => {
+    return expressValidator
+      .body("username")
+      .isLength({ min: 8, max: 24 })
+      .withMessage("Username must be between 8 and 24 characters")
+      .matches(/^[a-z0-9-]*$/)
+      .withMessage(
+        "Username must contain only digits, lowercase letters or a hyphen"
+      );
+  };
+
+  static #sanitiseBody = ({ whitelist }) => {
+    return (req, res, next) => {
+      const sanitisedBody = {};
+      for (const validProperty of whitelist) {
+        if (!req.body[validProperty]) continue;
+        sanitisedBody[validProperty] = req.body[validProperty];
+      }
+      req.body = sanitisedBody;
+      next();
     };
   };
 }

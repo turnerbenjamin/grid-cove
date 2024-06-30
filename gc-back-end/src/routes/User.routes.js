@@ -1,5 +1,7 @@
 import { Router } from "express";
 
+import UserValidator from "../middleware/User.validator.js";
+
 export default class UserRoutes {
   #router;
   #root;
@@ -22,6 +24,7 @@ export default class UserRoutes {
     this.#router.patch(
       "/:userId",
       this.#authenticationController.requireLoggedIn,
+      UserValidator.validateUpdateUserSubmission(),
       this.#userController.updateById
     );
   }

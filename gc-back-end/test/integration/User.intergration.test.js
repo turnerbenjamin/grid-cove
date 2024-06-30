@@ -204,5 +204,18 @@ describe("User integration tests: ", () => {
       expect(response.status).to.equal(400);
       expect(response.body).to.equal(APIErrors.DUPLICATE_USERNAME.message);
     });
+
+    //? INT13-10
+    it("should respond with a 400 response if neither username nor password are provided", async () => {
+      //Arrange
+      testUpdates = {};
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });
