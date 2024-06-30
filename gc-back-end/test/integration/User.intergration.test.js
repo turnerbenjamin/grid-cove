@@ -230,5 +230,18 @@ describe("User integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT13-12
+    it("should respond with a status of 400 if req.body includes roles", async () => {
+      //Arrange
+      testUpdates.roles = ["user", "admin"];
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });

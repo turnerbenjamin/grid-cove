@@ -21,7 +21,7 @@ export default class UserValidator {
       this.#validateBodyIncludesOneOf(["username", "emailAddress"]),
       this.#sanitiseBody({
         whitelist: ["username", "emailAddress"],
-        blacklist: ["password"],
+        blacklist: ["password", "roles"],
       }),
       UserValidator.#handleValidationErrors,
     ];
