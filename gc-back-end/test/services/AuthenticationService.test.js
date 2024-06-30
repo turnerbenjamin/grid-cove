@@ -22,8 +22,8 @@ describe("Authentication service tests", () => {
   describe("Create user tests", () => {
     let createStub;
     let hashStub;
-    const testUserSubmission = userTestData.submissions[0];
-    const testUserDocument = userTestData.documents[0];
+    const testUserSubmission = { ...userTestData.submissions[0] };
+    const testUserDocument = { ...userTestData.documents[0] };
     const testHashedPassword = testUserDocument.password;
 
     beforeEach(() => {
@@ -158,7 +158,7 @@ describe("Authentication service tests", () => {
       emailAddress: userTestData.submissions[0].emailAddress,
       password: userTestData.submissions[0].password,
     };
-    const testUserDocument = userTestData.documents[0];
+    const testUserDocument = { ...userTestData.documents[0] };
     const testToken = { testToken: "testToken" };
 
     beforeEach(() => {
@@ -323,7 +323,7 @@ describe("Authentication service tests", () => {
   describe("Validate token tests", () => {
     const testDecodedToken = { _id: "test_id" };
     const testToken = "jwt=xxxxx";
-    const testUserDocument = userTestData.documents[0];
+    const testUserDocument = { ...userTestData.documents[0] };
     let verifyStub;
     let findByIdStub;
     let selectStub;
@@ -441,7 +441,7 @@ describe("Authentication service tests", () => {
     const testUpdatedPassword = "new-password";
     const testUserToUpdateId = "test-user-to-update-id";
     const testHashedUpdatedPassword = "new-password-hashed";
-    const testUpdatedUser = userTestData.documents[0];
+    const testUpdatedUser = { ...userTestData.documents[0] };
     let hashStub;
     let findByIdAndUpdateStub;
 
@@ -551,6 +551,7 @@ describe("Authentication service tests", () => {
     it("should return the value returned from findByIdAndUpdate where it resolves with a user object", async () => {
       //Arrange
       const expected = testUpdatedUser;
+      delete expected.password;
       //Act
       const actual = await authenticationService.updatePassword(
         testUserToUpdateId,

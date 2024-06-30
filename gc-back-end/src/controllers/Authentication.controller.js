@@ -76,7 +76,8 @@ export default class AuthenticationController {
 
   requirePassword = async (req, res, next) => {
     try {
-      throw APIErrors.SERVER_ERROR;
+      if (!req.user?.password) throw APIErrors.SERVER_ERROR;
+      throw APIErrors.UNAUTHORISED_ERROR;
     } catch (err) {
       this.#handleErrors(res, err);
     }

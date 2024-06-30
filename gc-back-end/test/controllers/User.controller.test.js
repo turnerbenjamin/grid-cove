@@ -29,7 +29,7 @@ describe("User controller tests: ", () => {
       emailAddress: "new@emailaddress.com",
       username: "new-username",
     };
-    const testUser = userTestData.documents[0];
+    const testUser = { ...userTestData.documents[0] };
 
     beforeEach(() => {
       userService = {

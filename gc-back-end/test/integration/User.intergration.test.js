@@ -55,8 +55,8 @@ describe("User integration tests: ", () => {
 
   describe("Update route test", () => {
     const usersInDatabase = [
-      userTestData.documents[0],
-      userTestData.documents[1],
+      { ...userTestData.documents[0] },
+      { ...userTestData.documents[1] },
     ];
     const userToUpdate = usersInDatabase[0];
     const userNotToUpdate = usersInDatabase[1];

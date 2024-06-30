@@ -19,7 +19,7 @@ describe("Puzzle controller tests", () => {
 
   describe("Create puzzle tests: ", () => {
     const testPuzzleSubmission = puzzleTestData.submissions[0];
-    const testUser = userTestData.documents[0];
+    const testUser = { ...userTestData.documents[0] };
 
     beforeEach(() => {
       puzzleService = {

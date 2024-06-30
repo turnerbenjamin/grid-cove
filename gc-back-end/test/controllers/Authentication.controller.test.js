@@ -61,7 +61,7 @@ describe("Authentication controller tests", () => {
 
     //? AC1-3
     it("should call res.json with the value returned from the authentication service", async () => {
-      const expected = userTestData.documents[0];
+      const expected = { ...userTestData.documents[0] };
       authenticationService.createUser.resolves(expected);
       //Act
       await authenticationController.register(req, res);
@@ -120,7 +120,7 @@ describe("Authentication controller tests", () => {
       };
       authenticationService.signInUser.resolves({
         token: testToken,
-        user: userTestData.documents[0],
+        user: { ...userTestData.documents[0] },
       });
       authenticationController = new AuthenticationController(
         authenticationService
@@ -317,7 +317,7 @@ describe("Authentication controller tests", () => {
     //? AC6-5
     it("should attach the user returned from the Authentication Service to req object", async () => {
       //Arrange
-      const expected = userTestData.documents[0];
+      const expected = { ...userTestData.documents[0] };
       authenticationService.validateToken.resolves(expected);
       //Act
       await authenticationController.requireLoggedIn(req, res, next);
@@ -328,7 +328,7 @@ describe("Authentication controller tests", () => {
     //? AC6-6
     it("should call next if the user service resolves", async () => {
       //Arrange
-      const expected = userTestData.documents[0];
+      const expected = { ...userTestData.documents[0] };
       authenticationService.validateToken.resolves(expected);
       //Act
       await authenticationController.requireLoggedIn(req, res, next);
@@ -339,7 +339,9 @@ describe("Authentication controller tests", () => {
     //? AC13-1
     it("should throw an error where mismatch between req.user and req.params.userId", async () => {
       //Arrange
-      authenticationService.validateToken.resolves(userTestData.documents[0]);
+      authenticationService.validateToken.resolves({
+        ...userTestData.documents[0],
+      });
       req.params = { userId: "incorrectUserId" };
       //Act
       await authenticationController.requireLoggedIn(req, res, next);
@@ -352,8 +354,8 @@ describe("Authentication controller tests", () => {
   });
 
   describe("Require admin role tests", () => {
-    const testUserWithAdminRole = userTestData.documents[1];
-    const testUserWithoutAdminRole = userTestData.documents[0];
+    const testUserWithAdminRole = { ...userTestData.documents[1] };
+    const testUserWithoutAdminRole = { ...userTestData.documents[0] };
     let authenticationController;
     let next;
 
@@ -400,7 +402,7 @@ describe("Authentication controller tests", () => {
   });
 
   describe("Update password tests: ", () => {
-    const testUser = userTestData.documents[0];
+    const testUser = { ...userTestData.documents[0] };
     const testUpdatedPassword = "test-updated-password";
     let authenticationService;
     let authenticationController;
@@ -462,7 +464,7 @@ describe("Authentication controller tests", () => {
   });
 
   describe("Require password tests: ", () => {
-    const testUser = { ...userTestData.documents[0] };
+    let testUser;
     const correctPassword = userTestData.submissions[0].password;
     const incorrectPassword = correctPassword + "x";
     let authenticationController;
@@ -470,6 +472,7 @@ describe("Authentication controller tests", () => {
 
     beforeEach(() => {
       authenticationController = new AuthenticationController({});
+      testUser = { ...userTestData.documents[0] };
       req.user = testUser;
       req.body = { password: correctPassword };
     });
@@ -502,6 +505,19 @@ describe("Authentication controller tests", () => {
       expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(
         true
       );
+    });
+
+    //? AC14-6
+    it("should respond with a status of 401 if no req.body.password", async () => {
+      //Arrange
+      delete req.body.password;
+      //Act
+      await authenticationController.requirePassword(req, res, next);
+      //Assert
+      expect(res.status.calledWith(401)).to.equal(true);
+      expect(
+        res.json.calledWith(APIErrors.UNAUTHORISED_ERROR.message)
+      ).to.equal(true);
     });
   });
 });

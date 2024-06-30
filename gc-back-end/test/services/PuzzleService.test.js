@@ -20,7 +20,7 @@ describe("Puzzle service tests: ", () => {
   });
 
   describe("Create puzzle tests: ", () => {
-    const testArtist = userTestData.documents[0];
+    const testArtist = { ...userTestData.documents[0] };
     const testPuzzleSubmission = puzzleTestData.submissions[0];
     const testSolutionString = "111111";
     const testClues = {
