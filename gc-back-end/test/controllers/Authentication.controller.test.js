@@ -541,12 +541,23 @@ describe("Authentication controller tests", () => {
       compareStub.resolves(false);
       //Act
       await authenticationController.requirePassword(req, res, next);
-      console.log(res.status.getCall(0).args, res.json.getCall(0).args);
       //Assert
       expect(res.status.calledWith(401)).to.equal(true);
       expect(
         res.json.calledWith(APIErrors.UNAUTHORISED_ERROR.message)
       ).to.equal(true);
+    });
+
+    //? AC14-9
+    it("should respond with a status of 500 if bcrypt rejects", async () => {
+      compareStub.rejects();
+      //Act
+      await authenticationController.requirePassword(req, res, next);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+      expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(
+        true
+      );
     });
   });
 });
