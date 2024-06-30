@@ -19,7 +19,7 @@ export default class AuthenticationService {
   updatePassword = async (userToUpdateId, updatedPassword) => {
     try {
       const hashedUpdatedPassword = await this.#hash(updatedPassword);
-      User.findByIdAndUpdate(
+      await User.findByIdAndUpdate(
         userToUpdateId,
         {
           password: hashedUpdatedPassword,

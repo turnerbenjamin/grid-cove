@@ -497,5 +497,24 @@ describe("Authentication service tests", () => {
       expect(actualUserIdArg).to.equal(expectedUserIdArg);
       expect(actualUpdateArg).to.deep.equal(expectedUpdateArg);
     });
+
+    //? AS14-4
+    it("should throw a server error where findByIdAndUpdate rejects", async () => {
+      //Arrange
+      findByIdAndUpdateStub.rejects();
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.updatePassword(
+          testUserToUpdateId,
+          testUpdatedPassword
+        );
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });
