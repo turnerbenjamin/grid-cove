@@ -15,9 +15,9 @@
 - [x] AS14-5: It should throw a server error where findByIdAndUpdate resolves with null
 - [x] AS14-6: It should return the value returned from findByIdAndUpdate where it resolves with a user object
 
-### signIn (AS)
+### validate token (AS)
 
-- [] AS14-7: It should call select with the correct argument
+- [x] AS14-7: It should call select with the correct argument
 
 ### revalidate password (AS)
 

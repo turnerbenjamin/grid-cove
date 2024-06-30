@@ -424,6 +424,17 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS14-7
+    it("should call select with the correct argument", async () => {
+      //Arrange
+      const expected = "+password";
+      //Act
+      await authenticationService.validateToken(testToken);
+      const [actual] = selectStub.getCall(0).args;
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 
   describe("Update password tests: ", () => {
