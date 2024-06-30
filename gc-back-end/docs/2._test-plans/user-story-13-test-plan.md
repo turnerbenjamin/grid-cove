@@ -30,7 +30,7 @@
 
 - [x] INT13-1: It should respond with a status of 200 for a successful request where username and email updated
 - [x] INT13-2: It should respond with a status of 200 for a successful request where username only is updated
-- [ ] INT13-3: It should respond with a status of 200 for a successful request where email address only is updated
+- [x] INT13-3: It should respond with a status of 200 for a successful request where email address only is updated
 - [ ] INT13-4: It should respond with the updated user document without the password for a successful request
 - [ ] INT13-5: It should respond with a 401 status code if not req.cookies.jwt
 - [ ] INT13-6: It should respond with a 401 status code if invalid req.cookies.jwt

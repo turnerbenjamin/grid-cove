@@ -108,5 +108,18 @@ describe("User integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(200);
     });
+
+    //? INT13-3
+    it("should respond with a status of 200 for a successful request where email address only is updated", async () => {
+      //Arrange
+      testUpdates = { emailAddress: testUpdates.emailAddress };
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(200);
+    });
   });
 });
