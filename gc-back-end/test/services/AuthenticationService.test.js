@@ -430,15 +430,20 @@ describe("Authentication service tests", () => {
     const testUpdatedPassword = "new-password";
     const testUserToUpdateId = "test-user-to-update-id";
     const testHashedUpdatedPassword = "new-password-hashed";
+    const testUpdatedUser = userTestData.documents[0];
     let hashStub;
+    let findByIdAndUpdateStub;
 
     beforeEach(() => {
       hashStub = sinon.stub(bcrypt, "hash");
       hashStub.resolves(testHashedUpdatedPassword);
+      findByIdAndUpdateStub = sinon.stub(User, "findByIdAndUpdate");
+      findByIdAndUpdateStub.resolves(testUpdatedUser);
     });
 
     afterEach(() => {
       hashStub.restore();
+      findByIdAndUpdateStub.restore();
     });
 
     //? AS14-1
@@ -457,7 +462,7 @@ describe("Authentication service tests", () => {
       expect(actualSalt).to.equal(expectedSalt);
     });
 
-    //? AS14-1
+    //? AS14-2
     it("should throw a server error where hash fails", async () => {
       //Arrange
       hashStub.rejects();
@@ -474,6 +479,23 @@ describe("Authentication service tests", () => {
       }
       //Assert
       expect(actual).to.equal(expected);
+    });
+
+    //? AS14-3
+    it("should call findByIdAndUpdate with the correct arguments", async () => {
+      //Arrange
+      const expectedUserIdArg = testUserToUpdateId;
+      const expectedUpdateArg = { password: testHashedUpdatedPassword };
+      //Act
+      await authenticationService.updatePassword(
+        testUserToUpdateId,
+        testUpdatedPassword
+      );
+      const [actualUserIdArg, actualUpdateArg] =
+        findByIdAndUpdateStub.getCall(0).args;
+      //Assert
+      expect(actualUserIdArg).to.equal(expectedUserIdArg);
+      expect(actualUpdateArg).to.deep.equal(expectedUpdateArg);
     });
   });
 });
