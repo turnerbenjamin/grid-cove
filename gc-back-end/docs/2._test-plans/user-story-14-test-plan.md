@@ -49,4 +49,4 @@
 - [x] INT14-8: It should respond with a 400 response if the updated password is more than 32 characters
 - [x] INT14-9: It should respond with a 400 response if the updated password does not contain at least one digit
 - [x] INT14-10: It should respond with a 400 response if the updated password does not contain at least one special character
-- [ ] INT14-11: It should respond with a 500 response if findByIdAndUpdate rejects
+- [x] INT14-11: It should respond with a 500 response if findByIdAndUpdate rejects

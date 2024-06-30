@@ -534,5 +534,21 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT14-11
+    it("should respond with a 500 response if findByIdAndUpdate rejects", async () => {
+      //Arrange
+      const findByIdAndUpdateStub = sinon.stub(User, "findByIdAndUpdate");
+      findByIdAndUpdateStub.rejects();
+      //Act
+      const response = await request
+        .patch(updatePasswordEndpoint)
+        .set("Cookie", authenticationToken)
+        .send(testSubmission);
+      findByIdAndUpdateStub.restore();
+      //Assert
+      expect(response.status).to.equal(500);
+      expect(response.body).to.equal(APIErrors.SERVER_ERROR.message);
+    });
   });
 });
