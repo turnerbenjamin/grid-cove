@@ -46,7 +46,7 @@
 - [x] INT14-5: It should respond with a 403 status code if the password does not match
 - [x] INT14-6: It should respond with a 400 response if the updated password is missing
 - [x] INT14-7: It should respond with a 400 response if the updated password is less than 8 characters
-- [ ] INT14-8: It should respond with a 400 response if the updated password is more than 32 characters
+- [x] INT14-8: It should respond with a 400 response if the updated password is more than 32 characters
 - [ ] INT14-9: It should respond with a 400 response if the updated password does not contain at least one digit
 - [ ] INT14-10: It should respond with a 400 response if the updated password does not contain at least one special character
 - [ ] INT14-11: It should respond with a 500 response if findByIdAndUpdate rejects
