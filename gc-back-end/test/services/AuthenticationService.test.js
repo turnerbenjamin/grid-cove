@@ -516,5 +516,24 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).to.equal(expected);
     });
+
+    //? AS14-5
+    it("should throw a server error where findByIdAndUpdate resolves with null", async () => {
+      //Arrange
+      findByIdAndUpdateStub.resolves(null);
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.updatePassword(
+          testUserToUpdateId,
+          testUpdatedPassword
+        );
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });

@@ -12,7 +12,7 @@
 - [x] AS14-2: It should throw a server error where hash fails
 - [x] AS14-3: It should call findByIdAndUpdate with the correct arguments
 - [x] AS14-4: It should throw a server error where findByIdAndUpdate rejects
-- [ ] AS14-5: It should throw a server error where findByIdAndUpdate resolves with null
+- [x] AS14-5: It should throw a server error where findByIdAndUpdate resolves with null
 - [ ] AS14-6: It should return the value returned from findByIdAndUpdate where it resolves with a user object
 
 ### signIn (AS)
