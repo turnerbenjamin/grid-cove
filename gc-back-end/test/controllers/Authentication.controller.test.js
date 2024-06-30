@@ -462,7 +462,7 @@ describe("Authentication controller tests", () => {
   });
 
   describe("Require password tests: ", () => {
-    const testUser = userTestData.documents[0];
+    const testUser = { ...userTestData.documents[0] };
     const correctPassword = userTestData.submissions[0].password;
     const incorrectPassword = correctPassword + "x";
     let authenticationController;
@@ -482,6 +482,19 @@ describe("Authentication controller tests", () => {
     it("should respond with a status of 500 if no req.user", async () => {
       //Arrange
       delete req.user;
+      //Act
+      await authenticationController.requirePassword(req, res, next);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+      expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(
+        true
+      );
+    });
+
+    //? AC14-5
+    it("should respond with a status of 500 if no req.user.password", async () => {
+      //Arrange
+      delete req.user.password;
       //Act
       await authenticationController.requirePassword(req, res, next);
       //Assert

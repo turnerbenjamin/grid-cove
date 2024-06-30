@@ -30,7 +30,7 @@
 ### require password (AC)
 
 - [x] AC14-4: It should respond with a status of 500 if no req.user
-- [ ] AC14-5: It should respond with a status of 500 req.user.password
+- [x] AC14-5: It should respond with a status of 500 if no req.user.password
 - [ ] AC14-6: It should respond with a status of 401 if no req.body.password
 - [ ] AC14-7: It should call compare on bcrypt with the correct arguments
 - [ ] AC14-8: It should respond with a status of 401 if bcrypt returns false
