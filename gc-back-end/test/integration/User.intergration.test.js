@@ -269,5 +269,18 @@ describe("User integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT13-15
+    it("should respond with a 400 response if a username is provided and it is contains invalid characters", async () => {
+      //Arrange
+      testUpdates.username = "invalid username";
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });
