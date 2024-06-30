@@ -17,7 +17,11 @@ export default class AuthenticationService {
   };
 
   updatePassword = async (userToUpdateId, updatedPassword) => {
-    await this.#hash(updatedPassword);
+    try {
+      await this.#hash(updatedPassword);
+    } catch (err) {
+      this.#handleError(err);
+    }
   };
 
   signInUser = async (userCredentials) => {

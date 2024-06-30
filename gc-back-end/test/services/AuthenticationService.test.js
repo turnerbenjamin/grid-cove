@@ -456,5 +456,24 @@ describe("Authentication service tests", () => {
       expect(actualPasswordToHash).to.equal(expectedPasswordToHash);
       expect(actualSalt).to.equal(expectedSalt);
     });
+
+    //? AS14-1
+    it("should throw a server error where hash fails", async () => {
+      //Arrange
+      hashStub.rejects();
+      const expected = APIErrors.SERVER_ERROR;
+      let actual;
+      //Act
+      try {
+        await authenticationService.updatePassword(
+          testUserToUpdateId,
+          testUpdatedPassword
+        );
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).to.equal(expected);
+    });
   });
 });

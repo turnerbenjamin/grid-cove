@@ -9,7 +9,7 @@
 ### update password (AS)
 
 - [x] AS14-1: It should call hash on bcrypt with the password
-- [ ] AS14-2: It should throw a server error where hash fails
+- [x] AS14-2: It should throw a server error where hash fails
 - [ ] AS14-3: It should call findByIdAndUpdate with the correct arguments
 - [ ] AS14-4: It should throw a server error where findByIdAndUpdate rejects
 - [ ] AS14-5: It should throw a server error where findByIdAndUpdate resolves with null
