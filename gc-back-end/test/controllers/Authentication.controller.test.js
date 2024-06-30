@@ -445,5 +445,18 @@ describe("Authentication controller tests", () => {
       expect(res.status.calledWith(200)).to.equal(true);
       expect(res.json.calledWith(testResponse)).to.equal(true);
     });
+
+    //? AC14-3
+    it("should respond with 500 if the authentication service rejects with a server error", async () => {
+      //Arrange
+      authenticationService.updatePassword.rejects(APIErrors.SERVER_ERROR);
+      //Act
+      await authenticationController.updatePassword(req, res, next);
+      //Assert
+      expect(res.status.calledWith(500)).to.equal(true);
+      expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(
+        true
+      );
+    });
   });
 });
