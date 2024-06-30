@@ -12,9 +12,7 @@ export default function SuccessToast({ message, onClose, displayFor = 0 }) {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      onClose();
-    }, displayFor);
+    setTimeout(onClose, displayFor);
   });
 
   const toast = (

@@ -3,9 +3,10 @@ import { afterEach, beforeEach, expect } from "vitest";
 import SuccessToast from "../../../src/components/general/SuccessToast";
 
 describe("Success toast tests: ", () => {
-  let onCloseSpy;
   const testMessage = "test message";
   const testDisplayFor = 5000;
+  let onCloseSpy;
+  let setTimeoutSpy;
 
   beforeEach(async () => {
     Object.defineProperty(global.window, "scrollTo", {
@@ -16,6 +17,7 @@ describe("Success toast tests: ", () => {
     document.body.appendChild(modalRoot);
 
     onCloseSpy = vi.fn(() => null);
+    setTimeoutSpy = vi.spyOn(global, "setTimeout");
 
     await act(async () =>
       render(
@@ -45,5 +47,15 @@ describe("Success toast tests: ", () => {
       fireEvent.click(screen.getByTitle(/close/i));
     });
     expect(onCloseSpy).toBeCalledTimes(1);
+  });
+
+  //? US13-SCT-3
+  test("It should call setTimeout with correct arguments", async () => {
+    //Act
+    await act(async () => {
+      fireEvent.click(screen.getByTitle(/close/i));
+    });
+    expect(setTimeoutSpy).toBeCalledTimes(1);
+    expect(setTimeoutSpy).toBeCalledWith(onCloseSpy, testDisplayFor);
   });
 });
