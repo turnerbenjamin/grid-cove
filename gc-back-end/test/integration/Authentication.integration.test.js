@@ -465,5 +465,19 @@ describe("Authentication integration tests: ", () => {
       expect(response.status).to.equal(401);
       expect(response.body).to.equal(APIErrors.UNAUTHORISED_ERROR.message);
     });
+
+    //? INT14-5
+    it("should respond with a 403 status code if the password does not match", async () => {
+      //Act
+      const response = await request
+        .patch(updatePasswordEndpoint)
+        .set("Cookie", authenticationToken)
+        .send({ ...testSubmission, password: "incorrect-password" });
+      //Assert
+      expect(response.status).to.equal(403);
+      expect(response.body).to.equal(
+        APIErrors.PASSWORD_REVALIDATION_ERROR.message
+      );
+    });
   });
 });
