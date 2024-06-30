@@ -295,5 +295,21 @@ describe("User integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT13-17
+    it("should respond with a 500 response if findByIdAndUpdate rejects", async () => {
+      //Arrange
+      const findByIdAndUpdateStub = sinon.stub(User, "findByIdAndUpdate");
+      findByIdAndUpdateStub.rejects();
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      findByIdAndUpdateStub.restore();
+      //Assert
+      expect(response.status).to.equal(500);
+      expect(response.body).to.equal(APIErrors.SERVER_ERROR.message);
+    });
   });
 });
