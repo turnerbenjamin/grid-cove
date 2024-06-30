@@ -256,5 +256,18 @@ describe("User integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT13-14
+    it("should respond with a 400 response if a username is provided and it is too long", async () => {
+      //Arrange
+      testUpdates.username = "x".repeat(25);
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });
