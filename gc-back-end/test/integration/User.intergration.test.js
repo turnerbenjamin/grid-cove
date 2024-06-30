@@ -190,5 +190,19 @@ describe("User integration tests: ", () => {
       expect(response.status).to.equal(400);
       expect(response.body).to.equal(APIErrors.DUPLICATE_EMAIL_ADDRESS.message);
     });
+
+    //? INT13-9
+    it("should respond with a 400 response if a username is provided which is a duplicate", async () => {
+      //Arrange
+      testUpdates.username = userNotToUpdate.username;
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(400);
+      expect(response.body).to.equal(APIErrors.DUPLICATE_USERNAME.message);
+    });
   });
 });

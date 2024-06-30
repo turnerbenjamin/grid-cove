@@ -36,7 +36,7 @@
 - [x] INT13-6: It should respond with a 401 status code if invalid req.cookies.jwt
 - [x] INT13-7: It should respond with a 401 status code if user id in req.cookie does not match req.params.userId
 - [x] INT13-8: It should respond with a 400 response if an email address is provided which is a duplicate
-- [ ] INT13-9: It should respond with a 400 response if a username is provided which is a duplicate
+- [x] INT13-9: It should respond with a 400 response if a username is provided which is a duplicate
 - [ ] INT13-10: It should respond with a 400 response if neither username nor password are provided
 - [ ] INT13-11: It should respond with a status of 400 if req.body includes fields other than username or emailAddress
 - [ ] INT13-12: It should respond with a 400 response if a username is provided and it is too short
