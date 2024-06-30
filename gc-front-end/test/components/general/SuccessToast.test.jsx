@@ -1,4 +1,4 @@
-import { act, screen, render } from "@testing-library/react";
+import { act, screen, render, fireEvent } from "@testing-library/react";
 import { afterEach, beforeEach, expect } from "vitest";
 import SuccessToast from "../../../src/components/general/SuccessToast";
 
@@ -36,5 +36,14 @@ describe("Success toast tests: ", () => {
   //? US13-SCT-1
   test("It should display success message", () => {
     expect(screen.getByText(testMessage)).toBeInTheDocument();
+  });
+
+  //? US13-SCT-2
+  test("It should call on close when close button clicked", async () => {
+    //Act
+    await act(async () => {
+      fireEvent.click(screen.getByTitle(/close/i));
+    });
+    expect(onCloseSpy).toBeCalledTimes(1);
   });
 });

@@ -7,5 +7,5 @@
 ## Success toast tests
 
 - [x] US13-SCT-1: It should display success message
-- [ ] US13-SCT-2: It should call on close when close button clicked
+- [x] US13-SCT-2: It should call on close when close button clicked
 - [ ] US13-SCT-3: It should call setTimeout with correct arguments
