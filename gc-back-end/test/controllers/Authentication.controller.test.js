@@ -535,5 +535,18 @@ describe("Authentication controller tests", () => {
       expect(actualSubmittedPasswordArg).to.equal(expectedSubmittedPasswordArg);
       expect(actualSavedPasswordArg).to.equal(expectedSavedPasswordArg);
     });
+
+    //? AC14-8
+    it("should respond with a status of 401 if bcrypt returns false", async () => {
+      compareStub.resolves(false);
+      //Act
+      await authenticationController.requirePassword(req, res, next);
+      console.log(res.status.getCall(0).args, res.json.getCall(0).args);
+      //Assert
+      expect(res.status.calledWith(401)).to.equal(true);
+      expect(
+        res.json.calledWith(APIErrors.UNAUTHORISED_ERROR.message)
+      ).to.equal(true);
+    });
   });
 });

@@ -78,10 +78,7 @@ export default class AuthenticationController {
 
   requirePassword = async (req, res, next) => {
     try {
-      const isValidated = await this.#comparePasswords(
-        req.body.password,
-        req.user?.password
-      );
+      await this.#comparePasswords(req.body.password, req.user?.password);
     } catch (err) {
       this.#handleErrors(res, err);
     }
@@ -90,7 +87,8 @@ export default class AuthenticationController {
   #comparePasswords = async (submittedPassword, savedPassword) => {
     if (!submittedPassword) throw APIErrors.UNAUTHORISED_ERROR;
     if (!savedPassword) throw APIErrors.SERVER_ERROR;
-    return await bcrypt.compare(submittedPassword, savedPassword);
+    const doMatch = await bcrypt.compare(submittedPassword, savedPassword);
+    if (!doMatch) throw APIErrors.UNAUTHORISED_ERROR;
   };
 
   #validateNoMismatchWithParams = (req) => {

@@ -33,7 +33,7 @@
 - [x] AC14-5: It should respond with a status of 500 if no req.user.password
 - [x] AC14-6: It should respond with a status of 401 if no req.body.password
 - [x] AC14-7: It should call compare on bcrypt with the correct arguments
-- [ ] AC14-8: It should respond with a status of 401 if bcrypt returns false
+- [x] AC14-8: It should respond with a status of 401 if bcrypt returns false
 - [ ] AC14-9: It should respond with a status of 500 if bcrypt rejects
 - [ ] AC14-10: It call next if bcrypt returns true
 
