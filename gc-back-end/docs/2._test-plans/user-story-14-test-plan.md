@@ -33,21 +33,20 @@
 - [x] AC14-5: It should respond with a status of 500 if no req.user.password
 - [x] AC14-6: It should respond with a status of 401 if no req.body.password
 - [x] AC14-7: It should call compare on bcrypt with the correct arguments
-- [x] AC14-8: It should respond with a status of 401 if bcrypt returns false
+- [x] AC14-8: It should respond with a status of 403 if bcrypt returns false
 - [x] AC14-9: It should respond with a status of 500 if bcrypt rejects
 - [x] AC14-10: It should call next if bcrypt returns true
 
 ## Integration Tests (INT)
 
-- [ ] INT14-1: It should respond with a status of 200 for a successful request
+- [x] INT14-1: It should respond with a status of 200 for a successful request
 - [ ] INT14-2: It should respond with the updated user, without their password, for a successful request
 - [ ] INT14-3: It should respond with a 401 status code if no req.cookies.jwt
 - [ ] INT14-4: It should respond with a 401 status code if invalid req.cookies.jwt
-- [ ] INT14-5: It should respond with a 401 status code if user id in req.cookie does not match req.params.userId
-- [ ] INT14-6: It should respond with a 401 status code if the password does not match
-- [ ] INT14-7: It should respond with a 400 response if the updated password is missing
-- [ ] INT14-8: It should respond with a 400 response if the updated password is less than 8 characters
-- [ ] INT14-9: It should respond with a 400 response if the updated password is more than 32 characters
-- [ ] INT14-10: It should respond with a 400 response if the updated password does not contain at least one digit
-- [ ] INT14-11: It should respond with a 400 response if the updated password does not contain at least one special character
-- [ ] INT14-12: It should respond with a 500 response if findByIdAndUpdate rejects
+- [ ] INT14-5: It should respond with a 403 status code if the password does not match
+- [ ] INT14-6: It should respond with a 400 response if the updated password is missing
+- [ ] INT14-7: It should respond with a 400 response if the updated password is less than 8 characters
+- [ ] INT14-8: It should respond with a 400 response if the updated password is more than 32 characters
+- [ ] INT14-9: It should respond with a 400 response if the updated password does not contain at least one digit
+- [ ] INT14-10: It should respond with a 400 response if the updated password does not contain at least one special character
+- [ ] INT14-11: It should respond with a 500 response if findByIdAndUpdate rejects

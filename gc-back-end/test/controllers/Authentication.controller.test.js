@@ -538,14 +538,14 @@ describe("Authentication controller tests", () => {
     });
 
     //? AC14-8
-    it("should respond with a status of 401 if bcrypt returns false", async () => {
+    it("should respond with a status of 403 if bcrypt returns false", async () => {
       compareStub.resolves(false);
       //Act
       await authenticationController.requirePassword(req, res, next);
       //Assert
-      expect(res.status.calledWith(401)).to.equal(true);
+      expect(res.status.calledWith(403)).to.equal(true);
       expect(
-        res.json.calledWith(APIErrors.UNAUTHORISED_ERROR.message)
+        res.json.calledWith(APIErrors.PASSWORD_REVALIDATION_ERROR.message)
       ).to.equal(true);
     });
 

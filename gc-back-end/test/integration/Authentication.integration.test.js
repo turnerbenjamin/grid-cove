@@ -357,7 +357,8 @@ describe("Authentication integration tests: ", () => {
       expect(response.status).to.equal(500);
     });
   });
-  describe("SignOut route test", () => {
+
+  describe("Sign out route tests: ", () => {
     const signOutEndpoint = "/authentication/sign-out";
 
     //? INT4-1
@@ -384,6 +385,46 @@ describe("Authentication integration tests: ", () => {
       const response = await request.post(signOutEndpoint);
       //Assert
       expect(response.body).to.deep.equal({});
+    });
+  });
+
+  describe("Update password route tests: ", () => {
+    const updatePasswordEndpoint = "/authentication/update-password";
+    const userToUpdate = { ...userTestData.documents[0] };
+    let authenticationToken;
+    let testSubmission;
+
+    before(async () => {
+      await User.create(userToUpdate);
+      const response = await request
+        .post("/authentication/sign-in")
+        .send(userTestData.submissions[0]);
+      authenticationToken = response.header["set-cookie"][0];
+    });
+
+    after(async () => {
+      await User.deleteMany();
+    });
+
+    beforeEach(() => {
+      testSubmission = {
+        password: userTestData.submissions[0].password,
+        updatedPassword: "new-password",
+      };
+    });
+    afterEach(() => {
+      testSubmission = null;
+    });
+
+    //? INT14-1
+    it("should respond with a status of 200 for a successful request", async () => {
+      //Act
+      const response = await request
+        .patch(updatePasswordEndpoint)
+        .set("Cookie", authenticationToken)
+        .send(testSubmission);
+      //Assert
+      expect(response.status).to.equal(200);
     });
   });
 });

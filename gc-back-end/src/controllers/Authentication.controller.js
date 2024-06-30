@@ -89,7 +89,7 @@ export default class AuthenticationController {
     if (!submittedPassword) throw APIErrors.UNAUTHORISED_ERROR;
     if (!savedPassword) throw APIErrors.SERVER_ERROR;
     const doMatch = await bcrypt.compare(submittedPassword, savedPassword);
-    if (!doMatch) throw APIErrors.UNAUTHORISED_ERROR;
+    if (!doMatch) throw APIErrors.PASSWORD_REVALIDATION_ERROR;
   };
 
   #validateNoMismatchWithParams = (req) => {

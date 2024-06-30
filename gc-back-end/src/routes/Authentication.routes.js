@@ -18,6 +18,7 @@ export default class AuthenticationRoutes {
     this.#initialiseRegisterRoute();
     this.#initialiseSignInRoute();
     this.#initialiseSignOutRoute();
+    this.#initialiseUpdatePasswordRoute();
   }
 
   #initialiseRegisterRoute() {
@@ -34,6 +35,15 @@ export default class AuthenticationRoutes {
 
   #initialiseSignOutRoute() {
     this.#router.post("/sign-out", this.#authenticationController.signOut);
+  }
+
+  #initialiseUpdatePasswordRoute() {
+    this.#router.patch(
+      "/update-password",
+      this.#authenticationController.requireLoggedIn,
+      this.#authenticationController.requirePassword,
+      this.#authenticationController.updatePassword
+    );
   }
 
   getRouter() {
