@@ -19,30 +19,23 @@
 
 - [x] AS14-7: It should call select with the correct argument
 
-### revalidate password (AS)
-
-- [ ] AS14-8: It should throw a server error if no req.user
-- [ ] AS14-9: It should throw a server error if no req.user.password
-- [ ] AS14-10: It should throw a password revalidation error if no req.body.password
-- [ ] AS14-11: It should call compare on bcrypt with the correct arguments
-- [ ] AS14-12: It should respond with a password revalidation error if bcrypt returns false
-- [ ] AS14-13: It should respond with a server error if bcrypt rejects
-- [ ] AS14-14: It should return true if bcrypt returns true
-
 ## Authentication Controller (AC)
 
 ## update password (AC)
 
-- [ ] AC14-1: It should call updatePassword by id on the authentication service with the correct arguments
+- [x] AC14-1: It should call updatePassword by id on the authentication service with the correct arguments
 - [ ] AC14-2: It should respond with 200 if the authentication service resolves
 - [ ] AC14-3: It should respond with 500 if the authentication service rejects with a server error
 
 ## revalidate password (AC)
 
-- [ ] AC14-4: It should call revalidatePassword on the authentication service
-- [ ] AC14-5: It should call next if revalidatePassword resolves
-- [ ] AC14-6: It should respond with a status code of 401 where revalidatePassword throws a password revalidation error
-- [ ] AC14-7: It should respond with a status code of 500 where revalidatePassword throws a server error
+- [ ] AS14-4: It should respond with a status of 500 if no req.user
+- [ ] AS14-5: It should respond with a status of 500 req.user.password
+- [ ] AS14-6: It should respond with a status of 401 if no req.body.password
+- [ ] AS14-7: It should call compare on bcrypt with the correct arguments
+- [ ] AS14-8: It should respond with a status of 401 if bcrypt returns false
+- [ ] AS14-9: It should respond with a status of 500 if bcrypt rejects
+- [ ] AS14-10: It call next if bcrypt returns true
 
 ## Integration Tests (INT)
 

@@ -17,6 +17,13 @@ export default class AuthenticationController {
     }
   };
 
+  updatePassword = async (req, res) => {
+    this.#authenticationService.updatePassword(
+      req.user._id,
+      req.body.updatedPassword
+    );
+  };
+
   signIn = async (req, res) => {
     try {
       const { token, user } = await this.#authenticationService.signInUser(

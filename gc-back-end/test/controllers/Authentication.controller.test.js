@@ -398,4 +398,40 @@ describe("Authentication controller tests", () => {
       expect(res.status.calledWith(403)).to.equal(true);
     });
   });
+
+  describe("Update password tests: ", () => {
+    const testUser = userTestData.documents[0];
+    const testUpdatedPassword = "test-updated-password";
+    let authenticationService;
+    let authenticationController;
+    let next;
+
+    beforeEach(() => {
+      authenticationService = {
+        updatePassword: sinon.stub(),
+      };
+      authenticationController = new AuthenticationController(
+        authenticationService
+      );
+      req.user = testUser;
+      req.body = { updatedPassword: testUpdatedPassword };
+    });
+
+    afterEach(() => {
+      authenticationController = null;
+    });
+
+    //? AC14-1
+    it("should call updatePassword by id on the authentication service with the correct arguments", async () => {
+      //Act
+      await authenticationController.updatePassword(req, res, next);
+      //Assert
+      expect(
+        authenticationService.updatePassword.calledWith(
+          req.user._id,
+          testUpdatedPassword
+        )
+      ).to.equal(true);
+    });
+  });
 });
