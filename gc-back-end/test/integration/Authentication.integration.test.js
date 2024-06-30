@@ -410,7 +410,7 @@ describe("Authentication integration tests: ", () => {
     beforeEach(() => {
       testSubmission = {
         password: userTestData.submissions[0].password,
-        updatedPassword: "new-password",
+        updatedPassword: "newPassword12£",
       };
     });
     afterEach(async () => {
@@ -478,6 +478,17 @@ describe("Authentication integration tests: ", () => {
       expect(response.body).to.equal(
         APIErrors.PASSWORD_REVALIDATION_ERROR.message
       );
+    });
+
+    //? INT14-6
+    it("should respond with a 400 response if the updated password is missing", async () => {
+      //Act
+      const response = await request
+        .patch(updatePasswordEndpoint)
+        .set("Cookie", authenticationToken)
+        .send({ ...testSubmission, updatedPassword: undefined });
+      //Assert
+      expect(response.status).to.equal(400);
     });
   });
 });

@@ -42,6 +42,7 @@ export default class AuthenticationRoutes {
       "/update-password",
       this.#authenticationController.requireLoggedIn,
       this.#authenticationController.requirePassword,
+      UserValidator.validateUpdatePasswordSubmission(),
       this.#authenticationController.updatePassword
     );
   }

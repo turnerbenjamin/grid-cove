@@ -29,6 +29,17 @@ export default class UserValidator {
     ];
   };
 
+  static validateUpdatePasswordSubmission = () => {
+    return [
+      this.#validatePropertyExists("updatedPassword"),
+      this.#validatePassword({
+        isOptional: true,
+        propertyName: "updatedPassword",
+      }),
+      UserValidator.#handleValidationErrors,
+    ];
+  };
+
   static #handleValidationErrors = (req, res, next) => {
     const errors = expressValidator.validationResult(req, {
       strictParams: true,
@@ -61,9 +72,9 @@ export default class UserValidator {
       .withMessage(`${property} is required`);
   };
 
-  static #validatePassword = ({ isOptional }) => {
+  static #validatePassword = ({ isOptional, propertyName }) => {
     return expressValidator
-      .body("password")
+      .body(propertyName || "password")
       .optional(isOptional)
       .isLength({ min: 8, max: 32 })
       .withMessage("Password must be 8-32 characters long")
