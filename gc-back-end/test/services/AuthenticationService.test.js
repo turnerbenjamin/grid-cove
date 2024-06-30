@@ -319,23 +319,28 @@ describe("Authentication service tests", () => {
       expect(actual).to.deep.equal(expected);
     });
   });
+
   describe("Validate token tests", () => {
     const testDecodedToken = { _id: "test_id" };
     const testToken = "jwt=xxxxx";
     const testUserDocument = userTestData.documents[0];
     let verifyStub;
     let findByIdStub;
+    let selectStub;
 
     beforeEach(() => {
       verifyStub = sinon.stub(jwt, "verify");
       verifyStub.returns(testDecodedToken);
+      selectStub = sinon.stub();
+      selectStub.resolves(testUserDocument);
       findByIdStub = sinon.stub(User, "findById");
-      findByIdStub.resolves(testUserDocument);
+      findByIdStub.returns({ select: selectStub });
     });
 
     afterEach(() => {
       verifyStub.restore();
       findByIdStub.restore();
+      selectStub = null;
     });
 
     //? AS6-1
@@ -397,7 +402,7 @@ describe("Authentication service tests", () => {
     //? AS6-5
     it("should throw an unauthorised error if findById returns a falsy value", async () => {
       //Arrange
-      findByIdStub.resolves(null);
+      selectStub.resolves(null);
       const expected = APIErrors.UNAUTHORISED_ERROR;
       let actual;
       //Act
@@ -418,6 +423,38 @@ describe("Authentication service tests", () => {
       const actual = await authenticationService.validateToken(testToken);
       //Assert
       expect(actual).to.equal(expected);
+    });
+  });
+
+  describe("Update password tests: ", () => {
+    const testUpdatedPassword = "new-password";
+    const testUserToUpdateId = "test-user-to-update-id";
+    const testHashedUpdatedPassword = "new-password-hashed";
+    let hashStub;
+
+    beforeEach(() => {
+      hashStub = sinon.stub(bcrypt, "hash");
+      hashStub.resolves(testHashedUpdatedPassword);
+    });
+
+    afterEach(() => {
+      hashStub.restore();
+    });
+
+    //? AS14-1
+    it("should call hash on bcrypt with the password", async () => {
+      //Arrange
+      const expectedPasswordToHash = testUpdatedPassword;
+      const expectedSalt = parseInt(process.env.SALT);
+      //Act
+      await authenticationService.updatePassword(
+        testUserToUpdateId,
+        testUpdatedPassword
+      );
+      const [actualPasswordToHash, actualSalt] = hashStub.getCall(0).args;
+      //Assert
+      expect(actualPasswordToHash).to.equal(expectedPasswordToHash);
+      expect(actualSalt).to.equal(expectedSalt);
     });
   });
 });

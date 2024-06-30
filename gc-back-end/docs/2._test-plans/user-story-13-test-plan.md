@@ -22,7 +22,7 @@
 - [x] UC13-5: It should respond with a status of 400 where the user service throws a duplicate username error
 - [x] UC13-6: It should respond with a status code of 500 where updateUserById rejects
 
-## Authentication Controller
+## Authentication Controller (AC)
 
 - [x] AC13-1: It should throw an error where mismatch between req.user and req.params.userId
 
@@ -32,7 +32,7 @@
 - [x] INT13-2: It should respond with a status of 200 for a successful request where username only is updated
 - [x] INT13-3: It should respond with a status of 200 for a successful request where email address only is updated
 - [x] INT13-4: It should respond with the updated user document without the password for a successful request
-- [x] INT13-5: It should respond with a 401 status code if not req.cookies.jwt
+- [x] INT13-5: It should respond with a 401 status code if no req.cookies.jwt
 - [x] INT13-6: It should respond with a 401 status code if invalid req.cookies.jwt
 - [x] INT13-7: It should respond with a 401 status code if user id in req.cookie does not match req.params.userId
 - [x] INT13-8: It should respond with a 400 response if an email address is provided which is a duplicate

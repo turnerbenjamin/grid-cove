@@ -16,6 +16,10 @@ export default class AuthenticationService {
     }
   };
 
+  updatePassword = async (userToUpdateId, updatedPassword) => {
+    await this.#hash(updatedPassword);
+  };
+
   signInUser = async (userCredentials) => {
     try {
       const userDocument = await User.findOne({
@@ -32,7 +36,9 @@ export default class AuthenticationService {
   validateToken = async (token) => {
     try {
       const decodedToken = this.#decodeToken(token);
-      const userDocument = await User.findById(decodedToken._id);
+      const userDocument = await User.findById(decodedToken._id).select(
+        "+password"
+      );
       if (!userDocument) throw APIErrors.UNAUTHORISED_ERROR;
       return userDocument;
     } catch (err) {
