@@ -58,6 +58,7 @@ describe("User integration tests: ", () => {
       userTestData.documents[1],
     ];
     const userToUpdate = usersInDatabase[0];
+    const userNotToUpdate = usersInDatabase[1];
     let userToUpdateAccessToken;
     const updateUserEndpoint = (id) => `/users/${id}`;
     let testUpdates;
@@ -159,6 +160,17 @@ describe("User integration tests: ", () => {
       const response = await request
         .patch(updateUserEndpoint(userToUpdate._id))
         .set("Cookie", "invalidJWT")
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(401);
+    });
+
+    //? INT13-7
+    it("should respond with a 401 status code if user id in req.cookie does not match req.params.userId", async () => {
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userNotToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
         .send(testUpdates);
       //Assert
       expect(response.status).to.equal(401);
