@@ -107,6 +107,7 @@ describe("User integration tests: ", () => {
         .send(testUpdates);
       //Assert
       expect(response.status).to.equal(200);
+      expect(response.body.username).to.equal(testUpdates.username);
     });
 
     //? INT13-3
@@ -120,6 +121,26 @@ describe("User integration tests: ", () => {
         .send(testUpdates);
       //Assert
       expect(response.status).to.equal(200);
+      expect(response.body.emailAddress).to.equal(testUpdates.emailAddress);
+    });
+
+    //? INT13-4
+    it("should respond with the updated user document without the password for a successful request", async () => {
+      //Arrange
+      const expected = {
+        ...userToUpdate,
+        username: testUpdates.username,
+        emailAddress: testUpdates.emailAddress,
+      };
+      delete expected.password;
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      delete response.body.__v;
+      //Assert
+      expect(response.body).to.deep.equal(expected);
     });
   });
 });
