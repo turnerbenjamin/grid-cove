@@ -217,5 +217,18 @@ describe("User integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT13-11
+    it("should respond with a status of 400 if req.body includes password", async () => {
+      //Arrange
+      testUpdates.password = "new-password";
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .set("Cookie", userToUpdateAccessToken)
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });

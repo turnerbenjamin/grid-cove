@@ -38,9 +38,10 @@
 - [x] INT13-8: It should respond with a 400 response if an email address is provided which is a duplicate
 - [x] INT13-9: It should respond with a 400 response if a username is provided which is a duplicate
 - [x] INT13-10: It should respond with a 400 response if neither username nor password are provided
-- [ ] INT13-11: It should respond with a status of 400 if req.body includes fields other than username or emailAddress
-- [ ] INT13-12: It should respond with a 400 response if a username is provided and it is too short
-- [ ] INT13-13: It should respond with a 400 response if a username is provided and it is too long
-- [ ] INT13-14: It should respond with a 400 response if a username is provided and it is contains invalid characters
-- [ ] INT13-15: It should respond with a 400 response if an email address is provided and it is invalid
-- [ ] INT13-16: It should respond with a 500 response if findByIdAndUpdate rejects
+- [x] INT13-11: It should respond with a status of 400 if req.body includes password
+- [ ] INT13-12: It should respond with a status of 400 if req.body includes roles
+- [ ] INT13-13: It should respond with a 400 response if a username is provided and it is too short
+- [ ] INT13-14: It should respond with a 400 response if a username is provided and it is too long
+- [ ] INT13-15: It should respond with a 400 response if a username is provided and it is contains invalid characters
+- [ ] INT13-16: It should respond with a 400 response if an email address is provided and it is invalid
+- [ ] INT13-17: It should respond with a 500 response if findByIdAndUpdate rejects

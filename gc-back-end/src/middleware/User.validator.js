@@ -19,6 +19,10 @@ export default class UserValidator {
   static validateUpdateUserSubmission = () => {
     return [
       this.#validateBodyIncludesOneOf(["username", "emailAddress"]),
+      this.#sanitiseBody({
+        whitelist: ["username", "emailAddress"],
+        blacklist: ["password"],
+      }),
       UserValidator.#handleValidationErrors,
     ];
   };
@@ -85,15 +89,29 @@ export default class UserValidator {
       );
   };
 
-  static #sanitiseBody = ({ whitelist }) => {
+  static #sanitiseBody = ({ whitelist, blacklist }) => {
     return (req, res, next) => {
       const sanitisedBody = {};
+
       for (const validProperty of whitelist) {
         if (!req.body[validProperty]) continue;
         sanitisedBody[validProperty] = req.body[validProperty];
       }
+      if (blacklist)
+        this.#checkBodyForBlacklistedProperties(req.body, blacklist, res);
       req.body = sanitisedBody;
       next();
     };
+  };
+
+  static #checkBodyForBlacklistedProperties = (body, blacklist, res) => {
+    for (const invalidProperty of blacklist) {
+      if (body.hasOwnProperty(invalidProperty))
+        return res
+          .status(400)
+          .json(
+            `You are not permitted to provide ${invalidProperty} on this route`
+          );
+    }
   };
 }
