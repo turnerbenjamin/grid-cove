@@ -490,5 +490,16 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(response.status).to.equal(400);
     });
+
+    //? INT14-7
+    it("should respond with a 400 response if the updated password is less than 8 characters", async () => {
+      //Act
+      const response = await request
+        .patch(updatePasswordEndpoint)
+        .set("Cookie", authenticationToken)
+        .send({ ...testSubmission, updatedPassword: "xxxxx1$" });
+      //Assert
+      expect(response.status).to.equal(400);
+    });
   });
 });
