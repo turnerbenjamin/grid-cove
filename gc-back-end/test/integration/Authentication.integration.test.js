@@ -550,5 +550,24 @@ describe("Authentication integration tests: ", () => {
       expect(response.status).to.equal(500);
       expect(response.body).to.equal(APIErrors.SERVER_ERROR.message);
     });
+
+    //? INT14-12
+    it("should update the password", async () => {
+      //Arrange
+      const originalUserDoc = await User.findById(userToUpdate._id).select(
+        "+password"
+      );
+      //Act
+      await request
+        .patch(updatePasswordEndpoint)
+        .set("Cookie", authenticationToken)
+        .send(testSubmission);
+      const updatedUserDoc = await User.findById(userToUpdate._id).select(
+        "+password"
+      );
+
+      //Assert
+      expect(originalUserDoc.password).not.to.equal(updatedUserDoc.password);
+    });
   });
 });
