@@ -142,5 +142,15 @@ describe("User integration tests: ", () => {
       //Assert
       expect(response.body).to.deep.equal(expected);
     });
+
+    //? INT13-5
+    it("should respond with a 401 status code if not req.cookies.jwt", async () => {
+      //Act
+      const response = await request
+        .patch(updateUserEndpoint(userToUpdate._id))
+        .send(testUpdates);
+      //Assert
+      expect(response.status).to.equal(401);
+    });
   });
 });
