@@ -203,6 +203,11 @@ describe("Update password form tests: ", () => {
       test("It should show errors where update password has errors", async () => {
         expect(screen.getByText(testErrorMessage)).toBeInTheDocument();
       });
+
+      //? US14-UPF-11
+      test("It should disable the update button where update password has errors", async () => {
+        expect(screen.getByText(/^update$/i)).toHaveClass("disabled");
+      });
     });
   });
 });
