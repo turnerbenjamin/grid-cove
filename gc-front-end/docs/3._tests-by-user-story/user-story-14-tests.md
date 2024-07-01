@@ -21,10 +21,11 @@
 - [x] US14-UPF-13: It should show a success message when updateUserPasswordById resolves
 - [x] US14-UPF-14: It should not show a success message after the close button has been selected
 - [x] US14-UPF-15: It should clear the input fields where updateUserPasswordById resolves
+- [ ] US14-UPF-16: It should disable submit where validation errors
 
 ## Integration Tests
 
-- [ ] US14-INT-1: It should show a sign-in form where the user is not logged in
+- [x] US14-INT-1: It should show a sign-in form where the user is not logged in
 - [ ] US14-INT-2: It should not show a sign in form when the user is logged in
 - [ ] US14-INT-3: It should show a sign in form if updateUserPasswordById resolves
 - [ ] US14-INT-4: It should not show a sign-in form and stay on the same page where sign in resolves

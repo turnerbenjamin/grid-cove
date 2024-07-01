@@ -6,6 +6,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import App from "../src/App";
+
 export const renderWithRouter = (element, elementPath, params) => {
   const PageNavigatedTo = () => {
     const location = useLocation();
@@ -34,7 +36,7 @@ export const renderWithRouter = (element, elementPath, params) => {
   render(<RouterProvider router={router} />);
 };
 
-export const renderAppWithLocationWrapper = () => {
+export const renderAppWithLocationWrapper = (initialEntries) => {
   const AppWrappedWithLocationData = () => {
     const location = useLocation();
     return (

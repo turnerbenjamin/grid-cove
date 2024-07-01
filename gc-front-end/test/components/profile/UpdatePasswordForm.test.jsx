@@ -54,6 +54,7 @@ describe("Update password form tests: ", () => {
       //Assert
       expect(screen.queryByRole("alert")).toBeNull();
     });
+
     describe("Where password field is not empty: ", () => {
       //? US14-UPF-3
       test("It should not show validation errors when the password field is empty", async () => {
@@ -115,6 +116,15 @@ describe("Update password form tests: ", () => {
         });
         //Assert
         expect(screen.queryByRole("alert")).toBeInTheDocument();
+      });
+
+      //? US14-UPF-16
+      test("It should disable submit where validation errors", async () => {
+        await act(async () => {
+          fireEvent.submit(screen.getByRole("form"));
+        });
+        //Assert
+        expect(updatePasswordSpy).toBeCalledTimes(0);
       });
     });
   });
