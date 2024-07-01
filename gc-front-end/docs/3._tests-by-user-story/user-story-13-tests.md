@@ -32,6 +32,6 @@ This form has been well tested in the tests for user stories 1-3. These tests ar
 
 - [x] US13-PFL-1: It should call the user service with the correct arguments when save is clicked
 - [x] US13-PFL-2: It should display a loading spinner while the user service is loading
-- [ ] US13-PFL-3: It should display errors where the user service rejects
+- [x] US13-PFL-3: It should display errors where the user service rejects
 - [ ] US13-PFL-4: It should remove errors from the display once an update has been made to the form
 - [ ] US13-PFL-5: It should display a success message if the user service resolves

@@ -70,5 +70,17 @@ describe("Profile tests: ", () => {
       //Assert
       expect(screen.getByRole("status")).toBeInTheDocument();
     });
+
+    //?US13-PFL-3
+    test("It should display errors where the user service rejects", async () => {
+      //Arrange
+      const testErrorMessage = "test error message";
+      //Act
+      await act(async () => {
+        updateUserRejecter(new Error(testErrorMessage));
+      });
+      //Assert
+      expect(screen.getByText(testErrorMessage)).toBeInTheDocument();
+    });
   });
 });
