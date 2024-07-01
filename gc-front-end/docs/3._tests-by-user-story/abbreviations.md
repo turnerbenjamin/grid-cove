@@ -35,4 +35,5 @@ This document is a reference for abbreviations used in test codes:
 - SVC: components/build/SaveControls
 - UDF: components/header/UserDetailsForm
 - UNI: components/header/inputFields/UserNameInputField
+- UPF: profile/UpdatePasswordForm
 - URS: services/user.service

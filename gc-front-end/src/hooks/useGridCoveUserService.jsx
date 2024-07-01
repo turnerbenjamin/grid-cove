@@ -5,6 +5,7 @@ import {
   register,
   signIn,
   signOut,
+  updatePassword,
 } from "../services/authentication.service";
 import { updateUser } from "../services/user.service";
 
@@ -15,6 +16,7 @@ export default function useGridCoveUserService() {
   const [isRegistrationSuccessful, setIsRegistrationSuccessful] =
     useState(null);
   const [isSignInSuccessful, setIsSignInSuccessful] = useState(null);
+  const [lastActionName, setLastActionName] = useState("");
 
   const handleErrors = (err) => {
     let errorMessages;
@@ -34,6 +36,7 @@ export default function useGridCoveUserService() {
 
   const registerNewUser = async (newUserSubmission) => {
     try {
+      setLastActionName("register");
       setAuthenticationErrors(null);
       setAuthenticationIsLoading(true);
       await register(newUserSubmission);
@@ -47,11 +50,13 @@ export default function useGridCoveUserService() {
 
   const signInUser = async (userCredentials) => {
     try {
+      setLastActionName("sign-in");
       setAuthenticationErrors(null);
       setAuthenticationIsLoading(true);
       const user = await signIn(userCredentials);
       setActiveUser(user);
       setIsSignInSuccessful(true);
+      return user;
     } catch (err) {
       handleErrors(err);
     } finally {
@@ -61,6 +66,7 @@ export default function useGridCoveUserService() {
 
   const signOutUser = async () => {
     try {
+      setLastActionName("signOut");
       setAuthenticationErrors(null);
       setAuthenticationIsLoading(true);
       await signOut();
@@ -74,10 +80,26 @@ export default function useGridCoveUserService() {
 
   const updateUserById = async (userToUpdateId, updates) => {
     try {
+      setLastActionName("updateUser");
       setAuthenticationErrors(null);
       setAuthenticationIsLoading(true);
       const user = await updateUser(userToUpdateId, updates);
       setActiveUser(user);
+      return user;
+    } catch (err) {
+      handleErrors(err);
+    } finally {
+      setAuthenticationIsLoading(false);
+    }
+  };
+
+  const updateUserPasswordById = async (payload) => {
+    try {
+      setLastActionName("updatePassword");
+      setAuthenticationErrors(null);
+      setAuthenticationIsLoading(true);
+      const user = await updatePassword(payload);
+      setActiveUser(null);
       return user;
     } catch (err) {
       handleErrors(err);
@@ -95,9 +117,11 @@ export default function useGridCoveUserService() {
     handleClearSignInIsSuccessful,
     isRegistrationSuccessful,
     isSignInSuccessful,
+    lastActionName,
     registerNewUser,
     signInUser,
     signOutUser,
+    updateUserPasswordById,
     updateUserById,
   };
 }

@@ -3,6 +3,7 @@ import FormInputValidator from "./FormInputValidator";
 import FormValidator from "../../../utils/FormValidator";
 
 export default function ConfirmPasswordInputField({
+  label = "Confirm Password",
   passwordValue,
   confirmPasswordValue,
   isDisabled,
@@ -20,7 +21,7 @@ export default function ConfirmPasswordInputField({
     >
       <FormInput
         value={confirmPasswordValue}
-        labelTitle="Confirm Password"
+        labelTitle={label}
         placeholder="Confirm password"
         type="password"
         isDisabled={isDisabled}

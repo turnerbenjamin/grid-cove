@@ -6,12 +6,20 @@ import Puzzles from "../components/puzzles/Puzzles";
 import Solve from "../components/solve/Solve";
 import { PuzzleContextProvider } from "../hooks/contexts/puzzleContext";
 import Profile from "../components/profile/Profile";
+import RequireLoggedIn from "../components/general/RequireLoggedIn";
 
 export default function GridCoveRouter() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/me" element={<Profile />} />
+      <Route
+        path="/me"
+        element={
+          <RequireLoggedIn>
+            <Profile />
+          </RequireLoggedIn>
+        }
+      />
       <Route
         element={
           <PuzzleContextProvider>

@@ -15,6 +15,7 @@ export default defineConfig({
         "**/*config.js",
         "**/*eslintrc.cjs",
         "**/test.utils.jsx",
+        "**/main.jsx",
       ],
     },
   },

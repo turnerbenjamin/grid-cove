@@ -3,6 +3,7 @@ import useGridCoveUserService from "../../hooks/useGridCoveUserService";
 import SuccessToast from "../general/SuccessToast";
 import UserDetailsForm from "../header/UserDetailsForm";
 import { useAppContext } from "../../hooks/contexts/appContext";
+import UpdatePasswordForm from "./UpdatePasswordForm";
 
 export default function Profile() {
   const {
@@ -11,6 +12,7 @@ export default function Profile() {
     authenticationErrors,
     handleClearErrors,
     updateUserById,
+    lastActionName,
   } = useAppContext();
 
   const [successMessage, setSuccessMessage] = useState(null);
@@ -27,7 +29,7 @@ export default function Profile() {
           headingText="Update Your Details"
           submitButtonText="Save"
           onSubmit={handleSubmit}
-          errors={authenticationErrors}
+          errors={lastActionName === "updateUser" && authenticationErrors}
           handleClearErrors={handleClearErrors}
           isLoading={authenticationIsLoading}
           activeFields={{
@@ -39,6 +41,7 @@ export default function Profile() {
             emailAddress: activeUser?.emailAddress,
           }}
         />
+        <UpdatePasswordForm />
       </div>
       {successMessage && (
         <SuccessToast

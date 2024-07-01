@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppContext } from "../../../hooks/contexts/appContext";
 
 export default function FormInputValidator({
   values,
@@ -11,9 +12,13 @@ export default function FormInputValidator({
   const [doShowErrors, setDoShowErrors] = useState(false);
 
   const handleBlur = () => {
-    if (doSkipValidation) return;
+    if (doSkipValidation) return setDoShowErrors(false);
     setDoShowErrors(true);
   };
+
+  useEffect(() => {
+    if (doSkipValidation) setDoShowErrors(false);
+  }, [doSkipValidation]);
 
   const [isValid, error] = validator(...values);
   const errorMessage = !isValid && (

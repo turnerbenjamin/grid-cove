@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "../general/Button";
-import RenderedErrors from "../general/RenderedErrors";
-import FormValidator from "../../utils/FormValidator";
-import UserNameInputField from "./inputFields/UserNameInputField";
-import EmailAddressInputField from "./inputFields/EmailAddressInputField";
-import PasswordInputField from "./inputFields/PasswordInputField";
 import ConfirmPasswordInputField from "./inputFields/ConfirmPasswordInputField";
+import EmailAddressInputField from "./inputFields/EmailAddressInputField";
+import FormValidator from "../../utils/FormValidator";
+import PasswordInputField from "./inputFields/PasswordInputField";
+import RenderedErrors from "../general/RenderedErrors";
+import UserNameInputField from "./inputFields/UserNameInputField";
 
 export default function UserDetailsForm({
   headingText,
@@ -32,6 +32,12 @@ export default function UserDetailsForm({
       handleClearErrors();
     setter(value);
   };
+
+  useEffect(() => {
+    if (defaultValues?.username) setUsername(defaultValues.username);
+    if (defaultValues?.emailAddress)
+      setEmailAddress(defaultValues.emailAddress);
+  }, [defaultValues]);
 
   const submission = {
     username,

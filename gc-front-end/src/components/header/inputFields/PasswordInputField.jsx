@@ -3,6 +3,7 @@ import FormInputValidator from "./FormInputValidator";
 import FormValidator from "../../../utils/FormValidator";
 
 export default function PasswordInputField({
+  label = "Password",
   passwordValue,
   isDisabled,
   onChange,
@@ -19,8 +20,8 @@ export default function PasswordInputField({
     >
       <FormInput
         value={passwordValue}
-        labelTitle="Password"
-        placeholder="Your password"
+        labelTitle={label}
+        placeholder={`Your ${label.toLowerCase()}`}
         type="password"
         isDisabled={isDisabled}
         onChange={onChange}

@@ -13,6 +13,7 @@ export default function ActiveUserControl() {
     authenticationIsLoading,
     authenticationErrors,
     handleClearErrors,
+    lastActionName,
   } = useAppContext();
 
   const wrapperRef = useRef(null);
@@ -54,7 +55,7 @@ export default function ActiveUserControl() {
           </>
         )}
       </div>
-      {authenticationErrors && (
+      {lastActionName === "signOut" && authenticationErrors && (
         <ErrorModal onClose={handleClearErrors} errors={authenticationErrors} />
       )}
     </>
