@@ -93,6 +93,26 @@ describe("Update password form tests: ", () => {
         //Assert
         expect(screen.queryByRole("alert")).toBeInTheDocument();
       });
+
+      //? US14-UPF-5
+      test("It should show validation errors when the confirm updated password field is blurred with a validation error", async () => {
+        const confirmUpdatedPasswordInputField = screen.getByTitle(
+          /^confirm updated password$/i
+        );
+        await act(async () => {
+          fireEvent.change(screen.getByTitle(/^updated password$/i), {
+            target: { value: testUpdatedPassword },
+          });
+          fireEvent.change(confirmUpdatedPasswordInputField, {
+            target: { value: testUpdatedPassword + "x" },
+          });
+        });
+        await act(async () => {
+          fireEvent.blur(confirmUpdatedPasswordInputField);
+        });
+        //Assert
+        expect(screen.queryByRole("alert")).toBeInTheDocument();
+      });
     });
   });
 });
