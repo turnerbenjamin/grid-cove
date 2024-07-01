@@ -35,3 +35,4 @@ This form has been well tested in the tests for user stories 1-3. These tests ar
 - [x] US13-PFL-3: It should display errors where the user service rejects
 - [x] US13-PFL-4: It should remove errors from the display once an update has been made to the form
 - [x] US13-PFL-5: It should display a success message if the user service resolves
+- [x] US13-PFL-6: It should not display a success message if the user clicks close

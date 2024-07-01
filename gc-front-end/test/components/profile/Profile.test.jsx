@@ -123,5 +123,18 @@ describe("Profile tests: ", () => {
       //Assert
       expect(screen.getByTitle(/success/i)).toBeInTheDocument();
     });
+
+    //?US13-PFL-6
+    test("It should not display a success message if the user clicks close", async () => {
+      //Act
+      await act(async () => {
+        updateUserResolver({});
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(/close/i));
+      });
+      //Assert
+      expect(screen.queryByTitle(/success/i)).toBeNull();
+    });
   });
 });
