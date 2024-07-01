@@ -569,5 +569,18 @@ describe("Authentication integration tests: ", () => {
       //Assert
       expect(originalUserDoc.password).not.to.equal(updatedUserDoc.password);
     });
+
+    //? INT14-13
+    it("should have a header to set JWT to en empty string", async () => {
+      //Act
+      const response = await request
+        .patch(updatePasswordEndpoint)
+        .set("Cookie", authenticationToken)
+        .send(testSubmission);
+      //Assert
+      expect(response.header["set-cookie"][0].startsWith("jwt=;")).to.equal(
+        true
+      );
+    });
   });
 });
