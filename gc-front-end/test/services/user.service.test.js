@@ -69,5 +69,18 @@ describe("User service tests: ", () => {
       //Assert
       expect(actual).toEqual(expected);
     });
+
+    //? US13-URS-4
+    test("It should call set data on local storage where axios resolves", async () => {
+      //Arrange
+      axios.patch.mockResolvedValueOnce(testResponse);
+      //Act
+      await userService.updateUser(testUserId, testUpdates);
+      //Assert
+      expect(setItemSpy).toBeCalledWith(
+        "user",
+        JSON.stringify(testResponse.data)
+      );
+    });
   });
 });

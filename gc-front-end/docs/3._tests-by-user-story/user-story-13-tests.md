@@ -23,7 +23,7 @@ This form has been well tested in the tests for user stories 1-3. These tests ar
 - [x] US13-URS-1: It should call axios get with the correct url
 - [x] US13-URS-2: It should throw err if get rejects with standard error object
 - [x] US13-URS-3: It should throw err?.response?.data where validation error received
-- [ ] US13-URS-4: It should call set data on local storage where axios resolves
+- [x] US13-URS-4: It should call set data on local storage where axios resolves
 - [ ] US13-URS-5: It should return response data where axios resolves
 
 ## Profile (PFL)
