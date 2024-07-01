@@ -174,6 +174,19 @@ describe("Update password form tests: ", () => {
       test("It should show a loading spinner when update password is loading", async () => {
         expect(screen.getByRole("status")).toBeInTheDocument();
       });
+
+      //? US14-UPF-9
+      test("It should disable inputs while update password is loading", async () => {
+        expect(screen.getByTitle(/^current password$/i)).toHaveClass(
+          "disabled"
+        );
+        expect(screen.getByTitle(/^updated password$/i)).toHaveClass(
+          "disabled"
+        );
+        expect(screen.getByTitle(/^confirm updated password$/i)).toHaveClass(
+          "disabled"
+        );
+      });
     });
   });
 });

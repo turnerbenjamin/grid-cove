@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 export default function FormInput({
   value,
   labelTitle,
@@ -6,6 +8,10 @@ export default function FormInput({
   isDisabled,
   onChange,
 }) {
+  const inputClasses = classNames("w-full px-2 py-1 text-secondary-900", {
+    disabled: isDisabled,
+  });
+
   return (
     <div className="w-full max-w-[20rem] flex flex-col gap-1">
       <label className="w-full">{labelTitle}</label>
@@ -14,7 +20,7 @@ export default function FormInput({
         type={type}
         placeholder={placeholder}
         title={labelTitle}
-        className="w-full px-2 py-1 text-secondary-900"
+        className={inputClasses}
         role="textbox"
         disabled={isDisabled}
         onChange={onChange}
