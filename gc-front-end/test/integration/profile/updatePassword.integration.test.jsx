@@ -1,5 +1,5 @@
-import { act, fireEvent, screen } from "@testing-library/react";
-import { afterEach, beforeEach } from "vitest";
+import { act, fireEvent, screen, within } from "@testing-library/react";
+import { afterEach, beforeEach, expect } from "vitest";
 
 import {
   cleanUpForModal,
@@ -63,14 +63,27 @@ describe("Update password integration test: ", () => {
 
     //? US14-INT-3
     test("It should show a sign in form if updateUserPasswordById resolves", () => {
-      //Arrange
-      authenticationServices.getActiveUser.mockReturnValue({});
-      //Act
-      renderAppWithLocationWrapper(["/me"]);
-      //Assert
       expect(
         screen.queryByRole("heading", { name: /sign-in/i })
       ).toBeInTheDocument();
+    });
+
+    //? US14-INT-4
+    test("It should not show a sign-in form and should stay on the same page where sign in resolves", async () => {
+      const expected = screen.getByTestId("current-location").dataset.location;
+      authenticationServices.signIn.mockResolvedValue({});
+      const signInForm = screen
+        .queryByRole("heading", { name: /sign-in/i })
+        .closest("form");
+      //Act
+      await act(async () =>
+        fireEvent.click(within(signInForm).getByTitle(/submit/i))
+      );
+      //Assert
+      expect(screen.queryByRole("heading", { name: /sign-in/i })).toBeNull();
+      expect(screen.getByTestId("current-location").dataset.location).toBe(
+        expected
+      );
     });
   });
 });
