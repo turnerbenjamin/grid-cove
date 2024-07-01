@@ -9,7 +9,7 @@ import { afterEach, beforeEach, expect, test } from "vitest";
 
 import { useAppContext } from "../../../src/hooks/contexts/appContext";
 import UpdatePasswordForm from "../../../src/components/profile/UpdatePasswordForm";
-import { mockPromise } from "../../test.utils";
+import { cleanUpForModal, mockPromise, setUpForModal } from "../../test.utils";
 
 vi.mock("../../../src/hooks/contexts/appContext");
 
@@ -214,6 +214,49 @@ describe("Update password form tests: ", () => {
           target: { value: "some-change-to-field" },
         });
         expect(handleClearErrorsSpy).toBeCalledTimes(1);
+      });
+    });
+
+    describe("Successful submission tests: ", () => {
+      let updatePasswordSpy;
+      let updatePasswordPromise;
+      let updatePasswordResolver;
+
+      beforeEach(async () => {
+        setUpForModal();
+        [updatePasswordPromise, updatePasswordResolver] = mockPromise();
+        updatePasswordSpy = vi.fn().mockReturnValue(updatePasswordPromise);
+        useAppContext.mockReturnValue({
+          updateUserPasswordById: updatePasswordSpy,
+        });
+        render(<UpdatePasswordForm />);
+
+        await act(async () => {
+          fireEvent.change(screen.getByTitle(/^current password$/i), {
+            target: { value: testUpdatedPassword },
+          });
+          fireEvent.change(screen.getByTitle(/^updated password$/i), {
+            target: { value: testUpdatedPassword },
+          });
+          fireEvent.change(screen.getByTitle(/^confirm updated password$/i), {
+            target: { value: testUpdatedPassword },
+          });
+        });
+        await act(async () => fireEvent.click(screen.getByText(/^update$/i)));
+        await act(async () => {
+          updatePasswordResolver(true);
+        });
+      });
+
+      afterEach(() => {
+        cleanUpForModal();
+      });
+
+      //? US14-UPF-13
+      test("It should show a success message when updateUserPasswordById resolves", async () => {
+        //Act
+        screen.debug();
+        expect(screen.getByTitle(/success/i)).toBeInTheDocument();
       });
     });
   });
