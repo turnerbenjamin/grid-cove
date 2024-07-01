@@ -30,5 +30,21 @@ describe("User service tests: ", () => {
       //Assert
       expect(axios.patch).toBeCalledWith(expectedURL, testUpdates);
     });
+
+    //? US13-URS-2
+    test(" It should throw err if get rejects with standard error object", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.patch.mockRejectedValueOnce(expected);
+      let actual;
+      //Act
+      try {
+        await userService.updateUser(testUserId, testUpdates);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
