@@ -14,7 +14,7 @@ export default function UserDetailsForm({
   activeFields,
   errors,
   isLoading,
-  clearErrors,
+  handleClearErrors,
   onSubmit,
   doSkipValidation,
   successMessage,
@@ -28,7 +28,8 @@ export default function UserDetailsForm({
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleUpdate = (setter, value) => {
-    if (errors?.length > 0 && typeof clearErrors === "function") clearErrors();
+    if (errors?.length > 0 && typeof handleClearErrors === "function")
+      handleClearErrors();
     setter(value);
   };
 

@@ -80,7 +80,25 @@ describe("Profile tests: ", () => {
         updateUserRejecter(new Error(testErrorMessage));
       });
       //Assert
-      expect(screen.getByText(testErrorMessage)).toBeInTheDocument();
+      expect(screen.queryByText(testErrorMessage)).toBeInTheDocument();
+    });
+
+    //?US13-PFL-4
+    test("It should remove errors from the display once an update has been made to the form", async () => {
+      //Arrange
+      const testErrorMessage = "test error message";
+      //Act
+      await act(async () => {
+        updateUserRejecter(new Error(testErrorMessage));
+      });
+      await act(async () => {
+        fireEvent.change(screen.getByTitle(/email address/i), {
+          target: { value: "updated.again@email.com" },
+        });
+      });
+
+      //Assert
+      expect(screen.queryByText(testErrorMessage)).toBeNull();
     });
   });
 });

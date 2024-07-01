@@ -9,7 +9,7 @@ export default function Profile() {
     activeUser,
     authenticationIsLoading,
     authenticationErrors,
-    handleClearAuthenticationErrors,
+    handleClearErrors,
     updateUserById,
   } = useAppContext();
 
@@ -28,7 +28,7 @@ export default function Profile() {
           submitButtonText="Save"
           onSubmit={handleSubmit}
           errors={authenticationErrors}
-          clearErrors={handleClearAuthenticationErrors}
+          handleClearErrors={handleClearErrors}
           isLoading={authenticationIsLoading}
           activeFields={{
             username: true,

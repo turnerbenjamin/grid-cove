@@ -80,7 +80,6 @@ export default function useGridCoveUserService() {
       setActiveUser(user);
       return user;
     } catch (err) {
-      console.log(err);
       handleErrors(err);
     } finally {
       setAuthenticationIsLoading(false);

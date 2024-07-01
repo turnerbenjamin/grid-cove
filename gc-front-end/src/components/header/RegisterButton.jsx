@@ -8,7 +8,7 @@ export default function RegisterButton({ onClick, doShowForm, onClose }) {
     registerNewUser,
     authenticationIsLoading,
     authenticationErrors,
-    handleClearAuthenticationErrors,
+    handleClearErrors,
   } = useAppContext();
 
   return (
@@ -27,7 +27,7 @@ export default function RegisterButton({ onClick, doShowForm, onClose }) {
             submitButtonText="Submit"
             onSubmit={registerNewUser}
             errors={authenticationErrors}
-            clearErrors={handleClearAuthenticationErrors}
+            handleClearErrors={handleClearErrors}
             isLoading={authenticationIsLoading}
             activeFields={{
               username: true,

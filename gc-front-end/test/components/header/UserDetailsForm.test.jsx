@@ -81,7 +81,7 @@ describe("User details form tests: ", () => {
               confirmPassword: true,
             }}
             errors={testErrors}
-            clearErrors={clearErrorsSpy}
+            handleClearErrors={clearErrorsSpy}
           />
         );
       });

@@ -8,7 +8,7 @@ export default function SignInButton({ onClick, doShowForm, onClose }) {
     signInUser,
     authenticationIsLoading,
     authenticationErrors,
-    handleClearAuthenticationErrors,
+    handleClearErrors,
     isSignInSuccessful,
     handleClearSignInIsSuccessful,
   } = useAppContext();
@@ -34,7 +34,7 @@ export default function SignInButton({ onClick, doShowForm, onClose }) {
             onSubmit={isSignInSuccessful ? handleClose : signInUser}
             isLoading={authenticationIsLoading}
             errors={authenticationErrors}
-            handleClearAuthenticationErrors={handleClearAuthenticationErrors}
+            handleClearErrors={handleClearErrors}
             successMessage={
               isSignInSuccessful && "You have signed in successfully."
             }
