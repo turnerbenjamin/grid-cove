@@ -315,13 +315,28 @@ describe("User details form tests: ", () => {
     });
 
     //? US13-UDF-2
-    test("The save button should be disabled when all fields match the default values", async () => {
+    test("It should disable the save button when all fields match the default values", async () => {
       //Act
       await act(async () => {
         fireEvent.click(screen.getByText(testSubmitButtonText));
       });
       //Assert
       expect(onSubmitSpy).toBeCalledTimes(0);
+    });
+
+    //? US13-UDF-3
+    test("It should not disable the save button when just one field does not match its default value", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.change(usernameInputField, {
+          target: { value: "updated-username" },
+        });
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByText(testSubmitButtonText));
+      });
+      //Assert
+      expect(onSubmitSpy).toBeCalledTimes(1);
     });
   });
 });

@@ -15,8 +15,8 @@
 This form has been well tested in the tests for user stories 1-3. These tests are focussed on additional functionality, for the profile configuration. Specifically, the use of default values.
 
 - [x] US13-UDF-1: It should pre-populate fields where default values are provided for email address and password
-- [x] US13-UDF-2: The save button should be disabled when all fields match the default values
-- [ ] US13-UDF-3: The save button should not be disabled when just one of these fields matches its default value
+- [x] US13-UDF-2: It should disable the save button when all fields match the default values
+- [x] US13-UDF-3: It should not disable the save button when just one field does not match its default value
 
 ## User service tests (URS)
 
