@@ -28,7 +28,10 @@ export default function SuccessToast({ message, onClose, displayFor = 0 }) {
           />
         )}
         <div className="flex flex-row items-center justify-center gap-2">
-          <MdOutlineCheck className="fill-primary-600 text-3xl" />
+          <MdOutlineCheck
+            className="fill-primary-600 text-3xl"
+            title="Success"
+          />
           <p className="text-secondary-900">{message}</p>
         </div>
       </div>

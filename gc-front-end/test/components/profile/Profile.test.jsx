@@ -1,7 +1,12 @@
 import { act, fireEvent, screen } from "@testing-library/react";
-import { beforeEach, expect, test } from "vitest";
+import { afterEach, beforeEach, expect, test } from "vitest";
 
-import { mockPromise, renderWithRouter } from "../../test.utils";
+import {
+  cleanUpForModal,
+  mockPromise,
+  renderWithRouter,
+  setUpForModal,
+} from "../../test.utils";
 import { AppContextProvider } from "../../../src/hooks/contexts/appContext";
 
 import Profile from "../../../src/components/profile/Profile";
@@ -26,14 +31,19 @@ describe("Profile tests: ", () => {
   });
 
   describe("Update user tests: ", () => {
-    const [updateUserPromise, updateUserResolver, updateUserRejecter] =
-      mockPromise();
+    let updateUserPromise;
+    let updateUserResolver;
+    let updateUserRejecter;
+
     const testUpdates = {
       username: "new-username",
       emailAddress: "new@emailaddress.com",
     };
 
     beforeEach(async () => {
+      setUpForModal();
+      [updateUserPromise, updateUserResolver, updateUserRejecter] =
+        mockPromise();
       userService.updateUser.mockReturnValueOnce(updateUserPromise);
       renderWithRouter(
         <AppContextProvider>
@@ -54,6 +64,10 @@ describe("Profile tests: ", () => {
       await act(async () => {
         fireEvent.click(screen.getByTitle(/submit/i));
       });
+    });
+
+    afterEach(() => {
+      cleanUpForModal();
     });
 
     //?US13-PFL-1
@@ -96,9 +110,18 @@ describe("Profile tests: ", () => {
           target: { value: "updated.again@email.com" },
         });
       });
-
       //Assert
       expect(screen.queryByText(testErrorMessage)).toBeNull();
+    });
+
+    //?US13-PFL-5
+    test("It should display a success message if the user service resolves", async () => {
+      //Act
+      await act(async () => {
+        updateUserResolver({});
+      });
+      //Assert
+      expect(screen.getByTitle(/success/i)).toBeInTheDocument();
     });
   });
 });

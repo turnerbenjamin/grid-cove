@@ -5,6 +5,7 @@ import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext
 import SaveControls from "../../../src/components/build/SaveControls.jsx";
 import * as gridContext from "../../../src/hooks/contexts/gridContext.jsx";
 import * as puzzleService from "../../../src/services/puzzle.service.js";
+import { setUpForModal } from "../../test.utils.jsx";
 
 vi.mock("../../../src/hooks/contexts/gridContext");
 vi.mock("../../../src/services/puzzle.service");

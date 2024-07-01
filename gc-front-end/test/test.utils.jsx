@@ -60,3 +60,16 @@ export const mockPromise = () => {
   });
   return [promise, resolver, rejecter];
 };
+
+export const setUpForModal = () => {
+  Object.defineProperty(global.window, "scrollTo", {
+    value: () => null,
+  });
+  const modalRoot = document.createElement("div");
+  modalRoot.setAttribute("id", "modal");
+  document.body.appendChild(modalRoot);
+};
+
+export const cleanUpForModal = () => {
+  document.body.removeChild(document.getElementById("modal"));
+};
