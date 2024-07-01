@@ -43,6 +43,7 @@ describe("Update password integration test: ", () => {
     const testUpdatedPassword = "password12£";
 
     beforeEach(async () => {
+      vi.mock("../../../src/components/general/SuccessToast");
       authenticationServices.getActiveUser.mockReturnValueOnce({});
       authenticationServices.updatePassword.mockResolvedValue(true);
       renderAppWithLocationWrapper(["/me"]);
@@ -79,6 +80,18 @@ describe("Update password integration test: ", () => {
       await act(async () =>
         fireEvent.click(within(signInForm).getByTitle(/submit/i))
       );
+      //Assert
+      expect(screen.queryByRole("heading", { name: /sign-in/i })).toBeNull();
+      expect(screen.getByTestId("current-location").dataset.location).toBe(
+        expected
+      );
+    });
+
+    //? US14-INT-5
+    test("It should not show a sign-in form and should navigate to root where close is selected", async () => {
+      const expected = "/";
+      //Act
+      await act(async () => fireEvent.click(screen.getByTitle("close")));
       //Assert
       expect(screen.queryByRole("heading", { name: /sign-in/i })).toBeNull();
       expect(screen.getByTestId("current-location").dataset.location).toBe(
