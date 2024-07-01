@@ -138,6 +138,19 @@ describe("Update password form tests: ", () => {
         //Assert
         expect(screen.getByText(/you will be logged-out/i)).toBeInTheDocument();
       });
+
+      //? US14-UPF-7
+      test("It should call updateUserPasswordById when update is pressed", async () => {
+        //Arrange
+        const expected = {
+          password: testUpdatedPassword,
+          updatedPassword: testUpdatedPassword,
+        };
+        //Act
+        await act(async () => fireEvent.click(screen.getByText(/^update$/i)));
+        //Assert
+        expect(updatePasswordSpy).toBeCalledWith(expected);
+      });
     });
   });
 });
