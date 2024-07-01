@@ -266,6 +266,16 @@ describe("Update password form tests: ", () => {
         //Assert
         expect(screen.queryByTitle(/success/i)).toBeNull();
       });
+
+      //? US14-UPF-15
+      test("It should clear the input fields where updateUserPasswordById resolves", async () => {
+        //Act
+        await act(async () => fireEvent.click(screen.getByTitle(/close/i)));
+        //Assert
+        expect(screen.getByTitle(/^current password$/i).value).toBe("");
+        expect(screen.getByTitle(/^updated password$/i).value).toBe("");
+        expect(screen.getByTitle(/^confirm updated password$/i).value).toBe("");
+      });
     });
   });
 });
