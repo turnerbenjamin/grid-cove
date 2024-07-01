@@ -26,6 +26,7 @@
 - [x] AC14-1: It should call updatePassword by id on the authentication service with the correct arguments
 - [x] AC14-2: It should respond with 200 if the authentication service resolves
 - [x] AC14-3: It should respond with 500 if the authentication service rejects with a server error
+- [x] AC14-11: It should call res.clearCookie with the correct argument if the authentication service resolves
 
 ### require password (AC)
 
@@ -51,3 +52,4 @@
 - [x] INT14-10: It should respond with a 400 response if the updated password does not contain at least one special character
 - [x] INT14-11: It should respond with a 500 response if findByIdAndUpdate rejects
 - [x] INT14-12: It should update the password
+- [ ] INT14-13: It should have a header to set JWT to en empty string

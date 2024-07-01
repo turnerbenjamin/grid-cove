@@ -25,6 +25,7 @@ export default class AuthenticationController {
         req.user._id,
         req.body.updatedPassword
       );
+      res.clearCookie("jwt");
       res.status(200).json(updatedUser);
     } catch (err) {
       this.#handleErrors(res, err);

@@ -418,6 +418,7 @@ describe("Authentication controller tests", () => {
       );
       req.user = testUser;
       req.body = { updatedPassword: testUpdatedPassword };
+      res.clearCookie = sinon.stub();
     });
 
     afterEach(() => {
@@ -461,6 +462,16 @@ describe("Authentication controller tests", () => {
       expect(res.json.calledWith(APIErrors.SERVER_ERROR.message)).to.equal(
         true
       );
+    });
+
+    //? AC14-11
+    it("should call res.clearCookie with the correct argument if the authentication service resolves", async () => {
+      //Arrange
+      authenticationService.updatePassword.resolves({});
+      //Act
+      await authenticationController.updatePassword(req, res, next);
+      //Assert
+      expect(res.clearCookie.calledWith("jwt")).to.equal(true);
     });
   });
 
