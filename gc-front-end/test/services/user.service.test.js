@@ -6,8 +6,15 @@ import * as userService from "../../src/services/user.service";
 vi.mock("axios");
 
 describe("User service tests: ", () => {
+  let setItemSpy;
+
+  beforeEach(() => {
+    setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+  });
+
   afterEach(() => {
     vi.resetAllMocks();
+    localStorage.clear();
   });
   const testResponse = { data: "test data" };
 
@@ -32,10 +39,26 @@ describe("User service tests: ", () => {
     });
 
     //? US13-URS-2
-    test(" It should throw err if get rejects with standard error object", async () => {
+    test("It should throw err if get rejects with standard error object", async () => {
       //Arrange
       const expected = new Error("Server error");
       axios.patch.mockRejectedValueOnce(expected);
+      let actual;
+      //Act
+      try {
+        await userService.updateUser(testUserId, testUpdates);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
+
+    //? US13-URS-3
+    test("It should throw err?.response?.data where validation error received", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.patch.mockRejectedValueOnce({ response: { data: expected } });
       let actual;
       //Act
       try {
