@@ -219,5 +219,21 @@ describe("Puzzle service tests", () => {
       //Assert
       expect(actual).toEqual(expected);
     });
+
+    //? US12-PZS-3
+    test("It should throw err?.response?.data where validation error received", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.delete.mockRejectedValueOnce({ response: { data: expected } });
+      let actual;
+      //Act
+      try {
+        await puzzleService.deletePuzzle(testId);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
