@@ -10,6 +10,12 @@
 - [x] US12-ADM-2: It should close the warning and not call delete puzzle when cancel is called
 - [x] US12-ADM-3: It should call delete when the user clicks proceed
 
+## Puzzle service tests (PZS)
+
+- [x] US12-PZS-1: It should call axios post with the correct url
+- [ ] US12-PZS-2: It should throw err if post rejects with standard error object
+- [ ] US12-PZS-3: It should throw err?.response?.data where validation error received
+
 ## Solve Tests (SLV)
 
 - [x] US12-SLV-1: It should show a loading spinner while delete puzzle is pending

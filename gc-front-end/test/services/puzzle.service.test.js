@@ -187,4 +187,21 @@ describe("Puzzle service tests", () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  describe("Delete puzzle by id tests", () => {
+    const testId = "123";
+
+    //? US12-PZS-1
+    test("It should call axios post with the correct url", async () => {
+      //Arrange
+      axios.delete.mockResolvedValueOnce(testResponse);
+      const expectedURL = `${
+        import.meta.env.VITE_APP_DELETE_PUZZLES_URL
+      }/${testId}`;
+      //Act
+      await puzzleService.deletePuzzle(testId);
+      //Assert
+      expect(axios.delete).toBeCalledWith(expectedURL);
+    });
+  });
 });
