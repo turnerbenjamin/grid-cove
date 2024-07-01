@@ -45,5 +45,11 @@ describe("Update password form tests: ", () => {
       //Assert
       expect(screen.getByText(/^update$/i)).toHaveClass("disabled");
     });
+
+    //? US14-UPF-2
+    test("It should not show validation errors on render", async () => {
+      //Assert
+      expect(screen.queryByRole("alert")).toBeNull();
+    });
   });
 });
