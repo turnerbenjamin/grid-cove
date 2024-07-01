@@ -82,5 +82,16 @@ describe("User service tests: ", () => {
         JSON.stringify(testResponse.data)
       );
     });
+
+    //? US13-URS-5
+    test("It should return response data where axios resolves", async () => {
+      //Arrange
+      axios.patch.mockResolvedValueOnce(testResponse);
+      const expected = testResponse.data;
+      //Act
+      const actual = await userService.updateUser(testUserId, testUpdates);
+      //Assert
+      expect(actual).toBe(expected);
+    });
   });
 });
