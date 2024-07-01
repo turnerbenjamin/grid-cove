@@ -20,7 +20,7 @@ This form has been well tested in the tests for user stories 1-3. These tests ar
 
 ## User service tests (URS)
 
-- [ ] US13-URS-1: It should call axios get with the correct url
+- [x] US13-URS-1: It should call axios get with the correct url
 - [ ] US13-URS-2: It should throw err if get rejects with standard error object
 - [ ] US13-URS-3: It should throw err?.response?.data where validation error received
 - [ ] US13-URS-4: It should call set data on local storage where axios resolves

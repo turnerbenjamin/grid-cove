@@ -21,7 +21,7 @@ describe("Authentication service tests", () => {
     //?US1-AHS-1
     test("It should call axios post with the correct url and payload", async () => {
       //Arrange
-      const expectedURL = import.meta.env.VITE_APP_REGISTRATION_URL;
+      const expectedURL = import.meta.env.VITE_APP_UPDATE_USER_URL;
       axios.post.mockResolvedValueOnce(testResponse);
       //Act
       await authenticationService.register(testUserSubmission);
