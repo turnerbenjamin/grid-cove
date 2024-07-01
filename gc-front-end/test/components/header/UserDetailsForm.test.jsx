@@ -269,4 +269,49 @@ describe("User details form tests: ", () => {
       expect(onSubmitSpy).toBeCalledWith(expectedSubmission);
     });
   });
+
+  describe("Default fields tests: ", () => {
+    const testActiveFields = {
+      username: true,
+      emailAddress: true,
+    };
+    const testDefaultValues = {
+      username: "test-username",
+      emailAddress: "test@emailaddress.com",
+    };
+    const testSubmitButtonText = "submit";
+    let onSubmitSpy;
+    let emailAddressInputField;
+    let usernameInputField;
+
+    beforeEach(() => {
+      onSubmitSpy = vi.fn();
+
+      render(
+        <UserDetailsForm
+          headingText={"Default fields test"}
+          submitButtonText={testSubmitButtonText}
+          activeFields={testActiveFields}
+          defaultValues={testDefaultValues}
+          onSubmit={onSubmitSpy}
+          doSkipValidation
+        />
+      );
+      emailAddressInputField = screen.getByTitle(/email address/i);
+      usernameInputField = screen.getByTitle(/username/i);
+    });
+
+    afterEach(() => {
+      onSubmitSpy = null;
+      emailAddressInputField = null;
+      usernameInputField = null;
+    });
+
+    //? US13-UDF-1
+    test("It should pre-populate fields where default values are provided for email address and password", async () => {
+      //Assert
+      expect(usernameInputField.value).toBe(testDefaultValues.username);
+      expect(emailAddressInputField.value).toBe(testDefaultValues.emailAddress);
+    });
+  });
 });

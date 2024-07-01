@@ -20,6 +20,7 @@ This document is a reference for abbreviations used in test codes:
 - MDE: components/solve/Mode
 - MDL: components/general/UserDetailsForm
 - MDS: components/solve/ModeSelector
+- PFL: components/profile/Profile
 - PLT: components/puzzles/PuzzleList
 - PTP: components/build/PaintPot
 - PTS: components/build/PaintSet
@@ -34,3 +35,4 @@ This document is a reference for abbreviations used in test codes:
 - SVC: components/build/SaveControls
 - UDF: components/header/UserDetailsForm
 - UNI: components/header/inputFields/UserNameInputField
+- URS: services/user.service

@@ -12,7 +12,8 @@ export default function SuccessToast({ message, onClose, displayFor = 0 }) {
   }, []);
 
   useEffect(() => {
-    setTimeout(onClose, displayFor);
+    const timeout = setTimeout(onClose, displayFor);
+    return () => clearTimeout(timeout);
   });
 
   const toast = (
