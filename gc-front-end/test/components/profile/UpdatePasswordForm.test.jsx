@@ -51,5 +51,21 @@ describe("Update password form tests: ", () => {
       //Assert
       expect(screen.queryByRole("alert")).toBeNull();
     });
+
+    //? US14-UPF-3
+    test("It should not show validation errors when the password field is empty", async () => {
+      const updatedPasswordInputField =
+        screen.getByTitle(/^updated password$/i);
+      await act(async () => {
+        fireEvent.change(updatedPasswordInputField, {
+          target: { value: "invalid" },
+        });
+      });
+      await act(async () => {
+        fireEvent.blur(updatedPasswordInputField);
+      });
+      //Assert
+      expect(screen.queryByRole("alert")).toBeNull();
+    });
   });
 });
