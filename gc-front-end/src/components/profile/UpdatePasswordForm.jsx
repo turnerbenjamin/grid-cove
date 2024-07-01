@@ -47,6 +47,7 @@ export default function UpdatePasswordForm() {
       password,
       updatedPassword,
     });
+
     if (didUpdate) onSuccess();
   };
 

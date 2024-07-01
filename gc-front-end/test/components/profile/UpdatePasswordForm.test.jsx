@@ -1,8 +1,15 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { afterEach, beforeEach, expect, test } from "vitest";
 
 import { useAppContext } from "../../../src/hooks/contexts/appContext";
 import UpdatePasswordForm from "../../../src/components/profile/UpdatePasswordForm";
+import { mockPromise } from "../../test.utils";
 
 vi.mock("../../../src/hooks/contexts/appContext");
 
@@ -19,6 +26,7 @@ describe("Update password form tests: ", () => {
       authenticationErrors: [],
       handleClearErrors: () => {},
       updateUserPasswordById: updatePasswordSpy,
+      lastActionName: "updatePassword",
     });
   });
 
@@ -150,6 +158,21 @@ describe("Update password form tests: ", () => {
         await act(async () => fireEvent.click(screen.getByText(/^update$/i)));
         //Assert
         expect(updatePasswordSpy).toBeCalledWith(expected);
+      });
+    });
+
+    describe("Submission is loading tests: ", () => {
+      beforeEach(async () => {
+        useAppContext.mockReturnValue({
+          authenticationIsLoading: true,
+          lastActionName: "updatePassword",
+        });
+        render(<UpdatePasswordForm />);
+      });
+
+      //? US14-UPF-8
+      test("It should show a loading spinner when update password is loading", async () => {
+        expect(screen.getByRole("status")).toBeInTheDocument();
       });
     });
   });
