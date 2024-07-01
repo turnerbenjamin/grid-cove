@@ -15,18 +15,13 @@ vi.mock("../../../src/hooks/contexts/appContext");
 
 describe("Update password form tests: ", () => {
   let updatePasswordSpy;
-  let handleClearErrorsSpy;
+
   const testUpdatedPassword = "password12£";
 
   beforeEach(() => {
     updatePasswordSpy = vi.fn();
-    handleClearErrorsSpy = vi.fn();
     useAppContext.mockReturnValue({
-      authenticationIsLoading: false,
-      authenticationErrors: [],
-      handleClearErrors: () => {},
       updateUserPasswordById: updatePasswordSpy,
-      lastActionName: "updatePassword",
     });
   });
 
@@ -191,9 +186,12 @@ describe("Update password form tests: ", () => {
 
     describe("Submission has errors tests: ", () => {
       const testErrorMessage = "test error message";
+      let handleClearErrorsSpy;
       beforeEach(async () => {
+        handleClearErrorsSpy = vi.fn();
         useAppContext.mockReturnValue({
           authenticationErrors: [testErrorMessage],
+          handleClearErrors: handleClearErrorsSpy,
           lastActionName: "updatePassword",
         });
         render(<UpdatePasswordForm />);
@@ -207,6 +205,15 @@ describe("Update password form tests: ", () => {
       //? US14-UPF-11
       test("It should disable the update button where update password has errors", async () => {
         expect(screen.getByText(/^update$/i)).toHaveClass("disabled");
+      });
+
+      //? US14-UPF-12
+      test("It should show call clearErrors, where update password has errors, after an update is made", async () => {
+        //Act
+        fireEvent.change(screen.getByTitle(/^updated password$/i), {
+          target: { value: "some-change-to-field" },
+        });
+        expect(handleClearErrorsSpy).toBeCalledTimes(1);
       });
     });
   });
