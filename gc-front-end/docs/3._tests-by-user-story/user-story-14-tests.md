@@ -27,6 +27,6 @@
 
 - [x] US14-INT-1: It should show a sign-in form where the user is not logged in
 - [x] US14-INT-2: It should not show a sign in form when the user is logged in
-- [ ] US14-INT-3: It should show a sign in form if updateUserPasswordById resolves
+- [x] US14-INT-3: It should show a sign in form if updateUserPasswordById resolves
 - [ ] US14-INT-4: It should not show a sign-in form and stay on the same page where sign in resolves
 - [ ] US14-INT-5: It should not show a sign-in form and navigate to root where close is selected
