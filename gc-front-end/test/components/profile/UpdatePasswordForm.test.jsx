@@ -213,6 +213,7 @@ describe("Update password form tests: ", () => {
         fireEvent.change(screen.getByTitle(/^updated password$/i), {
           target: { value: "some-change-to-field" },
         });
+        //Assert
         expect(handleClearErrorsSpy).toBeCalledTimes(1);
       });
     });
@@ -254,9 +255,16 @@ describe("Update password form tests: ", () => {
 
       //? US14-UPF-13
       test("It should show a success message when updateUserPasswordById resolves", async () => {
-        //Act
-        screen.debug();
+        //Assert
         expect(screen.getByTitle(/success/i)).toBeInTheDocument();
+      });
+
+      //? US14-UPF-14
+      test("It should not show a success message after the close button has been selected", async () => {
+        //Act
+        await act(async () => fireEvent.click(screen.getByTitle(/close/i)));
+        //Assert
+        expect(screen.queryByTitle(/success/i)).toBeNull();
       });
     });
   });

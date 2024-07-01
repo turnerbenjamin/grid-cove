@@ -19,7 +19,7 @@
 - [x] US14-UPF-11: It should disable the update button where update password has errors
 - [x] US14-UPF-12: It should show call clearErrors, where update password has errors, after an update is made
 - [x] US14-UPF-13: It should show a success message when updateUserPasswordById resolves
-- [ ] US14-UPF-14: It should not show a success message after the close button has been selected
+- [x] US14-UPF-14: It should not show a success message after the close button has been selected
 - [ ] US14-UPF-15: The input fields should be reset where updateUserPasswordById resolves
 
 ## Integration Tests
