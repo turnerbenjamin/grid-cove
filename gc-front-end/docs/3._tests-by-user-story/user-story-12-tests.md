@@ -13,7 +13,7 @@
 ## Puzzle service tests (PZS)
 
 - [x] US12-PZS-1: It should call axios post with the correct url
-- [ ] US12-PZS-2: It should throw err if post rejects with standard error object
+- [x] US12-PZS-2: It should throw err if post rejects with standard error object
 - [ ] US12-PZS-3: It should throw err?.response?.data where validation error received
 
 ## Solve Tests (SLV)

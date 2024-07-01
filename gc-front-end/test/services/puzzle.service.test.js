@@ -203,5 +203,21 @@ describe("Puzzle service tests", () => {
       //Assert
       expect(axios.delete).toBeCalledWith(expectedURL);
     });
+
+    //? US12-PZS-2
+    test("It should throw err if post rejects with standard error object", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.delete.mockRejectedValueOnce(expected);
+      let actual;
+      //Act
+      try {
+        await puzzleService.deletePuzzle(testId);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
