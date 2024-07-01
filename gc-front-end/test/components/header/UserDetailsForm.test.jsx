@@ -313,5 +313,15 @@ describe("User details form tests: ", () => {
       expect(usernameInputField.value).toBe(testDefaultValues.username);
       expect(emailAddressInputField.value).toBe(testDefaultValues.emailAddress);
     });
+
+    //? US13-UDF-2
+    test("The save button should be disabled when all fields match the default values", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(screen.getByText(testSubmitButtonText));
+      });
+      //Assert
+      expect(onSubmitSpy).toBeCalledTimes(0);
+    });
   });
 });
