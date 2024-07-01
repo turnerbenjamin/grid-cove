@@ -50,19 +50,25 @@ describe("Profile tests: ", () => {
           target: { value: testUpdates.emailAddress },
         });
       });
+
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(/submit/i));
+      });
     });
 
     //?US13-PFL-1
     test("It should call the user service with the correct arguments when save is clicked", async () => {
-      //Act
-      await act(async () => {
-        fireEvent.click(screen.getByTitle(/submit/i));
-      });
       //Assert
       expect(userService.updateUser).toHaveBeenCalledWith(
         testActiveUser._id,
         testUpdates
       );
+    });
+
+    //?US13-PFL-2
+    test("It should display a loading spinner while the user service is loading", async () => {
+      //Assert
+      expect(screen.getByRole("status")).toBeInTheDocument();
     });
   });
 });
