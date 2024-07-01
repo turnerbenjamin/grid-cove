@@ -1,18 +1,18 @@
-import { screen, within } from "@testing-library/react";
-
+import { screen } from "@testing-library/react";
 import { afterEach, beforeEach } from "vitest";
+
 import {
   cleanUpForModal,
   renderAppWithLocationWrapper,
   setUpForModal,
 } from "../../test.utils";
+import * as authenticationServices from "../../../src/services/authentication.service";
 
-vi.mock("axios");
+vi.mock("../../../src/services/authentication.service");
 
 describe("Update password integration test: ", () => {
   beforeEach(() => {
     setUpForModal();
-    renderAppWithLocationWrapper(["/me"]);
   });
 
   afterEach(() => {
@@ -21,8 +21,21 @@ describe("Update password integration test: ", () => {
 
   //? US14-INT-1
   test("It should show a sign-in form where the user is not logged in", () => {
+    //Act
+    renderAppWithLocationWrapper(["/me"]);
+    //Assert
     expect(
       screen.queryByRole("heading", { name: /sign-in/i })
     ).toBeInTheDocument();
+  });
+
+  //? US14-INT-2
+  test("It should not show a sign in form when the user is logged in", () => {
+    //Arrange
+    authenticationServices.getActiveUser.mockReturnValue({});
+    //Act
+    renderAppWithLocationWrapper(["/me"]);
+    //Assert
+    expect(screen.queryByRole("heading", { name: /sign-in/i })).toBeNull();
   });
 });
