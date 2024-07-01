@@ -51,21 +51,48 @@ describe("Update password form tests: ", () => {
       //Assert
       expect(screen.queryByRole("alert")).toBeNull();
     });
+    describe("Where password field is not empty: ", () => {
+      //? US14-UPF-3
+      test("It should not show validation errors when the password field is empty", async () => {
+        const updatedPasswordInputField =
+          screen.getByTitle(/^updated password$/i);
+        await act(async () => {
+          fireEvent.change(updatedPasswordInputField, {
+            target: { value: "invalid" },
+          });
+        });
+        await act(async () => {
+          fireEvent.blur(updatedPasswordInputField);
+        });
+        //Assert
+        expect(screen.queryByRole("alert")).toBeNull();
+      });
+    });
 
-    //? US14-UPF-3
-    test("It should not show validation errors when the password field is empty", async () => {
-      const updatedPasswordInputField =
-        screen.getByTitle(/^updated password$/i);
-      await act(async () => {
-        fireEvent.change(updatedPasswordInputField, {
-          target: { value: "invalid" },
+    describe("Where password field is not empty: ", () => {
+      beforeEach(async () => {
+        await act(async () => {
+          fireEvent.change(screen.getByTitle(/current password/i), {
+            target: { value: testUpdatedPassword },
+          });
         });
       });
-      await act(async () => {
-        fireEvent.blur(updatedPasswordInputField);
+
+      //? US14-UPF-4
+      test("It should not show validation errors when the updated password field is blurred with a validation error", async () => {
+        const updatedPasswordInputField =
+          screen.getByTitle(/^updated password$/i);
+        await act(async () => {
+          fireEvent.change(updatedPasswordInputField, {
+            target: { value: "invalid" },
+          });
+        });
+        await act(async () => {
+          fireEvent.blur(updatedPasswordInputField);
+        });
+        //Assert
+        expect(screen.queryByRole("alert")).toBeInTheDocument();
       });
-      //Assert
-      expect(screen.queryByRole("alert")).toBeNull();
     });
   });
 });
