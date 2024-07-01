@@ -11,7 +11,7 @@
 - [x] US14-UPF-3: It should not show validation errors when the password field is empty
 - [x] US14-UPF-4: It should not show validation errors when the updated password field is blurred with a validation error
 - [x] US14-UPF-5: It should show validation errors when the confirm updated password field is blurred with a validation error
-- [ ] US14-UPF-6: It should show a warning that the user will be logged out when the update button is active
+- [x] US14-UPF-6: It should show a warning that the user will be logged out when the update button is active
 - [ ] US14-UPF-7: It should call updateUserPasswordById when update is pressed
 - [ ] US14-UPF-8: It should show a loading spinner when update password is loading
 - [ ] US14-UPF-9: It should disable inputs while update password is loading

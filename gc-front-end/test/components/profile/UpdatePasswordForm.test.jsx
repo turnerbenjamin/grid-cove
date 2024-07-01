@@ -115,4 +115,29 @@ describe("Update password form tests: ", () => {
       });
     });
   });
+
+  describe("Submission tests: ", () => {
+    describe("General submission tests: ", () => {
+      beforeEach(async () => {
+        render(<UpdatePasswordForm />);
+        await act(async () => {
+          fireEvent.change(screen.getByTitle(/^current password$/i), {
+            target: { value: testUpdatedPassword },
+          });
+          fireEvent.change(screen.getByTitle(/^updated password$/i), {
+            target: { value: testUpdatedPassword },
+          });
+          fireEvent.change(screen.getByTitle(/^confirm updated password$/i), {
+            target: { value: testUpdatedPassword },
+          });
+        });
+      });
+
+      //? US14-UPF-6
+      test("It should show a warning that the user will be logged out when the update button is active", async () => {
+        //Assert
+        expect(screen.getByText(/you will be logged-out/i)).toBeInTheDocument();
+      });
+    });
+  });
 });
