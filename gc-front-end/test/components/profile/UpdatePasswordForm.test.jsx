@@ -188,5 +188,21 @@ describe("Update password form tests: ", () => {
         );
       });
     });
+
+    describe("Submission has errors tests: ", () => {
+      const testErrorMessage = "test error message";
+      beforeEach(async () => {
+        useAppContext.mockReturnValue({
+          authenticationErrors: [testErrorMessage],
+          lastActionName: "updatePassword",
+        });
+        render(<UpdatePasswordForm />);
+      });
+
+      //? US14-UPF-10
+      test("It should show errors where update password has errors", async () => {
+        expect(screen.getByText(testErrorMessage)).toBeInTheDocument();
+      });
+    });
   });
 });

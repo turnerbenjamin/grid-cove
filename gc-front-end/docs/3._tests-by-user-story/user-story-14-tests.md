@@ -15,7 +15,7 @@
 - [x] US14-UPF-7: It should call updateUserPasswordById when update is pressed
 - [x] US14-UPF-8: It should show a loading spinner when update password is loading
 - [x] US14-UPF-9: It should disable inputs while update password is loading
-- [ ] US14-UPF-10: It should show errors where update password has errors
+- [x] US14-UPF-10: It should show errors where update password has errors
 - [ ] US14-UPF-11: It should disable the update button where update password has errors
 - [ ] US14-UPF-12: It should show call clearErrors, where update password has errors, after an update is made
 - [ ] US14-UPF-13: It should show a success message when updateUserPasswordById resolves
