@@ -50,3 +50,13 @@ export const renderAppWithLocationWrapper = () => {
     </MemoryRouter>
   );
 };
+
+export const mockPromise = () => {
+  let resolver;
+  let rejecter;
+  const promise = new Promise((resolve, reject) => {
+    resolver = resolve;
+    rejecter = reject;
+  });
+  return [promise, resolver, rejecter];
+};

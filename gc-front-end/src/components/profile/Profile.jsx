@@ -2,6 +2,7 @@ import { useState } from "react";
 import useGridCoveUserService from "../../hooks/useGridCoveUserService";
 import SuccessToast from "../general/SuccessToast";
 import UserDetailsForm from "../header/UserDetailsForm";
+import { useAppContext } from "../../hooks/contexts/appContext";
 
 export default function Profile() {
   const {
@@ -10,7 +11,7 @@ export default function Profile() {
     authenticationErrors,
     handleClearAuthenticationErrors,
     updateUserById,
-  } = useGridCoveUserService();
+  } = useAppContext();
 
   const [successMessage, setSuccessMessage] = useState(null);
 
