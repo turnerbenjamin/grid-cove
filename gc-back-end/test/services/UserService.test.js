@@ -1,10 +1,10 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
+import APIErrors from "../../src/utils/APIErrors.js";
 import User from "../../src/models/User.model.js";
 import UserService from "../../src/services/User.service.js";
 import * as userTestData from "../data/User.test.data.js";
-import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("User service tests: ", () => {
   let userService = null;
@@ -18,13 +18,12 @@ describe("User service tests: ", () => {
   });
 
   describe("Update user tests: ", () => {
-    let findByIdAndUpdateStub;
-
     const testUserSubmission = {
       emailAddress: "new@emailaddress.com",
       username: "new-username",
     };
     const testUserId = userTestData.documents[0]._id;
+    let findByIdAndUpdateStub;
 
     beforeEach(() => {
       findByIdAndUpdateStub = sinon.stub(User, "findByIdAndUpdate");
@@ -123,6 +122,7 @@ describe("User service tests: ", () => {
       //Arrange
       const expected = { ...userTestData.documents[0] };
       findByIdAndUpdateStub.resolves(expected);
+      //Act
       const actual = await userService.updateById(
         testUserId,
         testUserSubmission

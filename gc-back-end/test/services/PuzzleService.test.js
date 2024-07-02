@@ -27,7 +27,6 @@ describe("Puzzle service tests: ", () => {
       rowClues: [[1], [2, 1]],
       columnClues: [[3, 2], [5]],
     };
-
     let generatePuzzleStub;
     let createStub;
     let createPuzzleArgs;
@@ -55,6 +54,7 @@ describe("Puzzle service tests: ", () => {
 
     //? PS6-1
     it("should call PuzzleGenerator with the pixel art string", async () => {
+      //Arrange
       const expectedPixelArtArg = testPuzzleSubmission.pixelArt;
       const expectedPuzzleSizeArg = testPuzzleSubmission.size;
       //Act
@@ -68,6 +68,7 @@ describe("Puzzle service tests: ", () => {
 
     //? PS6-2
     it("should call create on the Puzzle model with the correct arguments", async () => {
+      //Arrange
       const expected = {
         pixelArt: testPuzzleSubmission.pixelArt,
         title: testPuzzleSubmission.title,
@@ -140,6 +141,7 @@ describe("Puzzle service tests: ", () => {
       //Arrange
       const expected = puzzleTestData.documents[0];
       createStub.resolves(expected);
+      //Act
       const actual = await puzzleService.createPuzzle(...createPuzzleArgs);
       //Assert
       expect(actual).to.equal(expected);
@@ -148,6 +150,7 @@ describe("Puzzle service tests: ", () => {
 
   describe("Get puzzles tests: ", () => {
     let aggregateStub;
+
     beforeEach(() => {
       aggregateStub = sinon.stub(Puzzle, "aggregate");
     });
@@ -166,6 +169,7 @@ describe("Puzzle service tests: ", () => {
 
     //? PS8-2
     it("should return an empty array when no puzzles found", async () => {
+      //Arrange
       const expected = [];
       aggregateStub.resolves(expected);
       //Act
@@ -176,6 +180,7 @@ describe("Puzzle service tests: ", () => {
 
     //? PS8-3
     it("should return the result of this query when puzzles are found", async () => {
+      //Arrange
       const expected = puzzleTestData.aggregateReport;
       aggregateStub.resolves(expected);
       //Act
@@ -186,6 +191,7 @@ describe("Puzzle service tests: ", () => {
 
     //? PS8-4
     it("should reject with a server error if aggregate rejects", async () => {
+      //Arrange
       aggregateStub.rejects(new Error());
       const expected = APIErrors.SERVER_ERROR;
       let actual;
@@ -195,7 +201,6 @@ describe("Puzzle service tests: ", () => {
       } catch (err) {
         actual = err;
       }
-
       //Assert
       expect(actual).to.equal(expected);
     });
@@ -205,6 +210,7 @@ describe("Puzzle service tests: ", () => {
     let findByIdStub;
     let populateStub;
     const testId = puzzleTestData.documents[0]._id;
+
     beforeEach(() => {
       findByIdStub = sinon.stub(Puzzle, "findById");
       populateStub = sinon.stub(Puzzle, "populate");
@@ -219,6 +225,7 @@ describe("Puzzle service tests: ", () => {
 
     //? PS9-1
     it("should call findById with the correct argument", async () => {
+      //Arrange
       const expected = testId;
       //Act
       await puzzleService.getPuzzleById(testId);
@@ -311,8 +318,9 @@ describe("Puzzle service tests: ", () => {
   });
 
   describe("Delete puzzle by id tests: ", () => {
-    let findByIdAndDeleteStub;
     const testId = puzzleTestData.documents[0]._id;
+    let findByIdAndDeleteStub;
+
     beforeEach(() => {
       findByIdAndDeleteStub = sinon.stub(Puzzle, "findByIdAndDelete");
       findByIdAndDeleteStub.resolves({});
@@ -324,6 +332,7 @@ describe("Puzzle service tests: ", () => {
 
     //?PS12-1
     it("should call findByIdAndDelete with the correct argument", async () => {
+      //Arrange
       const expected = testId;
       //Act
       await puzzleService.deletePuzzleById(testId);

@@ -8,7 +8,7 @@ import AuthenticationService from "../../src/services/Authentication.service.js"
 import User from "../../src/models/User.model.js";
 import * as userTestData from "../data/User.test.data.js";
 
-describe("Authentication service tests", () => {
+describe("Authentication service tests: ", () => {
   let authenticationService = null;
 
   beforeEach(() => {
@@ -19,12 +19,12 @@ describe("Authentication service tests", () => {
     authenticationService = null;
   });
 
-  describe("Create user tests", () => {
-    let createStub;
-    let hashStub;
+  describe("Create user tests: ", () => {
     const testUserSubmission = { ...userTestData.submissions[0] };
     const testUserDocument = { ...userTestData.documents[0] };
     const testHashedPassword = testUserDocument.password;
+    let createStub;
+    let hashStub;
 
     beforeEach(() => {
       createStub = sinon.stub(User, "create");
@@ -149,17 +149,17 @@ describe("Authentication service tests", () => {
     });
   });
 
-  describe("Sign-In user tests", () => {
-    let findOneStub;
-    let selectStub;
-    let compareStub;
-    let signStub;
+  describe("Sign-In user tests: ", () => {
     const testUserSubmission = {
       emailAddress: userTestData.submissions[0].emailAddress,
       password: userTestData.submissions[0].password,
     };
     const testUserDocument = { ...userTestData.documents[0] };
     const testToken = { testToken: "testToken" };
+    let findOneStub;
+    let selectStub;
+    let compareStub;
+    let signStub;
 
     beforeEach(() => {
       findOneStub = sinon.stub(User, "findOne");
@@ -283,7 +283,6 @@ describe("Authentication service tests", () => {
       const [actualJWTBody, actualSecretKey, actualOptions] =
         signStub.getCall(0).args;
       //Assert
-
       expect(actualJWTBody).to.deep.equal(expectedJWTBody);
       expect(actualSecretKey).to.equal(expectedSecretKey);
       expect(actualOptions).to.deep.equal(expectedOptions);
@@ -320,7 +319,7 @@ describe("Authentication service tests", () => {
     });
   });
 
-  describe("Validate token tests", () => {
+  describe("Validate token tests: ", () => {
     const testDecodedToken = { _id: "test_id" };
     const testToken = "jwt=xxxxx";
     const testUserDocument = { ...userTestData.documents[0] };
