@@ -14,7 +14,11 @@ export default function PixelArtInfo({ puzzle, isSolved }) {
       )}
       <p>{`${puzzle.title} by ${puzzle.artist.username}`}</p>
       {isSolved && nextPuzzle && (
-        <Link to={`/puzzles/${nextPuzzle}`} className="mt-4">
+        <Link
+          to={`/puzzles/${nextPuzzle}`}
+          className="mt-4"
+          title="Next puzzle"
+        >
           <Button>Next puzzle</Button>
         </Link>
       )}

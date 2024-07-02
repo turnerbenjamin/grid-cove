@@ -35,7 +35,7 @@ export const getPuzzleTestData = {
 };
 
 export const solvedWhenTopLeftCellFilled = {
-  _id: "667b67fe69053b11fd943b42",
+  _id: "667b67fe69053b11fd943b40",
   pixelArt: "1114111D88144D81414188188",
   title: "EasySolve",
   solution: "1" + "0".repeat("99"),

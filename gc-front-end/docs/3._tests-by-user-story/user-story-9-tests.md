@@ -76,5 +76,5 @@
 ## next puzzle
 
 - [x] US9-INT-1: It should show a button to access next puzzle where one is available
-- [ ] US9-INT-2: It should navigate to the next puzzle when the link is clicked
+- [x] US9-INT-2: It should navigate to the next puzzle when the link is clicked
 - [ ] US9-INT-3: It should not show a button to access the next puzzle where one is not

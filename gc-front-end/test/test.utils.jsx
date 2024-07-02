@@ -7,12 +7,15 @@ import {
 } from "react-router-dom";
 
 import App from "../src/App";
+import { Children } from "react";
 
 export const renderWithRouter = (element, elementPath, params) => {
-  const PageNavigatedTo = () => {
+  const PageNavigatedTo = ({ children }) => {
     const location = useLocation();
     return (
-      <div data-testid="pageNavigatedTo" data-location={location.pathname} />
+      <div data-testid="pageNavigatedTo" data-location={location.pathname}>
+        {children}
+      </div>
     );
   };
 
@@ -25,7 +28,10 @@ export const renderWithRouter = (element, elementPath, params) => {
 
   const router = createMemoryRouter(
     [
-      { path: elementPath, element },
+      {
+        path: elementPath,
+        element: <PageNavigatedTo>{element}</PageNavigatedTo>,
+      },
       { path: "*", element: <PageNavigatedTo /> },
     ],
     {

@@ -19,9 +19,9 @@ vi.mock("../../../src/hooks/contexts/appContext");
 vi.mock("../../../src/utils/RevealPixelArtTransition");
 
 describe("Next puzzle link tests: ", () => {
-  const firstPuzzleId = getAllPuzzlesTestData[0][0];
-  const secondPuzzleId = getAllPuzzlesTestData[0][1];
-  const lastPuzzleId = getAllPuzzlesTestData[2][1];
+  const firstPuzzleId = getAllPuzzlesTestData[0].puzzles[0];
+  const secondPuzzleId = getAllPuzzlesTestData[0].puzzles[1];
+  const lastPuzzleId = getAllPuzzlesTestData[2].puzzles[1];
 
   beforeEach(() => {
     puzzleService.getPuzzle.mockResolvedValue(solvedWhenTopLeftCellFilled);
@@ -52,6 +52,17 @@ describe("Next puzzle link tests: ", () => {
     //? US9-INT-1
     test("It should show a button to access next puzzle where one is available", async () => {
       expect(screen.getByText(/next/i)).toBeInTheDocument();
+    });
+
+    //? US9-INT-2
+    test("It should navigate to the next puzzle when the link is clicked", async () => {
+      const expectedLocation = `/puzzles/${secondPuzzleId}`;
+      //Act
+      await act(async () => fireEvent.click(screen.getByTitle(/next/i)));
+      //Assert
+      expect(screen.getByTestId("pageNavigatedTo").dataset.location).toBe(
+        expectedLocation
+      );
     });
   });
 });
