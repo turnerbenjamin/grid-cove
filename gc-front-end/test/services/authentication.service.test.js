@@ -315,10 +315,25 @@ describe("Authentication service tests", () => {
 
     //?US14-URS-4
     test("It should call remove user item from local storage where axios resolves", async () => {
+      //Arrange
+      axios.patch.mockResolvedValueOnce(testResponse);
       //Act
       await authenticationService.updatePassword({ testPayload });
       //Assert
       expect(removeItemSpy).toBeCalledWith("user");
+    });
+
+    //?US14-URS-5
+    test("It should return response data where axios resolves", async () => {
+      //Arrange
+      const expected = testResponse.data;
+      axios.patch.mockResolvedValueOnce(testResponse);
+      //Act
+      const actual = await authenticationService.updatePassword({
+        testPayload,
+      });
+      //Assert
+      expect(actual).toBe(expected);
     });
   });
 });

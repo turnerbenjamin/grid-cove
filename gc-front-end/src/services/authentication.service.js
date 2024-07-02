@@ -35,9 +35,9 @@ export const signOut = async () => {
 export const updatePassword = async (payload) => {
   let url = import.meta.env.VITE_APP_UPDATE_PASSWORD_URL;
   try {
-    const user = await axios.patch(url, payload);
+    const response = await axios.patch(url, payload);
     localStorage.removeItem(`user`);
-    return user;
+    return response.data;
   } catch (err) {
     throw err?.response?.data ?? err;
   }

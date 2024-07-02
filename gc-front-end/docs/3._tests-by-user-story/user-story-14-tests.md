@@ -29,7 +29,7 @@
 - [x] US14-URS-2: It should throw err if patch rejects with standard error object
 - [x] US14-URS-3: It should throw err?.response?.data where validation error received
 - [x] US14-URS-4: It should call remove user item from local storage where axios resolves
-- [ ] US14-URS-5: It should return response data where axios resolves
+- [x] US14-URS-5: It should return response data where axios resolves
 
 ## Integration Tests
 
