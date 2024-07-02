@@ -22,7 +22,7 @@ export default function Cell({ cellData, hiddenColour }) {
   }, [doRevealPixelArt, cellData]);
 
   const cellClasses = classNames(
-    "absolute inset-0 border border-grid-white cursor-pointer select-none backface-hidden transition",
+    "absolute inset-0  cursor-pointer select-none backface-hidden transition",
     {
       "duration-1000": isFlipped,
     }

@@ -3,7 +3,7 @@ import { useGridContext } from "../../hooks/contexts/gridContext";
 import Cell from "./Cell";
 import GridDividingLines from "./GridDividingLines";
 
-export default function Grid({ doCountInFives, pixelArt }) {
+export default function Grid({ doCountInFives, pixelArt, noGap = false }) {
   const { gridRef, gridCells, gridSize, doRevealPixelArt } = useGridContext();
   if (!gridCells) return;
 
@@ -17,8 +17,9 @@ export default function Grid({ doCountInFives, pixelArt }) {
     );
   });
 
-  const classes = classNames("relative grid justify-center gap-[3px]", {
+  const classes = classNames("relative grid justify-center", {
     "pointer-events-none": doRevealPixelArt,
+    "gap-[3px]": !noGap,
   });
 
   return (
