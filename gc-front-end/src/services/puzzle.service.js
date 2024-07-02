@@ -1,40 +1,36 @@
 import axios from "axios";
 
+import withErrorHandling from "./withErrorHandling";
+
+const puzzlesEndpointRoot = `${import.meta.env.VITE_APP_API_ROOT}/puzzles`;
+
 export const createPuzzle = async (payload) => {
-  let url = import.meta.env.VITE_APP_CREATE_PUZZLE_URL;
-  try {
+  let url = puzzlesEndpointRoot;
+  return await withErrorHandling(async () => {
     const response = await axios.post(url, payload);
     return response.data;
-  } catch (err) {
-    throw err?.response?.data ?? err;
-  }
+  });
 };
 
 export const getPuzzles = async () => {
-  let url = import.meta.env.VITE_APP_GET_PUZZLES_URL;
-  try {
+  let url = puzzlesEndpointRoot;
+  return await withErrorHandling(async () => {
     const response = await axios.get(url);
     return response.data;
-  } catch (err) {
-    throw err?.response?.data ?? err;
-  }
+  });
 };
 
 export const getPuzzle = async (puzzleId) => {
-  let url = import.meta.env.VITE_APP_GET_PUZZLES_URL;
-  try {
-    const response = await axios.get(`${url}/${puzzleId}`);
+  let url = `${puzzlesEndpointRoot}/${puzzleId}`;
+  return await withErrorHandling(async () => {
+    const response = await axios.get(url);
     return response.data;
-  } catch (err) {
-    throw err?.response?.data ?? err;
-  }
+  });
 };
 
 export const deletePuzzle = async (puzzleId) => {
-  let url = import.meta.env.VITE_APP_DELETE_PUZZLES_URL;
-  try {
-    await axios.delete(`${url}/${puzzleId}`);
-  } catch (err) {
-    throw err?.response?.data ?? err;
-  }
+  let url = `${puzzlesEndpointRoot}/${puzzleId}`;
+  return await withErrorHandling(async () => {
+    await axios.delete(url);
+  });
 };

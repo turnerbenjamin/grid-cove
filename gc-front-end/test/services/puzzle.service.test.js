@@ -21,7 +21,7 @@ describe("Puzzle service tests", () => {
     //?US6-PZS-1
     test("It should call axios post with the correct url and payload", async () => {
       //Arrange
-      const expectedURL = import.meta.env.VITE_APP_CREATE_PUZZLE_URL;
+      const expectedURL = `${import.meta.env.VITE_APP_API_ROOT}/puzzles`;
       axios.post.mockResolvedValueOnce(testResponse);
       //Act
       await puzzleService.createPuzzle(testSubmission);
@@ -77,7 +77,7 @@ describe("Puzzle service tests", () => {
     //?US8-PZS-1
     test("It should call axios get with the correct url", async () => {
       //Arrange
-      const expectedURL = import.meta.env.VITE_APP_GET_PUZZLES_URL;
+      const expectedURL = `${import.meta.env.VITE_APP_API_ROOT}/puzzles`;
       axios.get.mockResolvedValueOnce(testResponse);
       //Act
       await puzzleService.getPuzzles();
@@ -135,8 +135,8 @@ describe("Puzzle service tests", () => {
     test("It should call axios get with the correct url", async () => {
       //Arrange
       const expectedURL = `${
-        import.meta.env.VITE_APP_GET_PUZZLES_URL
-      }/${testId}`;
+        import.meta.env.VITE_APP_API_ROOT
+      }/puzzles/${testId}`;
       axios.get.mockResolvedValueOnce(testResponse);
       //Act
       await puzzleService.getPuzzle(testId);
@@ -196,8 +196,8 @@ describe("Puzzle service tests", () => {
       //Arrange
       axios.delete.mockResolvedValueOnce(testResponse);
       const expectedURL = `${
-        import.meta.env.VITE_APP_DELETE_PUZZLES_URL
-      }/${testId}`;
+        import.meta.env.VITE_APP_API_ROOT
+      }/puzzles/${testId}`;
       //Act
       await puzzleService.deletePuzzle(testId);
       //Assert

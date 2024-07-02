@@ -21,7 +21,9 @@ describe("Authentication service tests", () => {
     //?US1-AHS-1
     test("It should call axios post with the correct url and payload", async () => {
       //Arrange
-      const expectedURL = import.meta.env.VITE_APP_REGISTRATION_URL;
+      const expectedURL = `${
+        import.meta.env.VITE_APP_API_ROOT
+      }/authentication/register`;
       axios.post.mockResolvedValueOnce(testResponse);
       //Act
       await authenticationService.register(testUserSubmission);
@@ -91,7 +93,9 @@ describe("Authentication service tests", () => {
     //?US3-AHS-1
     test("It should call axios post with the correct url", async () => {
       //Arrange
-      const expectedURL = import.meta.env.VITE_APP_SIGN_IN_URL;
+      const expectedURL = `${
+        import.meta.env.VITE_APP_API_ROOT
+      }/authentication/sign-in`;
       axios.post.mockResolvedValueOnce(testResponse);
       //Act
       await authenticationService.signIn(testUserSubmission);
@@ -171,7 +175,9 @@ describe("Authentication service tests", () => {
     //?US4-AHS-1
     test("It should call axios post with the correct url", async () => {
       //Arrange
-      const expectedURL = import.meta.env.VITE_APP_SIGN_OUT_URL;
+      const expectedURL = `${
+        import.meta.env.VITE_APP_API_ROOT
+      }/authentication/sign-out`;
       axios.post.mockResolvedValueOnce(testResponse);
       //Act
       await authenticationService.signOut();
@@ -273,7 +279,9 @@ describe("Authentication service tests", () => {
     //?US14-URS-1
     test("It should call axios patch with the correct url", async () => {
       //Arrange
-      const expectedURL = import.meta.env.VITE_APP_UPDATE_PASSWORD_URL;
+      const expectedURL = `${
+        import.meta.env.VITE_APP_API_ROOT
+      }/authentication/update-password`;
       axios.patch.mockResolvedValueOnce(testResponse);
       //Act
       await authenticationService.updatePassword(testPayload);

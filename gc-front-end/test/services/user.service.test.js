@@ -29,8 +29,8 @@ describe("User service tests: ", () => {
     test("It should call axios get with the correct url", async () => {
       //Arrange
       const expectedURL = `${
-        import.meta.env.VITE_APP_UPDATE_USER_URL
-      }/${testUserId}`;
+        import.meta.env.VITE_APP_API_ROOT
+      }/users/${testUserId}`;
       axios.patch.mockResolvedValueOnce(testResponse);
       //Act
       await userService.updateUser(testUserId, testUpdates);

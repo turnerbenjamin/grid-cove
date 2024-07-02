@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 import App from "../src/App";
-import { Children } from "react";
 
 export const renderWithRouter = (element, elementPath, params) => {
   const PageNavigatedTo = ({ children }) => {

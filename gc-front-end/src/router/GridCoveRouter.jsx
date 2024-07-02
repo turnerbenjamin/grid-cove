@@ -31,7 +31,14 @@ export default function GridCoveRouter() {
         <Route path="/puzzles/:puzzleId" element={<Solve />} />
       </Route>
 
-      <Route path="/build" element={<Build />} />
+      <Route
+        path="/build"
+        element={
+          <RequireLoggedIn>
+            <Build />
+          </RequireLoggedIn>
+        }
+      />
     </Routes>
   );
 }

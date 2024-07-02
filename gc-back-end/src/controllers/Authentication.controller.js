@@ -101,7 +101,7 @@ export default class AuthenticationController {
 
   #setCookie = (res, token) => {
     res.cookie("jwt", token, {
-      maxAge: process.env.COOKIE_EXPIRES_IN,
+      maxAge: parseInt(process.env.COOKIE_EXPIRES_IN),
       secure: true,
       sameSite: "None",
       partitioned: true,

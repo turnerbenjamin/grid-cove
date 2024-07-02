@@ -1,46 +1,43 @@
 import axios from "axios";
+import withErrorHandling from "./withErrorHandling";
 axios.defaults.withCredentials = true;
 
+const authenticationEndpointRoot = `${
+  import.meta.env.VITE_APP_API_ROOT
+}/authentication`;
+
 export const register = async (newUserSubmission) => {
-  let url = import.meta.env.VITE_APP_REGISTRATION_URL;
-  try {
+  let url = `${authenticationEndpointRoot}/register`;
+  return await withErrorHandling(async () => {
     const response = await axios.post(url, newUserSubmission);
     return response.data;
-  } catch (err) {
-    throw err?.response?.data ?? err;
-  }
+  });
 };
 
 export const signIn = async (userCredentials) => {
-  let url = import.meta.env.VITE_APP_SIGN_IN_URL;
-  try {
+  let url = `${authenticationEndpointRoot}/sign-in`;
+  return await withErrorHandling(async () => {
     const response = await axios.post(url, userCredentials);
     localStorage.setItem(`user`, JSON.stringify(response.data));
     return response.data;
-  } catch (err) {
-    throw err?.response?.data ?? err;
-  }
+  });
 };
 
 export const signOut = async () => {
-  let url = import.meta.env.VITE_APP_SIGN_OUT_URL;
-  try {
+  let url = `${authenticationEndpointRoot}/sign-out`;
+  return await withErrorHandling(async () => {
     await axios.post(url);
     localStorage.removeItem(`user`);
-  } catch (err) {
-    throw err?.response?.data ?? err;
-  }
+  });
 };
 
 export const updatePassword = async (payload) => {
-  let url = import.meta.env.VITE_APP_UPDATE_PASSWORD_URL;
-  try {
+  let url = `${authenticationEndpointRoot}/update-password`;
+  return await withErrorHandling(async () => {
     const response = await axios.patch(url, payload);
     localStorage.removeItem(`user`);
     return response.data;
-  } catch (err) {
-    throw err?.response?.data ?? err;
-  }
+  });
 };
 
 export const getActiveUser = () => {

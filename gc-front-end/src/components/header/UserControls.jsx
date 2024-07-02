@@ -27,7 +27,7 @@ export default function UserControls() {
 
   return (
     <>
-      <div className="md:col-start-3 flex flex-row gap-2 place-self-end">
+      <div className="md:col-start-3 h-full flex flex-row gap-2 place-self-end items-center">
         {(!activeUser || activeModal) && (
           <>
             <RegisterButton

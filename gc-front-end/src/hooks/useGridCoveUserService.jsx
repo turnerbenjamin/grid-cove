@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   getActiveUser,
@@ -14,6 +14,14 @@ export default function useGridCoveUserService() {
   const [authenticationIsLoading, setAuthenticationIsLoading] = useState(false);
   const [authenticationErrors, setAuthenticationErrors] = useState(null);
   const [lastActionName, setLastActionName] = useState("");
+
+  useEffect(() => {
+    const handle401Error = () => {
+      setActiveUser(null);
+    };
+    document.addEventListener("401Error", handle401Error);
+    return () => document.removeEventListener("401Error", handle401Error);
+  }, []);
 
   const handleErrors = (err) => {
     let errorMessages;

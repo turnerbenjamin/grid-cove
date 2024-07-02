@@ -34,26 +34,31 @@ export default function ActiveUserControl() {
 
   return (
     <>
-      <div className="relative h-full pl-2" ref={wrapperRef} title="Profile">
-        <Link to="/me">
-          <GiPlagueDoctorProfile className="text-4xl hover:fill-primary-200" />
-        </Link>
-        {doShowLogoutButton && (
-          <>
-            <div className="absolute top-[90%] right-0 w-fit">
-              <div
-                className="mt-4 text-nowrap px-2 py-1 bg-secondary-800 select-none cursor-pointer hover:text-accent-300"
-                role="button"
-                onClick={signOutUser}
-              >
-                {!authenticationIsLoading && "Log-Out"}
-                {authenticationIsLoading && (
-                  <CgSpinner className="animate-spin text-2xl" role="status" />
-                )}
+      <div className="h-full flex flex-col justify-center">
+        <div className="relative  pl-2 " ref={wrapperRef} title="Profile">
+          <Link to="/me">
+            <GiPlagueDoctorProfile className="text-4xl hover:fill-primary-200" />
+          </Link>
+          {doShowLogoutButton && (
+            <>
+              <div className="absolute top-[90%] right-0 w-fit">
+                <div
+                  className="mt-4 text-nowrap px-2 py-1 bg-secondary-800 select-none cursor-pointer hover:text-accent-300"
+                  role="button"
+                  onClick={signOutUser}
+                >
+                  {!authenticationIsLoading && "Log-Out"}
+                  {authenticationIsLoading && (
+                    <CgSpinner
+                      className="animate-spin text-2xl"
+                      role="status"
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
       {lastActionName === "signOut" && authenticationErrors && (
         <ErrorModal onClose={handleClearErrors} errors={authenticationErrors} />

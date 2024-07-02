@@ -171,7 +171,7 @@ describe("Authentication controller tests", () => {
       const expectedCookieName = "jwt";
       const expectedToken = testToken;
       const expectedOptions = {
-        maxAge: process.env.COOKIE_EXPIRES_IN,
+        maxAge: parseInt(process.env.COOKIE_EXPIRES_IN),
         secure: true,
         sameSite: "None",
         partitioned: true,
@@ -187,7 +187,7 @@ describe("Authentication controller tests", () => {
     });
 
     //? AC3-5
-    it("should call res.cookie with valid arguments", async () => {
+    it("It should respond with a 500 error if cookie method fails", async () => {
       //Arrange
       res.cookie.throws();
       //Act
