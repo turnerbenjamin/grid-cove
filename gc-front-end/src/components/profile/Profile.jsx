@@ -1,8 +1,8 @@
 import { useState } from "react";
-import useGridCoveUserService from "../../hooks/useGridCoveUserService";
+
+import { useAppContext } from "../../hooks/contexts/appContext";
 import SuccessToast from "../general/SuccessToast";
 import UserDetailsForm from "../header/UserDetailsForm";
-import { useAppContext } from "../../hooks/contexts/appContext";
 import UpdatePasswordForm from "./UpdatePasswordForm";
 
 export default function Profile() {
