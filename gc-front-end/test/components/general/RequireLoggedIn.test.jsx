@@ -59,6 +59,13 @@ describe("Require logged in tests: ", () => {
       //Assert
       expect(screen.getByTitle(/success/i)).toBeInTheDocument();
     });
+
+    //? US14-RLI-3
+    test("It should remove the success message where the close button is clicked", async () => {
+      await act(async () => fireEvent.click(screen.getByTitle(/close/i)));
+      //Assert
+      expect(screen.queryByTitle(/success/i)).toBeNull();
+    });
   });
 
   //? US14-RLI-4

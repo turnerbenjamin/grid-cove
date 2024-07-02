@@ -42,5 +42,5 @@
 
 - [x] US14-RLI-1: It should not show a sign-in form and should stay on the same page where sign in resolves
 - [x] US14-RLI-2: It should display a success message where sign in resolves
-- [ ] US14-RLI-3: It should remove the success message where the close button is clicked
+- [x] US14-RLI-3: It should remove the success message where the close button is clicked
 - [x] US14-RLI-4: It should not show a sign-in form and should navigate to root where close is selected
