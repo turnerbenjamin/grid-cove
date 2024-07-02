@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
-import * as puzzleTestData from "../data/Puzzle.test.data.js";
-import PuzzleGenerator from "../../src/utils/PuzzleGenerator.js";
 import APIErrors from "../../src/utils/APIErrors.js";
+import PuzzleGenerator from "../../src/utils/PuzzleGenerator.js";
+import * as puzzleTestData from "../data/Puzzle.test.data.js";
 
 describe("Puzzle generator tests: ", () => {
   const testPixelArt = puzzleTestData.submissions[0].pixelArt;
