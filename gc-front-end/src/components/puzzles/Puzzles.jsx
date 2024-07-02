@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 
-import PuzzlesList from "./PuzzlesList";
-import LoadingSpinner from "../general/LoadingSpinner";
 import ErrorPage from "../general/ErrorPage";
+import LoadingSpinner from "../general/LoadingSpinner";
+import PuzzlesList from "./PuzzlesList";
 
 export default function Puzzles() {
   const { puzzles, puzzleServiceIsLoading, puzzleServiceErrors } =
