@@ -3,11 +3,11 @@ import { useMemo, useState } from "react";
 import { useGridContext } from "../../hooks/contexts/gridContext";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 import Button from "../general/Button";
+import BuildSuccessModal from "./BuildSuccessModal";
 import ErrorModal from "../general/ErrorModal";
 import PuzzleValidator from "../../utils/PuzzleValidator";
-import BuildSuccessModal from "./BuildSuccessModal";
-import TitleInput from "./TitleInput";
 import RenderedErrors from "../general/RenderedErrors";
+import TitleInput from "./TitleInput";
 
 export default function SaveControls() {
   const { gridFillString, gridSize, resetGrid } = useGridContext();
@@ -21,6 +21,7 @@ export default function SaveControls() {
   const [newPuzzleId, setNewPuzzleId] = useState(null);
   const [doShowValidationErrors, setDoShowValidationErrors] = useState(false);
 
+  //Handle the UI logic of saving a puzzle
   const handleSave = async () => {
     setDoShowValidationErrors(true);
     if (validationErrors) return;
@@ -34,6 +35,7 @@ export default function SaveControls() {
     }
   };
 
+  //Returns an array of validation errors where found
   const validationErrors = useMemo(() => {
     const [isValidated, errors] = PuzzleValidator.validate({
       pixelArt: gridFillString,

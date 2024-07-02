@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import Modal from "../general/Modal";
+
 import Button from "../general/Button";
+import Modal from "../general/Modal";
 
 export default function BuildSuccessModal({ onClose, newPuzzleId }) {
   return (

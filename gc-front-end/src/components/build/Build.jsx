@@ -1,7 +1,7 @@
 import { GridContextProvider } from "../../hooks/contexts/gridContext";
 import { PuzzleContextProvider } from "../../hooks/contexts/puzzleContext";
-import GridColours from "../../utils/GridColours";
 import Builder from "./Builder";
+import GridColours from "../../utils/GridColours";
 
 export default function Build() {
   return (
