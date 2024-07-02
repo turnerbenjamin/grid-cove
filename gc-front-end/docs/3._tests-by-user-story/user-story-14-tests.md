@@ -38,3 +38,4 @@
 - [x] US14-INT-3: It should show a sign in form if updateUserPasswordById resolves
 - [x] US14-INT-4: It should not show a sign-in form and should stay on the same page where sign in resolves
 - [x] US14-INT-5: It should not show a sign-in form and should navigate to root where close is selected
+- [x] US14-INT-6: It should show errors where updateUserPasswordById rejects
