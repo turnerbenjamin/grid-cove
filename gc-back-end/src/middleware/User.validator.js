@@ -1,6 +1,16 @@
 import * as expressValidator from "express-validator";
 
 export default class UserValidator {
+  /**
+   * Validates registration submission data.
+   *
+   * This method performs a series of validations and sanitization on the registration submission data.
+   * It checks for the existence of required properties (username, emailAddress, password), validates
+   * the format of the username, emailAddress, and password, and sanitizes the body of the request based
+   * on a whitelist.
+   *
+   * @returns {Array} An array of middleware functions that perform the validations and sanitization.
+   */
   static validateRegistrationSubmission = () => {
     return [
       this.#validatePropertyExists("username"),
@@ -16,6 +26,14 @@ export default class UserValidator {
     ];
   };
 
+  /**
+   * Validates update user submission.
+   *
+   * This method performs a series of validations and sanitization on the update user submission, validates
+   * these fields where provided and throws errors where blacklisted fields (password and roles) are in the body
+   *
+   * @returns {Array} An array of middleware functions that perform the validations and sanitization.
+   */
   static validateUpdateUserSubmission = () => {
     return [
       this.#validateBodyIncludesOneOf(["username", "emailAddress"]),
@@ -29,6 +47,13 @@ export default class UserValidator {
     ];
   };
 
+  /**
+   * Validates the update password submission.
+   *
+   * It ensures that the updatedPassword property exists and validates its value
+   *
+   * @returns {Array} An array of middleware functions that perform the validation and error handling steps.
+   */
   static validateUpdatePasswordSubmission = () => {
     return [
       this.#validatePropertyExists("updatedPassword"),
@@ -40,16 +65,8 @@ export default class UserValidator {
     ];
   };
 
-  static #handleValidationErrors = (req, res, next) => {
-    const errors = expressValidator.validationResult(req, {
-      strictParams: true,
-    });
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array());
-    }
-    next();
-  };
-
+  //Validate that at least one of the enumerated properties exists on the body
+  //else throws an error
   static #validateBodyIncludesOneOf = (properties) => {
     return expressValidator.body().custom((body) => {
       for (const property of properties) {
@@ -63,6 +80,7 @@ export default class UserValidator {
     });
   };
 
+  //Validate that the give property exists on the body
   static #validatePropertyExists = (property) => {
     return expressValidator
       .body(property)
@@ -72,6 +90,8 @@ export default class UserValidator {
       .withMessage(`${property} is required`);
   };
 
+  //Validate that the password field is between 8 and 32 characters long and
+  //contains at least one digit and special character
   static #validatePassword = ({ isOptional, propertyName }) => {
     return expressValidator
       .body(propertyName || "password")
@@ -84,6 +104,7 @@ export default class UserValidator {
       .withMessage("Password must contain a special character");
   };
 
+  //Validates that the provided email address is correctly formatted
   static #validateEmailAddress = ({ isOptional }) => {
     return expressValidator
       .body("emailAddress")
@@ -92,6 +113,8 @@ export default class UserValidator {
       .withMessage("Email address is invalid");
   };
 
+  //Validates that the provided username is between 8 and 24 chars and contains
+  //only lowercase letters, digits and hyphens
   static #validateUsername = ({ isOptional }) => {
     return expressValidator
       .body("username")
@@ -104,6 +127,8 @@ export default class UserValidator {
       );
   };
 
+  //Ensures that only whitelisted fields are present in the body. If a blacklist is
+  //provided, the presence of a blacklisted property in the body will lead to an error
   static #sanitiseBody = ({ whitelist, blacklist }) => {
     return (req, res, next) => {
       const sanitisedBody = {};
@@ -119,6 +144,7 @@ export default class UserValidator {
     };
   };
 
+  //Check the body for blacklisted properties and throw an error where thy are found
   static #checkBodyForBlacklistedProperties = (body, blacklist, res) => {
     for (const invalidProperty of blacklist) {
       if (body.hasOwnProperty(invalidProperty))
@@ -128,5 +154,16 @@ export default class UserValidator {
             `You are not permitted to provide ${invalidProperty} on this route`
           );
     }
+  };
+
+  //Error handler for the User validator
+  static #handleValidationErrors = (req, res, next) => {
+    const errors = expressValidator.validationResult(req, {
+      strictParams: true,
+    });
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
+    }
+    next();
   };
 }
