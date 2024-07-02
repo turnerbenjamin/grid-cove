@@ -24,7 +24,7 @@ export default function SuccessToast({ message, onClose, displayFor = 0 }) {
             className="absolute top-[5px] right-[5px] text-3xl fill-primary-900 hover:fill-grid-red"
             role="button"
             onClick={onClose}
-            title="close"
+            title="Close"
           />
         )}
         <div className="flex flex-row items-center justify-center gap-2">

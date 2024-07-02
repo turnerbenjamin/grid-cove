@@ -253,4 +253,32 @@ describe("Authentication service tests", () => {
       expect(actual).toEqual(expected);
     });
   });
+
+  describe("Update password tests", () => {
+    let removeItemSpy;
+    const testPayload = {
+      password: "current-password",
+      updatedPassword: "new-password",
+    };
+
+    beforeEach(() => {
+      removeItemSpy = vi.spyOn(Storage.prototype, "removeItem");
+    });
+
+    afterEach(() => {
+      localStorage.clear();
+      removeItemSpy.mockClear();
+    });
+
+    //?US14-URS-1
+    test("It should call axios patch with the correct url", async () => {
+      //Arrange
+      const expectedURL = import.meta.env.VITE_APP_UPDATE_PASSWORD_URL;
+      axios.patch.mockResolvedValueOnce(testResponse);
+      //Act
+      await authenticationService.updatePassword(testPayload);
+      //Assert
+      expect(axios.patch).toBeCalledWith(expectedURL, testPayload);
+    });
+  });
 });

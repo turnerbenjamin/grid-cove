@@ -164,12 +164,10 @@ describe("Sign in integration tests", () => {
     //?US3-INT-8
     test("It should display display a success message where the authentication service resolves", async () => {
       //Act
-      await act(async () => {
-        fireEvent.click(submitButton);
-        signInResolver();
-      });
+      await act(async () => fireEvent.click(submitButton));
+      await act(async () => signInResolver({}));
       //Assert
-      expect(screen.getByText(/success/i)).toBeInTheDocument();
+      expect(screen.getByTitle(/success/i)).toBeInTheDocument();
     });
 
     //?US3-INT-9
@@ -177,7 +175,7 @@ describe("Sign in integration tests", () => {
       //Act
       await act(async () => {
         fireEvent.click(submitButton);
-        signInResolver();
+        signInResolver({});
       });
       const closeButton = screen.queryByText("Close");
       await act(async () => {

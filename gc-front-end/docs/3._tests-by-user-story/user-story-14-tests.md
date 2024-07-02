@@ -21,7 +21,15 @@
 - [x] US14-UPF-13: It should show a success message when updateUserPasswordById resolves
 - [x] US14-UPF-14: It should not show a success message after the close button has been selected
 - [x] US14-UPF-15: It should clear the input fields where updateUserPasswordById resolves
-- [ ] US14-UPF-16: It should disable submit where validation errors
+- [x] US14-UPF-16: It should disable submit where validation errors
+
+## User service tests (URS)
+
+- [x] US14-URS-1: It should call axios patch with the correct url
+- [ ] US14-URS-2: It should throw err if patch rejects with standard error object
+- [ ] US14-URS-3: It should throw err?.response?.data where validation error received
+- [ ] US14-URS-4: It should call remove user item from local storage where axios resolves
+- [ ] US14-URS-5: It should return response data where axios resolves
 
 ## Integration Tests
 

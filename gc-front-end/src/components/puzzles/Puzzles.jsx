@@ -17,7 +17,7 @@ export default function Puzzles() {
     getAllPuzzles();
   }, []);
 
-  const wrapperClasses = "py-6 px-4 mb-8 flex flex-col justify-center";
+  const wrapperClasses = "py-6 px-4 mb-8 flex flex-col items-center";
 
   if (puzzleServiceErrors)
     return (

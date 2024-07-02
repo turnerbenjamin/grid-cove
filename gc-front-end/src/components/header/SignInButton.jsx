@@ -1,9 +1,17 @@
+import { useState } from "react";
 import { useAppContext } from "../../hooks/contexts/appContext";
+
 import Button from "../general/Button";
 import Modal from "../general/Modal";
+import SuccessToast from "../general/SuccessToast";
 import UserDetailsForm from "./UserDetailsForm";
 
-export default function SignInButton({ onClick, doShowForm, onClose }) {
+export default function SignInButton({
+  onClick,
+  doShowForm,
+  onClose,
+  setShowSignInSuccessMessage,
+}) {
   const {
     signInUser,
     authenticationIsLoading,
@@ -14,7 +22,13 @@ export default function SignInButton({ onClick, doShowForm, onClose }) {
   } = useAppContext();
 
   const handleClose = () => {
-    handleClearSignInIsSuccessful();
+    onClose();
+  };
+
+  const handleSignIn = async (submission) => {
+    const user = await signInUser(submission);
+    if (!user) return;
+    setShowSignInSuccessMessage(true);
     onClose();
   };
 
@@ -30,14 +44,11 @@ export default function SignInButton({ onClick, doShowForm, onClose }) {
         <Modal onClose={handleClose}>
           <UserDetailsForm
             headingText="Sign-In"
-            submitButtonText={isSignInSuccessful ? "Close" : "Submit"}
-            onSubmit={isSignInSuccessful ? handleClose : signInUser}
+            submitButtonText={"Submit"}
+            onSubmit={handleSignIn}
             isLoading={authenticationIsLoading}
             errors={authenticationErrors}
             handleClearErrors={handleClearErrors}
-            successMessage={
-              isSignInSuccessful && "You have signed in successfully."
-            }
             doSkipValidation
             activeFields={{
               emailAddress: true,

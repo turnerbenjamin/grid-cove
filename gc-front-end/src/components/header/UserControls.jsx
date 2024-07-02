@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
+import { useAppContext } from "../../hooks/contexts/appContext";
+import ActiveUserControl from "./ActiveUserControl";
 import RegisterButton from "./RegisterButton";
 import SignInButton from "./SignInButton";
-import { useAppContext } from "../../hooks/contexts/appContext";
 import SuccessfulRegistrationMessage from "./SuccessfulRegistrationMessage";
-import ActiveUserControl from "./ActiveUserControl";
+import SuccessToast from "../general/SuccessToast";
 
 export default function UserControls() {
   const modalWindows = {
@@ -13,6 +14,8 @@ export default function UserControls() {
     SIGN_IN: "sign-in",
   };
   const [activeModal, setActiveModal] = useState(null);
+  const [showSignInSuccessMessage, setShowSignInSuccessMessage] =
+    useState(false);
 
   const {
     activeUser,
@@ -32,25 +35,37 @@ export default function UserControls() {
   }, [isRegistrationSuccessful]);
 
   return (
-    <div className="md:col-start-3 flex flex-row gap-2 place-self-end">
-      {(!activeUser || activeModal) && (
-        <>
-          <RegisterButton
-            onClick={() => setActiveModal(modalWindows.REGISTER)}
-            doShowForm={activeModal === modalWindows.REGISTER}
-            onClose={handleCloseModal}
+    <>
+      <div className="md:col-start-3 flex flex-row gap-2 place-self-end">
+        {(!activeUser || activeModal) && (
+          <>
+            <RegisterButton
+              onClick={() => setActiveModal(modalWindows.REGISTER)}
+              doShowForm={activeModal === modalWindows.REGISTER}
+              onClose={handleCloseModal}
+            />
+            <SignInButton
+              onClick={() => setActiveModal(modalWindows.SIGN_IN)}
+              doShowForm={activeModal === modalWindows.SIGN_IN}
+              onClose={handleCloseModal}
+              setShowSignInSuccessMessage={setShowSignInSuccessMessage}
+            />
+          </>
+        )}
+        {activeModal === modalWindows.SUCCESS_MESSAGE && (
+          <SuccessfulRegistrationMessage
+            onClose={handleDismissSuccessMessage}
           />
-          <SignInButton
-            onClick={() => setActiveModal(modalWindows.SIGN_IN)}
-            doShowForm={activeModal === modalWindows.SIGN_IN}
-            onClose={handleCloseModal}
-          />
-        </>
+        )}
+        {activeUser && !activeModal && <ActiveUserControl />}
+      </div>
+      {showSignInSuccessMessage && (
+        <SuccessToast
+          message={"You have been signed in"}
+          onClose={() => setShowSignInSuccessMessage(false)}
+          displayFor={3000}
+        />
       )}
-      {activeModal === modalWindows.SUCCESS_MESSAGE && (
-        <SuccessfulRegistrationMessage onClose={handleDismissSuccessMessage} />
-      )}
-      {activeUser && !activeModal && <ActiveUserControl />}
-    </div>
+    </>
   );
 }
