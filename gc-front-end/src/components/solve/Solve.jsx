@@ -24,7 +24,7 @@ export default function Solve() {
 
   useEffect(() => {
     handleGetPuzzle();
-  }, []);
+  }, [puzzleId]);
 
   const wrapperClasses = "flex flex-col items-center mt-[5vh]";
 

@@ -71,7 +71,7 @@ const GridContextProvider = function ({
   );
 
   useEffect(() => {
-    if (!gridCells) return;
+    if (!gridCells || doRevealPixelArt) return;
     const handleMouseDown = (e) => {
       if (e.button !== 0) return;
       const cellKey = e.target?.dataset?.key;
@@ -84,7 +84,7 @@ const GridContextProvider = function ({
     return () => {
       document.removeEventListener("mousedown", handleMouseDown);
     };
-  }, [handleUpdateCellColour]);
+  }, [handleUpdateCellColour, doRevealPixelArt]);
 
   const getCurrentGridFillString = () => {
     return gridCells.map((cell) => cell.colour.colourCode).join("");
@@ -115,7 +115,7 @@ const GridContextProvider = function ({
   }, [gridSize]);
 
   useEffect(() => {
-    if (!originTarget) return;
+    if (!originTarget || doRevealPixelArt) return;
     const handleMouseMove = (e) => {
       if (!doUpdateCellOnDrag(e.target)) return;
       const { key } = e.target.dataset;
@@ -133,7 +133,7 @@ const GridContextProvider = function ({
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [originTarget]);
+  }, [originTarget, doRevealPixelArt]);
 
   const model = {
     gridRef,

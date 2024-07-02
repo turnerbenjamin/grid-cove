@@ -6,16 +6,8 @@ import LoadingSpinner from "../general/LoadingSpinner";
 import ErrorPage from "../general/ErrorPage";
 
 export default function Puzzles() {
-  const {
-    puzzles,
-    puzzleServiceIsLoading,
-    getAllPuzzles,
-    puzzleServiceErrors,
-  } = usePuzzleContext();
-
-  useEffect(() => {
-    getAllPuzzles();
-  }, []);
+  const { puzzles, puzzleServiceIsLoading, puzzleServiceErrors } =
+    usePuzzleContext();
 
   const wrapperClasses = "py-6 px-4 mb-8 flex flex-col items-center";
 

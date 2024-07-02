@@ -9,8 +9,8 @@ vi.mock("../../../src/components/general/Modal");
 vi.mock("react-router-dom");
 
 describe("Build tests", () => {
-  beforeEach(() => {
-    render(<Build />);
+  beforeEach(async () => {
+    await act(async () => render(<Build />));
   });
 
   afterEach(() => {

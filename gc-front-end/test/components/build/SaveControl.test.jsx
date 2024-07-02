@@ -20,7 +20,7 @@ describe("Save control tests: ", () => {
     title: "Test title",
   };
 
-  beforeEach(() => {
+  beforeEach(async () => {
     const promise = new Promise((resolve, reject) => {
       createPuzzleResolver = resolve;
       createPuzzleRejecter = reject;
@@ -39,10 +39,12 @@ describe("Save control tests: ", () => {
     modalRoot.setAttribute("id", "modal");
     document.body.appendChild(modalRoot);
 
-    render(
-      <PuzzleContextProvider>
-        <SaveControls />
-      </PuzzleContextProvider>
+    await act(async () =>
+      render(
+        <PuzzleContextProvider>
+          <SaveControls />
+        </PuzzleContextProvider>
+      )
     );
   });
 

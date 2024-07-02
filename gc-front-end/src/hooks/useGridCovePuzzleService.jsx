@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   createPuzzle,
@@ -76,11 +76,26 @@ export default function useGridCovePuzzleService() {
     }
   };
 
+  const getNextPuzzle = useCallback(
+    (currentPuzzleId) => {
+      if (!puzzles) return;
+      const allPuzzles = puzzles.flatMap((puzzleGroup) => puzzleGroup.puzzles);
+      const currentIndex = allPuzzles.indexOf(currentPuzzleId);
+      return allPuzzles[currentIndex + 1];
+    },
+    [puzzles]
+  );
+
+  useEffect(() => {
+    getAllPuzzles();
+  }, []);
+
   return {
     createNewPuzzle,
     deletePuzzleById,
     getAllPuzzles,
     getPuzzleById,
+    getNextPuzzle,
     handleClearErrors,
     puzzles,
     puzzleServiceErrors,

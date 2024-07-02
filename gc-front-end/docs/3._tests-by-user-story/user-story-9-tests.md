@@ -70,3 +70,11 @@
 - [x] US9-SLV-4: It should render a grid with the correct number of cells
 - [x] US9-SLV-5: It should set the default fill style to black
 - [x] US9-SLV-6: It should correctly change the style of a cell where a non-default mode is selected
+
+## Integration Tests (INT)
+
+## next puzzle
+
+- [x] US9-INT-1: It should show a button to access next puzzle where one is available
+- [ ] US9-INT-2: It should navigate to the next puzzle when the link is clicked
+- [ ] US9-INT-3: It should not show a button to access the next puzzle where one is not
