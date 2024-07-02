@@ -24,7 +24,6 @@ describe("Next puzzle link tests: ", () => {
   const lastPuzzleId = getAllPuzzlesTestData[2].puzzles[1];
 
   beforeEach(() => {
-    puzzleService.getPuzzle.mockResolvedValue(solvedWhenTopLeftCellFilled);
     puzzleService.getPuzzles.mockResolvedValue(getAllPuzzlesTestData);
     RevealPixelArtTransition.getDelay.mockReturnValue(0);
     useAppContext.mockReturnValue({});
@@ -32,6 +31,10 @@ describe("Next puzzle link tests: ", () => {
 
   describe("Where next puzzle is available", () => {
     beforeEach(async () => {
+      puzzleService.getPuzzle.mockResolvedValue({
+        ...solvedWhenTopLeftCellFilled,
+        _id: firstPuzzleId,
+      });
       await act(async () =>
         renderWithRouter(
           <PuzzleContextProvider>
@@ -63,6 +66,35 @@ describe("Next puzzle link tests: ", () => {
       expect(screen.getByTestId("pageNavigatedTo").dataset.location).toBe(
         expectedLocation
       );
+    });
+  });
+
+  describe("Where next puzzle is available", () => {
+    beforeEach(async () => {
+      puzzleService.getPuzzle.mockResolvedValue({
+        ...solvedWhenTopLeftCellFilled,
+        _id: lastPuzzleId,
+      });
+      await act(async () =>
+        renderWithRouter(
+          <PuzzleContextProvider>
+            <Solve />
+          </PuzzleContextProvider>,
+          `/puzzles/:puzzleId`,
+          { puzzleId: lastPuzzleId }
+        )
+      );
+      await act(async () => {
+        fireEvent.mouseDown(screen.getByTitle("1,1"));
+      });
+      await act(async () => {
+        fireEvent.mouseUp(screen.getByTitle("1,1"));
+      });
+    });
+
+    //? US9-INT-3
+    test("It should not show a button to access the next puzzle where one is not available", async () => {
+      expect(screen.queryByText(/next/i)).toBeNull();
     });
   });
 });
