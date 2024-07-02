@@ -29,6 +29,7 @@ This document is a reference for abbreviations used in test codes:
 - PZC: components/puzzles/PuzzleCard
 - PZS: services/puzzle.service
 - PZL: components/puzzles/Puzzles
+- RLI: components/general/RequireLoggedIn
 - RPA: utils/RevealPixelArtTransition
 - SCT: components/general/SuccessToast
 - SLV: components/solve/Solve

@@ -17,13 +17,7 @@ export default function SignInButton({
     authenticationIsLoading,
     authenticationErrors,
     handleClearErrors,
-    isSignInSuccessful,
-    handleClearSignInIsSuccessful,
   } = useAppContext();
-
-  const handleClose = () => {
-    onClose();
-  };
 
   const handleSignIn = async (submission) => {
     const user = await signInUser(submission);
@@ -41,7 +35,7 @@ export default function SignInButton({
         SIGN-IN
       </Button>
       {doShowForm && (
-        <Modal onClose={handleClose}>
+        <Modal onClose={onClose}>
           <UserDetailsForm
             headingText="Sign-In"
             submitButtonText={"Submit"}

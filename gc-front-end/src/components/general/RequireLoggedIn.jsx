@@ -10,17 +10,14 @@ export default function RequireLoggedIn({ children }) {
   const [showSignInSuccessModal, setShowSignInSuccessModal] = useState(false);
   const { activeUser } = useAppContext();
   const navigate = useNavigate();
-
   const {
     signInUser,
     authenticationIsLoading,
     authenticationErrors,
     handleClearErrors,
-    handleClearSignInIsSuccessful,
   } = useAppContext();
 
   const handleClose = () => {
-    handleClearSignInIsSuccessful();
     navigate("/");
   };
 

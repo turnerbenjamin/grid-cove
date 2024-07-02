@@ -3,13 +3,23 @@ import Button from "../general/Button";
 import Modal from "../general/Modal";
 import UserDetailsForm from "./UserDetailsForm";
 
-export default function RegisterButton({ onClick, doShowForm, onClose }) {
+export default function RegisterButton({
+  onClick,
+  doShowForm,
+  onClose,
+  onSuccess,
+}) {
   const {
     registerNewUser,
     authenticationIsLoading,
     authenticationErrors,
     handleClearErrors,
   } = useAppContext();
+
+  const handleRegisterNewUser = async (submission) => {
+    const newUser = await registerNewUser(submission);
+    if (newUser) onSuccess();
+  };
 
   return (
     <>
@@ -25,7 +35,7 @@ export default function RegisterButton({ onClick, doShowForm, onClose }) {
           <UserDetailsForm
             headingText="Register"
             submitButtonText="Submit"
-            onSubmit={registerNewUser}
+            onSubmit={handleRegisterNewUser}
             errors={authenticationErrors}
             handleClearErrors={handleClearErrors}
             isLoading={authenticationIsLoading}

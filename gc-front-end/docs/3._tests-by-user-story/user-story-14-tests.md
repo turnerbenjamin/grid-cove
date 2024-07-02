@@ -31,11 +31,16 @@
 - [x] US14-URS-4: It should call remove user item from local storage where axios resolves
 - [x] US14-URS-5: It should return response data where axios resolves
 
-## Integration Tests
+## Integration Tests (INT)
 
 - [x] US14-INT-1: It should show a sign-in form where the user is not logged in
 - [x] US14-INT-2: It should not show a sign in form when the user is logged in
 - [x] US14-INT-3: It should show a sign in form if updateUserPasswordById resolves
-- [x] US14-INT-4: It should not show a sign-in form and should stay on the same page where sign in resolves
-- [x] US14-INT-5: It should not show a sign-in form and should navigate to root where close is selected
-- [x] US14-INT-6: It should show errors where updateUserPasswordById rejects
+- [x] US14-INT-4: It should show errors where updateUserPasswordById rejects
+
+## Require Logged In tests (RLI)
+
+- [x] US14-RLI-1: It should not show a sign-in form and should stay on the same page where sign in resolves
+- [x] US14-RLI-2: It should display a success message where sign in resolves
+- [ ] US14-RLI-3: It should remove the success message where the close button is clicked
+- [x] US14-RLI-4: It should not show a sign-in form and should navigate to root where close is selected

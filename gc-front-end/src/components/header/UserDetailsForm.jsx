@@ -17,7 +17,6 @@ export default function UserDetailsForm({
   handleClearErrors,
   onSubmit,
   doSkipValidation,
-  successMessage,
   defaultValues,
 }) {
   const [username, setUsername] = useState(defaultValues?.username ?? "");
@@ -81,7 +80,7 @@ export default function UserDetailsForm({
 
       <UserNameInputField
         userNameValue={username}
-        isDisabled={successMessage || isLoading}
+        isDisabled={isLoading}
         onChange={(e) => handleUpdate(setUsername, e.target.value)}
         isActive={activeFields?.username}
         doSkipValidation={doSkipValidation}
@@ -89,7 +88,7 @@ export default function UserDetailsForm({
 
       <EmailAddressInputField
         emailAddressValue={emailAddress}
-        isDisabled={successMessage || isLoading}
+        isDisabled={isLoading}
         onChange={(e) => handleUpdate(setEmailAddress, e.target.value)}
         isActive={activeFields?.emailAddress}
         doSkipValidation={doSkipValidation}
@@ -97,7 +96,7 @@ export default function UserDetailsForm({
 
       <PasswordInputField
         passwordValue={password}
-        isDisabled={successMessage || isLoading}
+        isDisabled={isLoading}
         onChange={(e) => handleUpdate(setPassword, e.target.value)}
         isActive={activeFields?.password}
         doSkipValidation={doSkipValidation}
@@ -106,7 +105,7 @@ export default function UserDetailsForm({
       <ConfirmPasswordInputField
         passwordValue={password}
         confirmPasswordValue={confirmPassword}
-        isDisabled={successMessage || isLoading}
+        isDisabled={isLoading}
         onChange={(e) => handleUpdate(setConfirmPassword, e.target.value)}
         isActive={activeFields?.confirmPassword}
         doSkipValidation={doSkipValidation}
@@ -124,7 +123,6 @@ export default function UserDetailsForm({
       >
         {submitButtonText}
       </Button>
-      {successMessage && <p className="text-primary-300">{successMessage}</p>}
       <RenderedErrors errors={errors} />
     </form>
   );

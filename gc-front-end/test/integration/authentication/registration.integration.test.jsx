@@ -138,7 +138,7 @@ describe("Registration integration tests", () => {
       //Act
       await act(async () => {
         fireEvent.click(submitButton);
-        registerResolver();
+        registerResolver({});
       });
       //Assert
       expect(screen.getByText(/success/i)).toBeInTheDocument();
@@ -149,7 +149,7 @@ describe("Registration integration tests", () => {
       //Act
       await act(async () => {
         fireEvent.click(submitButton);
-        registerResolver();
+        registerResolver({});
       });
       const successMessage = screen.getByRole("alert");
       const signInButton = within(successMessage).getByText(/sign-in/i);
@@ -176,7 +176,7 @@ describe("Registration integration tests", () => {
       //Act
       await act(async () => {
         fireEvent.click(submitButton);
-        registerResolver();
+        registerResolver({});
       });
       const closeModalButton = screen.getByTitle(/close/i);
       await act(async () => {

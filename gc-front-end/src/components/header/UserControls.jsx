@@ -17,22 +17,13 @@ export default function UserControls() {
   const [showSignInSuccessMessage, setShowSignInSuccessMessage] =
     useState(false);
 
-  const {
-    activeUser,
-    isRegistrationSuccessful,
-    handleClearIsRegistrationSuccessful,
-  } = useAppContext();
+  const { activeUser } = useAppContext();
 
   const handleCloseModal = () => setActiveModal(null);
 
   const handleDismissSuccessMessage = (options) => {
-    handleClearIsRegistrationSuccessful();
     setActiveModal(options?.doShowSignInForm ? modalWindows.SIGN_IN : null);
   };
-
-  useEffect(() => {
-    if (isRegistrationSuccessful) setActiveModal(modalWindows.SUCCESS_MESSAGE);
-  }, [isRegistrationSuccessful]);
 
   return (
     <>
@@ -43,6 +34,7 @@ export default function UserControls() {
               onClick={() => setActiveModal(modalWindows.REGISTER)}
               doShowForm={activeModal === modalWindows.REGISTER}
               onClose={handleCloseModal}
+              onSuccess={() => setActiveModal(modalWindows.SUCCESS_MESSAGE)}
             />
             <SignInButton
               onClick={() => setActiveModal(modalWindows.SIGN_IN)}

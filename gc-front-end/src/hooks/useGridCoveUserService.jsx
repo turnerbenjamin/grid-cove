@@ -13,9 +13,6 @@ export default function useGridCoveUserService() {
   const [activeUser, setActiveUser] = useState(getActiveUser());
   const [authenticationIsLoading, setAuthenticationIsLoading] = useState(false);
   const [authenticationErrors, setAuthenticationErrors] = useState(null);
-  const [isRegistrationSuccessful, setIsRegistrationSuccessful] =
-    useState(null);
-  const [isSignInSuccessful, setIsSignInSuccessful] = useState(null);
   const [lastActionName, setLastActionName] = useState("");
 
   const handleErrors = (err) => {
@@ -29,18 +26,13 @@ export default function useGridCoveUserService() {
     setAuthenticationErrors(null);
   };
 
-  const handleClearIsRegistrationSuccessful = () =>
-    setIsRegistrationSuccessful(false);
-
-  const handleClearSignInIsSuccessful = () => setIsSignInSuccessful(false);
-
   const registerNewUser = async (newUserSubmission) => {
     try {
       setLastActionName("register");
       setAuthenticationErrors(null);
       setAuthenticationIsLoading(true);
-      await register(newUserSubmission);
-      setIsRegistrationSuccessful(true);
+      const newUser = await register(newUserSubmission);
+      return newUser;
     } catch (err) {
       handleErrors(err);
     } finally {
@@ -55,7 +47,6 @@ export default function useGridCoveUserService() {
       setAuthenticationIsLoading(true);
       const user = await signIn(userCredentials);
       setActiveUser(user);
-      setIsSignInSuccessful(true);
       return user;
     } catch (err) {
       handleErrors(err);
@@ -113,10 +104,6 @@ export default function useGridCoveUserService() {
     authenticationIsLoading,
     activeUser,
     handleClearErrors,
-    handleClearIsRegistrationSuccessful,
-    handleClearSignInIsSuccessful,
-    isRegistrationSuccessful,
-    isSignInSuccessful,
     lastActionName,
     registerNewUser,
     signInUser,

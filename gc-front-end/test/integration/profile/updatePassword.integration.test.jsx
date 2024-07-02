@@ -81,38 +81,8 @@ describe("Update password integration test: ", () => {
           screen.queryByRole("heading", { name: /sign-in/i })
         ).toBeInTheDocument();
       });
-
-      //? US14-INT-4
-      test("It should not show a sign-in form and should stay on the same page where sign in resolves", async () => {
-        const expected =
-          screen.getByTestId("current-location").dataset.location;
-        authenticationServices.signIn.mockResolvedValue({});
-        const signInForm = screen
-          .queryByRole("heading", { name: /sign-in/i })
-          .closest("form");
-        //Act
-        await act(async () =>
-          fireEvent.click(within(signInForm).getByTitle(/submit/i))
-        );
-        //Assert
-        expect(screen.queryByRole("heading", { name: /sign-in/i })).toBeNull();
-        expect(screen.getByTestId("current-location").dataset.location).toBe(
-          expected
-        );
-      });
-
-      //? US14-INT-5
-      test("It should not show a sign-in form and should navigate to root where close is selected", async () => {
-        const expected = "/";
-        //Act
-        await act(async () => fireEvent.click(screen.getByTitle("close")));
-        //Assert
-        expect(screen.queryByRole("heading", { name: /sign-in/i })).toBeNull();
-        expect(screen.getByTestId("current-location").dataset.location).toBe(
-          expected
-        );
-      });
     });
+
     describe("After rejected update tests: ", () => {
       const testErrorMessage = "test error message";
       beforeEach(async () => {
@@ -120,7 +90,7 @@ describe("Update password integration test: ", () => {
         await act(async () => updatePasswordRejecter(testErrorMessage));
       });
 
-      //? US14-INT-6
+      //? US14-INT-4
       test("It should show errors where updateUserPasswordById rejects", () => {
         expect(screen.getByText(testErrorMessage)).toBeInTheDocument();
       });
