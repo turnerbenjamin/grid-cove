@@ -46,9 +46,14 @@ describe("Puzzle generator tests: ", () => {
 
   //? PG6-3
   it("should return a clues object with row and column properties which have two dimensional arrays, the length of which should equal the puzzle size", async () => {
+    //Arrange
+    const testPixelArt = puzzleTestData.submissions[1].pixelArt;
+    const randomStub = sinon.stub(Math, "random");
+    randomStub.returns(0.01);
     //Act
     const puzzle = PuzzleGenerator.generate(testPixelArt, testPuzzleSize);
     const { rowClues, columnClues } = puzzle.clues;
+    randomStub.restore();
     //Assert
     expect(columnClues).has.length(testPuzzleSize);
     expect(rowClues).has.length(testPuzzleSize);

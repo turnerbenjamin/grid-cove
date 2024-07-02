@@ -25,7 +25,7 @@ describe("Authentication controller tests", () => {
     res = null;
   });
 
-  describe("Register tests", () => {
+  describe("Register tests: ", () => {
     let authenticationController;
     let authenticationService;
 
@@ -62,6 +62,7 @@ describe("Authentication controller tests", () => {
 
     //? AC1-3
     it("should call res.json with the value returned from the authentication service", async () => {
+      //Arrange
       const expected = { ...userTestData.documents[0] };
       authenticationService.createUser.resolves(expected);
       //Act
@@ -72,6 +73,7 @@ describe("Authentication controller tests", () => {
 
     //? AC1-4
     it("should respond with a status of 400 if the authentication service throws a duplicate email address error", async () => {
+      //Arrange
       authenticationService.createUser.rejects(
         APIErrors.DUPLICATE_EMAIL_ADDRESS
       );
@@ -85,6 +87,7 @@ describe("Authentication controller tests", () => {
 
     //? AC1-5
     it("should respond with a status of 400 if the authentication service throws a duplicate username error", async () => {
+      //Arrange
       authenticationService.createUser.rejects(APIErrors.DUPLICATE_USERNAME);
       //Act
       await authenticationController.register(req, res);
@@ -96,6 +99,7 @@ describe("Authentication controller tests", () => {
 
     //? AC1-6
     it("should respond with a status code of 500 if the User service throws a server error", async () => {
+      //Arrange
       authenticationService.createUser.rejects(APIErrors.SERVER_ERROR);
       //Act
       await authenticationController.register(req, res);
@@ -105,7 +109,7 @@ describe("Authentication controller tests", () => {
     });
   });
 
-  describe("Sign in tests", () => {
+  describe("Sign in tests: ", () => {
     const testToken = "test-token";
     let authenticationController;
     let authenticationService;
@@ -213,8 +217,9 @@ describe("Authentication controller tests", () => {
     });
   });
 
-  describe("Sign out tests", () => {
+  describe("Sign out tests: ", () => {
     let authenticationController;
+
     beforeEach(() => {
       authenticationController = new AuthenticationController({});
       req.body = {};
@@ -241,7 +246,7 @@ describe("Authentication controller tests", () => {
       expect(res.status.calledWith(204)).to.equal(true);
     });
 
-    //? AC4-2
+    //? AC4-3
     it("should respond with a 500 error code if clearCookie throws", async () => {
       //Arrange
       res.clearCookie.throws();
@@ -252,9 +257,9 @@ describe("Authentication controller tests", () => {
     });
   });
 
-  describe("Require logged In tests", () => {
-    let authenticationController;
+  describe("Require logged In tests: ", () => {
     const testToken = "jwt=xxxxx";
+    let authenticationController;
     let authenticationService;
     let next;
 
@@ -354,7 +359,7 @@ describe("Authentication controller tests", () => {
     });
   });
 
-  describe("Require admin role tests", () => {
+  describe("Require admin role tests: ", () => {
     const testUserWithAdminRole = { ...userTestData.documents[1] };
     const testUserWithoutAdminRole = { ...userTestData.documents[0] };
     let authenticationController;
@@ -476,8 +481,8 @@ describe("Authentication controller tests", () => {
   });
 
   describe("Require password tests: ", () => {
-    let testUser;
     const testPasswordSubmission = userTestData.submissions[0].password;
+    let testUser;
     let compareStub;
     let authenticationController;
     let next;
@@ -537,6 +542,7 @@ describe("Authentication controller tests", () => {
 
     //? AC14-7
     it("should call compare on bcrypt with the correct arguments", async () => {
+      //Arrange
       const expectedSubmittedPasswordArg = testPasswordSubmission;
       const expectedSavedPasswordArg = testUser.password;
       //Act
@@ -550,6 +556,7 @@ describe("Authentication controller tests", () => {
 
     //? AC14-8
     it("should respond with a status of 403 if bcrypt returns false", async () => {
+      //Arrange
       compareStub.resolves(false);
       //Act
       await authenticationController.requirePassword(req, res, next);
@@ -562,6 +569,7 @@ describe("Authentication controller tests", () => {
 
     //? AC14-9
     it("should respond with a status of 500 if bcrypt rejects", async () => {
+      //Arrange
       compareStub.rejects();
       //Act
       await authenticationController.requirePassword(req, res, next);
@@ -574,6 +582,7 @@ describe("Authentication controller tests", () => {
 
     //? AC14-10
     it("should call next if bcrypt returns true", async () => {
+      //Arrange
       compareStub.resolves(true);
       //Act
       await authenticationController.requirePassword(req, res, next);

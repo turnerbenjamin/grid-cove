@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
-import * as userTestData from "../data/User.test.data.js";
-import UserController from "../../src/controllers/User.controller.js";
 import APIErrors from "../../src/utils/APIErrors.js";
+import UserController from "../../src/controllers/User.controller.js";
+import * as userTestData from "../data/User.test.data.js";
 
 describe("User controller tests: ", () => {
   let req;
@@ -24,7 +24,7 @@ describe("User controller tests: ", () => {
     res = null;
   });
 
-  describe("Register tests", () => {
+  describe("Register tests: ", () => {
     const testUserSubmission = {
       emailAddress: "new@emailaddress.com",
       username: "new-username",
@@ -64,7 +64,7 @@ describe("User controller tests: ", () => {
       //Arrange
       userService.updateById.resolves(testUser);
       //Act
-      const actual = await userController.updateById(req, res);
+      await userController.updateById(req, res);
       //Assert
       expect(res.status.calledWith(200)).to.equal(true);
     });

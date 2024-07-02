@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
+import APIErrors from "../../src/utils/APIErrors.js";
 import PuzzleController from "../../src/controllers/Puzzle.controller.js";
 import * as puzzleTestData from "../data/Puzzle.test.data.js";
 import * as userTestData from "../data/User.test.data.js";
-import APIErrors from "../../src/utils/APIErrors.js";
 
-describe("Puzzle controller tests", () => {
+describe("Puzzle controller tests: ", () => {
   let puzzleController;
   let puzzleService;
   let req;
@@ -108,6 +108,7 @@ describe("Puzzle controller tests", () => {
 
   describe("Get puzzles tests: ", () => {
     const testPuzzles = puzzleTestData.aggregateReport;
+
     beforeEach(() => {
       puzzleService = {
         getPuzzles: sinon.stub(),
@@ -131,6 +132,7 @@ describe("Puzzle controller tests", () => {
 
     //? PC8-2
     it("should call res.json with the response from getPuzzles where it resolves to an empty array", async () => {
+      //Arrange
       const expected = [];
       puzzleService.getPuzzles.resolves(expected);
       //Act
@@ -141,6 +143,7 @@ describe("Puzzle controller tests", () => {
 
     //? PC8-3
     it("should call res.json with the response from getPuzzles where it resolves to an array with a length greater than 0", async () => {
+      //Arrange
       const expected = ["1"];
       puzzleService.getPuzzles.resolves(expected);
       //Act
@@ -173,6 +176,7 @@ describe("Puzzle controller tests", () => {
 
   describe("Get puzzle By Id tests: ", () => {
     const testPuzzle = puzzleTestData.documents[0];
+
     beforeEach(() => {
       puzzleService = {
         getPuzzleById: sinon.stub(),
