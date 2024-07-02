@@ -9,6 +9,14 @@ export default class Server {
   #server;
   #routes;
 
+  /**
+   * Represents a server instance.
+   * @constructor
+   * @param {number} port - The port number for the server.
+   * @param {string} host - The host address for the server.
+   * @param {object} app - The Express app instance.
+   * @param {object} routes - The routes object containing the server routes.
+   */
   constructor(port, host, app, routes) {
     this.#app = app;
     this.#port = port;
@@ -17,6 +25,9 @@ export default class Server {
     this.#routes = routes;
   }
 
+  /**
+   * Starts the server by initializing the app middleware, routes, and listening on the specified host and port.
+   */
   start() {
     this.#initialiseAppMiddleware();
     this.#initialiseRoutes();
@@ -27,10 +38,14 @@ export default class Server {
     });
   }
 
+  /**
+   * Closes the server.
+   */
   close() {
     this.#server?.close();
   }
 
+  //Initializes the global middleware for the app.
   #initialiseAppMiddleware = () => {
     this.#app.use(express.json());
     this.#app.use(cookieParser());
@@ -42,6 +57,7 @@ export default class Server {
     );
   };
 
+  //Initializes the routes by adding them to the app instance.
   #initialiseRoutes = () => {
     this.#routes.forEach((route) => {
       this.#app.use(route.getRoot(), route.getRouter());

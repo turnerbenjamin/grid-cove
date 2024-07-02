@@ -4,6 +4,16 @@ import HTTPError from "../utils/HTTPError.js";
 import PuzzleGenerator from "../utils/PuzzleGenerator.js";
 
 export default class PuzzleService {
+  /**
+   * Creates a puzzle with the given pixel art, title, size, and artist.
+   *
+   * @param {string[][]} pixelArt - The pixel art for the puzzle.
+   * @param {string} title - The title of the puzzle.
+   * @param {number} size - The size of the puzzle.
+   * @param {object} artist - The artist of the puzzle.
+   * @returns {Promise<object>} The created puzzle.
+   * @throws {APIErrors.DUPLICATE_PIXEL_ART} If the pixel art already exists.
+   */
   createPuzzle = async (pixelArt, title, size, artist) => {
     try {
       const { clues, solution } = PuzzleGenerator.generate(pixelArt, size);
@@ -22,6 +32,13 @@ export default class PuzzleService {
     }
   };
 
+  /**
+   * Retrieves all puzzles grouped by size.
+   *
+   * @returns {Promise<Array<Object>>} An array of objects representing the puzzles grouped by size.
+   * Each object contains the size and an array of puzzle IDs.
+   * @throws {Error} If an error occurs while retrieving the puzzles.
+   */
   getPuzzles = async () => {
     try {
       const puzzles = await Puzzle.aggregate([
@@ -48,6 +65,14 @@ export default class PuzzleService {
     }
   };
 
+  /**
+   * Retrieves a puzzle by its ID.
+   *
+   * @param {string} puzzleId - The ID of the puzzle to retrieve.
+   * @returns {Promise<Object>} The puzzle object.
+   * @throws {APIErrors.PUZZLE_NOT_FOUND} If the puzzle is not found.
+   * @throws {APIErrors.INVALID_PUZZLE_ID} If the puzzle ID is invalid.
+   */
   getPuzzleById = async (puzzleId) => {
     try {
       const puzzle = await Puzzle.findById(puzzleId).populate({
@@ -62,6 +87,13 @@ export default class PuzzleService {
     }
   };
 
+  /**
+   * Deletes a puzzle by its ID.
+   *
+   * @param {string} puzzleId - The ID of the puzzle to delete.
+   * @throws {APIErrors.PUZZLE_NOT_FOUND} If the puzzle with the given ID is not found.
+   * @throws {APIErrors.INVALID_PUZZLE_ID} If the provided puzzle ID is invalid.
+   */
   deletePuzzleById = async (puzzleId) => {
     try {
       const deletedPuzzle = await Puzzle.findByIdAndDelete(puzzleId);
@@ -72,6 +104,7 @@ export default class PuzzleService {
     }
   };
 
+  //Error handler for all PuzzleService methods
   #handleErrors(err) {
     if (err instanceof HTTPError) throw err;
     throw APIErrors.SERVER_ERROR;

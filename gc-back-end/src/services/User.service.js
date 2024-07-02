@@ -3,6 +3,13 @@ import HTTPError from "../utils/HTTPError.js";
 import User from "../models/User.model.js";
 
 export default class UserService {
+  /**
+   * Updates a user by their ID with the provided updates.
+   *
+   * @param {string} userToUpdateId - The ID of the user to update.
+   * @param {Object} updates - The updates to apply to the user.
+   * @returns {Promise<Object>} - A promise that resolves to the updated user.
+   */
   updateById = async (userToUpdateId, updates) => {
     try {
       const updatedUser = await User.findByIdAndUpdate(
@@ -17,6 +24,7 @@ export default class UserService {
     }
   };
 
+  //Error handler for all UserService methods
   #handleError = (err) => {
     if (err instanceof HTTPError) throw err;
     if (err.code === 11000) {
