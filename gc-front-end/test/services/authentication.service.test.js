@@ -280,5 +280,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(axios.patch).toBeCalledWith(expectedURL, testPayload);
     });
+
+    //?US14-URS-2
+    test("It should throw err if patch rejects with standard error object", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.patch.mockRejectedValueOnce(expected);
+      let actual;
+      //Act
+      try {
+        await authenticationService.updatePassword(testPayload);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
