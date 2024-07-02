@@ -7,9 +7,7 @@ export default function ErrorModal({ onClose, errors }) {
       <div>
         <h3 className="text-2xl text-center text-danger-500 mb-4">Error</h3>
         <p className="mb-4">Sorry, there has been an error:</p>
-        {/* <div className="pt-2 pb-4 px-2 bg-grid-white"> */}
         <RenderedErrors errors={errors} />
-        {/* </div> */}
       </div>
     </Modal>
   );

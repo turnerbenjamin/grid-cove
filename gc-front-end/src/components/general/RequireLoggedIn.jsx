@@ -8,14 +8,14 @@ import UserDetailsForm from "../header/UserDetailsForm";
 
 export default function RequireLoggedIn({ children }) {
   const [showSignInSuccessModal, setShowSignInSuccessModal] = useState(false);
-  const { activeUser } = useAppContext();
-  const navigate = useNavigate();
   const {
+    activeUser,
     signInUser,
     authenticationIsLoading,
     authenticationErrors,
     handleClearErrors,
   } = useAppContext();
+  const navigate = useNavigate();
 
   const handleClose = () => {
     navigate("/");

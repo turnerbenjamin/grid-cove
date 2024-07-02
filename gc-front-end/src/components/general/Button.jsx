@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import { CgSpinner } from "react-icons/cg";
+import classNames from "classnames";
 
 export default function Button({
   primary = false,
