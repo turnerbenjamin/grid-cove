@@ -312,5 +312,13 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).toEqual(expected);
     });
+
+    //?US14-URS-4
+    test("It should call remove user item from local storage where axios resolves", async () => {
+      //Act
+      await authenticationService.updatePassword({ testPayload });
+      //Assert
+      expect(removeItemSpy).toBeCalledWith("user");
+    });
   });
 });
