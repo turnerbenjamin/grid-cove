@@ -1,14 +1,18 @@
+import { useEffect, useState } from "react";
 import classNames from "classnames";
+
 import { useGridContext } from "../../hooks/contexts/gridContext";
 import CrossOutDiv from "../general/CrossOutDiv";
 import GridColours from "../../utils/GridColours";
-import { useEffect, useState } from "react";
 import RevealPixelArtTransition from "../../utils/RevealPixelArtTransition";
 
 export default function Cell({ cellData, hiddenColour }) {
   const { doRevealPixelArt, gridSize } = useGridContext();
   const [isFlipped, setIsFlipped] = useState(false);
 
+  //Reveals hidden colour with delay where do reveal pixel art is true
+  //Delay is determined by the RevealPixelArtTransition class to effect
+  //An animation
   useEffect(() => {
     if (!doRevealPixelArt) return;
     const delay = RevealPixelArtTransition.getDelay(

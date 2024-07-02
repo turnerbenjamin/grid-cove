@@ -1,6 +1,6 @@
-import classNames from "classnames";
 import { useEffect, useRef } from "react";
 import { useGridContext } from "../../hooks/contexts/gridContext";
+import classNames from "classnames";
 
 export default function GridDividingLines() {
   const { gridSize } = useGridContext();
