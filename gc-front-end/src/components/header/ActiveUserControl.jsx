@@ -1,10 +1,9 @@
-import { CgSpinner } from "react-icons/cg";
 import { useEffect, useRef, useState } from "react";
 import { GiPlagueDoctorProfile } from "react-icons/gi";
 import { useAppContext } from "../../hooks/contexts/appContext";
 
-import ErrorModal from "../general/ErrorModal";
 import { Link } from "react-router-dom";
+import ErrorModal from "../general/ErrorModal";
 import LogOutButton from "./LogOutButton";
 
 export default function ActiveUserControl() {

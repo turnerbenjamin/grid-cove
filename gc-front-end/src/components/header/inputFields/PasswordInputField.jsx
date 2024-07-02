@@ -11,6 +11,7 @@ export default function PasswordInputField({
   doSkipValidation,
 }) {
   if (!isActive) return;
+
   return (
     <FormInputValidator
       className="mb-2"

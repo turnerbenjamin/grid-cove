@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { useAppContext } from "../../hooks/contexts/appContext";
-
 import Button from "../general/Button";
 import Modal from "../general/Modal";
-import SuccessToast from "../general/SuccessToast";
 import UserDetailsForm from "./UserDetailsForm";
 
 export default function SignInButton({

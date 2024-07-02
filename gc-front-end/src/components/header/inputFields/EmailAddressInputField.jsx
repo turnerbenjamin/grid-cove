@@ -10,6 +10,7 @@ export default function EmailAddressInputField({
   doSkipValidation,
 }) {
   if (!isActive) return;
+
   return (
     <FormInputValidator
       className="mb-4"

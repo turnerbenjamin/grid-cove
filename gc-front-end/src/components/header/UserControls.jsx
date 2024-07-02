@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useAppContext } from "../../hooks/contexts/appContext";
 import ActiveUserControl from "./ActiveUserControl";
@@ -16,7 +16,6 @@ export default function UserControls() {
   const [activeModal, setActiveModal] = useState(null);
   const [showSignInSuccessMessage, setShowSignInSuccessMessage] =
     useState(false);
-
   const { activeUser } = useAppContext();
 
   const handleCloseModal = () => setActiveModal(null);

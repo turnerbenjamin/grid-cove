@@ -10,6 +10,7 @@ export default function UserNameInputField({
   doSkipValidation,
 }) {
   if (!isActive) return;
+
   return (
     <FormInputValidator
       className="mb-2"
