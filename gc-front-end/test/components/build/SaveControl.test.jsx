@@ -1,24 +1,29 @@
 import { screen, render, act, fireEvent } from "@testing-library/react";
-import { afterEach, beforeEach, expect } from "vitest";
+import { afterEach, beforeEach, expect, test } from "vitest";
 
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext.jsx";
 import SaveControls from "../../../src/components/build/SaveControls.jsx";
 import * as gridContext from "../../../src/hooks/contexts/gridContext.jsx";
 import * as puzzleService from "../../../src/services/puzzle.service.js";
-import { setUpForModal } from "../../test.utils.jsx";
+import {
+  cleanUpForModal,
+  renderWithRouter,
+  setUpForModal,
+} from "../../test.utils.jsx";
 
 vi.mock("../../../src/hooks/contexts/gridContext");
 vi.mock("../../../src/services/puzzle.service");
-vi.mock("react-router-dom");
 
 describe("Save control tests: ", () => {
   let createPuzzleResolver;
   let createPuzzleRejecter;
+
   const testPuzzle = {
     pixelArt: "4BBB4B9B9BBB3BB2BBB223232",
     size: 5,
     title: "Test title",
   };
+  const testNewPuzzle = { ...testPuzzle, _id: "1234" };
 
   beforeEach(async () => {
     const promise = new Promise((resolve, reject) => {
@@ -31,25 +36,20 @@ describe("Save control tests: ", () => {
       gridSize: testPuzzle.size,
       resetGrid: () => null,
     });
-
-    Object.defineProperty(global.window, "scrollTo", {
-      value: () => null,
-    });
-    const modalRoot = document.createElement("div");
-    modalRoot.setAttribute("id", "modal");
-    document.body.appendChild(modalRoot);
+    setUpForModal();
 
     await act(async () =>
-      render(
+      renderWithRouter(
         <PuzzleContextProvider>
           <SaveControls />
-        </PuzzleContextProvider>
+        </PuzzleContextProvider>,
+        "/build"
       )
     );
   });
 
   afterEach(() => {
-    document.body.removeChild(document.getElementById("modal"));
+    cleanUpForModal();
     vi.resetAllMocks();
   });
 
@@ -137,25 +137,42 @@ describe("Save control tests: ", () => {
     test("It should show a success modal when createPuzzle resolves", async () => {
       //Act
       await act(async () => {
-        createPuzzleResolver({});
+        createPuzzleResolver(testNewPuzzle);
       });
       //Assert
       expect(
-        screen.getByText(/puzzle created successfully/i)
+        screen.getByText(/you have created a new puzzle/i)
       ).toBeInTheDocument();
+    });
+
+    //? US6-SVC-11
+    test("It should navigate to new puzzle when button clicked in success modal", async () => {
+      //Arrange
+      const expectedLocation = `/puzzles/${testNewPuzzle._id}`;
+      //Act
+      await act(async () => {
+        createPuzzleResolver(testNewPuzzle);
+      });
+      await act(async () => {
+        fireEvent.click(screen.getByTitle(/Take a look/i));
+      });
+      //Assert
+      expect(screen.getByTestId("pageNavigatedTo").dataset.location).toBe(
+        expectedLocation
+      );
     });
 
     //? US6-SVC-7
     test("It should close the success modal when the close button is clicked", async () => {
       //Act
       await act(async () => {
-        createPuzzleResolver({});
+        createPuzzleResolver(testNewPuzzle);
       });
       await act(async () => {
-        fireEvent.click(screen.getByTitle(/close/is));
+        fireEvent.click(screen.getByTitle(/close/i));
       });
       //Assert
-      expect(screen.queryByText(/puzzle created successfully/i)).toBeNull();
+      expect(screen.queryByText(/you have created a new puzzle/i)).toBeNull();
     });
 
     //? US6-SVC-8

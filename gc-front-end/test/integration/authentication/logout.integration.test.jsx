@@ -3,8 +3,8 @@ import { beforeEach, expect } from "vitest";
 
 import App from "../../../src/App";
 import * as authenticationService from "../../../src/services/authentication.service";
+import { renderWithRouter } from "../../test.utils";
 
-vi.mock("react-router-dom");
 vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("../../../src/services/authentication.service");
 
@@ -32,7 +32,7 @@ describe("Log out integration tests", () => {
     document.body.appendChild(modalRoot);
 
     //Render App
-    render(<App />);
+    renderWithRouter(<App />, "/");
     await act(async () => {
       fireEvent.mouseMove(screen.getByTitle("Profile"));
     });

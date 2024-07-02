@@ -70,6 +70,7 @@ export default function useGridCoveUserService() {
       setAuthenticationIsLoading(true);
       await signOut();
       setActiveUser(null);
+      return true;
     } catch (err) {
       handleErrors(err);
     } finally {

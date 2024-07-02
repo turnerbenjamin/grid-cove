@@ -33,6 +33,7 @@ These tests focus on link between the save control and the puzzle service. The g
 - [x] US6-SVC-8: It should display errors in a modal when createPuzzle rejects
 - [x] US6-SVC-9: It should close the errors modal when the close button is clicked
 - [x] US6-SVC-10: It should display errors in a modal when createPuzzle rejects with an array of errors
+- [x] US6-SVC-11: It should navigate to new puzzle when button clicked in success modal
 
 ## Build tests (BLD)
 
