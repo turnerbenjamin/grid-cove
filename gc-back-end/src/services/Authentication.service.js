@@ -90,15 +90,8 @@ export default class AuthenticationService {
     }
   };
 
-  /**
-   * Verifies the user credentials against the user document.
-   * Throws an error if the user document is not found or if the credentials are invalid.
-   *
-   * @param {Object} userCredentials - The user credentials to verify.
-   * @param {string} userCredentials.password - The user's password.
-   * @param {Object} userDocument - The user document to compare the credentials against.
-   * @throws {APIErrors.UNAUTHORISED_ERROR} - If the user document is not found or if the credentials are invalid.
-   */
+  //Verifies the user credentials against the user document.
+  //Throws an error if the user document is not found or if the credentials are invalid.
   #verifyUser = async (userCredentials, userDocument) => {
     if (!userDocument) throw APIErrors.UNAUTHORISED_ERROR;
     const validated = await bcrypt.compare(
@@ -108,12 +101,7 @@ export default class AuthenticationService {
     if (!validated) throw APIErrors.UNAUTHORISED_ERROR;
   };
 
-  /**
-   * Generates a JSON Web Token (JWT) for the given user document.
-   *
-   * @param {Object} userDocument - The user document containing the _id field.
-   * @returns {string} The generated JWT.
-   */
+  //Generates a JSON Web Token (JWT) for the given user document.
   #getToken = (userDocument) => {
     const token = jwt.sign(
       { _id: userDocument._id },

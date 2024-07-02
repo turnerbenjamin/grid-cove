@@ -1,6 +1,13 @@
 import APIErrors from "./APIErrors.js";
 
 export default class PuzzleGenerator {
+  /**
+   * Generates a puzzle based on the given pixelArt and puzzleSize.
+   *
+   * @param {string[][]} pixelArt - The pixel art representing the puzzle.
+   * @param {number} puzzleSize - The size of the puzzle.
+   * @returns {Object} An object containing the generated puzzle solution and clues.
+   */
   static generate(pixelArt, puzzleSize) {
     const solution = PuzzleGenerator.#getSolutionString(pixelArt);
     const clues = PuzzleGenerator.#getClues(solution, parseInt(puzzleSize));
@@ -69,6 +76,8 @@ export default class PuzzleGenerator {
     return charProfiles.reduce((total, char) => total + char.occurrence, 0);
   }
 
+  //Redistribute chars from one array to another where an array has
+  //too high a proportion of the total char coverage
   static #redistributeChars({ amountToRemove, from }) {
     from.sort((a, b) => b.occurrence - a.occurrence);
     let amountRemoved = 0;
@@ -78,6 +87,7 @@ export default class PuzzleGenerator {
     }
   }
 
+  //Shuffles an array of chars and randomly splits this in two
   static #shuffleAndRandomlySplitArray(arr) {
     arr.sort(() => 0.5 - Math.random());
     const indexToSplitAt = Math.floor(Math.random() * (arr.length - 1)) + 1;
@@ -100,6 +110,7 @@ export default class PuzzleGenerator {
     });
   }
 
+  //Generates a clues object for a given solution string
   static #getClues(solution, puzzleSize) {
     const rowClues = [];
     const columnClues = [];
@@ -113,6 +124,7 @@ export default class PuzzleGenerator {
     };
   }
 
+  //Get clues for a given row
   static #getRowClue(index, puzzleSize, solution) {
     const left = index * puzzleSize;
     const right = left + puzzleSize;
@@ -120,6 +132,7 @@ export default class PuzzleGenerator {
     return PuzzleGenerator.#getLineClue(lineString);
   }
 
+  //Get clues for a given column
   static #getColumnClue(index, puzzleSize, solution) {
     let lineString = "";
     for (let i = index; i < solution.length; i += puzzleSize) {
@@ -128,6 +141,7 @@ export default class PuzzleGenerator {
     return PuzzleGenerator.#getLineClue(lineString);
   }
 
+  //Build clues for a given line
   static #getLineClue(lineString) {
     const clue = [];
     let runningFillLength = 0;
