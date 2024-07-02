@@ -26,7 +26,7 @@ export default function Solve() {
     handleGetPuzzle();
   }, [puzzleId]);
 
-  const wrapperClasses = "flex flex-col items-center mt-[5vh]";
+  const wrapperClasses = "flex flex-col items-center my-[5vh]";
 
   if (puzzleServiceErrors)
     return (

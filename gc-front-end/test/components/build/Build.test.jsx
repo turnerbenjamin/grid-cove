@@ -72,7 +72,18 @@ describe("Build tests", () => {
       //Assert
       expect(actual).toBe(newColour.rgb);
     });
+
+    //? US5-BLD-6:
+    test("It should reshow a dropdown with size options for the grid when go back is clicked", async () => {
+      //Act
+      await act(async () => {
+        fireEvent.click(screen.getByText(/go back/i));
+      });
+      //Assert
+      expect(screen.getAllByRole("option")).toHaveLength(3);
+    });
   });
+
   describe("Selecting non default grid size", () => {
     //? US5-BLD-5
     test("It should render a grid with the correct number of cells when a non-default option is selected", async () => {

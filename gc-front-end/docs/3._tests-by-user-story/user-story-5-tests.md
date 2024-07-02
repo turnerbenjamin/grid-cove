@@ -43,7 +43,7 @@
 
 - [x] US5-GRD-6: It should not colour a cell where the right mouse button is clicked
 - [x] US5-GRD-7: It should not colour a cell where the origin element clicked does not have a key data attribute
-- [ ] US5-GRD-8: It should handle a mouse move over a non-cell element
+- [x] US5-GRD-8: It should handle a mouse move over a non-cell element
 
 ## Build tests (BLD)
 
@@ -52,3 +52,4 @@
 - [x] US5-BLD-3: It should set the default fill style to black
 - [x] US5-BLD-4: It should change the colour of a previously coloured cell when clicked having selected a new colour from the paint set
 - [x] US5-BLD-5: It should render a grid with the correct number of cells when a non-default option is selected
+- [x] US5-BLD-6: It should reshow a dropdown with size options for the grid when go back is clicked

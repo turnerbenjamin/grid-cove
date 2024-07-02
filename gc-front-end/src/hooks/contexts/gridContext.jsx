@@ -103,7 +103,7 @@ const GridContextProvider = function ({
   }, [doUpdateGridString]);
 
   useEffect(() => {
-    if (!gridSize) return;
+    if (!gridSize) return setGridCells(null);
     setGridCells(
       Array.from({ length: gridSize ** 2 }, (_, i) => {
         const row = Math.floor(i / gridSize) + 1;
