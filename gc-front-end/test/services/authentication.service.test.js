@@ -296,5 +296,21 @@ describe("Authentication service tests", () => {
       //Assert
       expect(actual).toEqual(expected);
     });
+
+    //?US14-URS-3
+    test("It should throw err?.response?.data where validation error received", async () => {
+      //Arrange
+      const expected = new Error("Server error");
+      axios.patch.mockRejectedValueOnce({ response: { data: expected } });
+      let actual;
+      //Act
+      try {
+        await authenticationService.updatePassword(testPayload);
+      } catch (err) {
+        actual = err;
+      }
+      //Assert
+      expect(actual).toEqual(expected);
+    });
   });
 });
