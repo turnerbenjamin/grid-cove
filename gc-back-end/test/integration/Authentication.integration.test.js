@@ -3,6 +3,7 @@ import express from "express";
 import sinon from "sinon";
 import supertest from "supertest";
 
+import APIErrors from "../../src/utils/APIErrors.js";
 import AuthenticationController from "../../src/controllers/Authentication.controller.js";
 import AuthenticationRoutes from "../../src/routes/Authentication.routes.js";
 import AuthenticationService from "../../src/services/Authentication.service.js";
@@ -10,7 +11,6 @@ import Database from "../../src/database/database.js";
 import Server from "../../src/server/Server.js";
 import User from "../../src/models/User.model.js";
 import * as userTestData from "../data/User.test.data.js";
-import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("Authentication integration tests: ", () => {
   let server;
@@ -42,7 +42,7 @@ describe("Authentication integration tests: ", () => {
     await database.close();
   });
 
-  describe("Registration route test", () => {
+  describe("Registration route tests: ", () => {
     const userInDatabase = userTestData.submissions[0];
     const userToAdd = userTestData.submissions[1];
     const registerEndpoint = "/authentication/register";
@@ -61,6 +61,7 @@ describe("Authentication integration tests: ", () => {
 
     //? INT1-2
     it("should return the new user's details without the password", async () => {
+      //Act
       const response = await request.post(registerEndpoint).send(userToAdd);
       //Assert
       expect(response.body.password).to.equal(undefined);
@@ -71,7 +72,9 @@ describe("Authentication integration tests: ", () => {
 
     //? INT1-3
     it("should respond with a 400 response if the username is missing", async () => {
+      //Arrange
       const userToAddWithMissingUsername = { ...userToAdd, username: null };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithMissingUsername);
@@ -81,10 +84,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT1-4
     it("should respond with a 400 response if the username is too short", async () => {
+      //Arrange
       const userToAddWithInvalidUsername = {
         ...userToAdd,
         username: "x".repeat(7),
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithInvalidUsername);
@@ -94,10 +99,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT1-5
     it("should respond with a 400 response if the username is too long", async () => {
+      //Arrange
       const userToAddWithInvalidUsername = {
         ...userToAdd,
         username: "x".repeat(25),
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithInvalidUsername);
@@ -107,10 +114,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT1-6
     it("should respond with a 400 response if the username contains invalid characters", async () => {
+      //Arrange
       const userToAddWithInvalidUsername = {
         ...userToAdd,
         username: "invalid username",
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithInvalidUsername);
@@ -120,10 +129,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT1-7
     it("should respond with a 400 response if the email address missing", async () => {
+      //Arrange
       const userToAddWithMissingEmailAddress = {
         ...userToAdd,
         emailAddress: null,
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithMissingEmailAddress);
@@ -133,10 +144,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT1-8
     it("should respond with a 400 response if the email address is invalid", async () => {
+      //Arrange
       const userToAddWithInvalidEmailAddress = {
         ...userToAdd,
         emailAddress: "invalid.email.com",
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithInvalidEmailAddress);
@@ -146,10 +159,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT1-9
     it("should respond with a 400 response if the password is missing", async () => {
+      //Arrange
       const userToAddWithMissingPassword = {
         ...userToAdd,
         password: null,
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithMissingPassword);
@@ -159,10 +174,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT2-1
     it("should respond with a 400 response if the password is less than 8 characters", async () => {
+      //Arrange
       const userToAddWithInvalidPassword = {
         ...userToAdd,
         password: "xxxxx1$",
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithInvalidPassword);
@@ -172,10 +189,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT2-2
     it("should respond with a 400 response if the password is more than 32 characters", async () => {
+      //Arrange
       const userToAddWithInvalidPassword = {
         ...userToAdd,
         password: "x".repeat(31) + "1$",
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithInvalidPassword);
@@ -185,10 +204,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT2-3
     it("should respond with a 400 response if the password does not contain at least one digit", async () => {
+      //Arrange
       const userToAddWithInvalidPassword = {
         ...userToAdd,
         password: "x".repeat(8) + "$",
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithInvalidPassword);
@@ -198,10 +219,12 @@ describe("Authentication integration tests: ", () => {
 
     //? INT2-4
     it("should respond with a 400 response if the password does not contain at least one special character", async () => {
+      //Arrange
       const userToAddWithInvalidPassword = {
         ...userToAdd,
         password: "x".repeat(8) + "1",
       };
+      //Act
       const response = await request
         .post(registerEndpoint)
         .send(userToAddWithInvalidPassword);
@@ -211,11 +234,13 @@ describe("Authentication integration tests: ", () => {
 
     //? INT1-10
     it("should not allows users to define their roles", async () => {
+      //Arrange
       const createStub = sinon.stub(User, "create");
       const userWithRolesSet = {
         ...userToAdd,
         roles: ["admin"],
       };
+      //Act
       await request.post(registerEndpoint).send(userWithRolesSet);
       const [newUserArg] = createStub.getCall(0)?.args ?? [];
       createStub.restore();
@@ -284,7 +309,7 @@ describe("Authentication integration tests: ", () => {
     });
   });
 
-  describe("SignIn route test", () => {
+  describe("Sign in route tests: ", () => {
     const userToSignIn = userTestData.submissions[0];
     const signInEndpoint = "/authentication/sign-in";
 
@@ -413,6 +438,7 @@ describe("Authentication integration tests: ", () => {
         updatedPassword: "newPassword12£",
       };
     });
+
     afterEach(async () => {
       testSubmission = null;
       await User.findByIdAndUpdate(userToUpdate._id, userToUpdate);
@@ -565,7 +591,6 @@ describe("Authentication integration tests: ", () => {
       const updatedUserDoc = await User.findById(userToUpdate._id).select(
         "+password"
       );
-
       //Assert
       expect(originalUserDoc.password).not.to.equal(updatedUserDoc.password);
     });

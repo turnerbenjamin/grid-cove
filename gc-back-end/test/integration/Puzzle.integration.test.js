@@ -3,11 +3,13 @@ import express from "express";
 import sinon from "sinon";
 import supertest from "supertest";
 
+import APIErrors from "../../src/utils/APIErrors.js";
 import AuthenticationController from "../../src/controllers/Authentication.controller.js";
 import AuthenticationRoutes from "../../src/routes/Authentication.routes.js";
 import AuthenticationService from "../../src/services/Authentication.service.js";
 import Database from "../../src/database/database.js";
 import PuzzleController from "../../src/controllers/Puzzle.controller.js";
+import Puzzle from "../../src/models/Puzzle.model.js";
 import PuzzleRoutes from "../../src/routes/Puzzle.routes.js";
 import PuzzleService from "../../src/services/Puzzle.service.js";
 import Server from "../../src/server/Server.js";
@@ -15,9 +17,6 @@ import User from "../../src/models/User.model.js";
 
 import * as puzzleTestData from "../data/Puzzle.test.data.js";
 import * as userTestData from "../data/User.test.data.js";
-import Puzzle from "../../src/models/Puzzle.model.js";
-import mongoose from "mongoose";
-import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("Puzzle integration tests: ", () => {
   const testUserCredentials = userTestData.submissions[0];
@@ -29,18 +28,15 @@ describe("Puzzle integration tests: ", () => {
   before(async () => {
     const authenticationService = new AuthenticationService();
     const puzzleService = new PuzzleService();
-
     const authenticationController = new AuthenticationController(
       authenticationService
     );
-
     const puzzleController = new PuzzleController(puzzleService);
     const puzzleRoutes = new PuzzleRoutes(
       "/puzzles",
       authenticationController,
       puzzleController
     );
-
     const authenticationRoutes = new AuthenticationRoutes(
       "/authentication",
       authenticationController

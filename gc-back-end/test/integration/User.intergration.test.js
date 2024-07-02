@@ -3,7 +3,9 @@ import express from "express";
 import sinon from "sinon";
 import supertest from "supertest";
 
+import APIErrors from "../../src/utils/APIErrors.js";
 import AuthenticationController from "../../src/controllers/Authentication.controller.js";
+import AuthenticationRoutes from "../../src/routes/Authentication.routes.js";
 import AuthenticationService from "../../src/services/Authentication.service.js";
 import Database from "../../src/database/database.js";
 import Server from "../../src/server/Server.js";
@@ -13,8 +15,6 @@ import UserRoutes from "../../src/routes/User.routes.js";
 import UserService from "../../src/services/User.service.js";
 
 import * as userTestData from "../data/User.test.data.js";
-import AuthenticationRoutes from "../../src/routes/Authentication.routes.js";
-import APIErrors from "../../src/utils/APIErrors.js";
 
 describe("User integration tests: ", () => {
   let server;
@@ -53,15 +53,15 @@ describe("User integration tests: ", () => {
     await database.close();
   });
 
-  describe("Update route test", () => {
+  describe("Update route tests: ", () => {
     const usersInDatabase = [
       { ...userTestData.documents[0] },
       { ...userTestData.documents[1] },
     ];
     const userToUpdate = usersInDatabase[0];
     const userNotToUpdate = usersInDatabase[1];
-    let userToUpdateAccessToken;
     const updateUserEndpoint = (id) => `/users/${id}`;
+    let userToUpdateAccessToken;
     let testUpdates;
 
     before(async () => {
