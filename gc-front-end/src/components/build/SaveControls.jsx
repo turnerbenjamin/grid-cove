@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useGridContext } from "../../hooks/contexts/gridContext";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
@@ -10,7 +10,8 @@ import RenderedErrors from "../general/RenderedErrors";
 import TitleInput from "./TitleInput";
 
 export default function SaveControls() {
-  const { gridFillString, gridSize, resetGrid } = useGridContext();
+  const { getCurrentGridFillString, gridRef, gridSize, resetGrid } =
+    useGridContext();
   const {
     createNewPuzzle,
     puzzleServiceIsLoading,
@@ -20,6 +21,18 @@ export default function SaveControls() {
   const [pixelArtTitle, setPixelArtTitle] = useState("");
   const [newPuzzleId, setNewPuzzleId] = useState(null);
   const [doShowValidationErrors, setDoShowValidationErrors] = useState(false);
+  const [gridFillString, setGridFillString] = useState(
+    getCurrentGridFillString()
+  );
+
+  useEffect(() => {
+    const handleGridUpdate = () => {
+      setGridFillString(getCurrentGridFillString());
+    };
+    gridRef?.current?.addEventListener("change", handleGridUpdate);
+    return () =>
+      gridRef?.current?.removeEventListener("change", handleGridUpdate);
+  }, [getCurrentGridFillString]);
 
   //Handle the UI logic of saving a puzzle
   const handleSave = async () => {

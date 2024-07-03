@@ -13,6 +13,7 @@ import {
 
 vi.mock("../../../src/hooks/contexts/gridContext");
 vi.mock("../../../src/services/puzzle.service");
+vi.mock("../../../src/components/header/Logo.jsx");
 
 describe("Save control tests: ", () => {
   let createPuzzleResolver;
@@ -26,17 +27,18 @@ describe("Save control tests: ", () => {
   const testNewPuzzle = { ...testPuzzle, _id: "1234" };
 
   beforeEach(async () => {
+    setUpForModal();
+
     const promise = new Promise((resolve, reject) => {
       createPuzzleResolver = resolve;
       createPuzzleRejecter = reject;
     });
     puzzleService.createPuzzle.mockReturnValueOnce(promise);
     gridContext.useGridContext.mockReturnValue({
-      gridFillString: testPuzzle.pixelArt,
+      getCurrentGridFillString: vi.fn().mockReturnValue(testPuzzle.pixelArt),
       gridSize: testPuzzle.size,
       resetGrid: () => null,
     });
-    setUpForModal();
 
     await act(async () =>
       renderWithRouter(
@@ -87,28 +89,6 @@ describe("Save control tests: ", () => {
   });
 
   //? US6-SVC-4
-  test("It should display errors after clicking save where the puzzleString is invalid", async () => {
-    //Arrange
-    gridContext.useGridContext.mockReturnValue({
-      gridFillString: "0".repeat(23) + "1".repeat(2),
-      gridSize: testPuzzle.size,
-    });
-    await act(async () => {
-      fireEvent.change(screen.getByPlaceholderText(/title/i), {
-        target: testPuzzle.title,
-      });
-    });
-    await act(async () => {
-      fireEvent.click(screen.getByText(/save/i));
-    });
-    expect(
-      screen.getByText(
-        /your art may not include a single colour that makes up over 90% of the image/i
-      )
-    ).toBeInTheDocument();
-  });
-
-  //? US6-SVC-5
   test("It should show a loading spinner while createPuzzle is pending", async () => {
     await act(async () => {
       fireEvent.change(screen.getByPlaceholderText(/title/i), {
@@ -133,7 +113,7 @@ describe("Save control tests: ", () => {
       });
     });
 
-    //? US6-SVC-6
+    //? US6-SVC-5
     test("It should show a success modal when createPuzzle resolves", async () => {
       //Act
       await act(async () => {
@@ -145,7 +125,7 @@ describe("Save control tests: ", () => {
       ).toBeInTheDocument();
     });
 
-    //? US6-SVC-11
+    //? US6-SVC-10
     test("It should navigate to new puzzle when button clicked in success modal", async () => {
       //Arrange
       const expectedLocation = `/puzzles/${testNewPuzzle._id}`;
@@ -162,7 +142,7 @@ describe("Save control tests: ", () => {
       );
     });
 
-    //? US6-SVC-7
+    //? US6-SVC-6
     test("It should close the success modal when the close button is clicked", async () => {
       //Act
       await act(async () => {
@@ -175,7 +155,7 @@ describe("Save control tests: ", () => {
       expect(screen.queryByText(/you have created a new puzzle/i)).toBeNull();
     });
 
-    //? US6-SVC-8
+    //? US6-SVC-7
     test("It should display errors in a modal when createPuzzle rejects", async () => {
       //Arrange
       const testErrorMessage = "Test error";
@@ -187,7 +167,7 @@ describe("Save control tests: ", () => {
       expect(screen.queryByText(testErrorMessage)).toBeInTheDocument();
     });
 
-    //? US6-SVC-9
+    //? US6-SVC-8
     test("It should close the errors modal when the close button is clicked", async () => {
       //Arrange
       const testErrorMessage = "Test error";
@@ -202,7 +182,7 @@ describe("Save control tests: ", () => {
       expect(screen.queryByText(testErrorMessage)).toBeNull();
     });
 
-    //? US6-SVC-10
+    //? US6-SVC-9
     test("It should display errors in a modal when createPuzzle rejects with an array of errors", async () => {
       //Arrange
       const testErrorMessages = [

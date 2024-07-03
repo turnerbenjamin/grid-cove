@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import useGridCovePuzzleService from "../useGridCovePuzzleService";
-import GridSolveState from "../../utils/GridSolveState";
 import { useLocation } from "react-router-dom";
+
+import GridSolveState from "../../utils/GridSolveState";
+import useGridCovePuzzleService from "../useGridCovePuzzleService";
 
 const PuzzleContext = createContext();
 

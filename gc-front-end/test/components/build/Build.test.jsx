@@ -166,4 +166,18 @@ describe("Build tests", () => {
       );
     });
   });
+
+  //? US6-BLD-4
+  test("It should display errors after clicking save where the puzzleString is invalid", async () => {
+    //Act
+    await act(async () => fireEvent.click(screen.getByText(/continue/i)));
+    await act(async () => fireEvent.mouseDown(screen.getByTitle("1,1")));
+    await act(async () => fireEvent.mouseDown(screen.getByTitle("2,1")));
+    await act(async () => fireEvent.mouseUp(screen.getByTitle("2,1")));
+    await act(async () => fireEvent.click(screen.getByText(/save/i)));
+    //Assert
+    expect(
+      screen.getByText(/makes up over 90% of the image/i)
+    ).toBeInTheDocument();
+  });
 });

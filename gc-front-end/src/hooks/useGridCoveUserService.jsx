@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { updateUser } from "../services/user.service";
 import {
   getActiveUser,
   register,
@@ -7,7 +8,6 @@ import {
   signOut,
   updatePassword,
 } from "../services/authentication.service";
-import { updateUser } from "../services/user.service";
 
 export default function useGridCoveUserService() {
   const [activeUser, setActiveUser] = useState(getActiveUser());
@@ -15,6 +15,8 @@ export default function useGridCoveUserService() {
   const [authenticationErrors, setAuthenticationErrors] = useState(null);
   const [lastActionName, setLastActionName] = useState("");
 
+  //Listens for 401 error events thrown by any service. Where received
+  //active user is set to null
   useEffect(() => {
     const handle401Error = () => {
       setActiveUser(null);
@@ -23,6 +25,12 @@ export default function useGridCoveUserService() {
     return () => document.removeEventListener("401Error", handle401Error);
   }, []);
 
+  /**
+   * Handles errors returned from the server.
+   *
+   * @private
+   * @param {Error|Array} err - The error object or array of error objects.
+   */
   const handleErrors = (err) => {
     let errorMessages;
     if (Array.isArray(err)) errorMessages = err.map((err) => err.msg);
@@ -30,10 +38,19 @@ export default function useGridCoveUserService() {
     setAuthenticationErrors(errorMessages);
   };
 
+  /**
+   * Clears authentication errors.
+   */
   const handleClearErrors = () => {
     setAuthenticationErrors(null);
   };
 
+  /**
+   * Registers a new user.
+   *
+   * @param {Object} newUserSubmission - The user submission data for registration.
+   * @returns {Promise<Object>} - A promise that resolves to the newly registered user.
+   */
   const registerNewUser = async (newUserSubmission) => {
     try {
       setLastActionName("register");
@@ -48,6 +65,12 @@ export default function useGridCoveUserService() {
     }
   };
 
+  /**
+   * Sign in a user with the provided credentials.
+   *
+   * @param {object} userCredentials - The user credentials to sign in with.
+   * @returns {Promise<object>} - A promise that resolves to the signed-in user.
+   */
   const signInUser = async (userCredentials) => {
     try {
       setLastActionName("sign-in");
@@ -63,6 +86,10 @@ export default function useGridCoveUserService() {
     }
   };
 
+  /**
+   * Signs out the user.
+   * @returns {boolean} Returns true if the user is successfully signed out.
+   */
   const signOutUser = async () => {
     try {
       setLastActionName("signOut");
@@ -78,6 +105,13 @@ export default function useGridCoveUserService() {
     }
   };
 
+  /**
+   * Updates a user by their ID with the provided updates.
+   *
+   * @param {string} userToUpdateId - The ID of the user to update.
+   * @param {object} updates - The updates to apply to the user.
+   * @returns {Promise<object>} - A promise that resolves to the updated user object.
+   */
   const updateUserById = async (userToUpdateId, updates) => {
     try {
       setLastActionName("updateUser");
@@ -93,6 +127,12 @@ export default function useGridCoveUserService() {
     }
   };
 
+  /**
+   * Updates the password of a user by their ID.
+   *
+   * @param {Object} payload - The payload containing the user ID and new password.
+   * @returns {Promise<Object>} - A promise that resolves to the updated user object.
+   */
   const updateUserPasswordById = async (payload) => {
     try {
       setLastActionName("updatePassword");
