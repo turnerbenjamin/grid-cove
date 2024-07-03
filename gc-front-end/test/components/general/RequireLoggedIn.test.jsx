@@ -10,17 +10,18 @@ import {
 import * as authenticationServices from "../../../src/services/authentication.service";
 
 vi.mock("../../../src/services/authentication.service");
+
 describe("Require logged in tests: ", () => {
   let signInPromise;
   let signInResolver;
-  let signInRejecter;
   let signInForm;
 
   beforeEach(() => {
     setUpForModal();
-    [signInPromise, signInResolver, signInRejecter] = mockPromise();
+    [signInPromise, signInResolver] = mockPromise();
     authenticationServices.getActiveUser.mockReturnValueOnce();
     authenticationServices.signIn.mockReturnValueOnce(signInPromise);
+
     renderAppWithLocationWrapper(["/me"]);
     signInForm = screen
       .queryByRole("heading", { name: /sign-in/i })
@@ -31,13 +32,14 @@ describe("Require logged in tests: ", () => {
     cleanUpForModal();
   });
 
-  describe("On successful sign-in", () => {
+  describe("On successful sign-in: ", () => {
     let startingLocation;
+
     beforeEach(async () => {
       startingLocation =
         screen.getByTestId("current-location").dataset.location;
       authenticationServices.signIn.mockResolvedValue({});
-      //Act
+
       await act(async () =>
         fireEvent.click(within(signInForm).getByTitle(/submit/i))
       );
@@ -46,6 +48,7 @@ describe("Require logged in tests: ", () => {
 
     //? US14-RLI-1
     test("It should not show a sign-in form and should stay on the same page where sign in resolves", async () => {
+      //Arrange
       const expected = startingLocation;
       //Assert
       expect(screen.queryByRole("heading", { name: /sign-in/i })).toBeNull();
@@ -62,6 +65,7 @@ describe("Require logged in tests: ", () => {
 
     //? US14-RLI-3
     test("It should remove the success message where the close button is clicked", async () => {
+      //Act
       await act(async () => fireEvent.click(screen.getByTitle(/close/i)));
       //Assert
       expect(screen.queryByTitle(/success/i)).toBeNull();
@@ -70,6 +74,7 @@ describe("Require logged in tests: ", () => {
 
   //? US14-RLI-4
   test("It should not show a sign-in form and should navigate to root where close is selected", async () => {
+    //Arrange
     const expected = "/";
     //Act
     await act(async () => fireEvent.click(screen.getByTitle("close")));

@@ -1,7 +1,8 @@
 import { act, screen, render, fireEvent } from "@testing-library/react";
 import { afterEach, beforeEach, expect } from "vitest";
-import SuccessToast from "../../../src/components/general/SuccessToast";
+
 import { cleanUpForModal, setUpForModal } from "../../test.utils";
+import SuccessToast from "../../../src/components/general/SuccessToast";
 
 describe("Success toast tests: ", () => {
   const testMessage = "test message";
@@ -32,6 +33,7 @@ describe("Success toast tests: ", () => {
 
   //? US13-SCT-1
   test("It should display success message", () => {
+    //Assert
     expect(screen.getByText(testMessage)).toBeInTheDocument();
   });
 
@@ -41,6 +43,7 @@ describe("Success toast tests: ", () => {
     await act(async () => {
       fireEvent.click(screen.getByTitle(/close/i));
     });
+    //Assert
     expect(onCloseSpy).toBeCalledTimes(1);
   });
 
@@ -50,6 +53,7 @@ describe("Success toast tests: ", () => {
     await act(async () => {
       fireEvent.click(screen.getByTitle(/close/i));
     });
+    //Assert
     expect(setTimeoutSpy).toBeCalledTimes(1);
     expect(setTimeoutSpy).toBeCalledWith(onCloseSpy, testDisplayFor);
   });
