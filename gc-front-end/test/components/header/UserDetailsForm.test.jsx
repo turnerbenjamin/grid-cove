@@ -1,21 +1,22 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach } from "vitest";
+
 import UserDetailsForm from "../../../src/components/header/UserDetailsForm";
 
 describe("User details form tests: ", () => {
+  const testHeadingText = "Test heading text";
+  const testSubmitButtonText = "Test submit button text";
+
   afterEach(() => {
     vi.resetAllMocks();
   });
 
-  const testHeadingText = "Test heading text";
-  const testSubmitButtonText = "Test submit button text";
-
-  describe("General tests", () => {
+  describe("General tests: ", () => {
     const testActiveFieldsConfig = {
       userName: true,
     };
 
-    describe("Initial render tests", () => {
+    describe("Initial render tests: ", () => {
       beforeEach(() => {
         render(
           <UserDetailsForm
@@ -28,16 +29,18 @@ describe("User details form tests: ", () => {
 
       //?US1-UDF-1
       test("It should display the correct heading text", () => {
+        //Assert
         expect(screen.queryByText(testHeadingText)).toBeInTheDocument();
       });
 
       //?US1-UDF-2
       test("It should display the correct submit button text", () => {
+        //Assert
         expect(screen.queryByText(testSubmitButtonText)).toBeInTheDocument();
       });
     });
 
-    describe("Loading state tests", () => {
+    describe("Loading state tests: ", () => {
       beforeEach(() => {
         render(
           <UserDetailsForm
@@ -55,19 +58,22 @@ describe("User details form tests: ", () => {
       });
       //?US1-UDF-3
       test("It should show a loading spinner when the isLoading prop is true", () => {
+        //Assert
         expect(screen.queryByRole("status")).toBeInTheDocument();
       });
 
       //?US1-UDF-4
       test("It should show disable all inputs when the isLoading prop is true", () => {
+        //Assert
         const inputs = screen.queryAllByRole("textbox");
         expect(inputs.every((input) => input.disabled)).toBeTruthy();
       });
     });
 
-    describe("Loading state tests", () => {
-      let clearErrorsSpy;
+    describe("Error state tests: ", () => {
       const testErrors = ["Test error1", "Test error 2"];
+      let clearErrorsSpy;
+
       beforeEach(() => {
         clearErrorsSpy = vi.fn(() => null);
         render(
@@ -88,30 +94,34 @@ describe("User details form tests: ", () => {
 
       //?US1-UDF-5
       test("It should show errors where a list of errors are passed as a prop", () => {
+        //Assert
         expect(screen.queryByText(testErrors[0])).toBeInTheDocument();
         expect(screen.queryByText(testErrors[1])).toBeInTheDocument();
       });
 
       //?US1-UDF-6
       test("It should disable the submit button when there are errors", () => {
+        //Assert
         const submitButton = screen.queryByText(testSubmitButtonText);
         expect(submitButton.disabled).toEqual(true);
       });
 
       //?US1-UDF-7
       test("It should show call clearErrors after an update to a text box where the errors prop is provided", async () => {
+        //Act
         const input = screen.queryAllByRole("textbox")[0];
         await act(async () => {
           fireEvent.change(input, {
             target: { value: "x" },
           });
         });
+        //Assert
         expect(clearErrorsSpy).toHaveBeenCalledTimes(1);
       });
     });
   });
 
-  describe("Registration form configuration tests", () => {
+  describe("Registration form configuration tests: ", () => {
     const testRegistrationFormConfig = {
       username: true,
       emailAddress: true,
@@ -123,9 +133,7 @@ describe("User details form tests: ", () => {
       emailAddress: "test@email.com",
       password: "password12$",
     };
-
     let onSubmitSpy;
-
     let usernameInputField;
     let emailAddressInputField;
     let passwordInputField;
@@ -156,13 +164,14 @@ describe("User details form tests: ", () => {
 
     //?US1-UDF-8
     test("It should display the correct fields for registration when correct config prop provided", () => {
+      //Assert
       expect(usernameInputField).toBeInTheDocument();
       expect(emailAddressInputField).toBeInTheDocument();
       expect(passwordInputField).toBeInTheDocument();
       expect(confirmPasswordInputField).toBeInTheDocument();
     });
 
-    describe("On submit tests", () => {
+    describe("On submit tests: ", () => {
       beforeEach(async () => {
         await act(async () => {
           fireEvent.change(usernameInputField, {
@@ -203,12 +212,13 @@ describe("User details form tests: ", () => {
           });
           fireEvent.submit(form);
         });
+        //Assert
         expect(onSubmitSpy).toHaveBeenCalledTimes(0);
       });
     });
   });
 
-  describe("Sign-In form configuration tests", () => {
+  describe("Sign-In form configuration tests: ", () => {
     const testSignInFormConfig = {
       emailAddress: true,
       password: true,
@@ -217,7 +227,6 @@ describe("User details form tests: ", () => {
       emailAddress: "test@email.com",
       password: "password12$",
     };
-
     let onSubmitSpy;
     let emailAddressInputField;
     let passwordInputField;
@@ -286,7 +295,6 @@ describe("User details form tests: ", () => {
 
     beforeEach(() => {
       onSubmitSpy = vi.fn();
-
       render(
         <UserDetailsForm
           headingText={"Default fields test"}
