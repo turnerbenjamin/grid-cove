@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, expect } from "vitest";
+
 import FormValidator from "../../src/utils/FormValidator";
 
-describe("Register tests", () => {
+describe("Register tests: ", () => {
   let testSubmission;
 
   beforeEach(() => {

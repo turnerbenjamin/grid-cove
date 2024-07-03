@@ -1,6 +1,6 @@
 import GridColours from "../../src/utils/GridColours";
 
-describe("Grid colours test", () => {
+describe("Grid colours tests: ", () => {
   //?US5-GCS-1
   test("It should return an array of 16 GridColour objects", () => {
     //Act

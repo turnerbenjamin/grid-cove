@@ -8,7 +8,15 @@ import {
 
 import App from "../src/App";
 
+/**
+ * Renders a React element with a router for testing purposes.
+ *
+ * @param {ReactElement} element - The React element to render.
+ * @param {string} elementPath - The path for the element in the router.
+ * @param {Object} params - The value of any parameters in the path.
+ */
 export const renderWithRouter = (element, elementPath, params) => {
+  //Wraps element with div containing location data
   const PageNavigatedTo = ({ children }) => {
     const location = useLocation();
     return (
@@ -18,6 +26,7 @@ export const renderWithRouter = (element, elementPath, params) => {
     );
   };
 
+  //replace route path with param values for the initial path
   let initialPath = elementPath;
   if (params) {
     Object.keys(params).forEach((paramName) => {
@@ -41,6 +50,11 @@ export const renderWithRouter = (element, elementPath, params) => {
   render(<RouterProvider router={router} />);
 };
 
+/**
+ * Renders the app wrapped with location data.
+ *
+ * @param {Array} initialEntries - The initial entries for the MemoryRouter.
+ */
 export const renderAppWithLocationWrapper = (initialEntries) => {
   const AppWrappedWithLocationData = () => {
     const location = useLocation();
@@ -58,6 +72,10 @@ export const renderAppWithLocationWrapper = (initialEntries) => {
   );
 };
 
+/**
+ * Creates a promise along with its resolver and rejecter.
+ * @returns {Array} An array containing the promise, resolver, and rejecter.
+ */
 export const mockPromise = () => {
   let resolver;
   let rejecter;
@@ -68,6 +86,9 @@ export const mockPromise = () => {
   return [promise, resolver, rejecter];
 };
 
+/**
+ * Sets up the environment for modal testing.
+ */
 export const setUpForModal = () => {
   Object.defineProperty(global.window, "scrollTo", {
     value: () => null,
@@ -77,6 +98,9 @@ export const setUpForModal = () => {
   document.body.appendChild(modalRoot);
 };
 
+/**
+ * Removes the modal element from the document body.
+ */
 export const cleanUpForModal = () => {
   document.body.removeChild(document.getElementById("modal"));
 };

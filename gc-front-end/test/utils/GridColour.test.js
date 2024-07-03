@@ -1,6 +1,6 @@
 import GridColour from "../../src/utils/GridColour";
 
-describe("Grid colour test", () => {
+describe("Grid colour tests: ", () => {
   //?US5-GCR-1
   test("It should have the isDark property set to true where the sum of its RGB elements is less than 256", () => {
     //Arrange

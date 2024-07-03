@@ -5,6 +5,7 @@ import RevealPixelArtTransition from "../../src/utils/RevealPixelArtTransition";
 describe("Reveal Pixel Art Transition tests: ", () => {
   //?US10-RPA-1
   test("It should return a number between 0 and the delay", () => {
+    //Arrange
     const testRow = 10;
     const testColumn = 10;
     const testGridSize = 10;

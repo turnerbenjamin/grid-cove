@@ -14,6 +14,7 @@ describe("Grid Solve State tests: ", () => {
     alternativeSolution: "0101010001001001000101010",
   };
   let testGridFillString;
+
   beforeEach(() => {
     testGridFillString = "0".repeat(25);
   });
@@ -54,6 +55,7 @@ describe("Grid Solve State tests: ", () => {
 
   //?US9-GSS-4
   test("It should return false for a given column where the state of that column does not match its clue signature", () => {
+    //Act
     const gridSolveState = new GridSolveState(testGridFillString, testPuzzle);
     //Assert
     expect(gridSolveState.getColumnSolveState(0)).toEqual(false);

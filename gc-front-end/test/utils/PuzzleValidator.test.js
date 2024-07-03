@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, expect } from "vitest";
+
 import PuzzleValidator from "../../src/utils/PuzzleValidator";
 
-describe("Register tests", () => {
+describe("Register tests: ", () => {
   let testSubmission;
 
   beforeEach(() => {
@@ -60,6 +61,7 @@ describe("Register tests", () => {
     expect(actualIsValidated).toBe(false);
     expect(actualErrors.length).greaterThan(0);
   });
+
   //?US6-PVR-5
   test("It should return false and an errors array with a length greater than 0 where one character comprises over 90% of the pixel art string", () => {
     //Arrange
