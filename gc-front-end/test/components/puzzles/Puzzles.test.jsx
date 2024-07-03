@@ -1,29 +1,22 @@
 import { act, fireEvent, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test } from "vitest";
-import { Link } from "react-router-dom";
 
-import Puzzles from "../../../src/components/puzzles/Puzzles";
-
-import { renderWithRouter } from "../../test.utils";
+import { mockPromise, renderWithRouter } from "../../test.utils";
 import { getAllPuzzlesTestData } from "../../data/puzzles.test.data";
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
-
+import Puzzles from "../../../src/components/puzzles/Puzzles";
 import * as puzzlesService from "../../../src/services/puzzle.service";
 
 vi.mock("../../../src/services/puzzle.service");
 
 describe("Puzzles list tests: ", () => {
+  let getPuzzlesPromise;
   let getPuzzlesResolver;
   let getPuzzlesRejecter;
 
   beforeEach(async () => {
-    const promise = new Promise((resolve, reject) => {
-      getPuzzlesResolver = resolve;
-      getPuzzlesRejecter = reject;
-    });
-
-    // Link = vi.fn(({ children }) => <div role="puzzleCard">{children}</div>);
-    puzzlesService.getPuzzles.mockReturnValueOnce(promise);
+    [getPuzzlesPromise, getPuzzlesResolver, getPuzzlesRejecter] = mockPromise();
+    puzzlesService.getPuzzles.mockReturnValueOnce(getPuzzlesPromise);
 
     await act(async () => {
       renderWithRouter(
@@ -41,11 +34,13 @@ describe("Puzzles list tests: ", () => {
 
   //? US8-PZL-1
   test("It should call getAllPuzzles", () => {
+    //Assert
     expect(puzzlesService.getPuzzles).toHaveBeenCalledOnce();
   });
 
   //? US8-PZL-2
   test("It should display a loading spiner while getAllPuzzles is pending", () => {
+    //Assert
     expect(screen.getByRole("status")).toBeInTheDocument();
   });
 
@@ -59,7 +54,7 @@ describe("Puzzles list tests: ", () => {
     await act(async () => {
       getPuzzlesResolver(getAllPuzzlesTestData);
     });
-
+    //Assert
     expect(screen.getAllByTitle(/click to solve/i)).toHaveLength(
       expectedPuzzleCount
     );
@@ -74,6 +69,7 @@ describe("Puzzles list tests: ", () => {
     await act(async () => {
       getPuzzlesResolver([]);
     });
+    //Assert
     expect(screen.getByText(/No puzzles found/i)).toBeInTheDocument();
   });
 
@@ -85,11 +81,13 @@ describe("Puzzles list tests: ", () => {
     await act(async () => {
       getPuzzlesRejecter(new Error(testError));
     });
+    //Assert
     expect(screen.getByText(testError)).toBeInTheDocument();
   });
 
   //? US8-PZL-6
   test("should navigate to the correct page when a Puzzle card is clicked", async () => {
+    //Arrange
     const testPuzzleId = "testPuzzleId";
     const expectedLocation = `/puzzles/${testPuzzleId}`;
     //Act
