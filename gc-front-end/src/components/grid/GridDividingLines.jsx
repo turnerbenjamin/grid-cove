@@ -6,16 +6,15 @@ export default function GridDividingLines() {
   const { gridSize } = useGridContext();
 
   const canvasRef = useRef(null);
-  const dpr = Math.ceil(window.devicePixelRatio);
+
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = canvasRef.current.getBoundingClientRect().width * dpr;
-    canvas.height = canvasRef.current.getBoundingClientRect().height * dpr;
+    canvas.width = canvasRef.current.getBoundingClientRect().width;
+    canvas.height = canvasRef.current.getBoundingClientRect().height;
 
     const c = canvas.getContext("2d");
-    c.scale(dpr, dpr);
 
-    c.strokeStyle = "rgb(94, 214, 46)";
+    c.strokeStyle = "rgb(43, 206, 255)";
     c.lineWidth = 2;
 
     const drawLine = (relativePosition) => {
@@ -36,7 +35,7 @@ export default function GridDividingLines() {
     for (let numerator = 1; numerator < denominator; numerator++) {
       drawLine(numerator / denominator);
     }
-  }, [gridSize, dpr]);
+  }, [gridSize]);
 
   return (
     <div
