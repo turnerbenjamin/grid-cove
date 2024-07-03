@@ -1,22 +1,21 @@
 import { act, fireEvent, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect, vi } from "vitest";
 
-import { useAppContext } from "../../../src/hooks/contexts/appContext";
 import {
   cleanUpForModal,
+  mockPromise,
   renderWithRouter,
   setUpForModal,
 } from "../../test.utils";
-import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
 import {
   getPuzzleTestData,
   solvedWhenTopLeftCellFilled,
 } from "../../data/puzzles.test.data";
-
+import { useAppContext } from "../../../src/hooks/contexts/appContext";
+import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
 import GridColours from "../../../src/utils/GridColours";
 import RevealPixelArtTransition from "../../../src/utils/RevealPixelArtTransition";
 import Solve from "../../../src/components/solve/Solve";
-
 import * as puzzleService from "../../../src/services/puzzle.service";
 
 vi.mock("../../../src/services/puzzle.service");
@@ -24,21 +23,18 @@ vi.mock("../../../src/hooks/contexts/appContext");
 vi.mock("../../../src/utils/RevealPixelArtTransition");
 
 describe("Solve tests: ", () => {
+  let getPuzzlePromise;
   let getPuzzleResolver;
   let getPuzzleRejecter;
   const testPuzzleId = "testPuzzleId";
 
   beforeEach(() => {
-    const promise = new Promise((resolve, reject) => {
-      getPuzzleResolver = resolve;
-      getPuzzleRejecter = reject;
-    });
-
-    puzzleService.getPuzzle.mockReturnValue(promise);
+    [getPuzzlePromise, getPuzzleResolver, getPuzzleRejecter] = mockPromise();
+    puzzleService.getPuzzle.mockReturnValue(getPuzzlePromise);
     useAppContext.mockReturnValue({});
   });
 
-  describe("General User tests ", () => {
+  describe("General user tests: ", () => {
     beforeEach(async () => {
       await act(async () =>
         renderWithRouter(
@@ -54,11 +50,13 @@ describe("Solve tests: ", () => {
     describe("Initial render tests: ", () => {
       //? US9-SLV-1
       test("It should call getPuzzle with the correct argument", () => {
+        //Assert
         expect(puzzleService.getPuzzle).toBeCalledWith(testPuzzleId);
       });
 
       //? US9-SLV-2
       test("It should show a loading spinner while getPuzzle is pending", () => {
+        //Assert
         expect(screen.getByRole("status")).toBeInTheDocument();
       });
 
@@ -123,10 +121,9 @@ describe("Solve tests: ", () => {
 
     describe("Solved puzzle tests: ", () => {
       const testPuzzle = solvedWhenTopLeftCellFilled;
+
       beforeEach(async () => {
         RevealPixelArtTransition.getDelay.mockReturnValue(0);
-
-        //Act
         await act(async () => {
           getPuzzleResolver(testPuzzle);
         });
@@ -218,24 +215,22 @@ describe("Solve tests: ", () => {
 
       //?US11-SLV-3
       test("It should show admin actions when current user does have a admin role", async () => {
+        //Act
         await act(async () => getPuzzleResolver(getPuzzleTestData));
         //Assert
         expect(screen.queryByText(/admin actions/i)).toBeInTheDocument();
       });
 
       describe("Delete puzzle tests: ", () => {
+        let deletePuzzlePromise;
         let deletePuzzleResolver;
         let deletePuzzleRejecter;
 
         beforeEach(async () => {
           setUpForModal();
-
-          const promise = new Promise((resolve, reject) => {
-            deletePuzzleResolver = resolve;
-            deletePuzzleRejecter = reject;
-          });
-          puzzleService.deletePuzzle.mockReturnValue(promise);
-
+          [deletePuzzlePromise, deletePuzzleResolver, deletePuzzleRejecter] =
+            mockPromise();
+          puzzleService.deletePuzzle.mockReturnValue(deletePuzzlePromise);
           await act(async () => getPuzzleResolver(getPuzzleTestData));
           await act(async () => fireEvent.click(screen.getByText(/delete/i)));
           await act(async () => fireEvent.click(screen.getByText(/proceed/i)));
@@ -253,6 +248,7 @@ describe("Solve tests: ", () => {
 
         //?US12-SLV-2
         test("It should call navigate with the correct url when delete puzzle resolves", async () => {
+          //Arrange
           const expectedLocation = "/puzzles";
           //Act
           await act(async () => deletePuzzleResolver(true));
@@ -264,6 +260,7 @@ describe("Solve tests: ", () => {
 
         //?US12-SLV-3
         test("It should display errors if delete puzzle rejects", async () => {
+          //Arrange
           const testError = "test error";
           //Act
           await act(async () => deletePuzzleRejecter(testError));

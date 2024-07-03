@@ -1,12 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, expect, test } from "vitest";
+
 import { GridContextProvider } from "../../../src/hooks/contexts/gridContext";
-import ModeSelector from "../../../src/components/solve/ModeSelector";
 import GridColours from "../../../src/utils/GridColours";
+import ModeSelector from "../../../src/components/solve/ModeSelector";
 
 describe("Mode Selector tests: ", () => {
   describe("Eliminate style where fill style is black: ", () => {
     const testColour = GridColours.ELIMINATED;
+
     beforeEach(() => {
       render(
         <GridContextProvider defaultFillStyle={GridColours.BLACK}>
@@ -44,6 +46,7 @@ describe("Mode Selector tests: ", () => {
 
   describe("Black style where fill style is black: ", () => {
     const testColour = GridColours.BLACK;
+
     beforeEach(() => {
       render(
         <GridContextProvider defaultFillStyle={GridColours.BLACK}>

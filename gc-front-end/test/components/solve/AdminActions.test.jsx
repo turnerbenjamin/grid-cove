@@ -1,10 +1,10 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test } from "vitest";
 
-import AdminActions from "../../../src/components/solve/AdminActions";
+import { cleanUpForModal, setUpForModal } from "../../test.utils";
 import { useGridContext } from "../../../src/hooks/contexts/gridContext";
 import { usePuzzleContext } from "../../../src/hooks/contexts/puzzleContext";
-import { cleanUpForModal, setUpForModal } from "../../test.utils";
+import AdminActions from "../../../src/components/solve/AdminActions";
 
 vi.mock("react-router-dom");
 vi.mock("../../../src/hooks/contexts/gridContext");
