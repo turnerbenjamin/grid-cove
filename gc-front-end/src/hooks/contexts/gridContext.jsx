@@ -132,12 +132,14 @@ const GridContextProvider = function ({
   useEffect(() => {
     if (!originTarget || doRevealPixelArt) return;
     document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("touchmove", handleMouseMove);
+    document.addEventListener("touchmove", handleMouseMove, { passive: false });
     document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("touchend", handleMouseUp);
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("touchmove", handleMouseMove);
+      document.removeEventListener("touchmove", handleMouseMove, {
+        passive: false,
+      });
       document.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("touchend", handleMouseUp);
     };
