@@ -20,6 +20,7 @@ This document is a reference for abbreviations used in test codes:
 - MDE: components/solve/Mode
 - MDL: components/general/UserDetailsForm
 - MDS: components/solve/ModeSelector
+- PAI: components/solve/PixelArtInfo
 - PFL: components/profile/Profile
 - PLT: components/puzzles/PuzzleList
 - PTP: components/build/PaintPot
