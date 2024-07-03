@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
+
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 import Button from "../general/Button";
 
 export default function PixelArtInfo({ puzzle, isSolved }) {
   const { getNextPuzzle } = usePuzzleContext();
-
   const nextPuzzle = getNextPuzzle(puzzle._id);
 
   return (

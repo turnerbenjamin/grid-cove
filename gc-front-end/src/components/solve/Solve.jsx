@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 
+import { GridContextProvider } from "../../hooks/contexts/gridContext";
+import { useAppContext } from "../../hooks/contexts/appContext";
 import AdminActions from "./AdminActions";
 import Solver from "./Solver";
 import LoadingSpinner from "../general/LoadingSpinner";
 import ErrorPage from "../general/ErrorPage";
 
-import { GridContextProvider } from "../../hooks/contexts/gridContext";
-import { useAppContext } from "../../hooks/contexts/appContext";
-
 export default function Solve() {
-  const [puzzle, setPuzzle] = useState(false);
+  const puzzleId = useParams().puzzleId;
+
   const { getPuzzleById, puzzleServiceIsLoading, puzzleServiceErrors } =
     usePuzzleContext();
   const { activeUser } = useAppContext();
-  const puzzleId = useParams().puzzleId;
+  const [puzzle, setPuzzle] = useState(false);
 
   const handleGetPuzzle = async () => {
     const response = await getPuzzleById(puzzleId);

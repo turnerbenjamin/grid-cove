@@ -1,9 +1,9 @@
-import Clues from "./Clues";
-import Grid from "../grid/Grid";
-import Mode from "./Mode";
 import { usePuzzleContext } from "../../hooks/contexts/puzzleContext";
 import { useEffect } from "react";
 import { useGridContext } from "../../hooks/contexts/gridContext";
+import Clues from "./Clues";
+import Grid from "../grid/Grid";
+import Mode from "./Mode";
 import PixelArtInfo from "./PixelArtInfo";
 
 export default function Solver({ puzzle }) {
@@ -26,7 +26,7 @@ export default function Solver({ puzzle }) {
 
   useEffect(() => {
     if (!gridRef?.current) return;
-    const handleGridChange = (e) => handleUpdateSolveState();
+    const handleGridChange = () => handleUpdateSolveState();
     gridRef?.current?.addEventListener("change", handleGridChange);
     return () =>
       gridRef?.current?.removeEventListener("change", handleGridChange);
