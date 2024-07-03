@@ -104,6 +104,29 @@ describe("Grid tests: ", () => {
       //Assert
       expect(actual).toBe(expected);
     });
+
+    //? US5-GRD-9;
+    test("It should correctly colour cells when touch events fired", async () => {
+      //Arrange
+      document.elementFromPoint = vi
+        .fn()
+        .mockReturnValue(screen.getByTitle("1,2"));
+      //Act
+      await act(async () => fireEvent.touchStart(screen.getByTitle("1,1")));
+      await act(async () =>
+        fireEvent.touchMove(screen.getByTitle("1,2"), {
+          touches: [{ clientX: 1, clientY: 1 }],
+        })
+      );
+      await act(async () => fireEvent.touchEnd(screen.getByTitle("1,2")));
+      //Assert
+      expect(screen.getByTitle("1,1").style.backgroundColor).toBe(
+        GridColours.BLACK.rgb
+      );
+      expect(screen.getByTitle("1,2").style.backgroundColor).toBe(
+        GridColours.BLACK.rgb
+      );
+    });
   });
 
   describe("Build configuration tests: ", () => {

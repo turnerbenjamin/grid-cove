@@ -66,7 +66,6 @@ export default class AuthenticationController {
       this.#setCookie(res, token);
       res.status(200).json(user);
     } catch (err) {
-      console.log(err);
       this.#handleErrors(res, err);
     }
   };

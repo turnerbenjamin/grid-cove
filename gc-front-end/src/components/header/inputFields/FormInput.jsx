@@ -13,7 +13,7 @@ export default function FormInput({
   });
 
   return (
-    <div className="w-full max-w-[20rem] flex flex-col gap-1">
+    <div className="w-full max-w-[20rem] px-2 flex flex-col gap-1">
       <label className="w-full">{labelTitle}</label>
       <input
         value={value}

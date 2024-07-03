@@ -86,7 +86,7 @@ const GridContextProvider = function ({
 
   //Update cell colour on mouse down
   const handleMouseDown = (e) => {
-    if (e.button !== 0) return;
+    if (e.button !== 0 && !e.touches) return;
     const cellKey = e.target?.dataset?.key;
     if (cellKey === undefined) return;
     handleUpdateCellColour(cellKey);
@@ -97,17 +97,27 @@ const GridContextProvider = function ({
   useEffect(() => {
     if (!gridCells || doRevealPixelArt) return;
     document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("touchstart", handleMouseDown);
     return () => {
       document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("touchstart", handleMouseDown);
     };
   }, [handleUpdateCellColour, doRevealPixelArt]);
+
+  const getTarget = (e) => {
+    if (!e.touches) return e.target;
+    e.preventDefault();
+    const { clientX, clientY } = e.touches[0];
+    return document.elementFromPoint(clientX, clientY);
+  };
 
   //Handle mouse move logic - Updates cell colours between
   //mouse down and mouse up events according to logic
   //in doUpdateCellOnDrag
   const handleMouseMove = (e) => {
-    if (!doUpdateCellOnDrag(e.target)) return;
-    const { key } = e.target.dataset;
+    const target = getTarget(e);
+    if (!doUpdateCellOnDrag(target)) return;
+    const { key } = target.dataset;
     handleUpdateCellColour(key);
   };
 
@@ -122,10 +132,14 @@ const GridContextProvider = function ({
   useEffect(() => {
     if (!originTarget || doRevealPixelArt) return;
     document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("touchmove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("touchend", handleMouseUp);
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("touchmove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("touchend", handleMouseUp);
     };
   }, [originTarget, doRevealPixelArt]);
 
