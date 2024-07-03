@@ -5,24 +5,47 @@ export default class GridSolveState {
   #puzzle;
   #isSolved;
 
+  /**
+   * Creates an instance of GridSolveState.
+   * @param {string} gridCellString - The string representation of the grid cells.
+   * @param {Puzzle} puzzle - The puzzle object.
+   */
   constructor(gridCellString, puzzle) {
     this.#gridCellString = gridCellString;
     this.#puzzle = puzzle;
     this.#initialiseSolveState();
   }
 
+  /**
+   * Checks if the grid is solved.
+   *
+   * @returns {boolean} True if the grid is solved, false otherwise.
+   */
   get isSolved() {
     return this.#isSolved;
   }
 
+  /**
+   * Retrieves the solve state of a specific row in the grid.
+   *
+   * @param {number} index - The index of the row.
+   * @returns {boolean} - True if the row is solved, false otherwise.
+   */
   getRowSolveState(index) {
     return this.#rowStates[index];
   }
 
+  /**
+   * Retrieves the solve state of a specific column in the grid.
+   *
+   * @param {number} index - The index of the column.
+   * @returns {boolean} - True if the column is solved, false otherwise.
+   */
   getColumnSolveState(index) {
     return this.#columnStates[index];
   }
 
+  //Controller for working out solve state
   #initialiseSolveState() {
     this.#isSolved = true;
     for (let i = 0; i < this.#puzzle.size; i++) {
@@ -32,6 +55,7 @@ export default class GridSolveState {
     }
   }
 
+  //Controller to get state for a given row
   #getRowState(index) {
     const left = index * this.#puzzle.size;
     const right = left + this.#puzzle.size;
@@ -39,6 +63,7 @@ export default class GridSolveState {
     return this.#getLineState(lineString, this.#puzzle.clues.rowClues[index]);
   }
 
+  //Controller to get state for a given column
   #getColumnState(index) {
     let lineString = "";
     for (
@@ -54,6 +79,7 @@ export default class GridSolveState {
     );
   }
 
+  //Logic for determining if a given row or column matches the clue
   #getLineState(lineString, clue) {
     const filledRuns = [];
     let runningFillLength = 0;

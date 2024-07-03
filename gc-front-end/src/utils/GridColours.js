@@ -160,74 +160,147 @@ export default class GridColours {
     true
   );
 
+  /**
+   * Grid colour representing eliminated
+   * @type {GridColour}
+   */
   static get ELIMINATED() {
     return this.#ELIMINATED;
   }
 
+  /**
+   * Grid colour representing black
+   * @type {GridColour}
+   */
   static get BLACK() {
     return this.#BLACK;
   }
 
+  /**
+   * Grid colour representing sapphire
+   * @type {GridColour}
+   */
   static get SAPPHIRE() {
     return this.#SAPPHIRE;
   }
 
+  /**
+   * Grid colour representing blue
+   * @type {GridColour}
+   */
   static get BLUE() {
     return this.#BLUE;
   }
 
+  /**
+   * Grid colour representing grey
+   * @type {GridColour}
+   */
   static get GREY() {
     return this.#GREY;
   }
 
+  /**
+   * Grid colour representing brown
+   * @type {GridColour}
+   */
   static get BROWN() {
     return this.#BROWN;
   }
 
+  /**
+   * Grid colour representing mint
+   * @type {GridColour}
+   */
   static get MINT() {
     return this.#MINT;
   }
 
+  /**
+   * Grid colour representing green
+   * @type {GridColour}
+   */
   static get GREEN() {
     return this.#GREEN;
   }
 
+  /**
+   * Grid colour representing purple
+   * @type {GridColour}
+   */
   static get PURPLE() {
     return this.#PURPLE;
   }
 
+  /**
+   * Grid colour representing cream
+   * @type {GridColour}
+   */
   static get CREAM() {
     return this.#CREAM;
   }
 
+  /**
+   * Grid colour representing white
+   * @type {GridColour}
+   */
   static get WHITE() {
     return this.#WHITE;
   }
 
+  /**
+   * Grid colour representing pink
+   * @type {GridColour}
+   */
   static get PINK() {
     return this.#PINK;
   }
 
+  /**
+   * Grid colour representing gold
+   * @type {GridColour}
+   */
   static get GOLD() {
     return this.#GOLD;
   }
 
+  /**
+   * Grid colour representing yellow
+   * @type {GridColour}
+   */
   static get YELLOW() {
     return this.#YELLOW;
   }
 
+  /**
+   * Grid colour representing red
+   * @type {GridColour}
+   */
   static get RED() {
     return this.#RED;
   }
 
+  /**
+   * Grid colour representing amber
+   * @type {GridColour}
+   */
   static get AMBER() {
     return this.#AMBER;
   }
 
+  /**
+   * Grid colour representing orange
+   * @type {GridColour}
+   */
   static get ORANGE() {
     return this.#ORANGE;
   }
 
+  /**
+   * Returns an array of all available colours.
+   *
+   * @returns {GridColour[]} An array containing all available colours.
+   */
   static getAllColours() {
     return [
       this.BLACK,
@@ -249,6 +322,12 @@ export default class GridColours {
     ];
   }
 
+  /**
+   * Returns the colour associated with the given colour code.
+   *
+   * @param {string} colourCode - The colour code to retrieve the colour for.
+   * @returns {GridColour} The colour associated with the given colour code.
+   */
   static getColourByColourCode(colourCode) {
     return this[this.#colourCodesToLabelMap[colourCode]];
   }
