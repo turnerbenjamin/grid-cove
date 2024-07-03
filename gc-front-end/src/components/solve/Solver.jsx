@@ -25,7 +25,8 @@ export default function Solver({ puzzle }) {
   }, [solveState]);
 
   useEffect(() => {
-    if (!gridRef?.current) return;
+    if (!gridRef?.current);
+    if (!solveState) handleUpdateSolveState();
     const handleGridChange = () => handleUpdateSolveState();
     gridRef?.current?.addEventListener("change", handleGridChange);
     return () =>

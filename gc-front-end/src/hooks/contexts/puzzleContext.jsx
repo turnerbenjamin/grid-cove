@@ -12,6 +12,7 @@ const PuzzleContextProvider = function ({ children }) {
   const puzzleServices = useGridCovePuzzleService();
 
   const updateSolveState = (gridCellString, puzzle) => {
+    if (!gridCellString) return;
     const gridSolveState = new GridSolveState(gridCellString, puzzle);
     setSolveState(gridSolveState);
   };

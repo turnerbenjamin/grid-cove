@@ -50,7 +50,7 @@ const GridContextProvider = function ({
 
   //Returns a current representation of the current cell colours
   const getCurrentGridFillString = () => {
-    return gridCells.map((cell) => cell.colour.colourCode).join("");
+    return gridCells?.map((cell) => cell.colour.colourCode).join("");
   };
 
   //Checks whether the cell is in the same row or column
