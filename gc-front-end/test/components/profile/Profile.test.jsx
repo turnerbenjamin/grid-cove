@@ -8,9 +8,7 @@ import {
   setUpForModal,
 } from "../../test.utils";
 import { AppContextProvider } from "../../../src/hooks/contexts/appContext";
-
 import Profile from "../../../src/components/profile/Profile";
-
 import * as userService from "../../../src/services/user.service";
 import * as authenticationService from "../../../src/services/authentication.service";
 
@@ -31,14 +29,13 @@ describe("Profile tests: ", () => {
   });
 
   describe("Update user tests: ", () => {
-    let updateUserPromise;
-    let updateUserResolver;
-    let updateUserRejecter;
-
     const testUpdates = {
       username: "new-username",
       emailAddress: "new@emailaddress.com",
     };
+    let updateUserPromise;
+    let updateUserResolver;
+    let updateUserRejecter;
 
     beforeEach(async () => {
       setUpForModal();
@@ -60,7 +57,6 @@ describe("Profile tests: ", () => {
           target: { value: testUpdates.emailAddress },
         });
       });
-
       await act(async () => {
         fireEvent.click(screen.getByTitle(/submit/i));
       });

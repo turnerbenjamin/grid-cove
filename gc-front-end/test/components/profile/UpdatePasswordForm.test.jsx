@@ -1,22 +1,15 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test } from "vitest";
 
 import { useAppContext } from "../../../src/hooks/contexts/appContext";
-import UpdatePasswordForm from "../../../src/components/profile/UpdatePasswordForm";
 import { cleanUpForModal, mockPromise, setUpForModal } from "../../test.utils";
+import UpdatePasswordForm from "../../../src/components/profile/UpdatePasswordForm";
 
 vi.mock("../../../src/hooks/contexts/appContext");
 
 describe("Update password form tests: ", () => {
-  let updatePasswordSpy;
-
   const testUpdatedPassword = "password12£";
+  let updatePasswordSpy;
 
   beforeEach(() => {
     updatePasswordSpy = vi.fn();
@@ -58,6 +51,7 @@ describe("Update password form tests: ", () => {
     describe("Where password field is not empty: ", () => {
       //? US14-UPF-3
       test("It should not show validation errors when the password field is empty", async () => {
+        //Act
         const updatedPasswordInputField =
           screen.getByTitle(/^updated password$/i);
         await act(async () => {
@@ -84,6 +78,7 @@ describe("Update password form tests: ", () => {
 
       //? US14-UPF-4
       test("It should not show validation errors when the updated password field is blurred with a validation error", async () => {
+        //Act
         const updatedPasswordInputField =
           screen.getByTitle(/^updated password$/i);
         await act(async () => {
@@ -100,6 +95,7 @@ describe("Update password form tests: ", () => {
 
       //? US14-UPF-5
       test("It should show validation errors when the confirm updated password field is blurred with a validation error", async () => {
+        //Act
         const confirmUpdatedPasswordInputField = screen.getByTitle(
           /^confirm updated password$/i
         );
@@ -120,6 +116,7 @@ describe("Update password form tests: ", () => {
 
       //? US14-UPF-16
       test("It should disable submit where validation errors", async () => {
+        //Act
         await act(async () => {
           fireEvent.submit(screen.getByRole("form"));
         });
@@ -177,11 +174,13 @@ describe("Update password form tests: ", () => {
 
       //? US14-UPF-8
       test("It should show a loading spinner when update password is loading", async () => {
+        //Assert
         expect(screen.getByRole("status")).toBeInTheDocument();
       });
 
       //? US14-UPF-9
       test("It should disable inputs while update password is loading", async () => {
+        //Assert
         expect(screen.getByTitle(/^current password$/i)).toHaveClass(
           "disabled"
         );
@@ -197,6 +196,7 @@ describe("Update password form tests: ", () => {
     describe("Submission has errors tests: ", () => {
       const testErrorMessage = "test error message";
       let handleClearErrorsSpy;
+
       beforeEach(async () => {
         handleClearErrorsSpy = vi.fn();
         useAppContext.mockReturnValue({
@@ -209,11 +209,13 @@ describe("Update password form tests: ", () => {
 
       //? US14-UPF-10
       test("It should show errors where update password has errors", async () => {
+        //Assert
         expect(screen.getByText(testErrorMessage)).toBeInTheDocument();
       });
 
       //? US14-UPF-11
       test("It should disable the update button where update password has errors", async () => {
+        //Assert
         expect(screen.getByText(/^update$/i)).toHaveClass("disabled");
       });
 
