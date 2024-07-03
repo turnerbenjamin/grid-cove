@@ -145,6 +145,18 @@ const GridContextProvider = function ({
     };
   }, [originTarget, doRevealPixelArt]);
 
+  //Stop scroll where cell missed
+  useEffect(() => {
+    const stopScroll = (e) => {
+      if (gridRef.current.contains(e.target)) e.preventDefault();
+    };
+    document.addEventListener("touchmove", stopScroll, { passive: false });
+    return () =>
+      document.removeEventListener("touchmove", stopScroll, {
+        passive: false,
+      });
+  }, []);
+
   //Initialise grid cells when grid size set
   useEffect(() => {
     if (!gridSize) return setGridCells(null);
