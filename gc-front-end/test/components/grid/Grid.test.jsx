@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
-import { GridContextProvider } from "../../../src/hooks/contexts/gridContext";
 
+import { GridContextProvider } from "../../../src/hooks/contexts/gridContext";
 import Grid from "../../../src/components/grid/Grid";
 import GridColours from "../../../src/utils/GridColours";
 import Mode from "../../../src/components/solve/Mode";
@@ -24,6 +24,7 @@ describe("Grid tests: ", () => {
 
     //? US5-GRD-1
     test("It should correctly colour a cell when that cell is clicked", async () => {
+      //Arrange
       const cellToColour = screen.getByTitle("1,1");
       const expected = GridColours.BLACK.rgb;
       //Act
@@ -51,6 +52,7 @@ describe("Grid tests: ", () => {
 
     //? US5-GRD-6
     test("It should not colour a cell where the right mouse button is clicked", async () => {
+      //Arrange
       const cellToColour = screen.getByTitle("1,1");
       const expected = cellToColour.style.backgroundColor;
       //Act
@@ -220,7 +222,7 @@ describe("Grid tests: ", () => {
       const testOriginCell = screen.getByTitle("1,1");
       const testCellToMoveTo = screen.getByTitle("1,2");
       const expected = GridColours.ELIMINATED.rgb;
-
+      //Act
       await act(async () => {
         fireEvent.click(screen.getByTitle(GridColours.ELIMINATED.label));
       });
@@ -233,8 +235,6 @@ describe("Grid tests: ", () => {
       await act(async () => {
         fireEvent.click(screen.getByTitle(GridColours.BLACK.label));
       });
-
-      //Act
       await act(async () => {
         fireEvent.mouseDown(testOriginCell);
       });
@@ -253,7 +253,7 @@ describe("Grid tests: ", () => {
       const testOriginCell = screen.getByTitle("1,1");
       const testCellToMoveTo = screen.getByTitle("1,2");
       const expected = GridColours.WHITE.rgb;
-
+      //Act
       await act(async () => {
         fireEvent.click(screen.getByTitle(GridColours.ELIMINATED.label));
       });
@@ -266,8 +266,6 @@ describe("Grid tests: ", () => {
       await act(async () => {
         fireEvent.click(screen.getByTitle(GridColours.WHITE.label));
       });
-
-      //Act
       await act(async () => {
         fireEvent.mouseDown(testOriginCell);
       });

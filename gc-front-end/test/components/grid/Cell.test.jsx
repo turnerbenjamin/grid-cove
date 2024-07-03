@@ -1,10 +1,9 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, expect, test } from "vitest";
 
+import { useGridContext } from "../../../src/hooks/contexts/gridContext";
 import Cell from "../../../src/components/grid/Cell";
 import GridColours from "../../../src/utils/GridColours";
-import { useGridContext } from "../../../src/hooks/contexts/gridContext";
-
 import RevealPixelArtTransition from "../../../src/utils/RevealPixelArtTransition";
 
 vi.mock("../../../src/utils/RevealPixelArtTransition");
