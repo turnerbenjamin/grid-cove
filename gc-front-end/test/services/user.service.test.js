@@ -6,6 +6,7 @@ import * as userService from "../../src/services/user.service";
 vi.mock("axios");
 
 describe("User service tests: ", () => {
+  const testResponse = { data: "test data" };
   let setItemSpy;
 
   beforeEach(() => {
@@ -16,7 +17,6 @@ describe("User service tests: ", () => {
     vi.resetAllMocks();
     localStorage.clear();
   });
-  const testResponse = { data: "test data" };
 
   describe("Update user tests: ", () => {
     const testUserId = "TestUserId";

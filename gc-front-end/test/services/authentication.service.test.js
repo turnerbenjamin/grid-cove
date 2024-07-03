@@ -5,13 +5,13 @@ import * as authenticationService from "../../src/services/authentication.servic
 
 vi.mock("axios");
 
-describe("Authentication service tests", () => {
+describe("Authentication service tests: ", () => {
   afterEach(() => {
     vi.resetAllMocks();
   });
   const testResponse = { data: "test data" };
 
-  describe("Register tests", () => {
+  describe("Register tests: ", () => {
     const testUserSubmission = {
       username: "test-user",
       emailAddress: "a@b.c",
@@ -74,7 +74,8 @@ describe("Authentication service tests", () => {
       expect(actual).toEqual(expected);
     });
   });
-  describe("Sign in tests", () => {
+
+  describe("Sign in tests: ", () => {
     const testUserSubmission = {
       emailAddress: "a@b.com",
       password: "password12$",
@@ -160,7 +161,7 @@ describe("Authentication service tests", () => {
     });
   });
 
-  describe("Sign Out tests", () => {
+  describe("Sign Out tests: ", () => {
     let removeItemSpy;
 
     beforeEach(() => {
@@ -226,7 +227,7 @@ describe("Authentication service tests", () => {
     });
   });
 
-  describe("Get active user service tests", () => {
+  describe("Get active user service tests: ", () => {
     let getItemSpy;
 
     beforeEach(() => {
@@ -260,12 +261,12 @@ describe("Authentication service tests", () => {
     });
   });
 
-  describe("Update password tests", () => {
-    let removeItemSpy;
+  describe("Update password tests: ", () => {
     const testPayload = {
       password: "current-password",
       updatedPassword: "new-password",
     };
+    let removeItemSpy;
 
     beforeEach(() => {
       removeItemSpy = vi.spyOn(Storage.prototype, "removeItem");

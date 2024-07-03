@@ -5,13 +5,14 @@ import * as puzzleService from "../../src/services/puzzle.service";
 
 vi.mock("axios");
 
-describe("Puzzle service tests", () => {
+describe("Puzzle service tests: ", () => {
+  const testResponse = { data: "test data" };
+
   afterEach(() => {
     vi.resetAllMocks();
   });
-  const testResponse = { data: "test data" };
 
-  describe("Create puzzle tests", () => {
+  describe("Create puzzle tests: ", () => {
     const testSubmission = {
       pixelArt: "000000909000000D000DD999D",
       title: "Skull",
@@ -73,7 +74,7 @@ describe("Puzzle service tests", () => {
     });
   });
 
-  describe("Get puzzles tests", () => {
+  describe("Get puzzles tests: ", () => {
     //?US8-PZS-1
     test("It should call axios get with the correct url", async () => {
       //Arrange
@@ -129,8 +130,9 @@ describe("Puzzle service tests", () => {
     });
   });
 
-  describe("Get puzzle by id tests", () => {
+  describe("Get puzzle by id tests: ", () => {
     const testId = "123";
+
     //?US9-PZS-1
     test("It should call axios get with the correct url", async () => {
       //Arrange
@@ -188,7 +190,7 @@ describe("Puzzle service tests", () => {
     });
   });
 
-  describe("Delete puzzle by id tests", () => {
+  describe("Delete puzzle by id tests: ", () => {
     const testId = "123";
 
     //? US12-PZS-1
