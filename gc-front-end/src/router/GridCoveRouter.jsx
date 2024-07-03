@@ -1,12 +1,12 @@
 import { Routes, Route, Outlet } from "react-router-dom";
 
+import { PuzzleContextProvider } from "../hooks/contexts/puzzleContext";
 import Build from "../components/build/Build";
 import Home from "../components/home/Home";
-import Puzzles from "../components/puzzles/Puzzles";
-import Solve from "../components/solve/Solve";
-import { PuzzleContextProvider } from "../hooks/contexts/puzzleContext";
 import Profile from "../components/profile/Profile";
+import Puzzles from "../components/puzzles/Puzzles";
 import RequireLoggedIn from "../components/general/RequireLoggedIn";
+import Solve from "../components/solve/Solve";
 
 export default function GridCoveRouter() {
   return (
