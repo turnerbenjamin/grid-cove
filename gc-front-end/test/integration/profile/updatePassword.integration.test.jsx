@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, within } from "@testing-library/react";
+import { act, fireEvent, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect } from "vitest";
 
 import {
@@ -53,8 +53,8 @@ describe("Update password integration test: ", () => {
       authenticationServices.updatePassword.mockReturnValue(
         updatePasswordPromise
       );
-      renderAppWithLocationWrapper(["/me"]);
 
+      renderAppWithLocationWrapper(["/me"]);
       await act(async () => {
         fireEvent.change(screen.getByTitle(/^current password$/i), {
           target: { value: testUpdatedPassword },
@@ -77,6 +77,7 @@ describe("Update password integration test: ", () => {
 
       //? US14-INT-3
       test("It should show a sign in form if updateUserPasswordById resolves", () => {
+        //Assert
         expect(
           screen.queryByRole("heading", { name: /sign-in/i })
         ).toBeInTheDocument();
@@ -85,6 +86,7 @@ describe("Update password integration test: ", () => {
 
     describe("After rejected update tests: ", () => {
       const testErrorMessage = "test error message";
+
       beforeEach(async () => {
         vi.mock("../../../src/components/general/SuccessToast");
         await act(async () => updatePasswordRejecter(testErrorMessage));
@@ -92,6 +94,7 @@ describe("Update password integration test: ", () => {
 
       //? US14-INT-4
       test("It should show errors where updateUserPasswordById rejects", () => {
+        //Assert
         expect(screen.getByText(testErrorMessage)).toBeInTheDocument();
       });
     });

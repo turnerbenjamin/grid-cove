@@ -1,34 +1,32 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, screen } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 
-import App from "../../../src/App";
-import * as authenticationService from "../../../src/services/authentication.service";
 import {
   cleanUpForModal,
+  mockPromise,
   renderWithRouter,
   setUpForModal,
 } from "../../test.utils";
+import App from "../../../src/App";
+import * as authenticationService from "../../../src/services/authentication.service";
 
 vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("../../../src/services/authentication.service");
 
-describe("Log out integration tests", () => {
-  let modalRoot;
+describe("Log out integration tests: ", () => {
   let logOutButton;
+  let signOutPromise;
   let signOutResolver;
   let signOutRejecter;
 
   beforeEach(async () => {
     setUpForModal();
-    const promise = new Promise((resolve, reject) => {
-      signOutResolver = resolve;
-      signOutRejecter = reject;
-    });
-    authenticationService.signOut.mockReturnValueOnce(promise);
+    [signOutPromise, signOutResolver, signOutRejecter] = mockPromise();
+    authenticationService.signOut.mockReturnValueOnce(signOutPromise);
     authenticationService.getActiveUser.mockReturnValue({
       emailAddress: "testuser@email.com",
     });
-    //Render App
+
     renderWithRouter(<App />, "/");
     await act(async () => {
       fireEvent.mouseMove(screen.getByTitle("Profile"));
@@ -88,6 +86,7 @@ describe("Log out integration tests", () => {
 
   //?US4-INT-5
   test("It should close the error modal when the close button is clicked", async () => {
+    //Arrange
     const testErrorMessage = "testErrorMessage";
     //Act
     await act(async () => {

@@ -1,15 +1,15 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 
+import { cleanUpForModal, mockPromise, setUpForModal } from "../../test.utils";
 import App from "../../../src/App";
 import * as authenticationService from "../../../src/services/authentication.service";
-import { cleanUpForModal, setUpForModal } from "../../test.utils";
 
 vi.mock("react-router-dom");
 vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("../../../src/services/authentication.service");
 
-describe("Sign in integration tests", () => {
+describe("Sign in integration tests: ", () => {
   beforeEach(() => {
     setUpForModal();
     render(<App />);
@@ -29,16 +29,16 @@ describe("Sign in integration tests", () => {
       fireEvent.click(signInButton);
     });
     //assert
-
     expect(screen.getByTitle(/email address/i)).toBeInTheDocument();
     expect(screen.getByTitle(/^password/i)).toBeInTheDocument();
     expect(screen.queryByTitle(/username/i)).toBe(null);
     expect(screen.queryByTitle(/^confirm password/i)).toBe(null);
   });
 
-  describe("Validation is turned off tests", () => {
+  describe("Validation is turned off tests: ", () => {
     let emailAddressInput;
     let passwordInput;
+
     beforeEach(async () => {
       await act(async () => {
         fireEvent.click(screen.queryByText(/sign-in/i));
@@ -76,22 +76,22 @@ describe("Sign in integration tests", () => {
     });
   });
 
-  describe("Submission tests", () => {
-    let emailAddressInput;
-    let passwordInput;
-    let submitButton;
-    let signInResolver;
-    let signInRejecter;
+  describe("Submission tests: ", () => {
     const testSubmission = {
       emailAddress: "lou@vu.com",
       password: "StephanieSays1$",
     };
+    let emailAddressInput;
+    let passwordInput;
+    let submitButton;
+    let signInPromise;
+    let signInResolver;
+    let signInRejecter;
+
     beforeEach(async () => {
-      const promise = new Promise((resolve, reject) => {
-        signInResolver = resolve;
-        signInRejecter = reject;
-      });
-      authenticationService.signIn.mockReturnValueOnce(promise);
+      [signInPromise, signInResolver, signInRejecter] = mockPromise();
+      authenticationService.signIn.mockReturnValueOnce(signInPromise);
+
       await act(async () => {
         fireEvent.click(screen.queryByText(/sign-in/i));
       });

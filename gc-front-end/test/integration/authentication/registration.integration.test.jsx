@@ -2,18 +2,17 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import { within } from "@testing-library/dom";
 import { beforeEach, expect } from "vitest";
 
+import { cleanUpForModal, mockPromise, setUpForModal } from "../../test.utils";
 import App from "../../../src/App";
 import * as authenticationService from "../../../src/services/authentication.service";
-import { cleanUpForModal, setUpForModal } from "../../test.utils";
 
 vi.mock("react-router-dom");
 vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("../../../src/services/authentication.service");
 
-describe("Registration integration tests", () => {
+describe("Registration integration tests: ", () => {
   beforeEach(() => {
     setUpForModal();
-
     render(<App />);
   });
 
@@ -44,15 +43,13 @@ describe("Registration integration tests", () => {
       password: "password12$",
     };
     let submitButton;
+    let registerPromise;
     let registerResolver;
     let registerRejecter;
 
     beforeEach(async () => {
-      const promise = new Promise((resolve, reject) => {
-        registerResolver = resolve;
-        registerRejecter = reject;
-      });
-      authenticationService.register.mockReturnValueOnce(promise);
+      [registerPromise, registerResolver, registerRejecter] = mockPromise();
+      authenticationService.register.mockReturnValueOnce(registerPromise);
       const registrationButton = screen.queryByText(/register/i, {
         role: "button",
       });
@@ -160,11 +157,13 @@ describe("Registration integration tests", () => {
 
     //?US1-INT-8
     test("It should close the registration form modal when the close button is pressed", async () => {
+      //Act
       const closeModalButton = screen.getByTitle(/close/i);
       await act(async () => {
         fireEvent.click(closeModalButton);
       });
       const registrationForm = screen.queryByRole("form");
+      //Assert
       expect(registrationForm).toBeNull;
     });
 

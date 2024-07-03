@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, screen } from "@testing-library/react";
 import { afterEach, beforeEach, expect } from "vitest";
 import axios from "axios";
 
@@ -6,7 +6,6 @@ import * as authenticationService from "../../../src/services/authentication.ser
 
 import {
   cleanUpForModal,
-  mockPromise,
   renderAppWithLocationWrapper,
   setUpForModal,
 } from "../../test.utils";
@@ -20,14 +19,12 @@ describe("Global 401 error handling tests: ", () => {
 
   beforeEach(async () => {
     setUpForModal();
-
     authenticationService.getActiveUser.mockReturnValueOnce({});
     axios.post.mockRejectedValueOnce({
       response: { data: new Error(testErrorMessage), status: 401 },
     });
 
     renderAppWithLocationWrapper(["/build"]);
-
     await act(async () => fireEvent.click(screen.getByText(/continue/i)));
     await act(async () => {
       fireEvent.mouseDown(screen.getByTitle("1,1"));
@@ -47,6 +44,7 @@ describe("Global 401 error handling tests: ", () => {
 
   //? US6-INT-1
   test("It should display a sign-in screen if createPuzzle throws a 401 error", async () => {
+    //Assert
     expect(screen.getByText(testErrorMessage)).toBeInTheDocument();
     expect(screen.getByText(/sign-in/i)).toBeInTheDocument();
   });

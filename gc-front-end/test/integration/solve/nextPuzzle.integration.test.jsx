@@ -1,17 +1,15 @@
 import { act, fireEvent, screen } from "@testing-library/react";
 import { beforeEach, expect, vi } from "vitest";
 
-import { useAppContext } from "../../../src/hooks/contexts/appContext";
-import { renderWithRouter } from "../../test.utils";
-import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
 import {
   solvedWhenTopLeftCellFilled,
   getAllPuzzlesTestData,
 } from "../../data/puzzles.test.data";
-
+import { renderWithRouter } from "../../test.utils";
+import { useAppContext } from "../../../src/hooks/contexts/appContext";
+import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
 import RevealPixelArtTransition from "../../../src/utils/RevealPixelArtTransition";
 import Solve from "../../../src/components/solve/Solve";
-
 import * as puzzleService from "../../../src/services/puzzle.service";
 
 vi.mock("../../../src/services/puzzle.service");
@@ -29,12 +27,13 @@ describe("Next puzzle link tests: ", () => {
     useAppContext.mockReturnValue({});
   });
 
-  describe("Where next puzzle is available", () => {
+  describe("Where next puzzle is available: ", () => {
     beforeEach(async () => {
       puzzleService.getPuzzle.mockResolvedValue({
         ...solvedWhenTopLeftCellFilled,
         _id: firstPuzzleId,
       });
+
       await act(async () =>
         renderWithRouter(
           <PuzzleContextProvider>
@@ -54,11 +53,13 @@ describe("Next puzzle link tests: ", () => {
 
     //? US9-INT-1
     test("It should show a button to access next puzzle where one is available", async () => {
+      //Assert
       expect(screen.getByText(/next/i)).toBeInTheDocument();
     });
 
     //? US9-INT-2
     test("It should navigate to the next puzzle when the link is clicked", async () => {
+      //Arrange
       const expectedLocation = `/puzzles/${secondPuzzleId}`;
       //Act
       await act(async () => fireEvent.click(screen.getByTitle(/next/i)));
@@ -69,12 +70,13 @@ describe("Next puzzle link tests: ", () => {
     });
   });
 
-  describe("Where next puzzle is available", () => {
+  describe("Where next puzzle is available: ", () => {
     beforeEach(async () => {
       puzzleService.getPuzzle.mockResolvedValue({
         ...solvedWhenTopLeftCellFilled,
         _id: lastPuzzleId,
       });
+
       await act(async () =>
         renderWithRouter(
           <PuzzleContextProvider>
@@ -94,6 +96,7 @@ describe("Next puzzle link tests: ", () => {
 
     //? US9-INT-3
     test("It should not show a button to access the next puzzle where one is not available", async () => {
+      //Assert
       expect(screen.queryByText(/next/i)).toBeNull();
     });
   });
