@@ -1,8 +1,12 @@
 import { act, fireEvent, screen } from "@testing-library/react";
-import { beforeEach, expect, vi } from "vitest";
+import { afterEach, beforeEach, expect, vi } from "vitest";
 
 import { useAppContext } from "../../../src/hooks/contexts/appContext";
-import { renderWithRouter } from "../../test.utils";
+import {
+  cleanUpForModal,
+  renderWithRouter,
+  setUpForModal,
+} from "../../test.utils";
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext";
 import {
   getPuzzleTestData,
@@ -224,12 +228,7 @@ describe("Solve tests: ", () => {
         let deletePuzzleRejecter;
 
         beforeEach(async () => {
-          Object.defineProperty(global.window, "scrollTo", {
-            value: () => null,
-          });
-          const modalRoot = document.createElement("div");
-          modalRoot.setAttribute("id", "modal");
-          document.body.appendChild(modalRoot);
+          setUpForModal();
 
           const promise = new Promise((resolve, reject) => {
             deletePuzzleResolver = resolve;
@@ -240,6 +239,10 @@ describe("Solve tests: ", () => {
           await act(async () => getPuzzleResolver(getPuzzleTestData));
           await act(async () => fireEvent.click(screen.getByText(/delete/i)));
           await act(async () => fireEvent.click(screen.getByText(/proceed/i)));
+        });
+
+        afterEach(() => {
+          cleanUpForModal();
         });
 
         //?US12-SLV-1

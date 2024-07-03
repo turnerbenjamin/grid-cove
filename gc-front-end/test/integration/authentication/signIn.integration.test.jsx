@@ -3,24 +3,21 @@ import { beforeEach, expect } from "vitest";
 
 import App from "../../../src/App";
 import * as authenticationService from "../../../src/services/authentication.service";
+import { cleanUpForModal, setUpForModal } from "../../test.utils";
 
 vi.mock("react-router-dom");
 vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("../../../src/services/authentication.service");
 
 describe("Sign in integration tests", () => {
-  let modalRoot;
   beforeEach(() => {
-    Object.defineProperty(global.window, "scrollTo", { value: () => null });
-    modalRoot = document.createElement("div");
-    modalRoot.setAttribute("id", "modal");
-    document.body.appendChild(modalRoot);
+    setUpForModal();
     render(<App />);
   });
 
   afterEach(() => {
+    cleanUpForModal();
     vi.resetAllMocks();
-    document.body.removeChild(modalRoot);
   });
 
   //?US1-INT-1

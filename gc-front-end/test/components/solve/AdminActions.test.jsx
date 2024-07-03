@@ -4,6 +4,7 @@ import { afterEach, beforeEach, expect, test } from "vitest";
 import AdminActions from "../../../src/components/solve/AdminActions";
 import { useGridContext } from "../../../src/hooks/contexts/gridContext";
 import { usePuzzleContext } from "../../../src/hooks/contexts/puzzleContext";
+import { cleanUpForModal, setUpForModal } from "../../test.utils";
 
 vi.mock("react-router-dom");
 vi.mock("../../../src/hooks/contexts/gridContext");
@@ -14,11 +15,7 @@ describe("Admin Actions tests: ", () => {
   let deletePuzzleByIdMock;
 
   beforeEach(() => {
-    Object.defineProperty(global.window, "scrollTo", { value: () => null });
-    const modalRoot = document.createElement("div");
-    modalRoot.setAttribute("id", "modal");
-    document.body.appendChild(modalRoot);
-
+    setUpForModal();
     setDoRevealPixelArtMock = vi.fn();
     deletePuzzleByIdMock = vi.fn();
     useGridContext.mockReturnValue({
@@ -30,7 +27,7 @@ describe("Admin Actions tests: ", () => {
   });
 
   afterEach(() => {
-    document.body.removeChild(document.getElementById("modal"));
+    cleanUpForModal();
     vi.resetAllMocks();
   });
 

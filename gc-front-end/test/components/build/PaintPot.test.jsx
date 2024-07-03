@@ -5,8 +5,8 @@ import { GridContextProvider } from "../../../src/hooks/contexts/gridContext";
 import PaintPot from "../../../src/components/build/PaintPot";
 import GridColour from "../../../src/utils/GridColour";
 
-describe("Paint pot tests", () => {
-  describe("Paint pot with a dark colour", () => {
+describe("Paint pot tests: ", () => {
+  describe("Paint pot with a dark colour: ", () => {
     const testColour = new GridColour("Dark", "rgb(0, 0, 0)", 1);
     let paintPot;
     beforeEach(() => {
@@ -48,7 +48,7 @@ describe("Paint pot tests", () => {
       expect(tick).toHaveClass("fill-grid-white");
     });
   });
-  describe("Paint pot with a light colour", () => {
+  describe("Paint pot with a light colour: ", () => {
     const testColour = new GridColour("Light", "rgb(255, 255, 255)", 1);
     let paintPot;
     beforeEach(() => {

@@ -1,6 +1,7 @@
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, expect } from "vitest";
 
+import { mockPromise } from "../../test.utils";
 import Build from "../../../src/components/build/Build";
 import GridColours from "../../../src/utils/GridColours";
 import * as puzzleService from "../../../src/services/puzzle.service";
@@ -8,7 +9,7 @@ import * as puzzleService from "../../../src/services/puzzle.service";
 vi.mock("../../../src/components/general/Modal");
 vi.mock("react-router-dom");
 
-describe("Build tests", () => {
+describe("Build tests: ", () => {
   beforeEach(async () => {
     await act(async () => render(<Build />));
   });
@@ -17,14 +18,15 @@ describe("Build tests", () => {
     vi.resetAllMocks();
   });
 
-  describe("Before grid size set tests", () => {
+  describe("Before grid size set tests: ", () => {
     //? US5-BLD-1
     test("It should show a dropdown with size options for the grid", () => {
+      //Assert
       expect(screen.getAllByRole("option")).toHaveLength(3);
     });
   });
 
-  describe("After grid size set tests", () => {
+  describe("After grid size set tests: ", () => {
     let option;
     let gridSize;
     beforeEach(async () => {
@@ -37,6 +39,7 @@ describe("Build tests", () => {
 
     //? US5-BLD-2
     test("It should render a grid with the correct number of cells when an option is selected", () => {
+      //Assert
       expect(screen.getAllByRole("cell")).toHaveLength(gridSize ** 2);
       expect(screen.getByRole("grid").style.gridTemplateColumns).toBe(
         `repeat(${gridSize}, minmax(0, 1fr))`
@@ -84,11 +87,13 @@ describe("Build tests", () => {
     });
   });
 
-  describe("Selecting non default grid size", () => {
+  describe("Selecting non default grid size: ", () => {
     //? US5-BLD-5
     test("It should render a grid with the correct number of cells when a non-default option is selected", async () => {
+      //Arrange
       const dropdown = screen.getByRole("menu");
       const gridSize = 10;
+      //Act
       await act(async () => {
         fireEvent.change(dropdown, {
           target: { value: gridSize },
@@ -97,6 +102,7 @@ describe("Build tests", () => {
       await act(async () => {
         fireEvent.click(screen.getByText(/continue/i));
       });
+      //Assert
       expect(screen.getAllByRole("cell")).toHaveLength(gridSize ** 2);
       expect(screen.getByRole("grid").style.gridTemplateColumns).toBe(
         `repeat(${gridSize}, minmax(0, 1fr))`
@@ -104,21 +110,19 @@ describe("Build tests", () => {
     });
   });
 
-  describe("Create puzzle tests", () => {
+  describe("Create puzzle tests: ", () => {
     vi.mock("../../../src/services/puzzle.service");
-
     const testPuzzle = {
       pixelArt: "1".repeat(3) + "0".repeat(22),
       size: 5,
       title: "Test title",
     };
+    let createPuzzlePromise;
     let createPuzzleResolver;
 
     beforeEach(async () => {
-      const promise = new Promise((resolve) => {
-        createPuzzleResolver = resolve;
-      });
-      puzzleService.createPuzzle.mockReturnValue(promise);
+      [createPuzzlePromise, createPuzzleResolver] = mockPromise();
+      puzzleService.createPuzzle.mockReturnValue(createPuzzlePromise);
 
       await act(async () => {
         fireEvent.click(screen.getByText(/continue/i));
@@ -172,7 +176,6 @@ describe("Build tests", () => {
     //Act
     await act(async () => fireEvent.click(screen.getByText(/continue/i)));
     await act(async () => fireEvent.mouseDown(screen.getByTitle("1,1")));
-    await act(async () => fireEvent.mouseDown(screen.getByTitle("2,1")));
     await act(async () => fireEvent.mouseUp(screen.getByTitle("2,1")));
     await act(async () => fireEvent.click(screen.getByText(/save/i)));
     //Assert

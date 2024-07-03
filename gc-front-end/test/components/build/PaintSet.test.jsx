@@ -1,11 +1,11 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import PaintSet from "../../../src/components/build/PaintSet";
 import { expect } from "vitest";
 import { GridContextProvider } from "../../../src/hooks/contexts/gridContext";
 import GridColours from "../../../src/utils/GridColours";
 
-describe("Paint set tests", () => {
+describe("Paint set tests: ", () => {
   //? US5-PTS-1
   test("It should display the 16 colours returned from GridColours", () => {
     //Arrange

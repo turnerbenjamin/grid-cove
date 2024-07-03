@@ -3,7 +3,11 @@ import { beforeEach, expect } from "vitest";
 
 import App from "../../../src/App";
 import * as authenticationService from "../../../src/services/authentication.service";
-import { renderWithRouter } from "../../test.utils";
+import {
+  cleanUpForModal,
+  renderWithRouter,
+  setUpForModal,
+} from "../../test.utils";
 
 vi.mock("../../../src/router/GridCoveRouter");
 vi.mock("../../../src/services/authentication.service");
@@ -15,22 +19,15 @@ describe("Log out integration tests", () => {
   let signOutRejecter;
 
   beforeEach(async () => {
-    //Sign out mock
+    setUpForModal();
     const promise = new Promise((resolve, reject) => {
       signOutResolver = resolve;
       signOutRejecter = reject;
     });
     authenticationService.signOut.mockReturnValueOnce(promise);
-
-    //Modal Set-Up
-    Object.defineProperty(global.window, "scrollTo", { value: () => null });
-    modalRoot = document.createElement("div");
-    modalRoot.setAttribute("id", "modal");
     authenticationService.getActiveUser.mockReturnValue({
       emailAddress: "testuser@email.com",
     });
-    document.body.appendChild(modalRoot);
-
     //Render App
     renderWithRouter(<App />, "/");
     await act(async () => {
@@ -40,8 +37,8 @@ describe("Log out integration tests", () => {
   });
 
   afterEach(() => {
+    cleanUpForModal();
     vi.resetAllMocks();
-    document.body.removeChild(modalRoot);
   });
 
   //?US4-INT-1

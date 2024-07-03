@@ -1,6 +1,7 @@
 import { act, screen, render, fireEvent } from "@testing-library/react";
 import { afterEach, beforeEach, expect } from "vitest";
 import SuccessToast from "../../../src/components/general/SuccessToast";
+import { cleanUpForModal, setUpForModal } from "../../test.utils";
 
 describe("Success toast tests: ", () => {
   const testMessage = "test message";
@@ -9,13 +10,7 @@ describe("Success toast tests: ", () => {
   let setTimeoutSpy;
 
   beforeEach(async () => {
-    Object.defineProperty(global.window, "scrollTo", {
-      value: () => null,
-    });
-    const modalRoot = document.createElement("div");
-    modalRoot.setAttribute("id", "modal");
-    document.body.appendChild(modalRoot);
-
+    setUpForModal();
     onCloseSpy = vi.fn(() => null);
     setTimeoutSpy = vi.spyOn(global, "setTimeout");
 
@@ -31,7 +26,7 @@ describe("Success toast tests: ", () => {
   });
 
   afterEach(() => {
-    document.body.removeChild(document.getElementById("modal"));
+    cleanUpForModal();
     vi.resetAllMocks();
   });
 

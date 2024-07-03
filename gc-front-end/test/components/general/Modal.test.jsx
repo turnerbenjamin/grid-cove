@@ -3,17 +3,14 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, expect } from "vitest";
 
 import Modal from "../../../src/components/general/Modal";
+import { cleanUpForModal, setUpForModal } from "../../test.utils";
 
 describe("Modal component tests", () => {
   describe("With on close argument Tests", () => {
     let onCloseSpy;
     let testChildren = "Test Children";
     beforeEach(() => {
-      Object.defineProperty(global.window, "scrollTo", { value: () => null });
-      const modalRoot = document.createElement("div");
-      modalRoot.setAttribute("id", "modal");
-      document.body.appendChild(modalRoot);
-
+      setUpForModal();
       onCloseSpy = vi.fn(() => null);
       render(
         <>
@@ -23,7 +20,7 @@ describe("Modal component tests", () => {
     });
 
     afterEach(() => {
-      document.body.removeChild(document.getElementById("modal"));
+      cleanUpForModal();
       vi.resetAllMocks();
     });
 
@@ -42,9 +39,7 @@ describe("Modal component tests", () => {
 
   describe("Without on close tests", () => {
     beforeEach(() => {
-      const modalRoot = document.createElement("div");
-      modalRoot.setAttribute("id", "modal");
-      document.body.appendChild(modalRoot);
+      setUpForModal();
       render(
         <>
           <div id="modal"> </div>
@@ -54,7 +49,7 @@ describe("Modal component tests", () => {
     });
 
     afterEach(() => {
-      document.body.removeChild(document.getElementById("modal"));
+      cleanUpForModal();
       vi.resetAllMocks();
     });
 

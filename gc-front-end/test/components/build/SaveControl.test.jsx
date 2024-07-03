@@ -1,39 +1,39 @@
-import { screen, render, act, fireEvent } from "@testing-library/react";
+import { screen, act, fireEvent } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test } from "vitest";
 
+import {
+  cleanUpForModal,
+  mockPromise,
+  renderWithRouter,
+  setUpForModal,
+} from "../../test.utils.jsx";
 import { PuzzleContextProvider } from "../../../src/hooks/contexts/puzzleContext.jsx";
 import SaveControls from "../../../src/components/build/SaveControls.jsx";
 import * as gridContext from "../../../src/hooks/contexts/gridContext.jsx";
 import * as puzzleService from "../../../src/services/puzzle.service.js";
-import {
-  cleanUpForModal,
-  renderWithRouter,
-  setUpForModal,
-} from "../../test.utils.jsx";
 
 vi.mock("../../../src/hooks/contexts/gridContext");
 vi.mock("../../../src/services/puzzle.service");
 vi.mock("../../../src/components/header/Logo.jsx");
 
 describe("Save control tests: ", () => {
-  let createPuzzleResolver;
-  let createPuzzleRejecter;
-
   const testPuzzle = {
     pixelArt: "4BBB4B9B9BBB3BB2BBB223232",
     size: 5,
     title: "Test title",
   };
   const testNewPuzzle = { ...testPuzzle, _id: "1234" };
+  let createPuzzlePromise;
+  let createPuzzleResolver;
+  let createPuzzleRejecter;
 
   beforeEach(async () => {
     setUpForModal();
 
-    const promise = new Promise((resolve, reject) => {
-      createPuzzleResolver = resolve;
-      createPuzzleRejecter = reject;
-    });
-    puzzleService.createPuzzle.mockReturnValueOnce(promise);
+    [createPuzzlePromise, createPuzzleResolver, createPuzzleRejecter] =
+      mockPromise();
+    puzzleService.createPuzzle.mockReturnValueOnce(createPuzzlePromise);
+
     gridContext.useGridContext.mockReturnValue({
       getCurrentGridFillString: vi.fn().mockReturnValue(testPuzzle.pixelArt),
       gridSize: testPuzzle.size,
@@ -57,6 +57,7 @@ describe("Save control tests: ", () => {
 
   //? US6-SVC-1
   test("It should call createPuzzle on the puzzle service with the correct arguments", async () => {
+    //Act
     await act(async () => {
       fireEvent.change(screen.getByPlaceholderText(/title/i), {
         target: { value: testPuzzle.title },
@@ -65,16 +66,19 @@ describe("Save control tests: ", () => {
     await act(async () => {
       fireEvent.click(screen.getByText(/save/i));
     });
+    //Assert
     expect(puzzleService.createPuzzle).toBeCalledWith(testPuzzle);
   });
 
   //? US6-SVC-2
   test("It should not display validation errors on render", async () => {
+    //Assert
     expect(screen.queryByRole("alert")).toBeNull();
   });
 
   //? US6-SVC-3
   test("It should display errors after clicking save where the title is too short", async () => {
+    //Act
     await act(async () => {
       fireEvent.change(screen.getByPlaceholderText(/title/i), {
         target: { value: "12" },
@@ -83,6 +87,7 @@ describe("Save control tests: ", () => {
     await act(async () => {
       fireEvent.click(screen.getByText(/save/i));
     });
+    //Assert
     expect(
       screen.getByText(/title must be between 3 and 32 characters/i)
     ).toBeInTheDocument();
@@ -90,6 +95,7 @@ describe("Save control tests: ", () => {
 
   //? US6-SVC-4
   test("It should show a loading spinner while createPuzzle is pending", async () => {
+    //Act
     await act(async () => {
       fireEvent.change(screen.getByPlaceholderText(/title/i), {
         target: { value: testPuzzle.title },
@@ -98,6 +104,7 @@ describe("Save control tests: ", () => {
     await act(async () => {
       fireEvent.click(screen.getByText(/save/i));
     });
+    //Assert
     expect(screen.getByRole("status")).toBeInTheDocument();
   });
 
@@ -189,7 +196,6 @@ describe("Save control tests: ", () => {
         { msg: "Test error1" },
         { msg: "Test error2" },
       ];
-
       //Act
       await act(async () => {
         createPuzzleRejecter(testErrorMessages);
