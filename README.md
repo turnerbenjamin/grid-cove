@@ -49,6 +49,21 @@ There were prioritised as follows:
 
 ![Routing diagrams](./gc-back-end/docs/1._routing_diagrams/user-story-1-routing-diagram.png)
 
+### Tech Stack
+
+#### Architecture
+
+- React
+- Node
+- Express
+- MongoDB
+
+#### Deployment
+
+- Vercel
+- Render
+- MongoDB Atlas
+
 ### Test Coverage
 
 [Example backend test plan](./gc-back-end/docs/2._test-plans/user-story-6-test-plan.md)
