@@ -74,6 +74,13 @@ After challenge 4, I decided to focus on writing cleaner, more performant React 
 
 While comprehensive, running the entire test suite is slow. This is because I have not yet developed a good sense of what to test. This is something I look forward to learning more about in the future.
 
+### Anomalies/problems/challenges or deviations from proposal
+
+There are no material deviations from the proposal. However, there were a few unexpected challenges:
+
+- Deciding what to test on the frontend was a constant battle; I need to learn to test smarter
+- Implementing drag functionality on mobile was more complicated than expected
+
 ### Next Steps
 
 I have lots of ideas for future development. These include:
