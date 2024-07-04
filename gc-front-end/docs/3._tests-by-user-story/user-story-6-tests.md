@@ -39,7 +39,7 @@ These tests focus on link between the save control and the puzzle service. The g
 - [x] US6-BLD-1: It should call createPuzzle on the puzzle service with the correct arguments
 - [x] US6-BLD-2: It should disable elements on the page when the puzzle service is loading
 - [x] US6-BLD-3: It should reset the grid cells to white when createPuzzle resolves
-- [ ] US6-BLD-4: It should display errors after clicking save where the puzzleString is invalid
+- [x] US6-BLD-4: It should display errors after clicking save where the puzzleString is invalid
 
 ## Integration tests
 
