@@ -36,7 +36,7 @@ I will relocate grid size validation to a middleware validator
 <!-- markdownlint-disable-next-line -->
 - [x] <s> PG6-4: It should throw an error if the grid size is not a multiple of 5></s>
 <!-- markdownlint-disable-next-line -->
-- [x] <s>PG6-5: It should throw an error if the pixel art string does not match the grid size<s>
+- [x] <s>PG6-5: It should throw an error if the pixel art string does not match the grid size</s>
 
 ## Puzzle Service (PS)
 
