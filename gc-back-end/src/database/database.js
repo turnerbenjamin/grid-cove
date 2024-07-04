@@ -2,13 +2,15 @@ import mongoose from "mongoose";
 
 export default class Database {
   #uri;
+  #server;
 
   /**
    * Constructs a new instance of the database connection handler.
    * @param {string} uri - The MongoDB URI to connect to.
    */
-  constructor(uri) {
+  constructor(uri, server) {
     this.#uri = uri;
+    this.#server = server;
   }
 
   /**
@@ -18,10 +20,10 @@ export default class Database {
   async connect() {
     try {
       await mongoose.connect(this.#uri);
-      if (process.env.NODE_ENV === "testing") return;
       console.log(`Connected to database`);
     } catch (error) {
-      console.error("Database connection error", error);
+      console.error("Database connection error");
+      this.#server.close();
     }
   }
 

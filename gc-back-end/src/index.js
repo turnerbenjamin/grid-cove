@@ -55,5 +55,5 @@ const server = new Server(PORT, HOST, app, [
 server.start();
 
 //?Connect to database
-const database = new Database(DB_URI);
+const database = new Database(DB_URI, server);
 await database.connect();

@@ -31,7 +31,7 @@ export default function Profile() {
           onSubmit={handleSubmit}
           errors={lastActionName === "updateUser" && authenticationErrors}
           handleClearErrors={handleClearErrors}
-          isLoading={authenticationIsLoading}
+          isLoading={authenticationIsLoading && lastActionName === "updateUser"}
           activeFields={{
             username: true,
             emailAddress: true,

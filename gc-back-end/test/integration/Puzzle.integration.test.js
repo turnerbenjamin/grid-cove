@@ -46,7 +46,7 @@ describe("Puzzle integration tests: ", () => {
     const app = express();
 
     server = new Server(PORT, HOST, app, [authenticationRoutes, puzzleRoutes]);
-    database = new Database(DB_URI);
+    database = new Database(DB_URI, server);
     await database.connect();
     server.start();
     request = supertest(app);

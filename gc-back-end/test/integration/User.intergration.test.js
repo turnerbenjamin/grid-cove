@@ -42,7 +42,7 @@ describe("User integration tests: ", () => {
     const app = express();
 
     server = new Server(PORT, HOST, app, [authenticationRoutes, userRoutes]);
-    database = new Database(DB_URI);
+    database = new Database(DB_URI, server);
     await database.connect();
     server.start();
     request = supertest(app);

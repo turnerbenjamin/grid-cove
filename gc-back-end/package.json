@@ -11,7 +11,7 @@
     "test": "NODE_ENV=testing mocha --timeout 10000 --exit --recursive",
     "test-win": "SET NODE_ENV=testing&&mocha --timeout 10000 --exit --recursive",
     "coverage": "NODE_ENV=testing c8 -r html npm test",
-    "coverage-win": "SET NODE_ENV=testing&&c8 -r html npm run test-win"
+    "coverage-win": "SET NODE_ENV=testing&&c8 -r html npm run test-win && npx c8 report"
   },
   "dependencies": {
     "axios": "^1.7.2",

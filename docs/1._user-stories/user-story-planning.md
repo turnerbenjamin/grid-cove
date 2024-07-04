@@ -52,7 +52,7 @@
 
 - As a signed-in user
 - I want to be able to create pixel art
-- I can express myself creatively
+- So that I can express myself creatively
 
 ###### User Story 6
 

@@ -31,7 +31,7 @@ describe("Authentication integration tests: ", () => {
     const app = express();
 
     server = new Server(PORT, HOST, app, [authenticationRoutes]);
-    database = new Database(DB_URI);
+    database = new Database(DB_URI, server);
     await database.connect();
     server.start();
     request = supertest(app);
