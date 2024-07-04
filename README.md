@@ -49,17 +49,18 @@ There were prioritised as follows:
 
 ![Routing diagrams](./gc-back-end/docs/1._routing_diagrams/user-story-1-routing-diagram.png)
 
-### Tech Stack
+### Tech Stack and Architecture
 
 #### Architecture
+
+![Architecture](./docs/0._proposal/images/architecture-diagram.PNG)
+
+#### Tech stack
 
 - React
 - Node
 - Express
 - MongoDB
-
-#### Deployment
-
 - Vercel
 - Render
 - MongoDB Atlas
